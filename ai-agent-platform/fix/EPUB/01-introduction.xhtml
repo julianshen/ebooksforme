@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 1 章：Agent 平台的時代</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 1 章：Agent 平台的時代</h1>
+    <h1 id="1-agent">第 1 章：Agent 平台的時代</h1>
+<h2 id="11-agent-agent">1.1 從單一 Agent 到多 Agent 協作</h2>
+<h3 id="111-agent">1.1.1 單一 Agent 的局限</h3>
+<p><img alt="日式漫画風格：單一 vs 多 Agent 協作" src="images/manga-agent-collaboration.jpg"/></p>
+<p><em>圖：複数のエージェントが協力して仕事を完成する様子</em></p>
+<p>2023 年，ChatGPT 讓世界第一次見識到大型語言模型的威力。你可以問它任何問題，它會給出一個看似合理的答案。但很快，人們發現了它的局限：</p>
+<ul>
+<li>它無法瀏覽即時網頁</li>
+<li>它無法執行程式碼</li>
+<li>它無法與其他系統互動</li>
+<li>它的記憶僅限於當前對話</li>
+</ul>
+<p><strong>Agent</strong> 的概念應運而生。給 LLM 加上工具（瀏覽器、程式碼執行、檔案系統），它就能完成更複雜的任務。但這還不夠。</p>
+<p>當任務變得足夠複雜時——比如「幫我分析這個開源專案的程式碼品質，找出潛在的安全漏洞，並生成修復建議」——單一 Agent 力不從心。這需要：</p>
+<ol>
+<li>一個 Agent 讀取和理解程式碼</li>
+<li>一個 Agent 執行靜態分析工具</li>
+<li>一個 Agent 查詢漏洞資料庫</li>
+<li>一個 Agent 生成修復建議</li>
+<li>一個 Agent 審查結果的準確性</li>
+</ol>
+<p>這就是<strong>多 Agent 協作</strong>的價值。</p>
+<p><img alt="日式漫畫風格：從單一到多智能體協作" src="images/comic-01-multi-agent.jpg"/></p>
+<p><em>图：單一智能體面對複雜任務焦頭汞額，多智能體團隊則能協作完成</em></p>
+<h2 id="12-manus-ai">1.2 Manus AI 的啟示</h2>
+<p>Manus AI 在 2025 年初引發了廣泛關注。它的核心創新不是技術突破，而是<strong>產品形態</strong>的突破：</p>
+<blockquote>
+<p>使用者給出一個高階目標，系統自動拆解、規劃、執行、驗證。</p>
+</blockquote>
+<p>這聽起來簡單，但實作極其複雜。背後需要：</p>
+<ul>
+<li><strong>任務規劃</strong>：將模糊目標拆解為可執行的子任務</li>
+<li><strong>動態調度</strong>：根據子任務特性選擇合適的 Agent</li>
+<li><strong>安全隔離</strong>：每個 Agent 在獨立環境中執行</li>
+<li><strong>狀態同步</strong>：多個 Agent 之間共享上下文和進度</li>
+<li><strong>品質保證</strong>：確保最終結果符合預期</li>
+</ul>
+<p>這正是本書要解決的問題。</p>
+<p><img alt="日式漫畫風格：Manus AI 自動拆解目標" src="images/comic-02-manus-decompose.jpg"/></p>
+<p><em>圖：使用者提出目標，Manus AI 自動拆解為多個可執行子任務，分派給不同 Agent 完成</em></p>
+<h2 id="13-google-geap">1.3 Google GEAP 的四層架構</h2>
+<p>Google 的 Gemini Enterprise Agent Platform (GEAP) 提供了一個企業級的參考框架。它將 Agent 基礎設施分為四個層級：</p>
+<p><img alt="GEAP 四層架構" src="images/diagram-geap-layers.png"/></p>
+<p><em>圖：Google Gemini Enterprise Agent Platform 四層架構，關注點分離設計</em></p>
+<p><strong>BUILD（建構層）</strong>：如何設計和開發 Agent，包括 ADK 框架選型、A2A 協定實作、MCP Tool Registry。</p>
+<p><strong>SCALE（擴展層）</strong>：如何讓 Agent 在生產環境可靠運行，包括 Agent Runtime、Session 管理、Memory Bank、Sandbox 隔離。</p>
+<p><strong>GOVERN（治理層）</strong>：如何確保 Agent 的安全與合規，包括 Identity、NetworkPolicy、Agent Gateway、審計追蹤。</p>
+<p><strong>OPTIMIZE（優化層）</strong>：如何持續提升 Agent 品質，包括 Evaluation Framework、可觀測性、Prompt 優化。<br/>
+- GOVERN 層的人專注於安全與合規<br/>
+- OPTIMIZE 層的人專注於持續提升品質</p>
+<p>這本書將按照這個框架，逐層深入剖析。</p>
+<p><img alt="日式漫畫風格：GEAP 四層架構生動展示" src="images/comic-03-geap-layers.jpg"/></p>
+<p><em>圖：不同專長的角色負責不同層級，清晰的關注點分離</em></p>
+<h2 id="14">1.4 本書的設計哲學</h2>
+<p>在深入技術細節之前，讓我先闡述這本書的設計哲學。</p>
+<h3 id="141">1.4.1 問題優先於方案</h3>
+<p>Boris Cherny 在《Programming TypeScript》中展現了一種思維模式：先理解問題的本質，再給出解決方案。</p>
+<p>太多技術書籍犯了相反的錯誤：它們急於展示「怎麼做」，卻忽略了「為什麼要這樣做」。結果讀者學會了複製貼上配置，卻無法應對真實世界的變化。</p>
+<p>在這本書中，每一個設計決策都會有清晰的推理過程。</p>
+<h3 id="142">1.4.2 生產環境優先</h3>
+<p>學術論文和概念驗證（PoC）有一個共同的問題：它們忽略了生產環境的複雜性。</p>
+<p>一個在筆記本電腦上跑得好好的 Agent，到了生產環境可能會：</p>
+<ul>
+<li>因為網路不穩定而無限重試</li>
+<li>因為記憶體洩漏而慢慢拖垮整個節點</li>
+<li>因為權限配置錯誤而洩漏敏感資料</li>
+<li>因為缺乏監控而默默產生錯誤結果</li>
+</ul>
+<p>本書的所有設計都會考慮生產環境的真實約束。</p>
+<h3 id="143">1.4.3 漸進式複雜度</h3>
+<p>我們不會一開始就建構一個完美的系統。相反，我們會：</p>
+<ol>
+<li>從最簡單可行的版本開始（MVP）</li>
+<li>識別瓶頸和風險</li>
+<li>有針對性地增加複雜度</li>
+<li>每個階段都有明確的驗證標準</li>
+</ol>
+<p>這種方法確保我們不會過度設計，也不會在關鍵環節偷工減料。</p>
+<h2 id="15">1.5 章節預覽</h2>
+<p>讓我們快速瀏覽接下來的內容：</p>
+<p><strong>第 2 章：通訊架構</strong> — NATS 和 A2A 如何構成 Agent 的神經系統。</p>
+<p><strong>第 3 章：BUILD 層</strong> — 用 ADK 開發 Agent，用 MCP 管理工具。</p>
+<p><strong>第 4 章：SCALE 層</strong> — Agent Runtime、Session、Memory Bank 的設計。</p>
+<p><strong>第 5 章：安全隔離</strong> — Sandbox 的多層隔離策略。</p>
+<p><strong>第 6 章：GOVERN 層</strong> — Identity、Gateway、審計追蹤。</p>
+<p><strong>第 7 章：OPTIMIZE 層</strong> — Evaluation Framework 和可觀測性。</p>
+<p><strong>第 8 章：Google Agent Runtime 深度解析</strong> — AX、Agent Substrate、Agent Sandbox。</p>
+<p><strong>第 9 章：實戰指南</strong> — 從零開始建構一個生產級 Agent 平台。</p>
+<p><strong>第 10 章：未來展望</strong> — Agent 平台的演進方向。</p>
+<p>讓我們從通訊架構開始，因為這是整個系統的基礎。</p>
+</body>
+</html>

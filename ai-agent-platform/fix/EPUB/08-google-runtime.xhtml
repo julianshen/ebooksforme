@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 8 章：Google Agent Runtime 深度解析</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 8 章：Google Agent Runtime 深度解析</h1>
+    <h1 id="8-google-agent-runtime">第 8 章：Google Agent Runtime 深度解析</h1>
+<h2 id="81-google-agent">8.1 背景：Google 的 Agent 戰略</h2>
+<p>2026 年 5 月，Google 在 I/O 大會上發布了三個開源專案，構成了完整的 Agent 執行生態。這不是偶然，而是 Google 內部多年實踐的沉澱。</p>
+<p>Google 內部運行著數以萬計的 Agent，處理從程式碼審查到資料分析的各種任務。這些 Agent 每天執行數百萬次，有些任務持續數小時甚至數天。在這個過程中，Google 遇到了我們正在面對的所有問題——而且更嚴重。</p>
+<p>Agent Executor (AX)、Agent Substrate、Agent Sandbox 就是 Google 給出的答案。</p>
+<h2 id="82-agent-executor-ax">8.2 Agent Executor (AX)</h2>
+<p><img alt="系統架構圖" src="images/architecture-diagram.png"/></p>
+<h3 id="821-agent">8.2.1 定位：Agent 的作業系統</h3>
+<p>AX 不是 Agent 框架。ADK 是框架，AX 是執行框架的基礎設施。</p>
+<p>這個區別至關重要。類比一下：</p>
+<ul>
+<li>ADK 像 Python——你用來寫程式</li>
+<li>AX 像 Linux——你用來跑程式</li>
+<li>Agent Substrate 像 Kubernetes——你用來管理大量程式</li>
+</ul>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                        User Layer                                │
+│    Antigravity 2.0 / Deep Research / Managed Agents API         │
+├─────────────────────────────────────────────────────────────────┤
+│                       BUILD Layer                                │
+│    ADK (Python/Go/Java/TS/Kotlin) / LangChain / Custom          │
+├─────────────────────────────────────────────────────────────────┤
+│                       SCALE Layer                                │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐             │
+│  │   Agent     │  │   Agent     │  │   Agent     │             │
+│  │  Executor   │  │  Substrate  │  │   Sandbox   │             │
+│  │    (AX)     │  │   (K8s)     │  │  (gVisor)   │             │
+│  │             │  │             │  │             │             │
+│  │  Durable    │  │  Agent-     │  │  Kernel-    │             │
+│  │  Execution  │  │  first      │  │  level      │             │
+│  │  Snapshot   │  │  Scheduler  │  │  Isolation  │             │
+│  │  Resume     │  │  Dense      │  │             │             │
+│  │  Branching  │  │  Packing    │  │             │             │
+│  └─────────────┘  └─────────────┘  └─────────────┘             │
+├─────────────────────────────────────────────────────────────────┤
+│                      GOVERN Layer                                │
+│    Agent Registry / SPIFFE / Agent Gateway / Model Armor        │
+├─────────────────────────────────────────────────────────────────┤
+│                     OPTIMIZE Layer                               │
+│    Evaluation / Simulation / Observability / Prompt Opt         │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="822">8.2.2 核心能力詳解</h3>
+<h4 id="durable-execution">Durable Execution</h4>
+<p>這是 AX 最核心的創新。傳統的 Agent 執行是脆弱的：</p>
+<p><img alt="AX Durable Execution" src="images/durable-execution.png"/></p>
+<p>實作機制：</p>
+<pre><code class="language-go">// Event Log 是核心
+type EventLog struct {
+    entries []Event
+    writer  io.Writer  // 單一寫入者
+}
+
+type Event struct {
+    Sequence  int64       `json:"seq"`
+    Timestamp time.Time   `json:"ts"`
+    Actor     string      `json:"actor"`
+    Action    string      `json:"action"`
+    Payload   interface{} `json:"payload"`
+}
+
+// 寫入事件（序列化）
+func (el *EventLog) Append(e Event) error {
+    e.Sequence = int64(len(el.entries))
+    el.entries = append(el.entries, e)
+    return el.persist(e)
+}
+
+// 從 Snapshot 恢復
+func (el *EventLog) ResumeFrom(snapshot Snapshot) error {
+    // 1. 載入 Snapshot 狀態
+    state := snapshot.State
+
+    // 2. 重放 Snapshot 之後的事件
+    for _, event := range el.entries[snapshot.Sequence+1:] {
+        state = apply(state, event)
+    }
+
+    return nil
+}
+</code></pre>
+<h4 id="trajectory-branching">Trajectory Branching</h4>
+<p>這是 AX 最獨特的能力。它讓 Agent 能夠「平行宇宙」：</p>
+<pre><code>原始軌跡
+├──► Step 1: 讀取需求
+├──► Step 2: 設計方案 A
+├──► Step 3: 實作方案 A
+│         └──► [結果不確定]
+│
+│    Checkpoint: 在 Step 2 之後
+│
+├──► Branch 1: 方案 A（繼續）
+│    ├──► Step 4a: 優化方案 A
+│    └──► [結果: 80 分]
+│
+├──► Branch 2: 方案 B（分叉）
+│    ├──► Step 4b: 實作方案 B
+│    └──► [結果: 90 分] ← 選擇這個
+│
+└──► Branch 3: 方案 C（分叉）
+     ├──► Step 4c: 實作方案 C
+     └──► [結果: 70 分]
+</code></pre>
+<p>應用場景：</p>
+<ol>
+<li><strong>策略比較</strong>：並行嘗試多種解決方案</li>
+<li><strong>A/B 測試</strong>：比較不同模型的表現</li>
+<li><strong>回朔修復</strong>：發現錯誤後回到檢查點</li>
+<li><strong>參數搜尋</strong>：嘗試不同參數組合</li>
+</ol>
+<h3 id="823-ax-cli">8.2.3 AX CLI</h3>
+<pre><code class="language-bash"># 安裝 AX
+go install github.com/google/ax/cmd/ax@latest
+
+# 執行 Agent
+ax exec --config agent.yaml
+
+# 啟動 gRPC 伺服器
+ax serve --port 8080
+
+# 從 Checkpoint 分叉
+ax fork --from-checkpoint checkpoint-123 --branch-name "experiment-b"
+
+# 視覺化追蹤
+ax trace --execution-id exec-456
+</code></pre>
+<h3 id="824">8.2.4 與我們架構的整合</h3>
+<pre><code>我們的架構 + AX
+┌─────────────────────────────────────────┐
+│  Orchestrator (Python ADK)              │
+│  └── 輸出 Task Graph                    │
+├─────────────────────────────────────────┤
+│  AX Controller（新增）                   │
+│  ├── Event Log（持久化）                 │
+│  ├── Snapshot Manager（檢查點）          │
+│  ├── Resume Capability（恢復）           │
+│  └── Branching（分叉）                   │
+├─────────────────────────────────────────┤
+│  Agent Runtime (Go)                     │
+│  └── 作為 AX Actor 執行                  │
+└─────────────────────────────────────────┘
+</code></pre>
+<h2 id="83-agent-substrate">8.3 Agent Substrate</h2>
+<h3 id="831-actor">8.3.1 核心創新：Actor 多路復用</h3>
+<p>Agent Substrate 解決了 Kubernetes 的一個根本問題：<strong>Pod 太重了</strong>。</p>
+<p>一個 K8s Pod 需要：<br/>
+- 排程到節點（~1s）<br/>
+- 拉取映像（~5-30s）<br/>
+- 初始化容器（~1-5s）<br/>
+- 啟動應用（~1-10s）</p>
+<p>總計：<strong>10-60 秒</strong></p>
+<p>但 Agent 任務可能只持續幾秒鐘。如果每個任務都建立一個 Pod，大部分時間都在等待啟動。</p>
+<p>Agent Substrate 的解決方案：<strong>預熱 Worker + Actor 多路復用</strong>。</p>
+<pre><code>傳統 K8s: 1 Task = 1 Pod
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Task 1  │ │ Task 2  │ │ Task 3  │
+│  (Pod)  │ │  (Pod)  │ │  (Pod)  │
+│  啟動:  │ │  啟動:  │ │  啟動:  │
+│  30s    │ │  30s    │ │  30s    │
+│  執行:  │ │  執行:  │ │  執行:  │
+│  5s     │ │  5s     │ │  5s     │
+│  銷毀:  │ │  銷毀:  │ │  銷毀:  │
+│  5s     │ │  5s     │ │  5s     │
+└─────────┘ └─────────┘ └─────────┘
+總時間: 120s，資源利用率: 12.5%
+
+Agent Substrate: N Tasks → 1 Worker
+┌─────────────────────────────────────┐
+│           Worker Pod (預熱)          │
+│  啟動: 30s（一次性）                  │
+│                                     │
+│  ┌─────────┐ ┌─────────┐ ┌────────┐│
+│  │ Actor 1 │ │ Actor 2 │ │Actor 3 ││
+│  │  分配:  │ │  分配:  │ │ 分配:  ││
+│  │  100ms  │ │  100ms  │ │ 100ms  ││
+│  │  執行:  │ │  執行:  │ │ 執行:  ││
+│  │  5s     │ │  5s     │ │ 5s     ││
+│  │  掛起:  │ │  掛起:  │ │ 掛起:  ││
+│  │  100ms  │ │  100ms  │ │ 100ms  ││
+│  └─────────┘ └─────────┘ └────────┘│
+└─────────────────────────────────────┘
+總時間: 35s，資源利用率: 42.8%
+</code></pre>
+<h3 id="832">8.3.2 架構元件</h3>
+<pre><code>Agent Substrate
+┌─────────────────────────────────────────────────────────────────┐
+│                     Control Plane                                │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐             │
+│  │   ateapi    │  │ atecontroller│  │   atenet    │             │
+│  │  (gRPC API) │  │  (K8s CRD)  │  │  (Network)  │             │
+│  │             │  │             │  │             │             │
+│  │  管理 Actor │  │  WorkerPool │  │  DNS/Envoy  │             │
+│  │  生命週期   │  │  ActorTemplate│ │  Proxy      │             │
+│  └─────────────┘  └─────────────┘  └─────────────┘             │
+├─────────────────────────────────────────────────────────────────┤
+│                      Data Plane                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  atelet (DaemonSet on each Node)                        │    │
+│  │  ├── 監督 Worker Pods                                   │    │
+│  │  ├── 協調 Snapshot                                      │    │
+│  │  └── 管理狀態轉移                                       │    │
+│  └─────────────────────────────────────────────────────────┘    │
+├─────────────────────────────────────────────────────────────────┤
+│                     Worker Pod                                   │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  ate-visor (sidecar)                                    │    │
+│  │  ├── runsc 快照/恢復                                    │    │
+│  │  └── gVisor 管理                                        │    │
+│  ├─────────────────────────────────────────────────────────┤    │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐                  │    │
+│  │  │ Actor 1 │ │ Actor 2 │ │ Actor 3 │                  │    │
+│  │  │(gVisor) │ │(gVisor) │ │(gVisor) │                  │    │
+│  │  └─────────┘ └─────────┘ └─────────┘                  │    │
+│  └─────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="833">8.3.3 效能數據</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">指標</th>
+<th style="text-align: left;">數據</th>
+<th style="text-align: left;">說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Actor 密度</td>
+<td style="text-align: left;">250 Actors / 8 Pods</td>
+<td style="text-align: left;">31x 超量認購</td>
+</tr>
+<tr>
+<td style="text-align: left;">啟動延遲</td>
+<td style="text-align: left;">&lt; 1 秒</td>
+<td style="text-align: left;">從 Warm Pool 分配</td>
+</tr>
+<tr>
+<td style="text-align: left;">快照時間</td>
+<td style="text-align: left;">~100ms</td>
+<td style="text-align: left;">gVisor 狀態儲存</td>
+</tr>
+<tr>
+<td style="text-align: left;">恢復時間</td>
+<td style="text-align: left;">~200ms</td>
+<td style="text-align: left;">從 Snapshot 載入</td>
+</tr>
+<tr>
+<td style="text-align: left;">資源節省</td>
+<td style="text-align: left;">30x+</td>
+<td style="text-align: left;">相較 1:1 Pod 映射</td>
+</tr>
+</tbody>
+</table>
+<h2 id="84-agent-sandbox">8.4 Agent Sandbox</h2>
+<h3 id="841">8.4.1 定位：安全執行環境</h3>
+<p>Agent Sandbox 是 GKE 的原生功能，提供：</p>
+<ol>
+<li><strong>gVisor 隔離</strong>：核心層級保護</li>
+<li><strong>聲明式管理</strong>：CRD 定義 Sandbox</li>
+<li><strong>溫水游泳池</strong>：預熱 Pod 即時分配</li>
+<li><strong>快照/恢復</strong>：狀態持久化</li>
+</ol>
+<h3 id="842">8.4.2 核心概念</h3>
+<h4 id="sandboxclaim-sandboxtemplate">SandboxClaim + SandboxTemplate</h4>
+<pre><code class="language-yaml"># 使用者請求
+apiVersion: agentsandbox.gke.io/v1
+kind: SandboxClaim
+metadata:
+  name: coding-task-123
+spec:
+  templateRef: coding-template
+  resources:
+    cpu: "2"
+    memory: "4Gi"
+
+# 管理員定義範本
+apiVersion: agentsandbox.gke.io/v1
+kind: SandboxTemplate
+metadata:
+  name: coding-template
+spec:
+  image: agent-sandbox/coding:latest
+  tools:
+    - git
+    - pip
+    - npm
+  storage:
+    size: 10Gi
+  isolation: gvisor
+  networkPolicy: default-deny
+</code></pre>
+<h4 id="_1">運作流程</h4>
+<pre><code>使用者建立 SandboxClaim
+    │
+    ▼
+Controller 匹配 SandboxTemplate
+    │
+    ▼
+從 Warm Pool 分配或新建 Sandbox
+    │
+    ▼
+分配穩定端點（Sandbox Router）
+    │
+    ▼
+Agent 在 Sandbox 中執行
+    │
+    ▼
+執行完成後銷毀或回收
+</code></pre>
+<h3 id="843-sandbox">8.4.3 與我們 Sandbox 設計的對比</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">GKE Agent Sandbox</th>
+<th style="text-align: left;">我們的設計</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">隔離後端</td>
+<td style="text-align: left;">gVisor（預設）、Kata</td>
+<td style="text-align: left;">runc + NetworkPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">管理方式</td>
+<td style="text-align: left;">CRD（聲明式）</td>
+<td style="text-align: left;">Operator（命令式）</td>
+</tr>
+<tr>
+<td style="text-align: left;">預熱機制</td>
+<td style="text-align: left;">Warm Pool</td>
+<td style="text-align: left;">無</td>
+</tr>
+<tr>
+<td style="text-align: left;">快照/恢復</td>
+<td style="text-align: left;">原生支援</td>
+<td style="text-align: left;">無</td>
+</tr>
+<tr>
+<td style="text-align: left;">網路隔離</td>
+<td style="text-align: left;">預設 Deny All</td>
+<td style="text-align: left;">NetworkPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">SDK</td>
+<td style="text-align: left;">Python SDK</td>
+<td style="text-align: left;">無</td>
+</tr>
+</tbody>
+</table>
+<h2 id="85">8.5 三者協作</h2>
+<pre><code>完整執行流程
+┌─────────────────────────────────────────────────────────────────┐
+│                        User Layer                                │
+│  使用者: "幫我分析這個 GitHub 專案的程式碼品質"                    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Agent Executor (AX)                          │
+│  ┌─────────────┐                                                │
+│  │  Controller │                                                │
+│  │             │── 1. 拆解任務                                   │
+│  │  Planner    │   ├── 子任務 1: 讀取程式碼                      │
+│  │  Router     │   ├── 子任務 2: 執行靜態分析                    │
+│  │  Monitor    │   └── 子任務 3: 生成報告                        │
+│  └─────────────┘                                                │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌─────────────┐                                                │
+│  │  Event Log  │── 記錄: {seq: 1, task: "read_code", ...}      │
+│  └─────────────┘                                                │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Agent Substrate (K8s)                         │
+│  ┌─────────────┐                                                │
+│  │  ateapi     │── 2. 請求 Sandbox                               │
+│  └─────────────┘                                                │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌─────────────┐                                                │
+│  │  Warm Pool  │── 3. 分配預熱 Worker                            │
+│  └─────────────┘                                                │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Agent Sandbox (gVisor)                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  Sandbox Pod                                            │    │
+│  │  ┌─────────────────────────────────────────────────┐    │    │
+│  │  │  gVisor Sandbox                                 │    │    │
+│  │  │  ┌─────────────┐  ┌─────────────┐              │    │    │
+│  │  │  │  Coding     │  │  Review     │              │    │    │
+│  │  │  │  Agent      │  │  Agent      │              │    │    │
+│  │  │  │  (ADK)      │  │  (ADK)      │              │    │    │
+│  │  │  └─────────────┘  └─────────────┘              │    │    │
+│  │  │                                                 │    │    │
+│  │  │  4. 執行子任務                                   │    │    │
+│  │  │  5. 產生結果                                     │    │    │
+│  │  └─────────────────────────────────────────────────┘    │    │
+│  └─────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Agent Executor (AX)                          │
+│  ┌─────────────┐                                                │
+│  │  Controller │── 6. 收集結果                                   │
+│  │             │── 7. 更新 Event Log                             │
+│  │  Monitor    │── 8. 檢查完成狀態                               │
+│  └─────────────┘                                                │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌─────────────┐                                                │
+│  │  Event Log  │── {seq: 10, status: "completed", ...}         │
+│  └─────────────┘                                                │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        User Layer                                │
+│  結果: "程式碼品質報告..."                                       │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h2 id="86">8.6 對我們的啟發</h2>
+<h3 id="861">8.6.1 關鍵啟發</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">啟發</th>
+<th style="text-align: left;">我們的行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Durable Execution 是生產關鍵</td>
+<td style="text-align: left;">MVP 後加入 Snapshot + Resume</td>
+</tr>
+<tr>
+<td style="text-align: left;">Agent-aware Scheduler 提升效率</td>
+<td style="text-align: left;">v0.3 評估引入 Substrate 概念</td>
+</tr>
+<tr>
+<td style="text-align: left;">gVisor 隔離比 NetworkPolicy 更強</td>
+<td style="text-align: left;">評估 gVisor 整合</td>
+</tr>
+<tr>
+<td style="text-align: left;">Warm Pool 降低啟動延遲</td>
+<td style="text-align: left;">v0.4 評估預熱機制</td>
+</tr>
+<tr>
+<td style="text-align: left;">全開源可整合</td>
+<td style="text-align: left;">未來直接整合 google/ax</td>
+</tr>
+</tbody>
+</table>
+<h3 id="862">8.6.2 整合路線圖</h3>
+<pre><code>Phase 1 (MVP): 維持現有設計
+├── 標準 K8s + Sandbox CRD
+├── NATS JetStream Event Log
+└── NetworkPolicy + readOnlyRootFS
+
+Phase 2 (v0.3): 引入 AX 概念
+├── Snapshot Manager
+├── Resume Capability
+└── Branching（可選）
+
+Phase 3 (v0.4): 引入 Substrate 概念
+├── Warm Pool
+├── Actor 多路復用
+└── 亞秒級調度
+
+Phase 4 (v0.5): 完整整合
+├── 直接整合 google/ax
+├── gVisor 隔離
+└── Agent Substrate 排程
+</code></pre>
+<h2 id="87">8.7 總結</h2>
+<p>Google 的 Agent Runtime 設計揭示了幾個關鍵洞察：</p>
+<ol>
+<li>
+<p><strong>AX 是基礎設施，不是框架</strong>：它解決的是「如何可靠地執行 Agent」，不是「如何開發 Agent」</p>
+</li>
+<li>
+<p><strong>Durable Execution 是生產門檻</strong>：沒有 Snapshot/Resume，長時間 Agent 任務無法投入生產</p>
+</li>
+<li>
+<p><strong>Agent Substrate 重新定義了 K8s 上的 Agent 運行</strong>：N:1 多路復用 + Warm Pool 是關鍵</p>
+</li>
+<li>
+<p><strong>全開源策略降低了採用門檻</strong>：AX、Agent Substrate、Agent Sandbox 全部開源</p>
+</li>
+<li>
+<p><strong>與我們的技術棧高度匹配</strong>：AX 是 Go 實作，與我們的 Go Agent Runtime 完美契合</p>
+</li>
+</ol>
+<p>最終建議：<br/>
+- <strong>短期</strong>：維持現有設計，監控 AX 專案發展<br/>
+- <strong>中期</strong>：參考 AX 設計加入 Snapshot/Resume<br/>
+- <strong>長期</strong>：直接整合 google/ax，獲得 Durable Execution 和 Branching 能力</p>
+</body>
+</html>

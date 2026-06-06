@@ -1,0 +1,697 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 5 章：安全隔離</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 5 章：安全隔離</h1>
+    <h1 id="5-sandbox">第 5 章：安全隔離 — Sandbox 設計</h1>
+<p><img alt="多層隔離策略" src="images/multi-layer-isolation.png"/></p>
+<h2 id="51-sandbox">5.1 問題：為什麼需要 Sandbox？</h2>
+<p>Agent 是危險的。它們被設計來執行操作——讀取檔案、呼叫 API、執行程式碼。如果一個 Agent 被攻擊或出錯，後果可能很嚴重：</p>
+<ul>
+<li><strong>資料洩漏</strong>：Agent 讀取敏感檔案並外傳</li>
+<li><strong>權限提升</strong>：Agent 利用漏洞獲得更高權限</li>
+<li><strong>橫向移動</strong>：Agent 從一個容器跳到另一個</li>
+<li><strong>資源耗盡</strong>：Agent 占用所有 CPU/記憶體</li>
+<li><strong>供應鏈攻擊</strong>：Agent 下載並執行惡意程式碼</li>
+</ul>
+<p>Sandbox 的目標是：<strong>限制 Agent 的破壞半徑</strong>。</p>
+<p><img alt="日式漫畫風格：為什麼需要 Sandbox" src="images/comic-06-why-sandbox.jpg"/></p>
+<p><em>圖：沒有 Sandbox 時，軟弱 Agent 可能攻擊其他 Agent；有 Sandbox 時，危險被封閉在独立環境中</em></p>
+
+<h2 id="52-google-agent-sandbox">5.2 Google Agent Sandbox 深度解析</h2>
+<p>Google Agent Sandbox 是 GKE 上的企業級 Agent 隔離方案，結合了 gVisor、K8s、專用控制器，為 AI Agent 提供安全執行環境。</p>
+
+<h3 id="521-agent-sandbox-what">5.2.1 Agent Sandbox 是什麼？</h3>
+<p>根據 Google Cloud 官方文件，Agent Sandbox 提供：</p>
+<ul>
+<li><strong>強化容器隔離</strong>：使用 gVisor 攔截並重新實現系統呼叫</li>
+<li><strong>網路限制</strong>：預設禁止出站連線，僅允許明確授權的目標</li>
+<li><strong>檔案系統隔離</strong>：每個 Sandbox 有獨立的臨時檔案空間</li>
+<li><strong>資源限制</strong>：CPU、記憶體、儲存空間、執行時間都有上限</li>
+<li><strong>自動清理</strong>：執行完成後自動銷毀環境</li>
+</ul>
+
+<h3 id="522-agent-sandbox-architecture">5.2.2 Agent Sandbox 架構</h3>
+<p><img alt="Agent Sandbox on GKE" src="images/diagram-agent-sandbox-gke.png"/></p>
+<p>Agent Sandbox 在 GKE 上的部署架構包含以下組件：</p>
+<table>
+<tr><th>組件</th><th>職責</th><th>部署方式</th></tr>
+<tr><td>Agent Sandbox Controller</td><td>管理 Sandbox 生命週期</td><td>K8s Deployment</td></tr>
+<tr><td>Sandbox Templates</td><td>定義不同語言/環境的 Sandbox 配置</td><td>K8s CRD</td></tr>
+<tr><td>Sandbox Router</td><td>路由 Agent 請求到對應 Sandbox</td><td>K8s Service</td></tr>
+<tr><td>Sandbox Gateway</td><td>外部請求入口，執行認證授權</td><td>Ingress / Gateway</td></tr>
+<tr><td>gVisor Runtime</td><td>實際執行 Sandbox Pod</td><td>RuntimeClass</td></tr>
+</table>
+
+<h3 id="523-sandbox-template">5.2.3 Sandbox Template 設計</h3>
+<p>Sandbox Template 是定義 Sandbox 環境的 CRD：</p>
+<pre><code class="language-yaml">apiVersion: agentsandbox.gke.io/v1
+kind: SandboxTemplate
+metadata:
+  name: python-sandbox-template
+spec:
+  runtime: gvisor
+  baseImage: gcr.io/.../python-sandbox:3.11
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  networkPolicy:
+    egress:
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            name: kube-system
+      ports:
+      - protocol: UDP
+        port: 53
+    - to:
+      - podSelector:
+          matchLabels:
+            app: nats
+      ports:
+      - protocol: TCP
+        port: 4222
+  volumeMounts:
+  - name: tmp
+    mountPath: /tmp
+    emptyDir:
+      sizeLimit: 100Mi
+  timeoutSeconds: 300
+</code></pre>
+<p><strong>設計要點：</strong></p>
+<ul>
+<li>每個 Template 對應一種執行環境（python、node、go 等）</li>
+<li>資源限制在 Template 層級定義，防止單一 Agent 耗盡資源</li>
+<li>網路政策與 Template 綁定，確保所有該類型 Sandbox 行為一致</li>
+<li>臨時儲存空間大小受限，防止磁碟填滿攻擊</li>
+</ul>
+
+<h3 id="524-sandbox-lifecycle">5.2.4 Sandbox 生命週期</h3>
+<p>Agent Sandbox 的完整生命週期：</p>
+<pre><code class="language-go">// 簡化的 Sandbox 生命週期管理
+type SandboxLifecycle struct {
+    k8sClient kubernetes.Interface
+}
+
+func (sl *SandboxLifecycle) Create(ctx context.Context, req *SandboxRequest) (*Sandbox, error) {
+    // 1. 根據 Template 創建 Pod
+    pod := sl.buildPod(req)
+    
+    // 2. 應用 NetworkPolicy
+    netpol := sl.buildNetworkPolicy(req)
+    
+    // 3. 等待 Pod Ready
+    if err := sl.waitForReady(ctx, pod); err != nil {
+        sl.cleanup(ctx, pod)
+        return nil, err
+    }
+    
+    return &Sandbox{Pod: pod, NetPol: netpol}, nil
+}
+
+func (sl *SandboxLifecycle) Execute(ctx context.Context, sandbox *Sandbox, code string) (*ExecutionResult, error) {
+    // 1. 將程式碼寫入 ConfigMap
+    cm := sl.createCodeConfigMap(code)
+    
+    // 2. 掛載到 Sandbox Pod
+    sl.mountConfigMap(sandbox.Pod, cm)
+    
+    // 3. 執行並收集結果
+    result, err := sl.execInPod(ctx, sandbox.Pod, "/bin/run-sandbox")
+    
+    return result, err
+}
+
+func (sl *SandboxLifecycle) Destroy(ctx context.Context, sandbox *Sandbox) error {
+    // 確保銷毀 Pod、ConfigMap、NetworkPolicy
+    sl.k8sClient.CoreV1().Pods(sandbox.Namespace).Delete(ctx, sandbox.Pod.Name, metav1.DeleteOptions{})
+    sl.k8sClient.NetworkingV1().NetworkPolicies(sandbox.Namespace).Delete(ctx, sandbox.NetPol.Name, metav1.DeleteOptions{})
+    return nil
+}
+</code></pre>
+
+<h3 id="525-gvisor-deep-dive">5.2.5 gVisor 原始碼級解析</h3>
+<p>gVisor 是 Agent Sandbox 的核心隔離技術。它使用使用者空間核心（Sentry）攔截應用程式的系統呼叫：</p>
+<pre><code class="language-text">傳統容器：
+  App → glibc → syscall → Host Kernel → Hardware
+
+gVisor 容器：
+  App → glibc → syscall → Sentry (userspace kernel) → Host Kernel (limited) → Hardware
+</code></pre>
+<p><strong>gVisor 的兩種運行模式：</strong></p>
+<table>
+<tr><th>模式</th><th>系統呼叫處理</th><th>效能</th><th>相容性</th></tr>
+<tr><td>KVM</td><td>Sentry 直接處理大部分 syscall，少數通過 KVM 陷入 Host</td><td>較好</td><td>較好</td></tr>
+<tr><td>Ptrace</td><td>所有 syscall 通過 ptrace 攔截</td><td>較慢</td><td>最好</td></tr>
+</table>
+
+<p><strong>在 GKE 中使用 gVisor：</strong></p>
+<pre><code class="language-yaml">apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: gvisor
+handler: runsc
+scheduling:
+  nodeSelector:
+    sandbox.gke.io/runtime: gvisor
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: agent-sandbox
+spec:
+  runtimeClassName: gvisor
+  containers:
+  - name: agent
+    image: agent:latest
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      capabilities:
+        drop: ["ALL"]
+</code></pre>
+
+<h3 id="526-agent-substrate">5.2.6 Google Agent Substrate 深度解析</h3>
+<p>Agent Substrate 是 GKE 上專門為 Agent 設計的基礎設施層，解決 Agent 在 K8s 上的調度、擴展和資源管理問題。</p>
+
+<p><strong>Agent Substrate 解決的問題：</strong></p>
+<ul>
+<li><strong>調度優化</strong>：Agent Pod 通常有突發性負載，傳統 K8s 調度器不夠靈活</li>
+<li><strong>資源打包</strong>：多個輕量級 Agent 可以密集打包到同一節點</li>
+<li><strong>快速啟動</strong>：Agent 需要快速擴展，啟動時間必須短</li>
+<li><strong>狀態感知</strong>：調度器需要了解 Agent 的狀態（活躍、閒置、暫停）</li>
+</ul>
+
+<p><strong>Agent Substrate 的核心組件：</strong></p>
+<table>
+<tr><th>組件</th><th>職責</th></tr>
+<tr><td>Agent Scheduler</td><td>專為 Agent 設計的 K8s 調度器擴展</td></tr>
+<tr><td>Resource Manager</td><td>動態資源分配和回收</td></tr>
+<tr><td>Node Pool Manager</td><td>管理專用節點池，支援 GPU、TPU</td></tr>
+<tr><td>Lifecycle Controller</td><td>根據 Agent 狀態自動縮放</td></tr>
+</table>
+
+<p><strong>Dense Packing 調度策略：</strong></p>
+<p>Agent Substrate 使用自定義調度器，將多個輕量級 Agent 密集打包到同一節點，同時預留突發資源：</p>
+<pre><code class="language-go">// 簡化的 Agent-aware 調度邏輯
+func (s *AgentScheduler) Schedule(pod *v1.Pod, nodes []*v1.Node) (*v1.Node, error) {
+    bestNode := nil
+    bestScore := -1
+    
+    for _, node := range nodes {
+        score := 0
+        
+        // 1. 資源適配度
+        score += s.resourceFitScore(pod, node)
+        
+        // 2. Agent 類型親和性
+        score += s.agentAffinityScore(pod, node)
+        
+        // 3. 密集打包分數（偏好已有同類型 Agent 的節點）
+        score += s.densePackingScore(pod, node)
+        
+        // 4. 預留突發資源
+        score += s.burstReserveScore(pod, node)
+        
+        if score > bestScore {
+            bestScore = score
+            bestNode = node
+        }
+    }
+    
+    return bestNode, nil
+}
+</code></pre>
+
+<p><strong>自動縮放策略：</strong></p>
+<table>
+<tr><th>指標</th><th>縮放行為</th><th>冷卻時間</th></tr>
+<tr><td>待處理請求數 &gt; 閾值</td><td>Scale Out</td><td>30s</td></tr>
+<tr><td>閒置 Agent 數 &gt; 閾值</td><td>Scale In</td><td>5min</td></tr>
+<tr><td>平均執行時間增長</td><td>預熱更多 Sandbox</td><td>1min</td></tr>
+<tr><td>節點資源使用率 &gt; 80%</td><td>新增節點</td><td>2min</td></tr>
+</table>
+
+<h3 id="527-adk-gke-executor">5.2.7 ADK GkeCodeExecutor 原始碼解析</h3>
+<p>ADK 的 GkeCodeExecutor 直接整合了 GKE Agent Sandbox，原始碼顯示了完整的實作細節：</p>
+<pre><code class="language-python">class GkeCodeExecutor(BaseCodeExecutor):
+    """在 GKE 的 gVisor-sandboxed Pod 中執行 Python 程式碼。"""
+    
+    # 兩種執行模式
+    executor_type: Literal["job", "sandbox"] = "job"
+    
+    # Job 模式：每次執行創建獨立 K8s Job
+    # Sandbox 模式：使用 Agent Sandbox Client 進行有狀態執行
+    
+    # 預設資源限制
+    cpu_requested: str = "200m"
+    mem_requested: str = "256Mi"
+    cpu_limit: str = "500m"
+    mem_limit: str = "512Mi"
+    
+    # 安全上下文
+    # - runAsNonRoot: true
+    # - allowPrivilegeEscalation: false
+    # - capabilities: drop ALL
+    # - seccompProfile: RuntimeDefault
+</code></pre>
+<p><strong>Job 模式的 Pod 規範（從原始碼推導）：</strong></p>
+<pre><code class="language-yaml">apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: adk-code-exec-
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: executor
+        image: python:3.11-slim
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        volumeMounts:
+        - name: code
+          mountPath: /code
+          readOnly: true
+      volumes:
+      - name: code
+        configMap:
+          name: adk-code-configmap
+</code></pre>
+
+<h3 id="528-security-best-practices">5.2.8 企業級安全最佳實踐</h3>
+<p>結合 Google Agent Sandbox 和 Agent Substrate，企業級部署應遵循：</p>
+<ol>
+<li><strong>分層隔離</strong>：NetworkPolicy → Pod Security → gVisor → SPIFFE → Gateway</li>
+<li><strong>最小權限</strong>：每個 Agent 只擁有完成任務所需的最小權限</li>
+<li><strong>不可變基礎設施</strong>：Sandbox 映像只讀，程式碼通過 ConfigMap 注入</li>
+<li><strong>資源限制</strong>：CPU、記憶體、儲存、網路、執行時間全部設限</li>
+<li><strong>審計日誌</strong>：記錄所有 Sandbox 創建、執行、銷毀事件</li>
+<li><strong>自動清理</strong>：使用 Job TTL 和 Sandbox 超時機制防止資源洩漏</li>
+<li><strong>威脅建模</strong>：定期評估 Agent 的攻擊面和緩解措施</li>
+</ol>
+
+<h2 id="53">5.3 多層隔離策略</h2>
+<p>我們採用<strong>多層隔離</strong>策略，從網路到核心，層層設防：</p>
+<p><img alt="多層隔離策略詳細設計" src="images/diagram-isolation-layers.png"/></p>
+<p><em>圖：多層隔離詳細設計：從網路到應用層，六層防禦逐層擋住攻擊者</em></p>
+<p><img alt="日式漫畫風格：多層防禦体系" src="images/comic-07-multi-layer.jpg"/></p>
+<p><em>圖：從網路到應用層，六層防禦逐層擋住攻擊者</em></p>
+<h2 id="54-l1-networkpolicy">5.4 L1: NetworkPolicy</h2>
+<p>NetworkPolicy 是 Kubernetes 的網路隔離機制。我們採用<strong>預設拒絕，顯式允許</strong>策略。</p>
+<p><img alt="日式漫畫風格：NetworkPolicy 預設拒絕策略" src="images/comic-08-network-policy.jpg"/></p>
+<p><em>圖：預設拒絕所有流量，只有明確允許的 DNS、NATS、HTTPS 可以通過</em></p>
+<h3 id="541">5.4.1 預設策略</h3>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agent-default-deny
+  namespace: manus-platform
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []  # 拒絕所有入站
+  egress:      # 僅允許特定出站
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53  # DNS
+  - to:
+    - podSelector:
+        matchLabels:
+          app: nats
+    ports:
+    - protocol: TCP
+      port: 4222  # NATS
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8      # RFC1918 私有網路
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - protocol: TCP
+      port: 443  # HTTPS
+</code></pre>
+<h3 id="542-agent">5.4.2 Agent 特定策略</h3>
+<pre><code class="language-yaml"># Browser Agent：額外允許 HTTP/80
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agent-browser
+spec:
+  podSelector:
+    matchLabels:
+      agent-type: browser
+  egress:
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 80   # HTTP
+    - protocol: TCP
+      port: 443  # HTTPS
+
+# Coding Agent：禁止 HTTP，僅 HTTPS
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agent-coding
+spec:
+  podSelector:
+    matchLabels:
+      agent-type: coding
+  egress:
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443  # 僅 HTTPS
+</code></pre>
+<h2 id="55-l2-pod-security">5.5 L2: Pod Security</h2>
+<p>Pod Security Standards (PSS) 限制了容器的權限。</p>
+<h3 id="551-restricted-profile">5.5.1 Restricted Profile</h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: agent-pod
+spec:
+  securityContext:
+    runAsNonRoot: true          # 禁止 root
+    runAsUser: 65534            # nobody 使用者
+    seccompProfile:
+      type: RuntimeDefault      # 預設 seccomp
+  containers:
+  - name: agent
+    securityContext:
+      allowPrivilegeEscalation: false  # 禁止權限提升
+      readOnlyRootFilesystem: true      # 根檔案系統唯讀
+      capabilities:
+        drop:
+        - ALL                        # 丟棄所有 capabilities
+    resources:
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+</code></pre>
+<h3 id="552-resource-quota">5.5.2 Resource Quota</h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: agent-quota
+  namespace: manus-platform
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: 40Gi
+    limits.cpu: "40"
+    limits.memory: 80Gi
+    pods: "50"
+</code></pre>
+<h2 id="56-l3-gvisor">5.6 L3: gVisor</h2>
+<p>gVisor 是 Google 開發的使用者空間核心，提供比傳統容器更強的隔離。</p>
+<h3 id="561">5.6.1 運作原理</h3>
+<p><img alt="gVisor vs 傳統容器對比" src="images/diagram-gvisor-comparison.png"/></p>
+<p><em>圖：gVisor 使用者空間核心隔離，傳統容器直接共享 Host Kernel</em></p>
+<h3 id="562-kubernetes">5.6.2 在 Kubernetes 中使用</h3>
+<pre><code class="language-yaml">apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: gvisor
+handler: runsc
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: agent-gvisor
+spec:
+  runtimeClassName: gvisor  # 使用 gVisor
+  containers:
+  - name: agent
+    image: agent:latest
+</code></pre>
+<h3 id="563">5.6.3 效能影響</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">指標</th>
+<th style="text-align: left;">runc</th>
+<th style="text-align: left;">gVisor</th>
+<th style="text-align: left;">影響</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">系統呼叫延遲</td>
+<td style="text-align: left;">~100ns</td>
+<td style="text-align: left;">~1μs</td>
+<td style="text-align: left;">10x</td>
+</tr>
+<tr>
+<td style="text-align: left;">記憶體開銷</td>
+<td style="text-align: left;">~10MB</td>
+<td style="text-align: left;">~50MB</td>
+<td style="text-align: left;">5x</td>
+</tr>
+<tr>
+<td style="text-align: left;">啟動時間</td>
+<td style="text-align: left;">~100ms</td>
+<td style="text-align: left;">~300ms</td>
+<td style="text-align: left;">3x</td>
+</tr>
+<tr>
+<td style="text-align: left;">網路吞吐</td>
+<td style="text-align: left;">10Gbps</td>
+<td style="text-align: left;">5Gbps</td>
+<td style="text-align: left;">50%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>結論</strong>：gVisor 適合執行不受信任程式碼的 Agent（如 Coding Agent），不適合高效能網路 Agent。</p>
+<h2 id="57-l4-kata-containers">5.7 L4: Kata Containers</h2>
+<p>Kata Containers 使用輕量級 VM 提供完整隔離。</p>
+<h3 id="571-gvisor">5.7.1 與 gVisor 的比較</h3>
+<p><img alt="Sandbox 隔離等級選擇" src="images/sandbox-decision-tree.png"/></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">gVisor</th>
+<th style="text-align: left;">Kata Containers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">隔離等級</td>
+<td style="text-align: left;">系統呼叫攔截</td>
+<td style="text-align: left;">硬體虛擬化</td>
+</tr>
+<tr>
+<td style="text-align: left;">相容性</td>
+<td style="text-align: left;">部分系統呼叫不支援</td>
+<td style="text-align: left;">完整 Linux 相容</td>
+</tr>
+<tr>
+<td style="text-align: left;">啟動速度</td>
+<td style="text-align: left;">快 (~300ms)</td>
+<td style="text-align: left;">較慢 (~1s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">記憶體開銷</td>
+<td style="text-align: left;">低 (~50MB)</td>
+<td style="text-align: left;">較高 (~128MB)</td>
+</tr>
+<tr>
+<td style="text-align: left;">用途</td>
+<td style="text-align: left;">一般 Agent</td>
+<td style="text-align: left;">執行任意程式碼</td>
+</tr>
+</tbody>
+</table>
+<h3 id="572">5.7.2 使用場景</h3>
+<pre><code class="language-go">func selectRuntime(agentType string, riskLevel RiskLevel) string {
+    switch {
+    case riskLevel == RiskLevelHigh:
+        return "kata"      // 高風險：完整 VM 隔離
+    case agentType == "coding":
+        return "gvisor"    // Coding Agent：系統呼叫隔離
+    default:
+        return "runc"      // 低風險：標準容器
+    }
+}
+</code></pre>
+<h2 id="58-l5-spiffe-identity">5.8 L5: SPIFFE Identity</h2>
+<p>SPIFFE (Secure Production Identity Framework For Everyone) 為每個工作負載提供加密身份。</p>
+<h3 id="581">5.8.1 運作原理</h3>
+<p><img alt="SPIFFE Identity 流程" src="images/diagram-spiffe-flow.png"/></p>
+<p><em>圖：SPIFFE 身份驗證流程：SPIRE Server 簽發 SVID → Agent 分發 → Workload 使用 mTLS 連線</em></p>
+<h3 id="582-svid">5.8.2 SVID 格式</h3>
+<pre><code>SPIFFE ID: spiffe://cluster.local/ns/manus-platform/sa/agent-sa
+
+X.509 SVID:
+- Subject: CN=agent-sa
+- URI SAN: spiffe://cluster.local/ns/manus-platform/sa/agent-sa
+- 有效期: 1 小時（自動輪換）
+</code></pre>
+<h3 id="583-agent">5.8.3 在 Agent 平台中的應用</h3>
+<pre><code class="language-go">func (a *Agent) CallTool(ctx context.Context, toolName string, input map[string]interface{}) error {
+    // 1. 獲取 SVID
+    svid := a.spiffeClient.FetchSVID()
+
+    // 2. 使用 mTLS 連線 Tool Server
+    tlsConfig := svid.NewTLSConfig()
+    conn, err := grpc.Dial(toolEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)))
+
+    // 3. Tool Server 驗證 SVID
+    // - 檢查 SPIFFE ID 是否在白名單中
+    // - 檢查 SVID 是否過期
+    // - 檢查呼叫者是否有權使用此工具
+
+    // 4. 執行工具呼叫
+    return toolClient.Call(ctx, toolName, input)
+}
+</code></pre>
+<h2 id="59-l6-agent-gateway">5.9 L6: Agent Gateway</h2>
+<p>Agent Gateway 是應用層的安全閘道，執行 L7 政策。</p>
+<h3 id="591">5.9.1 功能</h3>
+<p><img alt="Agent Gateway 架構" src="images/diagram-agent-gateway.png"/></p>
+<p><em>圖：Agent Gateway 應用層安全閘道：身份驗證 → 流量控制 → 內容過濾</em></p>
+<h3 id="592-envoy-wasm">5.9.2 實作（Envoy + WASM）</h3>
+<pre><code class="language-yaml"># Envoy 配置
+static_resources:
+  listeners:
+  - name: agent_listener
+    address:
+      socket_address: { address: 0.0.0.0, port_value: 8080 }
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          http_filters:
+          - name: envoy.filters.http.wasm
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
+              config:
+                name: agent_gateway
+                root_id: agent_gateway
+                vm_config:
+                  runtime: envoy.wasm.runtime.v8
+                  code:
+                    remote:
+                      http_uri:
+                        uri: https://storage/agent-gateway.wasm
+</code></pre>
+<h2 id="510">5.10 常見陷阱</h2>
+<h3 id="1">陷阱 1：過度隔離</h3>
+<pre><code class="language-yaml"># 錯誤：所有 Agent 都用 Kata，資源浪費
+spec:
+  runtimeClassName: kata  # 啟動慢，記憶體開銷大
+
+# 正確：根據風險選擇隔離等級
+spec:
+  runtimeClassName: runc  # 低風險 Agent 用標準容器
+</code></pre>
+<h3 id="2">陷阱 2：忽略側信道攻擊</h3>
+<pre><code class="language-go">// 錯誤：僅依賴網路隔離
+// 攻擊者可通過 CPU 使用率、磁碟 I/O 等側信道獲取資訊
+
+// 正確：多層隔離 + 監控
+- NetworkPolicy 限制網路
+- ResourceQuota 限制資源
+- 監控異常資源使用模式
+</code></pre>
+<h3 id="3">陷阱 3：靜態政策</h3>
+<pre><code class="language-yaml"># 錯誤：固定政策，無法應對新威脅
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: static-policy
+# 建立後不再更新
+
+# 正確：動態政策，基於威脅情報更新
+- 定期更新 NetworkPolicy
+- 基於 Agent 行為動態調整
+- 整合威脅情報 feed
+</code></pre>
+<h2 id="511">5.11 總結</h2>
+<p>安全隔離不是單一技術，而是<strong>多層防禦</strong>的組合：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">層級</th>
+<th style="text-align: left;">技術</th>
+<th style="text-align: left;">防禦目標</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">L1</td>
+<td style="text-align: left;">NetworkPolicy</td>
+<td style="text-align: left;">網路攻擊</td>
+</tr>
+<tr>
+<td style="text-align: left;">L2</td>
+<td style="text-align: left;">Pod Security</td>
+<td style="text-align: left;">容器逃逸</td>
+</tr>
+<tr>
+<td style="text-align: left;">L3</td>
+<td style="text-align: left;">gVisor</td>
+<td style="text-align: left;">系統呼叫攻擊</td>
+</tr>
+<tr>
+<td style="text-align: left;">L4</td>
+<td style="text-align: left;">Kata</td>
+<td style="text-align: left;">核心漏洞</td>
+</tr>
+<tr>
+<td style="text-align: left;">L5</td>
+<td style="text-align: left;">SPIFFE</td>
+<td style="text-align: left;">身份偽造</td>
+</tr>
+<tr>
+<td style="text-align: left;">L6</td>
+<td style="text-align: left;">Agent Gateway</td>
+<td style="text-align: left;">應用層攻擊</td>
+</tr>
+</tbody>
+</table>
+<p>關鍵原則：<br/>
+- 預設拒絕，顯式允許<br/>
+- 最小權限原則<br/>
+- 根據風險選擇隔離等級<br/>
+- 定期審計和更新政策</p>
+<p>在下一章，我們將進入 GOVERN 層，探討 Agent 的身份、註冊和審計。</p>
+</body>
+</html>

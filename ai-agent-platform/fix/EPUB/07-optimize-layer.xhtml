@@ -1,0 +1,441 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 7 章：OPTIMIZE 層</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 7 章：OPTIMIZE 層</h1>
+    <h1 id="7-optimize">第 7 章：OPTIMIZE 層 — 評估與優化</h1>
+<h2 id="71-agent">7.1 問題：如何知道 Agent 夠不夠好？</h2>
+<p>你建構了一個 Agent 平台，部署了數十個 Agent，它們每天處理數千個任務。但有一個問題揮之不去：</p>
+<blockquote>
+<p><strong>這些 Agent 的品質夠不夠好？</strong></p>
+</blockquote>
+<p>這個問題很難回答，因為：</p>
+<ul>
+<li>Agent 的輸出是概率的，同樣輸入可能產生不同結果</li>
+<li>品質標準因任務而異（程式碼品質 vs. 報告準確度）</li>
+<li>生產環境的真實反饋週期很長</li>
+<li>人工評估成本高昂且不可擴展</li>
+</ul>
+<p>我們需要一個<strong>系統化的評估框架</strong>。</p>
+<h2 id="72-evaluation-framework">7.2 Evaluation Framework 設計</h2>
+<p><img alt="Evaluation Framework 流程" src="images/evaluation-framework.png"/></p>
+<h3 id="721">7.2.1 核心概念</h3>
+<p>參考 Google GEAP AutoRater、Anthropic Evals、AWS Strands Evals，我們設計了以下核心概念：</p>
+<pre><code class="language-go">// Case: 單一測試情境
+type Case struct {
+    ID          string            `json:"id"`
+    Name        string            `json:"name"`
+    Description string            `json:"description"`
+    Input       *Message          `json:"input"`
+    Expected    ExpectedBehavior  `json:"expected"`
+    Tags        []string          `json:"tags"`
+    Difficulty  string            `json:"difficulty"`
+}
+
+// Trial: 一次執行
+type Trial struct {
+    ID        string      `json:"id"`
+    CaseID    string      `json:"case_id"`
+    AgentName string      `json:"agent_name"`
+    Transcript *Transcript `json:"transcript"`
+    ToolCalls  []ToolCall  `json:"tool_calls"`
+    Outcome    *Outcome    `json:"outcome"`
+    Duration   time.Duration `json:"duration"`
+}
+
+// Grade: 評分結果
+type Grade struct {
+    Score       float64   `json:"score"`       // 0-1
+    Passed      bool      `json:"passed"`
+    Feedback    string    `json:"feedback"`
+    Evaluator   string    `json:"evaluator"`
+    GradedAt    time.Time `json:"graded_at"`
+}
+</code></pre>
+<h3 id="722">7.2.2 評估器類型</h3>
+<pre><code class="language-go">// 1. 關鍵字評估器
+type KeywordEvaluator struct {
+    ExpectedKeywords []string
+}
+
+func (e *KeywordEvaluator) Evaluate(trial *Trial) *Grade {
+    response := trial.Outcome.Text
+
+    matched := 0
+    for _, kw := range e.ExpectedKeywords {
+        if strings.Contains(response, kw) {
+            matched++
+        }
+    }
+
+    score := float64(matched) / float64(len(e.ExpectedKeywords))
+    return &amp;Grade{
+        Score:  score,
+        Passed: score &gt;= 0.8,
+        Feedback: fmt.Sprintf("匹配 %d/%d 關鍵字", matched, len(e.ExpectedKeywords)),
+    }
+}
+
+// 2. 工具軌跡評估器
+type ToolTrajectoryEvaluator struct {
+    ExpectedSequence []string
+}
+
+func (e *ToolTrajectoryEvaluator) Evaluate(trial *Trial) *Grade {
+    actual := make([]string, len(trial.ToolCalls))
+    for i, tc := range trial.ToolCalls {
+        actual[i] = tc.Name
+    }
+
+    if slices.Equal(actual, e.ExpectedSequence) {
+        return &amp;Grade{Score: 1.0, Passed: true}
+    }
+    return &amp;Grade{Score: 0.0, Passed: false, Feedback: "工具呼叫順序錯誤"}
+}
+
+// 3. 目標達成評估器
+type GoalSuccessEvaluator struct {
+    CheckGoal func(*Outcome) bool
+}
+
+func (e *GoalSuccessEvaluator) Evaluate(trial *Trial) *Grade {
+    if e.CheckGoal(trial.Outcome) {
+        return &amp;Grade{Score: 1.0, Passed: true}
+    }
+    return &amp;Grade{Score: 0.0, Passed: false, Feedback: "目標未達成"}
+}
+</code></pre>
+<h2 id="73">7.3 實驗執行</h2>
+<h3 id="731">7.3.1 實驗配置</h3>
+<pre><code class="language-go">type ExperimentConfig struct {
+    ID         string   `json:"id"`
+    AgentName  string   `json:"agent_name"`
+    Cases      []*Case  `json:"cases"`
+    NumTrials  int      `json:"num_trials"`   // 每個 case 跑幾次
+    MaxWorkers int      `json:"max_workers"`  // 並行度
+    Timeout    time.Duration `json:"timeout"`
+}
+</code></pre>
+<h3 id="732">7.3.2 執行流程</h3>
+<pre><code class="language-go">func (r *ExperimentRunner) Run(ctx context.Context, config *ExperimentConfig) (*ExperimentResult, error) {
+    // 1. 建立結果結構
+    result := &amp;ExperimentResult{
+        ExperimentID: config.ID,
+        StartedAt:    time.Now(),
+        Trials:       make([]*Trial, 0),
+    }
+
+    // 2. 建立工作佇列
+    jobs := make(chan *Case, len(config.Cases)*config.NumTrials)
+    for _, c := range config.Cases {
+        for i := 0; i &lt; config.NumTrials; i++ {
+            jobs &lt;- c
+        }
+    }
+    close(jobs)
+
+    // 3. 啟動 Worker
+    var wg sync.WaitGroup
+    for i := 0; i &lt; config.MaxWorkers; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            for c := range jobs {
+                trial := r.runTrial(ctx, config.AgentName, c)
+                result.Trials = append(result.Trials, trial)
+            }
+        }()
+    }
+
+    wg.Wait()
+
+    // 4. 計算統計
+    result.Summary = r.calculateSummary(result.Trials)
+    result.CompletedAt = time.Now()
+
+    return result, nil
+}
+</code></pre>
+<h3 id="733">7.3.3 結果分析</h3>
+<pre><code class="language-go">func (r *ExperimentRunner) calculateSummary(trials []*Trial) *ResultSummary {
+    summary := &amp;ResultSummary{
+        TotalTrials: len(trials),
+        PerEvaluator: make(map[string]*EvaluatorSummary),
+    }
+
+    for _, trial := range trials {
+        for _, grade := range trial.Grades {
+            es := summary.PerEvaluator[grade.Evaluator]
+            if es == nil {
+                es = &amp;EvaluatorSummary{}
+                summary.PerEvaluator[grade.Evaluator] = es
+            }
+
+            es.Total++
+            es.ScoreSum += grade.Score
+            if grade.Passed {
+                es.Passed++
+            }
+        }
+    }
+
+    // 計算通過率
+    for _, es := range summary.PerEvaluator {
+        es.PassRate = float64(es.Passed) / float64(es.Total)
+        es.AvgScore = es.ScoreSum / float64(es.Total)
+    }
+
+    return summary
+}
+</code></pre>
+<h2 id="74">7.4 模擬引擎</h2>
+<h3 id="741">7.4.1 為什麼需要模擬？</h3>
+<p>生產環境評估有幾個問題：</p>
+<ol>
+<li><strong>成本高</strong>：每個失敗的任務都影響真實使用者</li>
+<li><strong>速度慢</strong>：需要等待真實使用者反饋</li>
+<li><strong>覆蓋率低</strong>：無法測試邊緣案例</li>
+</ol>
+<p>模擬引擎讓我們在<strong>安全、快速、可控</strong>的環境中評估 Agent。</p>
+<h3 id="742">7.4.2 使用者模擬</h3>
+<pre><code class="language-go">type UserPersona struct {
+    Name        string   `json:"name"`
+    Goal        string   `json:"goal"`
+    Style       string   `json:"style"`       // "direct" | "verbose" | "technical"
+    Expertise   string   `json:"expertise"`   // "beginner" | "intermediate" | "expert"
+    Patience    int      `json:"patience"`    // 1-10
+    Frustration int      `json:"frustration"` // 當前挫折度
+}
+
+type ActorSimulator struct {
+    persona *UserPersona
+    llm     *LLMClient
+}
+
+func (s *ActorSimulator) Respond(ctx context.Context, agentMessage string) (string, error) {
+    prompt := fmt.Sprintf(`
+你正在模擬一個使用者與 AI Agent 對話。
+
+使用者設定：
+- 目標: %s
+- 風格: %s
+- 專業程度: %s
+- 耐心: %d/10
+- 當前挫折度: %d/10
+
+Agent 說: %s
+
+請以這個使用者的身份回應。`,
+        s.persona.Goal,
+        s.persona.Style,
+        s.persona.Expertise,
+        s.persona.Patience,
+        s.persona.Frustration,
+        agentMessage,
+    )
+
+    return s.llm.Generate(ctx, prompt)
+}
+</code></pre>
+<h3 id="743">7.4.3 多輪對話評估</h3>
+<pre><code class="language-go">func (r *ExperimentRunner) RunMultiTurn(ctx context.Context, config *ExperimentConfig) (*Trial, error) {
+    trial := &amp;Trial{
+        ID:        generateID(),
+        Transcript: &amp;Transcript{Turns: []Turn{}},
+    }
+
+    // 建立模擬使用者
+    user := NewActorSimulator(config.UserPersona)
+
+    // 建立 Agent
+    agent := r.createAgent(config.AgentName)
+
+    // 多輪對話
+    for turn := 0; turn &lt; config.MaxTurns; turn++ {
+        // Agent 回應
+        agentResponse, err := agent.Respond(ctx, trial.Transcript)
+        if err != nil {
+            return nil, err
+        }
+
+        trial.Transcript.Turns = append(trial.Transcript.Turns, Turn{
+            Role:    "agent",
+            Content: agentResponse,
+        })
+
+        // 檢查是否達成目標
+        if config.GoalChecker(agentResponse) {
+            trial.Outcome = &amp;Outcome{Status: "success"}
+            return trial, nil
+        }
+
+        // 使用者回應
+        userResponse, err := user.Respond(ctx, agentResponse)
+        if err != nil {
+            return nil, err
+        }
+
+        trial.Transcript.Turns = append(trial.Transcript.Turns, Turn{
+            Role:    "user",
+            Content: userResponse,
+        })
+    }
+
+    // 達到最大輪數，標記為失敗
+    trial.Outcome = &amp;Outcome{Status: "max_turns_reached"}
+    return trial, nil
+}
+</code></pre>
+<h2 id="75-ci">7.5 CI 整合</h2>
+<h3 id="751">7.5.1 回歸檢測</h3>
+<pre><code class="language-go">type RegressionChecker struct {
+    store *EvaluationStore
+}
+
+func (rc *RegressionChecker) Check(ctx context.Context, current *ExperimentResult) (*RegressionReport, error) {
+    // 1. 獲取歷史結果
+    baseline := rc.store.GetLastResult(current.AgentName)
+
+    // 2. 比較
+    report := &amp;RegressionReport{
+        AgentName: current.AgentName,
+        Baseline:  baseline.ID,
+        Current:   current.ID,
+    }
+
+    for evalName, currentSummary := range current.Summary.PerEvaluator {
+        baselineSummary := baseline.Summary.PerEvaluator[evalName]
+
+        diff := currentSummary.PassRate - baselineSummary.PassRate
+
+        if diff &lt; -0.05 {  // 下降超過 5%
+            report.Regressions = append(report.Regressions, Regression{
+                Evaluator: evalName,
+                Baseline:  baselineSummary.PassRate,
+                Current:   currentSummary.PassRate,
+                Diff:      diff,
+            })
+        }
+    }
+
+    return report, nil
+}
+</code></pre>
+<h3 id="752">7.5.2 自動狀態判定</h3>
+<pre><code class="language-go">func DetermineStatus(result *ExperimentResult) string {
+    overallPassRate := result.Summary.OverallPassRate
+
+    switch {
+    case overallPassRate &gt;= 0.95:
+        return "pass"      // 綠燈，可部署
+    case overallPassRate &gt;= 0.80:
+        return "warning"   // 黃燈，需審查
+    default:
+        return "fail"      // 紅燈，阻止部署
+    }
+}
+</code></pre>
+<h2 id="76">7.6 可觀測性</h2>
+<h3 id="761">7.6.1 指標收集</h3>
+<pre><code class="language-go">// Prometheus 指標
+var (
+    agentTasksTotal = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: "agent_tasks_total",
+            Help: "Total number of tasks processed",
+        },
+        []string{"agent", "status"},
+    )
+
+    agentTaskDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name: "agent_task_duration_seconds",
+            Help: "Task processing duration",
+            Buckets: prometheus.DefBuckets,
+        },
+        []string{"agent"},
+    )
+
+    agentToolCalls = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: "agent_tool_calls_total",
+            Help: "Total number of tool calls",
+        },
+        []string{"agent", "tool"},
+    )
+)
+</code></pre>
+<h3 id="762">7.6.2 分散式追蹤</h3>
+<pre><code class="language-go">func (a *Agent) ProcessTask(ctx context.Context, task *Task) error {
+    // 建立 Span
+    ctx, span := tracer.Start(ctx, "agent.process_task",
+        trace.WithAttributes(
+            attribute.String("agent.id", a.ID),
+            attribute.String("task.id", task.ID),
+        ),
+    )
+    defer span.End()
+
+    // 規劃
+    ctx, planSpan := tracer.Start(ctx, "agent.plan")
+    plan := a.planner.Plan(ctx, task)
+    planSpan.End()
+
+    // 執行
+    for _, step := range plan.Steps {
+        ctx, stepSpan := tracer.Start(ctx, "agent.execute_step")
+        a.executeStep(ctx, step)
+        stepSpan.End()
+    }
+
+    return nil
+}
+</code></pre>
+<h2 id="77">7.7 常見陷阱</h2>
+<h3 id="1">陷阱 1：評估資料洩漏</h3>
+<pre><code class="language-go">// 錯誤：用訓練資料評估
+// Agent 在訓練時已經看過這些案例，評估結果不真實
+
+// 正確：訓練/測試分離
+trainCases, testCases := split(cases, 0.8)
+agent.Train(trainCases)
+result := evaluate(agent, testCases)  // 僅用未見過的案例
+</code></pre>
+<h3 id="2">陷阱 2：忽略評估成本</h3>
+<pre><code class="language-go">// 錯誤：每個 PR 都執行完整評估套件（1000 個案例 × 3 次）
+// 成本：$50/次 × 每天 20 個 PR = $1000/天
+
+// 正確：分層評估
+// 1. 快速篩選：10 個關鍵案例（$0.5）
+// 2. 如果通過：100 個案例（$5）
+// 3. 如果通過：完整套件（$50）
+</code></pre>
+<h3 id="3">陷阱 3：過度擬合評估指標</h3>
+<pre><code class="language-go">// 錯誤：為了提高評估分數，針對評估器優化
+// 結果：評估分數高，但真實表現差
+
+// 正確：多維度評估
+// - 自動化評估（關鍵字、軌跡）
+// - LLM 評估（語意品質）
+// - 人工評估（抽樣）
+// - 生產指標（使用者滿意度）
+</code></pre>
+<h2 id="78">7.8 總結</h2>
+<p>OPTIMIZE 層讓 Agent 平台<strong>可評估、可優化、可持續改進</strong>：</p>
+<ol>
+<li><strong>Evaluation Framework</strong>：系統化評估 Agent 品質</li>
+<li><strong>Simulator</strong>：安全快速地測試邊緣案例</li>
+<li><strong>CI Integration</strong>：自動化回歸檢測</li>
+<li><strong>Observability</strong>：生產環境指標和追蹤</li>
+</ol>
+<p>關鍵原則：<br/>
+- 評估必須自動化<br/>
+- 模擬必須貼近真實<br/>
+- 回歸必須及時發現<br/>
+- 優化必須資料驅動</p>
+<p>在下一章，我們將深入解析 Google 的 Agent Runtime 設計。</p>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 3 章：Channels 深度解析</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 3 章：Channels 深度解析</h1>
+
+<div class="manga-panel">
+  <p><img alt="小語研究 Channels" src="images/manga-ch2-stategraph.jpg"/></p>
+  <p class="caption">「Channels 就像資訊高速公路……」——小語</p>
+</div>
+
+<h2>3.1 什麼是 Channel？</h2>
+
+<p>Channel 是 LangGraph 的<strong>核心抽象</strong>。如果說 State 是「資料」，Channel 就是「資料的容器」。</p>
+
+<div class="tip-box">
+  <p><strong>一句話理解：</strong>Channel = 帶有「更新規則」的 State 欄位。每個 State 欄位背後都對應一個 Channel 實例。</p>
+</div>
+
+<h3>3.1.1 Channel 的設計哲學</h3>
+
+<p>讓我們看原始碼中的 BaseChannel 定義：</p>
+
+<pre><code># langgraph/channels/base.py
+
+class BaseChannel(Generic[Value, Update, Checkpoint], ABC):
+    """Base class for all channels."""
+
+    def __init__(self, typ: Any, key: str = "") -> None:
+        self.typ = typ      # 值的型別
+        self.key = key      # 欄位名稱
+
+    @abstractmethod
+    def get(self) -> Value:
+        """讀取當前值"""
+
+    @abstractmethod  
+    def update(self, values: Sequence[Update]) -> bool:
+        """接收更新，回傳是否真的有變化"""
+
+    @abstractmethod
+    def checkpoint(self) -> Checkpoint:
+        """序列化當前狀態"""
+
+    @abstractmethod
+    def from_checkpoint(self, checkpoint: Checkpoint) -> Self:
+        """從檢查點恢復"""
+</code></pre>
+
+<div class="character-box">
+  <p class="name">💬 小語的理解</p>
+  <p>「所以每個 Channel 都要會四件事：讀取、更新、存檔、讀檔。就像遊戲的存檔系統！」</p>
+</div>
+
+<h2>3.2 Channel 類型大全</h2>
+
+<h3>3.2.1 LastValue（最後值）</h3>
+
+<p>最簡單的 Channel：只記最後一個值。</p>
+
+<pre><code># langgraph/channels/last_value.py
+
+class LastValue(BaseChannel[Value, Value, Value]):
+    """Stores the last value received, can receive at most one value per step."""
+
+    def update(self, values: Sequence[Value]) -> bool:
+        if len(values) == 0:
+            return False
+        if len(values) != 1:
+            raise InvalidUpdateError(
+                f"At key '{self.key}': Can receive only one value per step."
+            )
+        self.value = values[-1]
+        return True
+
+    def get(self) -> Value:
+        if self.value is MISSING:
+            raise EmptyChannelError()
+        return self.value
+</code></pre>
+
+<div class="warning-box">
+  <p><strong>關鍵限制：</strong>LastValue 每個 step 只能接收<strong>一個</strong>更新！如果多個 Node 同時寫入同一個 LastValue Channel，會拋出 InvalidUpdateError。</p>
+</div>
+
+<h3>3.2.2 Topic（發布訂閱）</h3>
+
+<p>Topic 是 PubSub 模式的實現，支援累積或清空。</p>
+
+<pre><code># langgraph/channels/topic.py
+
+class Topic(BaseChannel[Sequence[Value], Value | list[Value], list[Value]]):
+    def __init__(self, typ: type[Value], accumulate: bool = False):
+        self.accumulate = accumulate  # 是否累積
+        self.values = list[Value]()   # 儲存的值
+
+    def update(self, values: Sequence[Value | list[Value]]) -> bool:
+        updated = False
+        if not self.accumulate:
+            updated = bool(self.values)
+            self.values = []  # 不清空就累積
+        
+        for value in values:
+            if isinstance(value, list):
+                self.values.extend(value)
+            else:
+                self.values.append(value)
+            updated = True
+        return updated
+
+    def get(self) -> Sequence[Value]:
+        return self.values
+</code></pre>
+
+<div class="tip-box">
+  <p><strong>使用場景：</strong></p>
+  <ul>
+    <li><code>accumulate=False</code>：每 step 清空，適合「本輪訊息」</li>
+    <li><code>accumulate=True</code>：持續累積，適合「所有歷史訊息」</li>
+  </ul>
+</div>
+
+<h3>3.2.3 BinaryOperatorAggregate（二元運算聚合）</h3>
+
+<p>用自訂函數合併多個更新：</p>
+
+<pre><code>from typing import Annotated
+from operator import add
+
+class State(TypedDict):
+    total: Annotated[int, add]  # 使用 operator.add 合併
+
+# Node A 回傳 {"total": 10}
+# Node B 回傳 {"total": 20}
+# 最終 State.total = 30（10 + 20）
+</code></pre>
+
+<h3>3.2.4 EphemeralValue（短暫值）</h3>
+
+<p>只存在一個 step 的值，step 結束後自動清除：</p>
+
+<pre><code>class State(TypedDict):
+    temp_flag: EphemeralValue  # 本輪有效，下輪消失
+</code></pre>
+
+<h2>3.3 Channel 與 State 的對應關係</h2>
+
+<p>當你定義 State 時，LangGraph 自動為每個欄位建立對應的 Channel：</p>
+
+<pre><code># 你的定義
+class State(TypedDict):
+    messages: Annotated[list, add_messages]
+    count: int
+    name: str
+
+# LangGraph 內部建立的 Channels
+channels = {
+    "messages": Topic(list, accumulate=True),  # add_messages → Topic
+    "count": LastValue(int),                    # 無 Annotated → LastValue
+    "name": LastValue(str),                     # 無 Annotated → LastValue
+}
+</code></pre>
+
+<div class="character-box">
+  <p class="name">💬 小語的領悟</p>
+  <p>「原來 Annotated 不只是型別標註，它告訴 LangGraph『這個欄位要用什麼 Channel』！難怪 add_messages 這麼重要。」</p>
+</div>
+
+<h2>3.4 本章總結</h2>
+
+<ul>
+  <li>✅ Channel 是 State 欄位的「容器 + 更新規則」</li>
+  <li>✅ LastValue：只記最後一個值，每 step 限一個更新</li>
+  <li>✅ Topic：PubSub 模式，支援累積/清空</li>
+  <li>✅ BinaryOperatorAggregate：用自訂函數合併</li>
+  <li>✅ EphemeralValue：只存在一個 step</li>
+  <li>✅ Annotated[type, reducer] 決定用什麼 Channel</li>
+</ul>
+
+</body>
+</html>

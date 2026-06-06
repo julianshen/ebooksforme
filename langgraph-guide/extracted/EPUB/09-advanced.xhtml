@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 9 章：進階模式與技巧</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 9 章：進階模式與技巧</title>
+
+<h2>9.1 Streaming（串流輸出）</h2>
+
+<p>即時看到 Agent 的思考過程：</p>
+
+<pre><code># 串流每個 Node 的輸出
+for event in app.stream(state, config, stream_mode="updates"):
+    print(f"Node {event['node']} updated: {event['data']}")
+
+# 串流 Token 級輸出
+for chunk in app.stream(state, config, stream_mode="messages"):
+    print(chunk.content, end="")
+</code></pre>
+
+<h2>9.2 重試與錯誤處理</h2>
+
+<pre><code>from langgraph.types import RetryPolicy
+
+graph.add_node(
+    "unstable_api",
+    call_api,
+    retry=RetryPolicy(max_attempts=3, retry_on=ConnectionError)
+)
+</code></pre>
+
+<h2>9.3 動態圖結構</h2>
+
+<p>在執行時動態添加 Node：</p>
+
+<pre><code>from langgraph.types import Send
+
+# 動態產生多個並行任務
+def map_reduce(state):
+    items = state["items"]
+    # 為每個 item 產生一個並行任務
+    return [Send("processor", {"item": item}) for item in items]
+
+graph.add_conditional_edges("start", map_reduce)
+</code></pre>
+
+<h2>9.4 本章總結</h2>
+
+<ul>
+  <li>✅ Streaming 即時觀察 Agent 執行過程</li>
+  <li>✅ RetryPolicy 自動重試失敗的 Node</li>
+  <li>✅ Send 動態產生並行任務</li>
+</ul>
+
+</body>
+</html>
