@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 7 章：安全性 —— 訊息的護盾</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 7 章：安全性 —— 訊息的護盾</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風發現未授權的訊息】</p>
+    <p>「有人偷看我們的訂單！」小風驚呼。</p>
+    <p>「別慌，」陳老師冷靜地說，「NATS 有多層安全機制。讓我們築起護盾。」</p>
+  </div>
+
+  <h2>7.1 認證機制</h2>
+
+  <h3>7.1.1 密碼認證</h3>
+
+  <pre><code>// 伺服器設定
+authorization {
+    users: [
+        {user: "admin", password: "secret123"}
+        {user: "app", password: "app123"}
+    ]
+}
+
+// 客戶端連線
+nc, _ := nats.Connect("nats://localhost:4222",
+    nats.UserInfo("app", "app123"),
+)</code></pre>
+
+  <h3>7.1.2 Token 認證</h3>
+
+  <pre><code>// 伺服器設定
+authorization {token: "mysecrettoken"}
+
+// 客戶端連線
+nc, _ := nats.Connect("nats://localhost:4222",
+    nats.Token("mysecrettoken"),
+)</code></pre>
+
+  <h3>7.1.3 NKey 與 JWT</h3>
+
+  <pre><code>// 使用 Ed25519 金鑰對
+nc, _ := nats.Connect("nats://localhost:4222",
+    nats.UserCredentials("/path/to/user.creds"),
+)</code></pre>
+
+  <h2>7.2 授權（Authorization）</h2>
+
+  <h3>7.2.1 主題級授權</h3>
+
+  <pre><code>authorization {
+    users: [
+        {
+            user: "order-service"
+            password: "order123"
+            permissions: {
+                publish: ["orders.*", "payments.validate"]
+                subscribe: ["orders.*", "inventory.check"]
+            }
+        },
+        {
+            user: "analytics-service"
+            password: "analytics123"
+            permissions: {
+                publish: []
+                subscribe: ["orders.>", "user.*.events"]
+            }
+        }
+    ]
+}</code></pre>
+
+  <h2>7.3 TLS 加密</h2>
+
+  <h3>7.3.1 單向 TLS</h3>
+
+  <pre><code>// 伺服器設定
+tls {
+    cert_file: "/etc/nats/server-cert.pem"
+    key_file: "/etc/nats/server-key.pem"
+}
+
+// 客戶端連線
+nc, _ := nats.Connect("tls://localhost:4222",
+    nats.RootCAs("/path/to/ca.pem"),
+)</code></pre>
+
+  <h3>7.3.2 雙向 TLS（mTLS）</h3>
+
+  <pre><code>// 伺服器設定
+tls {
+    cert_file: "/etc/nats/server-cert.pem"
+    key_file: "/etc/nats/server-key.pem"
+    ca_file: "/etc/nats/ca.pem"
+    verify: true
+    verify_and_map: true
+}</code></pre>
+
+  <h2>7.4 帳戶隔離（Accounts）</h2>
+
+  <p>Accounts 提供多租戶隔離，不同帳戶的訊息完全隔離：</p>
+
+  <pre><code>accounts {
+    APP: {
+        users: [{user: "app", password: "app123"}]
+        exports: [
+            {service: "orders.api"}
+            {stream: "orders.events"}
+        ]
+    }
+    ANALYTICS: {
+        users: [{user: "analytics", password: "analytics123"}]
+        imports: [
+            {service: {account: "APP", subject: "orders.api"}, to: "external.orders.api"}
+            {stream: {account: "APP", subject: "orders.events"}, to: "external.orders.events"}
+        ]
+    }
+}</code></pre>
+
+  <h2>7.5 實戰：安全設定範例</h2>
+
+  <pre><code>// 生產環境完整安全設定
+port: 4222
+
+authorization {
+    users: [
+        {
+            user: "service"
+            password: "$2a$11$..."  // bcrypt 雜湊
+            permissions: {
+                publish: {
+                    allow: ["service.>", "health.check"]
+                    deny: ["service.internal.>"]
+                }
+                subscribe: {
+                    allow: ["service.>", "config.>"]
+                    deny: ["service.internal.>"]
+                }
+            }
+        }
+    ]
+}
+
+tls {
+    cert_file: "/etc/nats/tls/server.crt"
+    key_file: "/etc/nats/tls/server.key"
+    ca_file: "/etc/nats/tls/ca.crt"
+    verify: true
+    cipher_suites: [
+        "TLS_AES_256_GCM_SHA384",
+        "TLS_CHACHA20_POLY1305_SHA256"
+    ]
+}</code></pre>
+
+  <h2>7.6 本章總結</h2>
+
+  <ul>
+    <li>NATS 支援多種認證：密碼、Token、NKey、JWT</li>
+    <li>主題級授權精細控制發布/訂閱權限</li>
+    <li>TLS/mTLS 確保傳輸加密</li>
+    <li>Accounts 實現多租戶隔離</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的監控與可觀測性。</p>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 5 章：JetStream —— 讓訊息永存</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 5 章：JetStream —— 讓訊息永存</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風看著訊息像沙漏中的沙子流失】</p>
+    <p>「如果 Server 當機，訊息就沒了？」小風擔心地問。</p>
+    <p>「在 Core NATS 中，是的，」陳老師說，「但有了 JetStream，訊息可以永久保存。」</p>
+    <p>「JetStream？聽起來像飛機的噴射引擎。」</p>
+    <p>「沒錯，它讓 NATS 從輕量級跑車變成重型卡車——既能飛快，又能載重。」</p>
+  </div>
+
+  <h2>5.1 什麼是 JetStream？</h2>
+
+  <p><strong>JetStream</strong> 是 NATS 的持久化層，提供：</p>
+
+  <ul>
+    <li><strong>訊息持久化</strong>：將訊息儲存到磁碟，Server 重啟不丟失</li>
+    <li><strong>串流（Stream）</strong>：有序的訊息日誌，類似 Kafka 的 Topic</li>
+    <li><strong>消費者（Consumer）</strong>：獨立的消費進度追蹤</li>
+    <li><strong>至少一次交付</strong>：確保訊息不丟失</li>
+    <li><strong>訊息重播</strong>：可以從頭重新讀取歷史訊息</li>
+  </ul>
+
+  <h2>5.2 Stream 與 Consumer</h2>
+
+  <h3>5.2.1 Stream——訊息日誌</h3>
+
+  <pre><code>// 建立 Stream
+js, _ := nc.JetStream()
+
+stream, _ := js.AddStream(&nats.StreamConfig{
+    Name:     "ORDERS",
+    Subjects: []string{"orders.*"},
+    Storage:  nats.FileStorage,    // 檔案儲存（持久化）
+    Retention: nats.WorkQueuePolicy, // 工作佇列模式
+    MaxMsgs:  100000,              // 最多保留 10 萬則
+    MaxAge:   7 * 24 * time.Hour, // 最多保留 7 天
+})
+
+// 發布訊息到 Stream
+js.Publish("orders.created", []byte("訂單 #12345"))</code></pre>
+
+  <h3>5.2.2 Consumer——消費進度</h3>
+
+  <pre><code>// 建立 Consumer
+sub, _ := js.PullSubscribe("orders.*", "order-processor", 
+    nats.Durable("processor-1"),  // 持久化消費者
+    nats.AckExplicit(),           // 手動確認
+)
+
+// 拉取訊息
+msgs, _ := sub.Fetch(10)
+for _, msg := range msgs {
+    // 處理訊息
+    processOrder(msg.Data)
+    
+    // 確認已處理
+    msg.Ack()
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：Stream 像錄影帶，Consumer 像播放機】</p>
+    <p>「Stream 是錄影帶，記錄所有節目，」陳老師解釋，「Consumer 是播放機，每個人可以從不同時間點開始看。」</p>
+    <p>「而且我可以倒帶重看？」小風問。</p>
+    <p>「當然！這就是 JetStream 的強大之處。」</p>
+  </div>
+
+  <h2>5.3 原始碼解析：jetStream 結構</h2>
+
+  <h3>5.3.1 jetStream 結構體</h3>
+
+  <pre><code>// server/jetstream.go
+type jetStream struct {
+    apiInflight    int64
+    apiTotal       int64
+    apiErrors      int64
+    memMax         int64
+    memReserved    int64
+    memUsed        int64
+    storeMax       int64
+    storeReserved  int64
+    storeUsed      int64
+    mu             sync.RWMutex
+    srv            *Server
+    config         JetStreamConfig
+    cluster        *jetStreamCluster
+    accounts       map[string]*jsAccount
+    apiSubs        *Sublist
+}</code></pre>
+
+  <h3>5.3.2 Stream 儲存結構</h3>
+
+  <pre><code>// server/stream.go
+type stream struct {
+    mu       sync.RWMutex
+    js       *jetStream
+    acc      *Account
+    cfg      StreamConfig
+    store    StreamStore      // 儲存引擎介面
+    lseq     uint64           // 最後序號
+    msgs     *msgBlock        // 訊息區塊
+    consumers map[string]*consumer
+}
+
+// 檔案儲存實作
+type fileStore struct {
+    mu       sync.RWMutex
+    cfg      FileStoreConfig
+    blkMap   map[uint32]*msgBlock
+    psim     map[string]*psi  // 主題索引
+    hbs      []uint32         // 雜湊區塊
+}</code></pre>
+
+  <h2>5.4 儲存模式比較</h2>
+
+  <table>
+    <tr><th>特性</th><th>Memory Storage</th><th>File Storage</th></tr>
+    <tr><td>速度</td><td>極快（記憶體速度）</td><td>快（依賴磁碟）</td></tr>
+    <tr><td>持久化</td><td>Server 重啟丟失</td><td>永久保存</td></tr>
+    <tr><td>容量</td><td>受限於記憶體</td><td>受限於磁碟</td></tr>
+    <tr><td>複寫</td><td>支援（R=1,3,5）</td><td>支援（R=1,3,5）</td></tr>
+    <tr><td>適用場景</td><td>暫存、快取</td><td>重要訊息、日誌</td></tr>
+  </table>
+
+  <h2>5.5 實戰：訂單處理系統</h2>
+
+  <pre><code>package main
+
+import (
+    "fmt"
+    "time"
+    "github.com/nats-io/nats.go"
+)
+
+func main() {
+    nc, _ := nats.Connect("nats://localhost:4222")
+    js, _ := nc.JetStream()
+
+    // 建立訂單 Stream
+    js.AddStream(&nats.StreamConfig{
+        Name:     "ORDERS",
+        Subjects: []string{"orders.*"},
+        Storage:  nats.FileStorage,
+        Replicas: 3,  // 三副本
+    })
+
+    // 發布訂單
+    for i := 1; i <= 100; i++ {
+        js.Publish("orders.created", []byte(fmt.Sprintf("訂單 #%d", i)))
+    }
+
+    // 建立持久化消費者
+    sub, _ := js.PullSubscribe("orders.created", "processor",
+        nats.Durable("order-proc-1"),
+        nats.AckWait(30*time.Second),
+    )
+
+    // 處理訊息
+    for {
+        msgs, _ := sub.Fetch(10)
+        for _, msg := range msgs {
+            fmt.Printf("處理: %s\n", msg.Data)
+            msg.Ack()
+        }
+    }
+}</code></pre>
+
+  <h2>5.6 本章總結</h2>
+
+  <ul>
+    <li>JetStream 是 NATS 的持久化層，提供訊息儲存與重播</li>
+    <li>Stream 是訊息日誌，Consumer 追蹤消費進度</li>
+    <li>支援 Memory 與 File 兩種儲存模式</li>
+    <li>三副本複寫確保高可用性</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的叢集與超級叢集，理解如何構建全球規模的訊息網路。</p>
+</body>
+</html>

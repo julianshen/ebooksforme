@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 10 章：設計模式 —— 訊息的交響曲</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 10 章：設計模式 —— 訊息的交響曲</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風指揮著訊息交響樂團】</p>
+    <p>「訊息系統不只是發送和接收，」陳老師說，「它是一門藝術——設計模式就是樂譜。」</p>
+    <p>小風拿起指揮棒：「讓我們開始演奏吧！」</p>
+  </div>
+
+  <h2>10.1 事件驅動架構（EDA）</h2>
+
+  <h3>10.1.1 基本模式</h3>
+
+  <pre><code>// 訂單服務發布事件
+func createOrder(order Order) {
+    db.Create(&order)
+    
+    // 發布事件，不關心誰處理
+    nc.Publish("events.order.created", order.ToJSON())
+}
+
+// 庫存服務訂閱
+nc.Subscribe("events.order.created", func(msg *nats.Msg) {
+    var order Order
+    json.Unmarshal(msg.Data, &order)
+    inventory.Reserve(order.Items)
+})
+
+// 通知服務訂閱
+nc.Subscribe("events.order.created", func(msg *nats.Msg) {
+    var order Order
+    json.Unmarshal(msg.Data, &order)
+    email.Send(order.CustomerEmail, "訂單確認")
+})
+
+// 分析服務訂閱
+nc.Subscribe("events.order.created", func(msg *nats.Msg) {
+    analytics.Record("order_created", msg.Data)
+})</code></pre>
+
+  <h2>10.2 Saga 模式——分散式事務</h2>
+
+  <pre><code>// 訂單 Saga 協調器
+type OrderSaga struct {
+    nc *nats.Conn
+    js nats.JetStreamContext
+}
+
+func (s *OrderSaga) Start(order Order) error {
+    // Step 1: 建立訂單
+    s.js.Publish("saga.order.create", order.ToJSON())
+    
+    // Step 2: 檢查庫存（等待回應）
+    resp, err := s.nc.Request("saga.inventory.check", 
+        order.Items.ToJSON(), 5*time.Second)
+    if err != nil {
+        s.compensate(order, "inventory_check_failed")
+        return err
+    }
+    
+    // Step 3: 處理付款
+    resp, err = s.nc.Request("saga.payment.process",
+        order.Payment.ToJSON(), 10*time.Second)
+    if err != nil {
+        s.compensate(order, "payment_failed")
+        return err
+    }
+    
+    // Step 4: 安排出貨
+    s.js.Publish("saga.shipping.schedule", order.ToJSON())
+    
+    return nil
+}
+
+func (s *OrderSaga) compensate(order Order, reason string) {
+    // 發送補償事件
+    s.js.Publish("saga.order.compensate", json.Marshal(map[string]interface{}{
+        "order_id": order.ID,
+        "reason":   reason,
+    }))
+}</code></pre>
+
+  <h2>10.3 CQRS——命令查詢分離</h2>
+
+  <pre><code>// 命令端（寫入）
+type CommandHandler struct {
+    nc *nats.Conn
+}
+
+func (h *CommandHandler) HandleCreateUser(cmd CreateUserCmd) error {
+    // 驗證命令
+    if err := cmd.Validate(); err != nil {
+        return err
+    }
+    
+    // 發布命令事件
+    h.nc.Publish("commands.user.create", cmd.ToJSON())
+    return nil
+}
+
+// 查詢端（讀取）
+type QueryHandler struct {
+    nc *nats.Conn
+}
+
+func (h *QueryHandler) HandleGetUser(query GetUserQuery) (*User, error) {
+    // 直接查詢讀取模型（快取/資料庫）
+    return cache.GetUser(query.UserID)
+}
+
+// 事件投影器（同步讀取模型）
+nc.Subscribe("events.user.">", func(msg *nats.Msg) {
+    var event UserEvent
+    json.Unmarshal(msg.Data, &event)
+    
+    // 更新讀取模型
+    projection.Update(event)
+    cache.Invalidate(event.UserID)
+})</code></pre>
+
+  <h2>10.4 事件溯源（Event Sourcing）</h2>
+
+  <pre><code>// 使用 JetStream 實現事件溯源
+type EventStore struct {
+    js nats.JetStreamContext
+}
+
+func (es *EventStore) Append(aggregateID string, events []Event) error {
+    stream := fmt.Sprintf("events.%s", aggregateType)
+    
+    for _, event := range events {
+        msg := nats.NewMsg(fmt.Sprintf("%s.%s", stream, aggregateID))
+        msg.Header.Set("X-Event-Type", event.Type)
+        msg.Header.Set("X-Event-Version", strconv.Itoa(event.Version))
+        msg.Data = event.ToJSON()
+        
+        if _, err := es.js.PublishMsg(msg); err != nil {
+            return err
+        }
+    }
+    return nil
+}
+
+func (es *EventStore) GetEvents(aggregateID string, fromVersion int) ([]Event, error) {
+    sub, _ := es.js.SubscribeSync(fmt.Sprintf("events.*.%s", aggregateID))
+    
+    var events []Event
+    for {
+        msg, err := sub.NextMsg(1 * time.Second)
+        if err == nats.ErrTimeout {
+            break
+        }
+        
+        version, _ := strconv.Atoi(msg.Header.Get("X-Event-Version"))
+        if version >= fromVersion {
+            events = append(events, EventFromMsg(msg))
+        }
+    }
+    return events, nil
+}</code></pre>
+
+  <h2>10.5 斷路器模式</h2>
+
+  <pre><code>// 使用 NATS 實現斷路器
+type CircuitBreaker struct {
+    nc          *nats.Conn
+    state       string // closed, open, half-open
+    failures    int
+    threshold   int
+    timeout     time.Duration
+    lastFailure time.Time
+}
+
+func (cb *CircuitBreaker) Call(subject string, data []byte) ([]byte, error) {
+    if cb.state == "open" {
+        if time.Since(cb.lastFailure) < cb.timeout {
+            return nil, fmt.Errorf("circuit breaker open")
+        }
+        cb.state = "half-open"
+    }
+    
+    resp, err := cb.nc.Request(subject, data, 5*time.Second)
+    if err != nil {
+        cb.failures++
+        cb.lastFailure = time.Now()
+        
+        if cb.failures >= cb.threshold {
+            cb.state = "open"
+            // 發布斷路器開啟事件
+            cb.nc.Publish("events.circuitbreaker.open", 
+                []byte(fmt.Sprintf(`{"service":"%s"}`, subject)))
+        }
+        return nil, err
+    }
+    
+    // 成功，重置
+    cb.failures = 0
+    cb.state = "closed"
+    return resp.Data, nil
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風的訊息交響樂團完美演出】</p>
+    <p>「EDA、Saga、CQRS、Event Sourcing、Circuit Breaker——這些模式讓我們的系統既優雅又強韌！」</p>
+  </div>
+
+  <h2>10.6 本章總結</h2>
+
+  <ul>
+    <li>EDA：鬆耦合的事件驅動通訊</li>
+    <li>Saga：分散式事務協調</li>
+    <li>CQRS：讀寫分離，優化效能</li>
+    <li>Event Sourcing：使用 JetStream 儲存事件歷史</li>
+    <li>Circuit Breaker：防止級聯故障</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的效能調校與最佳實踐。</p>
+</body>
+</html>

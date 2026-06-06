@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 9 章：NATS on Kubernetes —— 雲原生部署</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 9 章：NATS on Kubernetes —— 雲原生部署</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風在 Kubernetes 叢集上部署 NATS】</p>
+    <p>「我們的系統要跑在 K8s 上，」小風說，「NATS 怎麼部署？」</p>
+    <p>「NATS 是雲原生的，」陳老師回答，「Helm、Operator、StatefulSet——應有盡有。」</p>
+  </div>
+
+  <h2>9.1 Helm 部署</h2>
+
+  <h3>9.1.1 快速安裝</h3>
+
+  <pre><code>// 添加 Helm Repo
+helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+helm repo update
+
+// 安裝 NATS
+helm install nats nats/nats
+
+// 安裝 JetStream
+helm install nats nats/nats --set jetstream.enabled=true</code></pre>
+
+  <h3>9.1.2 自訂設定</h3>
+
+  <pre><code>// values.yaml
+config:
+  jetstream:
+    enabled: true
+    fileStore:
+      pvc:
+        size: 10Gi
+  cluster:
+    enabled: true
+    replicas: 3
+  monitor:
+    enabled: true
+    port: 8222
+
+auth:
+  enabled: true
+  systemAccount:
+    users:
+      - user: admin
+        password: secret123
+
+service:
+  type: ClusterIP
+  ports:
+    client: 4222
+    cluster: 6222
+    monitor: 8222
+    gateway: 7222
+    leafnodes: 7422</code></pre>
+
+  <h2>9.2 NATS Operator</h2>
+
+  <p>使用 Kubernetes Operator 管理 NATS 生命週期：</p>
+
+  <pre><code>apiVersion: nats.io/v1alpha2
+kind: NatsCluster
+metadata:
+  name: nats-cluster
+spec:
+  size: 3
+  version: "2.10.0"
+  serverImage: "nats:2.10.0"
+  
+  pod:
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "512Mi"
+      limits:
+        cpu: "2000m"
+        memory: "2Gi"
+    
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: nats
+            topologyKey: kubernetes.io/hostname
+
+  tls:
+    serverSecret: nats-server-tls
+    routesSecret: nats-routes-tls
+
+  auth:
+    clientsAuthSecret: nats-clients-auth</code></pre>
+
+  <h2>9.3 StatefulSet 部署</h2>
+
+  <pre><code>apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nats
+spec:
+  serviceName: nats
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nats
+  template:
+    metadata:
+      labels:
+        app: nats
+    spec:
+      containers:
+        - name: nats
+          image: nats:2.10.0
+          ports:
+            - containerPort: 4222
+            - containerPort: 6222
+            - containerPort: 8222
+          volumeMounts:
+            - name: nats-config
+              mountPath: /etc/nats
+            - name: jetstream-data
+              mountPath: /data/jetstream
+          command:
+            - "nats-server"
+            - "--config"
+            - "/etc/nats/nats.conf"
+  volumeClaimTemplates:
+    - metadata:
+        name: jetstream-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：NATS Pod 在 K8s 中自動擴展】</p>
+    <p>「HPA 自動擴展，Pod Disruption Budget 保護，」小風滿意地說，「這才是真正的雲原生！」</p>
+  </div>
+
+  <h2>9.4 服務發現</h2>
+
+  <pre><code>// 使用 Headless Service 進行叢集發現
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats
+spec:
+  selector:
+    app: nats
+  ports:
+    - name: client
+      port: 4222
+    - name: cluster
+      port: 6222
+  clusterIP: None  // Headless Service
+
+// Client 連線
+nc, _ := nats.Connect("nats://nats-0.nats:4222,nats://nats-1.nats:4222,nats://nats-2.nats:4222")</code></pre>
+
+  <h2>9.5 實戰：完整 K8s 部署</h2>
+
+  <pre><code>// 建立 Namespace
+kubectl create namespace messaging
+
+// 部署 NATS + JetStream
+helm install nats nats/nats \
+  --namespace messaging \
+  --values values.yaml
+
+// 檢查狀態
+kubectl get pods -n messaging
+kubectl logs -n messaging nats-0
+
+// 連線測試
+kubectl run nats-box --rm -i --restart=Never \
+  --image=natsio/nats-box \
+  -- nats pub test "Hello K8s!"
+
+kubectl run nats-box --rm -i --restart=Never \
+  --image=natsio/nats-box \
+  -- nats sub test</code></pre>
+
+  <h2>9.6 本章總結</h2>
+
+  <ul>
+    <li>Helm 是最簡單的部署方式</li>
+    <li>Operator 提供聲明式管理</li>
+    <li>StatefulSet 確保有序部署和持久化</li>
+    <li>Headless Service 實現叢集發現</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的實戰案例：微服務通訊。</p>
+</body>
+</html>

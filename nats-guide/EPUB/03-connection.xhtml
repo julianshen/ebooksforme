@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 3 章：連線模型 —— 永遠在線的藝術</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 3 章：連線模型 —— 永遠在線的藝術</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風的連線斷了，訊息像斷線風箏飄走】</p>
+    <p>「啊！網路斷了！」小風看著螢幕上紅色的斷線提示。</p>
+    <p>「別擔心，」陳老師微笑，「NATS 的 Client 會自動重連。訊息不會丟失——如果你設計得當的話。」</p>
+  </div>
+
+  <h2>3.1 NATS 連線架構</h2>
+
+  <p>NATS 使用<strong>持久 TCP 連線</strong>，Client 連接一次後維持該連線進行發布和訂閱。Server 處理所有路由邏輯。</p>
+
+  <h3>3.1.1 連線生命週期</h3>
+
+  <pre><code>┌─────────┐     CONNECT      ┌─────────┐
+│ Client  │ ───────────────→ │ Server  │
+│         │ ←─────────────── │         │
+└─────────┘     INFO         └─────────┘
+       ↓                           ↓
+┌─────────┐     SUB/PUB/UNSUB   ┌─────────┐
+│ Client  │ ←────────────────→  │ Server  │
+│         │     MSG/PING/PONG   │         │
+└─────────┘                     └─────────┘
+       ↓                           ↓
+┌─────────┐     -ERR/QUIT      ┌─────────┐
+│ Client  │ ───────────────→  │ Server  │
+└─────────┘                   └─────────┘</code></pre>
+
+  <h3>3.1.2 連線協議</h3>
+
+  <p>NATS 協議是基於文字的，極其簡單：</p>
+
+  <pre><code>// Client 發送
+CONNECT {"verbose":false,"pedantic":false,"tls_required":false}
+SUB orders.created 1
+PUB orders.created 5
+Hello
+
+// Server 回應
+MSG orders.created 1 5
+Hello</code></pre>
+
+  <h2>3.2 自動重連機制</h2>
+
+  <p>NATS Go Client 內建強大的重連機制：</p>
+
+  <pre><code>nc, err := nats.Connect("nats://localhost:4222",
+    nats.MaxReconnects(10),           // 最多重連 10 次
+    nats.ReconnectWait(time.Second),  // 每次間隔 1 秒
+    nats.ReconnectHandler(func(nc *nats.Conn) {
+        log.Println("重新連線成功！")
+    }),
+    nats.DisconnectHandler(func(nc *nats.Conn) {
+        log.Println("連線中斷...")
+    }),
+    nats.ClosedHandler(func(nc *nats.Conn) {
+        log.Println("連線已關閉")
+    }),
+)</code></pre>
+
+  <h2>3.3 原始碼解析：Client 結構</h2>
+
+  <h3>3.3.1 client 結構體</h3>
+
+  <pre><code>// server/client.go
+type client struct {
+    kind  int           // CLIENT, ROUTER, GATEWAY, LEAF
+    srv   *Server       // 所屬 Server
+    acc   *Account      // 所屬帳戶
+    nc    net.Conn      // TCP 連線
+    subs  map[string]*subscription  // 訂閱映射
+    
+    // 連線狀態
+    cid        uint64    // 唯一 Client ID
+    start      time.Time // 連線開始時間
+    last       time.Time // 最後活動時間
+    
+    // 緩衝區
+    in     readCache    // 讀取緩衝
+    out    outbound     // 發送緩衝
+}</code></pre>
+
+  <h3>3.3.2 readLoop——訊息讀取核心</h3>
+
+  <pre><code>// server/client.go
+func (c *client) readLoop(pre []byte) {
+    c.mu.Lock()
+    s := c.srv
+    nc := c.nc
+    c.in.rsz = startBufSize
+    c.mu.Unlock()
+
+    // 啟動讀取緩衝
+    b := make([]byte, c.in.rsz)
+
+    for {
+        // 讀取資料
+        n, err := nc.Read(b)
+        if err != nil {
+            // 處理斷線...
+            return
+        }
+
+        // 解析協議
+        if err := c.parse(b[:n]); err != nil {
+            // 處理解析錯誤...
+            return
+        }
+    }
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風追蹤 readLoop 的執行流程】</p>
+    <p>「原來每個 Client 連線都有一個獨立的 goroutine 在跑 readLoop！」小風驚訝地說。</p>
+    <p>「對，」陳老師點頭，「這就是 NATS 高並發的秘密——每個連線獨立處理，無鎖競爭。」</p>
+  </div>
+
+  <h2>3.4 連線池與緩衝區管理</h2>
+
+  <h3>3.4.1 讀取緩衝區動態調整</h3>
+
+  <pre><code>// server/client.go - readLoop 中的緩衝區調整
+if n == len(b) && c.in.rsz < maxBufSize {
+    // 緩衝區滿了，擴容
+    c.in.rsz *= 2
+    b = make([]byte, c.in.rsz)
+}</code></pre>
+
+  <h3>3.4.2 發送緩衝區</h3>
+
+  <pre><code>type outbound struct {
+    pb   int64       // pending bytes
+    pm   int32       // pending messages
+    sg   sync.WaitGroup
+    nb   net.Buffers // 待發送緩衝
+    fsp  int         // flush signal pending
+}</code></pre>
+
+  <h2>3.5 實戰：連線最佳實踐</h2>
+
+  <pre><code>// 生產環境連線設定
+nc, err := nats.Connect(
+    "nats://n1:4222,nats://n2:4222,nats://n3:4222", // 多 Server
+    nats.Name("order-service"),                        // 識別名稱
+    nats.Timeout(2*time.Second),                       // 連線超時
+    nats.PingInterval(20*time.Second),                 // 心跳間隔
+    nats.MaxPingsOutstanding(2),                       // 最大未回應心跳
+    nats.ReconnectBufSize(10*1024*1024),              // 重連緩衝 10MB
+    nats.RetryOnFailedConnect(true),                   // 連線失敗時重試
+    nats.DrainTimeout(10*time.Second),                 // 優雅關閉超時
+)</code></pre>
+
+  <h2>3.6 本章總結</h2>
+
+  <ul>
+    <li>NATS 使用持久 TCP 連線，協議極簡（文字協議）</li>
+    <li>Client 內建自動重連機制，可配置重連策略</li>
+    <li>每個連線有獨立的 readLoop goroutine，無鎖競爭</li>
+    <li>讀寫緩衝區動態調整，適應不同負載</li>
+  </ul>
+
+  <p>下一章，我們將深入探索 NATS 的發布與訂閱機制，理解訊息如何從發布者到達訂閱者。</p>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 2 章：Subject 與通配符 —— 訊息的路由藝術</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 2 章：Subject 與通配符 —— 訊息的路由藝術</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風在研究郵件分類系統】</p>
+    <p>「想像一下，」陳老師說，「如果郵局沒有地址系統，每封信都要送到全國每個人手中，會怎樣？」</p>
+    <p>小風想像了一下：「 chaos！絕對的 chaos！」</p>
+    <p>「Subject 就是 NATS 的地址系統。但它比郵政地址更強大——它支援通配符。」</p>
+  </div>
+
+  <h2>2.1 Subject 是什麼？</h2>
+
+  <p>在 NATS 中，<strong>Subject</strong>（主題）是訊息的目的地標識，由點號分隔的字串組成。它類似 HTTP 的路徑，但更加靈活。</p>
+
+  <pre><code>// 有效的 Subject 範例
+"orders.created"
+"orders.created.asia"
+"user.12345.profile.updated"
+"sensor.temperature.living-room"
+"time.us.east"</code></pre>
+
+  <h2>2.2 通配符系統</h2>
+
+  <p>NATS 支援兩種通配符，讓訂閱變得極其強大：</p>
+
+  <h3>2.2.1 *（星號）—— 匹配單一層級</h3>
+
+  <pre><code>// 訂閱所有使用者的登入事件
+nc.Subscribe("user.*.login", handler)
+// 匹配: user.alice.login, user.bob.login
+// 不匹配: user.alice.profile.login (太多層級)
+
+// 訂閱所有亞洲地區的訂單
+nc.Subscribe("orders.*.asia", handler)
+// 匹配: orders.created.asia, orders.cancelled.asia</code></pre>
+
+  <h3>2.2.2 &gt;（大於）—— 匹配所有剩餘層級</h3>
+
+  <pre><code>// 訂閱所有訂單相關事件
+nc.Subscribe("orders.&gt;", handler)
+// 匹配: orders.created, orders.created.asia, orders.created.asia.taipei
+
+// 訂閱所有事件
+nc.Subscribe("&gt;", handler)
+// 匹配: 所有 Subject！（慎用）</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：通配符的視覺化——像文件系統的樹狀結構】</p>
+    <p>小風畫了一棵樹：根是 ">"，樹枝是 "*"，樹葉是具體的 Subject。</p>
+  </div>
+
+  <h2>2.3 Subject 設計最佳實踐</h2>
+
+  <h3>2.3.1 層級設計</h3>
+
+  <pre><code>// 推薦：由大到小
+{domain}.{entity}.{action}.{region}
+
+// 範例
+ecommerce.order.created.asia
+ecommerce.order.shipped.europe
+iot.sensor.temperature.living-room</code></pre>
+
+  <h3>2.3.2 避免過度巢狀</h3>
+
+  <pre><code>// 不好：太深，難以維護
+company.department.team.project.module.component.event
+
+// 較好：扁平化
+project.module.event</code></pre>
+
+  <h2>2.4 原始碼解析：Sublist 匹配引擎</h2>
+
+  <p>讓我們深入 NATS Server 的原始碼，看看 Subject 匹配是如何實現的。</p>
+
+  <h3>2.4.1 Sublist 結構</h3>
+
+  <pre><code>// server/sublist.go
+type Sublist struct {
+    sync.RWMutex
+    genid     uint64
+    matches   uint64
+    cacheHits uint64
+    root      *level
+    cache     map[string]*SublistResult
+}
+
+type level struct {
+    nodes    map[string]*node
+    pwc, fwc *node  // 通配符節點
+}
+
+type node struct {
+    next  *level
+    psubs map[*subscription]struct{}  // 普通訂閱
+    qsubs map[string]map[*subscription]struct{}  // 佇列訂閱
+}</code></pre>
+
+  <p><strong>設計巧思</strong>：Sublist 使用<strong>前綴樹（Trie）</strong>結構，將 Subject 按層級分割儲存。這使得匹配時間複雜度為 O(k)，其中 k 是 Subject 的層級數，而非訂閱數量！</p>
+
+  <h3>2.4.2 匹配過程</h3>
+
+  <pre><code>// server/sublist.go - Match 函數
+func (s *Sublist) Match(subject string) *SublistResult {
+    // 1. 檢查快取
+    if r := s.cacheLookup(subject); r != nil {
+        return r
+    }
+    
+    // 2. 遍歷 Trie 樹
+    tokens := strings.Split(subject, ".")
+    result := &SublistResult{}
+    s.matchLevel(s.root, tokens, result)
+    
+    // 3. 存入快取
+    s.addToCache(subject, result)
+    return result
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風在除錯 Sublist，螢幕顯示 Trie 樹的遍歷過程】</p>
+    <p>「原來如此！」小風恍然大悟，「這就是為什麼 NATS 這麼快——它不是掃描所有訂閱，而是直接走樹！」</p>
+  </div>
+
+  <h2>2.5 實戰案例：電商事件系統</h2>
+
+  <pre><code>// 訂單系統的 Subject 設計
+const (
+    OrderCreated     = "ecommerce.order.created"
+    OrderPaid        = "ecommerce.order.paid"
+    OrderShipped     = "ecommerce.order.shipped"
+    OrderDelivered   = "ecommerce.order.delivered"
+    OrderCancelled   = "ecommerce.order.cancelled"
+)
+
+// 倉儲服務：監聽所有需要出貨的訂單
+nc.Subscribe("ecommerce.order.paid.&gt;", func(msg *nats.Msg) {
+    // 處理出貨
+})
+
+// 分析服務：監聽所有訂單事件
+nc.Subscribe("ecommerce.order.*&gt;", func(msg *nats.Msg) {
+    // 記錄分析數據
+})
+
+// 客服系統：只關注取消和異常
+nc.Subscribe("ecommerce.order.cancelled", func(msg *nats.Msg) {
+    // 發送客服通知
+})</code></pre>
+
+  <h2>2.6 本章總結</h2>
+
+  <ul>
+    <li>Subject 是 NATS 的訊息路由地址，由點號分隔</li>
+    <li>* 匹配單一層級，&gt; 匹配所有剩餘層級</li>
+    <li>Sublist 使用 Trie 樹實現 O(k) 匹配效率</li>
+    <li>良好的 Subject 設計應扁平化、語義化</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的連線模型，理解 Client 與 Server 如何建立「永遠在線」的連線。</p>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 11 章：進階主題 —— 訊息的極限</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 11 章：進階主題 —— 訊息的極限</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風挑戰 NATS 的效能極限】</p>
+    <p>「每秒一百萬則訊息？」小風瞪大眼睛。</p>
+    <p>「不止，」陳老師微笑，「在正確的設定下，NATS 可以達到數百萬。」</p>
+  </div>
+
+  <h2>11.1 效能調校</h2>
+
+  <h3>11.1.1 網路最佳化</h3>
+
+  <pre><code>// 啟用 TCP Fast Open
+sysctl -w net.ipv4.tcp_fastopen=3
+
+// 調整 TCP 緩衝區
+sysctl -w net.core.rmem_max=134217728
+sysctl -w net.core.wmem_max=134217728
+sysctl -w net.ipv4.tcp_rmem="4096 87380 134217728"
+sysctl -w net.ipv4.tcp_wmem="4096 65536 134217728"
+
+// 啟用零拷貝
+nats-server -a 0.0.0.0 --no_advertise</code></pre>
+
+  <h3>11.1.2 NATS 設定最佳化</h3>
+
+  <pre><code>// 高效能設定檔
+port: 4222
+
+max_payload: 8MB
+max_pending: 64MB
+
+write_deadline: "10s"
+
+// 禁用日誌以獲得最佳效能
+debug: false
+trace: false
+
+// 調整緩衝區
+max_buf_size: 32MB
+
+// 啟用壓縮（高延遲網路）
+compression: {
+    mode: s2_better
+}</code></pre>
+
+  <h2>11.2 記憶體管理</h2>
+
+  <h3>11.2.1 讀取緩衝區</h3>
+
+  <pre><code>// server/client.go
+const (
+    startBufSize = 512       // 初始緩衝區
+    minBufSize   = 128       // 最小緩衝區
+    maxBufSize   = 65536     // 最大緩衝區
+)
+
+// 動態調整策略
+func (c *client) expandBuffer() {
+    if c.in.rsz < maxBufSize {
+        c.in.rsz *= 2
+    }
+}</code></pre>
+
+  <h3>11.2.2 零拷貝技術</h3>
+
+  <pre><code>// 使用 net.Buffers 實現零拷貝寫入
+type outbound struct {
+    nb net.Buffers  // 直接操作底層緩衝
+}
+
+func (c *client) writev(buffers net.Buffers) {
+    // 使用 writev 系統呼叫，避免資料複製
+    c.nc.(*net.TCPConn).WriteBuffers(buffers)
+}</code></pre>
+
+  <h2>11.3 基準測試</h2>
+
+  <pre><code>// 使用 nats-bench 工具
+nats-bench -s nats://localhost:4222 \
+    -np 10 \      // 10 個發布者
+    -ns 10 \      // 10 個訂閱者
+    -n 1000000 \  // 100 萬則訊息
+    -ms 128 \     // 訊息大小 128 bytes
+    test.subject
+
+// 典型結果
+// Pub Only:    ~3M msgs/sec
+// Pub/Sub:     ~2M msgs/sec
+// Req/Reply:   ~200K msgs/sec</code></pre>
+
+  <h2>11.4 故障排除</h2>
+
+  <h3>11.4.1 Slow Consumer</h3>
+
+  <pre><code>// 問題：消費者處理速度跟不上生產速度
+// 解決方案：
+
+// 1. 增加消費者數量（Queue Groups）
+nc.QueueSubscribe("orders", "workers", handler, nats.Durable("worker"))
+
+// 2. 使用 Pull Consumer 控制速率
+sub, _ := js.PullSubscribe("orders", "processor")
+for {
+    msgs, _ := sub.Fetch(100)  // 批次拉取
+    processBatch(msgs)
+}
+
+// 3. 增加 Pending Limits
+nc.Subscribe("orders", handler, nats.PendingLimits(10000, 100MB))</code></pre>
+
+  <h3>11.4.2 記憶體不足</h3>
+
+  <pre><code>// 監控記憶體使用
+curl http://localhost:8222/varz | jq .mem
+
+// 解決方案：
+// 1. 限制 JetStream 記憶體
+jetstream: {
+    max_memory_store: 1GB
+}
+
+// 2. 使用 File Storage
+streamConfig.Storage = nats.FileStorage
+
+// 3. 設定訊息過期
+streamConfig.MaxAge = 24 * time.Hour</code></pre>
+
+  <h2>11.5 本章總結</h2>
+
+  <ul>
+    <li>TCP 調校可顯著提升吞吐量</li>
+    <li>動態緩衝區平衡記憶體與效能</li>
+    <li>零拷貝技術減少 CPU 負載</li>
+    <li>基準測試是效能調校的基礎</li>
+  </ul>
+
+  <p>下一章，我們將進行實戰專案：建構一個完整的微服務系統。</p>
+</body>
+</html>

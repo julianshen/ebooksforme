@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 1 章：NATS 入門 —— 雲原生的神經系統</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 1 章：NATS 入門 —— 雲原生的神經系統</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風第一次聽到 NATS】</p>
+    <p>咖啡廳裡，陳老師在白板上畫了一朵雲，雲裡有無數閃電連接著各種裝置。</p>
+    <p>「NATS 就像雲端的神經系統，」陳老師說，「簡單、快速、無處不在。」</p>
+    <p>小風眨眨眼：「比 Kafka 還厲害？」</p>
+    <p>「不是厲害，是不同。Kafka 是硬碟，NATS 是神經。」</p>
+  </div>
+
+  <h2>1.1 什麼是 NATS？</h2>
+
+  <p><strong>NATS</strong>（Neural Autonomic Transport System）是一個開源、雲原生、高性能的訊息系統。它由 Derek Collison 於 2010 年創建，現為 CNCF 孵化專案。</p>
+
+  <p>與傳統訊息佇列（如 RabbitMQ、Kafka）不同，NATS 的設計哲學是：</p>
+
+  <ul>
+    <li><strong>簡單至上</strong>：協議極簡，只有 PUB、SUB、UNSUB、MSG 四種核心指令</li>
+    <li><strong>性能優先</strong>：單機每秒可處理數百萬則訊息</li>
+    <li><strong>彈性擴展</strong>：自動發現、自動路由、無縫擴展</li>
+    <li><strong>無處不在</strong>：從雲端到邊緣，從容器到嵌入式裝置</li>
+  </ul>
+
+  <h2>1.2 NATS 的核心特性</h2>
+
+  <h3>1.2.1 發布/訂閱（Pub/Sub）</h3>
+
+  <p>最基本的模式：發布者發送訊息到「主題」（Subject），所有訂閱該主題的接收者都會收到。</p>
+
+  <pre><code>// 發布者
+nc.Publish("orders.created", []byte("新訂單: #12345"))
+
+// 訂閱者
+nc.Subscribe("orders.created", func(msg *nats.Msg) {
+    fmt.Printf("收到訂單: %s\n", msg.Data)
+})</code></pre>
+
+  <h3>1.2.2 請求/回覆（Request/Reply）</h3>
+
+  <p>建立在 Pub/Sub 之上的同步通訊模式，類似 HTTP 但更高效。</p>
+
+  <pre><code>// 請求方
+resp, err := nc.Request("orders.validate", []byte("#12345"), 2*time.Second)
+
+// 處理方
+nc.Subscribe("orders.validate", func(msg *nats.Msg) {
+    // 驗證訂單...
+    msg.Respond([]byte("驗證通過"))
+})</code></pre>
+
+  <h3>1.2.3 佇列群組（Queue Groups）</h3>
+
+  <p>多個消費者組成群組，訊息只會被群組中的一個成員處理，實現負載均衡。</p>
+
+  <pre><code>// 三個消費者組成 "workers" 群組
+nc.QueueSubscribe("orders.process", "workers", handler)</code></pre>
+
+  <h2>1.3 NATS vs 其他訊息系統</h2>
+
+  <table>
+    <tr><th>特性</th><th>NATS</th><th>Kafka</th><th>RabbitMQ</th></tr>
+    <tr><td>協議複雜度</td><td>極簡（文字協議）</td><td>複雜（二進制協議）</td><td>中等（AMQP）</td></tr>
+    <tr><td>吞吐量</td><td>數百萬/秒</td><td>數十萬/秒</td><td>數萬/秒</td></tr>
+    <tr><td>延遲</td><td>微秒級</td><td>毫秒級</td><td>毫秒級</td></tr>
+    <tr><td>持久化</td><td>JetStream（可選）</td><td>預設持久化</td><td>可選持久化</td></tr>
+    <tr><td>部署複雜度</td><td>極簡（單一 binary）</td><td>複雜（需 ZooKeeper）</td><td>中等</td></tr>
+  </table>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：NATS vs Kafka vs RabbitMQ 的賽跑】</p>
+    <p>NATS 像輕量級跑車，Kafka 像重型卡車，RabbitMQ 像商務轎車。各有擅長的賽道。</p>
+  </div>
+
+  <h2>1.4 快速開始</h2>
+
+  <h3>1.4.1 安裝 NATS Server</h3>
+
+  <pre><code># Docker
+docker run -p 4222:4222 nats:latest
+
+# 或下載 binary
+wget https://github.com/nats-io/nats-server/releases/latest/download/nats-server-amd64
+chmod +x nats-server-amd64
+./nats-server-amd64</code></pre>
+
+  <h3>1.4.2 第一個 Go 程式</h3>
+
+  <pre><code>package main
+
+import (
+    "fmt"
+    "github.com/nats-io/nats.go"
+)
+
+func main() {
+    // 連接到 NATS Server
+    nc, err := nats.Connect(nats.DefaultURL)
+    if err != nil {
+        panic(err)
+    }
+    defer nc.Close()
+
+    // 訂閱主題
+    nc.Subscribe("hello.world", func(msg *nats.Msg) {
+        fmt.Printf("收到: %s\n", msg.Data)
+    })
+
+    // 發布訊息
+    nc.Publish("hello.world", []byte("哈囉，NATS！"))
+    
+    // 等待訊息處理
+    nc.Flush()
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風成功執行第一個 NATS 程式，螢幕顯示「哈囉，NATS！」】</p>
+    <p>「太神奇了！」小風驚呼，「比我想像的簡單太多了！」</p>
+  </div>
+
+  <h2>1.5 本章總結</h2>
+
+  <ul>
+    <li>NATS 是雲原生時代的高性能訊息系統</li>
+    <li>核心模式：Pub/Sub、Request/Reply、Queue Groups</li>
+    <li>極簡設計，單機可處理數百萬訊息/秒</li>
+    <li>與 Kafka/RabbitMQ 相比，更輕量、更低延遲</li>
+  </ul>
+
+  <p>下一章，我們將深入探索 NATS 的核心通訊模型，理解「主題」與「通配符」的奧秘。</p>
+</body>
+</html>

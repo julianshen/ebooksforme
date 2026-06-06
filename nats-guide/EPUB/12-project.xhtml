@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 12 章：實戰專案——智能物流系統</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 12 章：實戰專案——智能物流系統</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風完成專案，系統上線】</p>
+    <p>「三個月的努力，終於上線了！」小風看著監控儀表板，訊息流順暢地穿梭在各個服務之間。</p>
+    <p>「這就是 NATS 的力量，」陳老師微笑，「簡單、快速、可靠。」</p>
+  </div>
+
+  <h2>12.1 專案需求</h2>
+
+  <p>建構一個智能物流追蹤系統：</p>
+
+  <ul>
+    <li>即時追蹤包裹位置</li>
+    <li>自動分配配送路線</li>
+    <li>異常事件處理</li>
+    <li>客戶通知系統</li>
+    <li>數據分析儀表板</li>
+  </ul>
+
+  <h2>12.2 系統架構</h2>
+
+  <pre><code>┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  物流App     │     │  司機App     │     │  管理後台    │
+└──────┬──────┘     └──────┬──────┘     └──────┬──────┘
+       │                   │                   │
+       └───────────────────┼───────────────────┘
+                           │
+                    ┌──────▼──────┐
+                    │  API Gateway │
+                    └──────┬──────┘
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+       ┌──────▼─────┐ ┌───▼────┐ ┌────▼─────┐
+       │ 追蹤服務    │ │ 調度服務│ │ 通知服務  │
+       └──────┬─────┘ └───┬────┘ └────┬─────┘
+              │           │           │
+              └───────────┼───────────┘
+                          │
+                   ┌──────▼──────┐
+                   │    NATS     │
+                   │   Cluster   │
+                   └──────┬──────┘
+                          │
+              ┌───────────┼───────────┐
+              │           │           │
+       ┌──────▼─────┐ ┌───▼────┐ ┌────▼─────┐
+       │ 位置Stream  │ │ 訂單Stream│ │ 事件Stream│
+       └────────────┘ └────────┘ └──────────┘
+</code></pre>
+
+  <h2>12.3 Subject 設計</h2>
+
+  <pre><code>// 位置追蹤
+tracking.location.{package_id}
+tracking.route.{driver_id}
+
+// 訂單事件
+orders.created
+orders.assigned
+orders.picked_up
+orders.in_transit
+orders.delivered
+orders.exception
+
+// 調度指令
+dispatch.assign
+dispatch.route_update
+dispatch.priority
+
+// 通知事件
+notifications.sms
+notifications.push
+notifications.email
+
+// 分析數據
+analytics.delivery_time
+analytics.route_efficiency
+analytics.driver_performance</code></pre>
+
+  <h2>12.4 核心程式碼</h2>
+
+  <h3>12.4.1 追蹤服務</h3>
+
+  <pre><code>package tracking
+
+import (
+    "encoding/json"
+    "time"
+    "github.com/nats-io/nats.go"
+)
+
+type Location struct {
+    PackageID string    `json:"package_id"`
+    Lat       float64   `json:"lat"`
+    Lng       float64   `json:"lng"`
+    Timestamp time.Time `json:"timestamp"`
+}
+
+type TrackingService struct {
+    nc *nats.Conn
+    js nats.JetStreamContext
+}
+
+func NewTrackingService(nc *nats.Conn) (*TrackingService, error) {
+    js, err := nc.JetStream()
+    if err != nil {
+        return nil, err
+    }
+
+    // 建立位置 Stream
+    js.AddStream(&nats.StreamConfig{
+        Name:     "LOCATIONS",
+        Subjects: []string{"tracking.location.*"},
+        Storage:  nats.FileStorage,
+        MaxAge:   7 * 24 * time.Hour,
+    })
+
+    return &TrackingService{nc: nc, js: js}, nil
+}
+
+func (s *TrackingService) UpdateLocation(loc Location) error {
+    data, _ := json.Marshal(loc)
+    subject := fmt.Sprintf("tracking.location.%s", loc.PackageID)
+    _, err := s.js.Publish(subject, data)
+    return err
+}
+
+func (s *TrackingService) SubscribeLocation(packageID string) (*nats.Subscription, error) {
+    return s.js.Subscribe(
+        fmt.Sprintf("tracking.location.%s", packageID),
+        func(msg *nats.Msg) {
+            var loc Location
+            json.Unmarshal(msg.Data, &loc)
+            // 更新資料庫、發送通知...
+        },
+        nats.Durable("tracker-"+packageID),
+    )
+}</code></pre>
+
+  <h3>12.4.2 調度服務</h3>
+
+  <pre><code>package dispatch
+
+import (
+    "encoding/json"
+    "github.com/nats-io/nats.go"
+)
+
+type DispatchService struct {
+    nc *nats.Conn
+}
+
+func (s *DispatchService) Start() {
+    // 訂閱新訂單
+    s.nc.Subscribe("orders.created", func(msg *nats.Msg) {
+        var order Order
+        json.Unmarshal(msg.Data, &order)
+
+        // 找到最佳司機
+        driver := s.findBestDriver(order)
+
+        // 發送分配指令
+        s.nc.Publish("dispatch.assign", json.Marshal(map[string]interface{}{
+            "order_id":  order.ID,
+            "driver_id": driver.ID,
+            "route":     s.calculateRoute(order, driver),
+        }))
+    })
+
+    // 訂閱異常事件
+    s.nc.Subscribe("orders.exception", func(msg *nats.Msg) {
+        var event ExceptionEvent
+        json.Unmarshal(msg.Data, &event)
+
+        // 重新分配
+        if event.Type == "delivery_failed" {
+            s.reassignOrder(event.OrderID)
+        }
+    })
+}
+
+func (s *DispatchService) findBestDriver(order Order) Driver {
+    // 使用 Request/Reply 查詢司機狀態
+    resp, _ := s.nc.Request("drivers.available",
+        []byte(order.PickupLocation), 2*time.Second)
+
+    var drivers []Driver
+    json.Unmarshal(resp.Data, &drivers)
+
+    // 選擇最近且空閒的司機
+    return s.selectOptimal(drivers, order)
+}</code></pre>
+
+  <h3>12.4.3 通知服務</h3>
+
+  <pre><code>package notification
+
+import (
+    "encoding/json"
+    "github.com/nats-io/nats.go"
+)
+
+type NotificationService struct {
+    nc *nats.Conn
+}
+
+func (s *NotificationService) Start() {
+    // 訂閱所有需要通知的事件
+    s.nc.Subscribe("orders.>", func(msg *nats.Msg) {
+        event := msg.Subject // orders.created, orders.delivered, etc.
+        
+        switch event {
+        case "orders.created":
+            s.sendNotification(msg, "訂單已建立")
+        case "orders.picked_up":
+            s.sendNotification(msg, "包裹已取件")
+        case "orders.in_transit":
+            s.sendNotification(msg, "包裹運送中")
+        case "orders.delivered":
+            s.sendNotification(msg, "包裹已送達")
+        }
+    })
+}
+
+func (s *NotificationService) sendNotification(msg *nats.Msg, template string) {
+    var order Order
+    json.Unmarshal(msg.Data, &order)
+
+    // 發送推播通知
+    s.nc.Publish("notifications.push", json.Marshal(PushNotification{
+        UserID:  order.CustomerID,
+        Title:   "物流更新",
+        Body:    fmt.Sprintf(template+": #%s", order.ID),
+        Data:    map[string]string{"order_id": order.ID},
+    }))
+
+    // 發送簡訊（重要事件）
+    if msg.Subject == "orders.delivered" {
+        s.nc.Publish("notifications.sms", json.Marshal(SMS{
+            Phone:   order.CustomerPhone,
+            Message: fmt.Sprintf("您的包裹 #%s 已送達！", order.ID),
+        }))
+    }
+}</code></pre>
+
+  <h2>12.5 部署配置</h2>
+
+  <pre><code># docker-compose.yml
+version: '3.8'
+
+services:
+  nats:
+    image: nats:2.10.0
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: >
+      --jetstream
+      --store_dir /data/jetstream
+      --http_port 8222
+    volumes:
+      - nats-data:/data/jetstream
+
+  tracking-service:
+    build: ./tracking
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+
+  dispatch-service:
+    build: ./dispatch
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+
+  notification-service:
+    build: ./notification
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+
+volumes:
+  nats-data:</code></pre>
+
+  <h2>12.6 本章總結</h2>
+
+  <ul>
+    <li>設計了完整的智能物流系統架構</li>
+    <li>使用 NATS 實現服務間通訊</li>
+    <li>JetStream 持久化重要事件</li>
+    <li>Subject 設計遵循領域驅動原則</li>
+  </ul>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風和陳老師慶祝專案成功】</p>
+    <p>「恭喜你，小風，」陳老師舉起咖啡杯，「你現在是訊息大師了。」</p>
+    <p>「謝謝老師，」小風微笑，「這只是開始。NATS 的世界還有很多等著探索。」</p>
+  </div>
+
+  <p>旅程結束，但探索永遠繼續。</p>
+</body>
+</html>

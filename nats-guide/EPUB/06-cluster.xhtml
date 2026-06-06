@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 6 章：叢集與超級叢集 —— 全球神經網路</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 6 章：叢集與超級叢集 —— 全球神經網路</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風看著世界地圖上的訊息流】</p>
+    <p>「我們的系統要部署到東京、倫敦和紐約，」小風說，「訊息要怎麼跨資料中心同步？」</p>
+    <p>「NATS 的叢集和超級叢集就是為此設計的，」陳老師回答，「讓訊息像神經脈衝一樣在全球傳遞。」</p>
+  </div>
+
+  <h2>6.1 NATS 叢集架構</h2>
+
+  <h3>6.1.1 單一叢集（Cluster）</h3>
+
+  <p>多個 NATS Server 組成叢集，共享訊息路由：</p>
+
+  <pre><code>// Server 1 設定
+server {
+    listen: 0.0.0.0:4222
+    server_name: n1
+    cluster {
+        listen: 0.0.0.0:6222
+        routes: [
+            "nats-route://n2:6222"
+            "nats-route://n3:6222"
+        ]
+    }
+}</code></pre>
+
+  <h3>6.1.2 叢集路由原理</h3>
+
+  <p>當訊息發布到某個 Server 時，它會透過 <strong>Route 連線</strong>將訊息轉發給其他 Server：</p>
+
+  <pre><code>Client A → Server 1 ──Route──→ Server 2 → Client B
+              │
+              └──Route──→ Server 3 → Client C</code></pre>
+
+  <h2>6.2 超級叢集（Super Cluster）</h2>
+
+  <h3>6.2.1 閘道（Gateway）連線</h3>
+
+  <p>超級叢集透過 Gateway 連線不同地區的叢集：</p>
+
+  <pre><code>// 東京叢集
+cluster {
+    name: "tokyo"
+    listen: 0.0.0.0:6222
+}
+
+gateway {
+    name: "tokyo"
+    listen: 0.0.0.0:7222
+    gateways: [
+        {name: "london", urls: ["nats://london-gw:7222"]},
+        {name: "newyork", urls: ["nats://ny-gw:7222"]}
+    ]
+}</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：全球叢集像神經網路】</p>
+    <p>東京、倫敦、紐約三個大腦區域，透過 Gateway 神經纖維連接，訊息在毫秒級傳遞。</p>
+  </div>
+
+  <h2>6.3 原始碼解析：Route 連線</h2>
+
+  <h3>6.3.1 Route 結構</h3>
+
+  <pre><code>// server/route.go
+type route struct {
+    remoteID    string
+    poolIdx     int
+    didSolicit  bool
+    gatewayName string
+    accName     string
+}
+
+// Server 結構中的路由相關欄位
+type Server struct {
+    routes              map[string][]*client
+    routesPoolSize      int
+    accRoutes           map[string]map[string]*client
+    routeListener       net.Listener
+}</code></pre>
+
+  <h3>6.3.2 訊息轉發邏輯</h3>
+
+  <pre><code>// server/client.go - processMsgResults
+func (c *client) processMsgResults(...) {
+    // ... 本地訂閱處理 ...
+    
+    // 轉發給遠端路由
+    if c.srv != nil {
+        c.srv.routeMsg(subject, msg)
+    }
+}
+
+// 路由訊息到叢集中的其他 Server
+func (s *Server) routeMsg(subject string, msg []byte) {
+    for _, route := range s.routes {
+        route.sendMsg(subject, msg)
+    }
+}</code></pre>
+
+  <h2>6.4 Leaf Node——邊緣連線</h2>
+
+  <p>Leaf Node 讓邊緣裝置安全地連接到中心叢集：</p>
+
+  <pre><code>// 邊緣 Server 設定
+leafnodes {
+    remotes: [
+        {
+            url: "nats-leaf://central:7422"
+            credentials: "/etc/nats/leaf.creds"
+        }
+    ]
+}</code></pre>
+
+  <h2>6.5 實戰：全球訂單系統</h2>
+
+  <pre><code>// 東京發布訂單
+tokyoNC.Publish("orders.global", []byte("新訂單 from 東京"))
+
+// 倫敦和紐約自動收到
+londonNC.Subscribe("orders.global", func(msg *nats.Msg) {
+    fmt.Println("倫敦收到:", string(msg.Data))
+})
+
+nyNC.Subscribe("orders.global", func(msg *nats.Msg) {
+    fmt.Println("紐約收到:", string(msg.Data))
+})</code></pre>
+
+  <h2>6.6 本章總結</h2>
+
+  <ul>
+    <li>Cluster：多 Server 組成本地叢集，自動路由訊息</li>
+    <li>Super Cluster：透過 Gateway 連線多地區叢集</li>
+    <li>Leaf Node：邊緣裝置安全連接中心叢集</li>
+    <li>訊息自動轉發，無需應用層處理</li>
+  </ul>
+
+  <p>下一章，我們將探索 NATS 的安全性，理解認證、授權與 TLS。</p>
+</body>
+</html>

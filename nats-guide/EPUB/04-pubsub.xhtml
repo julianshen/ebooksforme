@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 4 章：Pub/Sub 與 Request/Reply —— 訊息的雙向舞蹈</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 4 章：Pub/Sub 與 Request/Reply —— 訊息的雙向舞蹈</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：小風在觀察訊息的流動】</p>
+    <p>「Pub/Sub 就像廣播電台，」陳老師說，「一個發射台，無數收音機。」</p>
+    <p>「那 Request/Reply 呢？」小風問。</p>
+    <p>「就像打電話——你說一句，對方回一句。」</p>
+  </div>
+
+  <h2>4.1 發布/訂閱（Pub/Sub）</h2>
+
+  <h3>4.1.1 基本模型</h3>
+
+  <p>Pub/Sub 是 NATS 最核心的模式。發布者（Publisher）將訊息發送到主題，所有訂閱該主題的訂閱者（Subscriber）都會收到副本。</p>
+
+  <pre><code>// 發布者——不需要知道有誰在聽
+nc.Publish("news.sports", []byte("台灣隊贏了！"))
+
+// 訂閱者 A——體育迷
+nc.Subscribe("news.sports", func(msg *nats.Msg) {
+    fmt.Println("A 收到:", string(msg.Data))
+})
+
+// 訂閱者 B——新聞編輯
+nc.Subscribe("news.sports", func(msg *nats.Msg) {
+    fmt.Println("B 收到:", string(msg.Data))
+})
+
+// 訂閱者 C——只關注所有新聞
+nc.Subscribe("news.>", func(msg *nats.Msg) {
+    fmt.Println("C 收到:", string(msg.Data))
+})</code></pre>
+
+  <p>當發布者發送訊息時，A、B、C 都會收到——這就是<strong>_fan-out_</strong>（扇出）。</p>
+
+  <h3>4.1.2 原始碼解析：processMsgResults</h3>
+
+  <p>讓我們看看 Server 如何將訊息分發給所有訂閱者：</p>
+
+  <pre><code>// server/client.go
+func (c *client) processMsgResults(
+    acc *Account, 
+    r *SublistResult, 
+    msg, deliver, subject, reply []byte, 
+    flags int,
+) (bool, [][]byte) {
+    // r.psubs 包含所有普通訂閱
+    // r.qsubs 包含所有佇列訂閱
+    
+    // 1. 處理普通訂閱（每個都收到）
+    for _, sub := range r.psubs {
+        c.sendMsgToSub(sub, msg, subject, reply)
+    }
+    
+    // 2. 處理佇列訂閱（只選一個）
+    for qname, qsubs := range r.qsubs {
+        selected := selectQueueSubscriber(qsubs)
+        c.sendMsgToSub(selected, msg, subject, reply)
+    }
+}</code></pre>
+
+  <h2>4.2 請求/回覆（Request/Reply）</h2>
+
+  <h3>4.2.1 同步請求</h3>
+
+  <p>Request/Reply 建立在 Pub/Sub 之上，使用臨時收件匣（inbox）實現同步通訊：</p>
+
+  <pre><code>// 請求方
+resp, err := nc.Request("math.add", []byte("1,2"), 2*time.Second)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println("結果:", string(resp.Data)) // 3
+
+// 處理方
+nc.Subscribe("math.add", func(msg *nats.Msg) {
+    parts := strings.Split(string(msg.Data), ",")
+    a, _ := strconv.Atoi(parts[0])
+    b, _ := strconv.Atoi(parts[1])
+    
+    // 回覆到 msg.Reply（臨時 inbox）
+    msg.Respond([]byte(strconv.Itoa(a + b)))
+})</code></pre>
+
+  <h3>4.2.2 背後的魔法：Inbox</h3>
+
+  <pre><code>// 臨時 inbox 的格式：_INBOX.{隨機ID}
+inbox := nats.NewInbox()
+// 產生: _INBOX.abc123.def456
+
+// Request 的實現原理：
+// 1. 產生唯一 inbox
+// 2. 訂閱該 inbox
+// 3. 發送請求（帶上 inbox 作為 Reply-To）
+// 4. 等待回應或超時
+// 5. 取消訂閱 inbox</code></pre>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：Inbox 像臨時郵政信箱】</p>
+    <p>小風畫了一個臨時郵筒：「就像我在郵局租一個臨時信箱，對方把回信投進去，我取完信就退租！」</p>
+    <p>「完全正確！」陳老師豎起大拇指。</p>
+  </div>
+
+  <h2>4.3 佇列群組（Queue Groups）</h2>
+
+  <h3>4.3.1 負載均衡</h3>
+
+  <p>當有多個消費者時，Queue Groups 確保每則訊息只被一個成員處理：</p>
+
+  <pre><code>// 三個訂單處理工作者
+for i := 0; i < 3; i++ {
+    nc.QueueSubscribe("orders.process", "workers", func(msg *nats.Msg) {
+        fmt.Printf("工作者 %d 處理訂單: %s\n", i, msg.Data)
+        // 處理訂單...
+        msg.Ack() // 手動確認（JetStream 模式）
+    })
+}</code></pre>
+
+  <h3>4.3.2 原始碼解析：Queue 選擇演算法</h3>
+
+  <pre><code>// server/client.go
+func selectQueueSubscriber(qsubs []*subscription) *subscription {
+    // 簡單的輪詢（Round-Robin）
+    // 選擇 pending messages 最少的訂閱
+    var selected *subscription
+    minPending := int64(^uint64(0) >> 1) // MaxInt64
+    
+    for _, sub := range qsubs {
+        if sub.nm < minPending {
+            minPending = sub.nm
+            selected = sub
+        }
+    }
+    return selected
+}</code></pre>
+
+  <h2>4.4 實戰案例：微服務通訊</h2>
+
+  <pre><code>// 訂單服務
+func main() {
+    nc, _ := nats.Connect("nats://localhost:4222")
+    
+    // 處理訂單建立
+    nc.Subscribe("orders.create", func(msg *nats.Msg) {
+        // 1. 驗證訂單
+        resp, _ := nc.Request("inventory.check", msg.Data, time.Second)
+        
+        // 2. 檢查庫存
+        if string(resp.Data) == "available" {
+            // 3. 處理付款
+            nc.Publish("payments.process", msg.Data)
+            
+            // 4. 通知出貨
+            nc.Publish("shipping.schedule", msg.Data)
+        }
+        
+        msg.Respond([]byte("created"))
+    })
+}</code></pre>
+
+  <h2>4.5 本章總結</h2>
+
+  <ul>
+    <li>Pub/Sub 實現一對多廣播，所有訂閱者都收到副本</li>
+    <li>Request/Reply 使用臨時 inbox 實現同步通訊</li>
+    <li>Queue Groups 實現負載均衡，每則訊息只處理一次</li>
+    <li>Server 使用 Sublist 匹配 + 輪詢選擇實現高效分發</li>
+  </ul>
+
+  <p>下一章，我們將探索 JetStream——NATS 的持久化層，讓訊息不再隨風而逝。</p>
+</body>
+</html>
