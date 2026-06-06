@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 8 章：Human-in-the-Loop</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 8 章：Human-in-the-Loop</title>
+
+<div class="manga-panel">
+  <p><img alt="小語與人類並肩作戰" src="../images/manga-ch8-human-loop.jpg"/></p>
+  <p class="caption">「與人類並肩作戰！」——小語</p>
+</div>
+
+<h2>8.1 為什麼需要人類介入？</h2>
+
+<p>有些決策 AI 不該獨自做：</p>
+<ul>
+  <li>💰 涉及金錢的交易</li>
+  <li>🔒 敏感資料存取</li>
+  <li>⚠️ 高風險操作</li>
+  <li>❓ 不確定時需要確認</li>
+</ul>
+
+<h2>8.2 Interrupt 機制</h2>
+
+<p>LangGraph 內建 <code>interrupt()</code> 函數：</p>
+
+<pre><code>from langgraph.types import interrupt
+
+def sensitive_operation(state):
+    # 暫停執行，等待人類確認
+    user_response = interrupt({
+        "action": "delete_database",
+        "risk": "HIGH",
+        "question": "確定要刪除資料庫嗎？"
+    })
+    
+    if user_response == "yes":
+        return {"result": "deleted"}
+    else:
+        return {"result": "cancelled"}
+</code></pre>
+
+<h2>8.3 interrupt_before / interrupt_after</h2>
+
+<p>在 compile 時設定中斷點：</p>
+
+<pre><code>app = graph.compile(
+    interrupt_before=["sensitive_node"],  # 執行前暫停
+    interrupt_after=["review_node"]       # 執行後暫停
+)
+
+# 執行到 interrupt 會暫停
+result = app.invoke(state, config)
+# 這裡 result 會顯示中斷資訊
+
+# 人類確認後繼續
+result = app.invoke(None, config)  # None = 從中斷點繼續
+</code></pre>
+
+<div class="character-box">
+  <p class="name">💬 小語的感嘆</p>
+  <p>「這就像遊戲的『暫停選單』！AI 做到關鍵步驟會自動暫停，等人類確認後再繼續。安全又彈性！」</p>
+</div>
+
+<h2>8.4 本章總結</h2>
+
+<ul>
+  <li>✅ interrupt() 在 Node 內暫停等待人類輸入</li>
+  <li>✅ interrupt_before/after 在 compile 時設定中斷點</li>
+  <li>✅ 從中斷點繼續：invoke(None, config)</li>
+  <li>✅ 適合高風險操作和需要確認的場景</li>
+</ul>
+
+</body>
+</html>

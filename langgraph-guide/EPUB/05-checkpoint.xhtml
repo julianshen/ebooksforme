@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 5 章：Checkpoint 與持久化</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 5 章：Checkpoint 與持久化</h1>
+
+<div class="manga-panel">
+  <p><img alt="小語的時間回溯能力" src="../images/manga-ch5-checkpoint.jpg"/></p>
+  <p class="caption">「時間回溯的超能力！」——小語</p>
+</div>
+
+<h2>5.1 什麼是 Checkpoint？</h2>
+
+<p>Checkpoint 是 LangGraph 的<strong>存檔點</strong>。每個 Superstep 結束後，Pregel 可以選擇「存檔」——把當前所有 Channel 的狀態保存起來。</p>
+
+<div class="tip-box">
+  <p><strong>一句話理解：</strong>Checkpoint = 遊戲存檔。當機了？讀檔繼續！</p>
+</div>
+
+<h2>5.2 Checkpoint 結構</h2>
+
+<pre><code># langgraph/checkpoint/base.py
+
+class Checkpoint(TypedDict):
+    v: int                    # 版本號
+    id: str                   # UUID
+    ts: str                   # 時間戳
+    channel_values: dict      # 所有 Channel 的值
+    channel_versions: dict    # 每個 Channel 的版本
+    versions_seen: dict       # Node 看到的版本
+</code></pre>
+
+<h3>5.2.1 建立 Checkpoint</h3>
+
+<pre><code># langgraph/pregel/_checkpoint.py
+
+def create_checkpoint(
+    checkpoint: Checkpoint,
+    channels: Mapping[str, BaseChannel],
+    step: int,
+) -> Checkpoint:
+    """從當前 Channel 狀態建立新的 Checkpoint。"""
+    ts = datetime.now(timezone.utc).isoformat()
+    
+    # 對每個 Channel 執行 checkpoint()
+    channel_values = {
+        k: v.checkpoint() for k, v in channels.items()
+    }
+    
+    return Checkpoint(
+        v=LATEST_VERSION,
+        id=str(uuid6()),
+        ts=ts,
+        channel_values=channel_values,
+        channel_versions={...},
+        versions_seen={...},
+    )
+</code></pre>
+
+<h2>5.3 CheckpointSaver</h2>
+
+<p>CheckpointSaver 是持久化介面，支援多種後端：</p>
+
+<table>
+  <tr><th>Saver</th><th>儲存位置</th><th>用途</th></tr>
+  <tr><td>MemorySaver</td><td>記憶體</td><td>開發測試</td></tr>
+  <tr><td>SqliteSaver</td><td>SQLite 檔案</td><td>單機持久化</td></tr>
+  <tr><td>PostgresSaver</td><td>PostgreSQL</td><td>生產環境</td></tr>
+  <tr><td>RedisSaver</td><td>Redis</td><td>高速快取</td></tr>
+</table>
+
+<pre><code>from langgraph.checkpoint.memory import MemorySaver
+
+# 建立 Saver
+memory = MemorySaver()
+
+# 編譯圖時綁定
+app = graph.compile(checkpointer=memory)
+
+# 執行（自動存檔）
+config = {"configurable": {"thread_id": "user-123"}}
+result = app.invoke({"question": "Hello?"}, config)
+
+# 取得歷史
+history = list(memory.get(config))
+for checkpoint in history:
+    print(f"Step {checkpoint['step']}: {checkpoint['state']}")
+</code></pre>
+
+<div class="character-box">
+  <p class="name">💬 小語的興奮</p>
+  <p>「這就像遊戲的存檔系統！我可以隨時讀取之前的狀態，甚至『時間回溯』到任意步驟！」</p>
+</div>
+
+<h2>5.4 時間旅行（Time Travel）</h2>
+
+<p>LangGraph 支援從任意 Checkpoint 恢復執行：</p>
+
+<pre><code># 取得所有 Checkpoint
+states = list(app.get_state_history(config))
+
+# 回到第 3 步
+past_state = states[3]
+
+# 從這裡繼續執行
+result = app.invoke(None, past_state.config)
+</code></pre>
+
+<h2>5.5 本章總結</h2>
+
+<ul>
+  <li>✅ Checkpoint 是每個 Superstep 的「存檔點」</li>
+  <li>✅ CheckpointSaver 支援記憶體/SQLite/PostgreSQL/Redis</li>
+  <li>✅ 時間旅行：可以從任意歷史點恢復執行</li>
+  <li>✅ 生產環境建議使用 PostgreSQL 或 Redis Saver</li>
+</ul>
+
+</body>
+</html>
