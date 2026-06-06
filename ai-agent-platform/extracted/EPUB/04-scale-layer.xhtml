@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 4 章：SCALE 層</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 4 章：SCALE 層</h1>
+    <h1 id="4-scale-agent">第 4 章：SCALE 層 — 讓 Agent 可靠運行</h1>
+<h2 id="41-agent">4.1 問題：Agent 在生產環境會遇到什麼？</h2>
+<p>開發環境和生產環境是兩個完全不同的世界。</p>
+<p>在開發環境，Agent 跑在你的筆記本電腦上，網路穩定，資源充足，你可以隨時查看日誌。在生產環境，Agent 跑在 Kubernetes 集群中，面臨：</p>
+<ul>
+<li><strong>節點故障</strong>：物理機器或 VM 突然當機</li>
+<li><strong>網路分區</strong>：Agent 與 Orchestrator 之間的網路中斷</li>
+<li><strong>資源耗盡</strong>：記憶體洩漏導致 OOMKilled</li>
+<li><strong>依賴故障</strong>：LLM API 逾時或返回錯誤</li>
+<li><strong>狀態丟失</strong>：Pod 重啟後所有上下文消失</li>
+</ul>
+<p>SCALE 層的目標是讓 Agent 在這些情況下依然可靠運行。</p>
+<h2 id="42-agent-runtime">4.2 Agent Runtime</h2>
+<p>Agent Runtime 是 Agent 的執行環境。它需要處理：</p>
+<h3 id="421">4.2.1 生命週期管理</h3>
+<p><img alt="Agent 生命週期" src="../images/diagram-lifecycle.svg"/></p>
+<p>每個狀態轉換都需要持久化，確保故障後可恢復。</p>
+<h3 id="422">4.2.2 健康檢查</h3>
+<pre><code class="language-go">type HealthChecker struct {
+    interval time.Duration
+    timeout  time.Duration
+}
+
+func (h *HealthChecker) Check(agent *Agent) HealthStatus {
+    // 1. 檢查程序是否存活
+    if !agent.IsAlive() {
+        return HealthStatusDead
+    }
+
+    // 2. 檢查心跳
+    if time.Since(agent.LastHeartbeat) &gt; h.timeout {
+        return HealthStatusUnresponsive
+    }
+
+    // 3. 檢查資源使用
+    if agent.MemoryUsage &gt; 0.9 {
+        return HealthStatusResourceExhausted
+    }
+
+    return HealthStatusHealthy
+}
+</code></pre>
+<h3 id="423">4.2.3 自動恢復</h3>
+<pre><code class="language-go">func (r *Runtime) HandleFailure(agent *Agent, status HealthStatus) {
+    switch status {
+    case HealthStatusDead:
+        // 重新啟動 Agent
+        r.RestartAgent(agent)
+
+    case HealthStatusUnresponsive:
+        // 先嘗試優雅重啟
+        if err := r.GracefulRestart(agent); err != nil {
+            // 失敗則強制重啟
+            r.ForceRestart(agent)
+        }
+
+    case HealthStatusResourceExhausted:
+        // 遷移到資源充足的節點
+        r.MigrateAgent(agent)
+    }
+}
+</code></pre>
+<h2 id="43-session">4.3 Session 管理</h2>
+<p>Session 是使用者與 Agent 的一次完整互動。它需要：</p>
+<h3 id="431">4.3.1 狀態持久化</h3>
+<pre><code class="language-go">type Session struct {
+    ID        string    `json:"id"`
+    UserID    string    `json:"user_id"`
+    Status    string    `json:"status"`
+    Context   *Context  `json:"context"`
+    History   []Turn    `json:"history"`
+    CreatedAt time.Time `json:"created_at"`
+    UpdatedAt time.Time `json:"updated_at"`
+}
+
+type Context struct {
+    Variables map[string]interface{} `json:"variables"`
+    Artifacts []Artifact             `json:"artifacts"`
+}
+</code></pre>
+<h3 id="432">4.3.2 儲存策略</h3>
+<p><img alt="Session Storage 分層" src="../images/diagram-session-storage.svg"/></p>
+<h3 id="433">4.3.3 實作</h3>
+<pre><code class="language-go">type SessionManager struct {
+    hotStore  *redis.Client      // 活躍 Session
+    warmStore jetstream.KeyValue  // 近期 Session
+    coldStore *s3.Client          // 歷史 Session
+}
+
+func (sm *SessionManager) GetSession(ctx context.Context, id string) (*Session, error) {
+    // 1. 嘗試從 Hot Store 讀取
+    if session, err := sm.hotStore.Get(ctx, id); err == nil {
+        return session, nil
+    }
+
+    // 2. 嘗試從 Warm Store 讀取
+    if entry, err := sm.warmStore.Get(ctx, id); err == nil {
+        session := deserialize(entry.Value())
+        // 提升到 Hot Store
+        sm.hotStore.Set(ctx, id, session)
+        return session, nil
+    }
+
+    // 3. 從 Cold Store 讀取
+    return sm.coldStore.Get(ctx, id)
+}
+
+func (sm *SessionManager) SaveSession(ctx context.Context, session *Session) error {
+    // 儲存到 Hot Store
+    if err := sm.hotStore.Set(ctx, session.ID, session); err != nil {
+        return err
+    }
+
+    // 異步儲存到 Warm Store
+    go func() {
+        data, _ := json.Marshal(session)
+        sm.warmStore.Put(ctx, session.ID, data)
+    }()
+
+    return nil
+}
+</code></pre>
+<h2 id="44-memory-bank">4.4 Memory Bank</h2>
+<p>Memory Bank 是 Agent 的長期記憶。與 Session 不同，它跨 Session 持久存在。</p>
+<h3 id="441">4.4.1 記憶類型</h3>
+<pre><code class="language-go">type MemoryType string
+
+const (
+    MemoryTypePreference  MemoryType = "preference"  // 使用者偏好
+    MemoryTypeFact        MemoryType = "fact"        // 學到的事實
+    MemoryTypeInteraction MemoryType = "interaction" // 互動摘要
+    MemoryTypeContext     MemoryType = "context"     // 應跨 Session 的上下文
+)
+
+type Memory struct {
+    ID        string     `json:"id"`
+    UserID    string     `json:"user_id"`
+    Type      MemoryType `json:"type"`
+    Content   string     `json:"content"`
+    Keywords  []string   `json:"keywords"`
+    Importance float32   `json:"importance"` // 0-1
+    CreatedAt time.Time  `json:"created_at"`
+    UpdatedAt time.Time  `json:"updated_at"`
+}
+</code></pre>
+<h3 id="442">4.4.2 檢索機制</h3>
+<pre><code class="language-go">func (mb *MemoryBank) Retrieve(ctx context.Context, userID string, query string, limit int) ([]*Memory, error) {
+    // 1. 關鍵字匹配（簡易）
+    keywords := extractKeywords(query)
+
+    // 2. 向量相似度（生產環境）
+    queryEmbedding := mb.encoder.Encode(query)
+
+    // 3. 組合檢索
+    memories := mb.db.Query(ctx, userID, keywords, queryEmbedding, limit)
+
+    // 4. 按重要性排序
+    sort.Slice(memories, func(i, j int) bool {
+        return memories[i].Importance &gt; memories[j].Importance
+    })
+
+    return memories, nil
+}
+</code></pre>
+<h3 id="443">4.4.3 記憶壓縮</h3>
+<p>長期記憶會不斷增長。我們需要壓縮機制：</p>
+<pre><code class="language-go">func (mb *MemoryBank) Compact(ctx context.Context, userID string) error {
+    // 1. 獲取該使用者的所有記憶
+    memories := mb.db.GetByUser(ctx, userID)
+
+    // 2. 按時間分組
+    groups := groupByTime(memories, time.Hour*24)
+
+    // 3. 每組生成摘要
+    for _, group := range groups {
+        summary := mb.llm.Summarize(group)
+
+        // 4. 儲存摘要，刪除原始記憶
+        mb.db.Save(ctx, &amp;Memory{
+            UserID:   userID,
+            Type:     MemoryTypeInteraction,
+            Content:  summary,
+            Importance: calculateImportance(group),
+        })
+
+        mb.db.DeleteBatch(ctx, group)
+    }
+
+    return nil
+}
+</code></pre>
+<h2 id="45-sandbox">4.5 Sandbox 控制器</h2>
+<p>Sandbox 控制器負責動態建立和銷毀 Agent 的執行環境。</p>
+<h3 id="451">4.5.1 設計</h3>
+<pre><code class="language-go">type SandboxController struct {
+    k8sClient kubernetes.Interface
+    factory   *SandboxFactory
+    scheduler *SandboxScheduler
+}
+
+func (sc *SandboxController) CreateSandbox(ctx context.Context, spec *SandboxSpec) (*Sandbox, error) {
+    // 1. 選擇隔離等級
+    isolation := sc.selectIsolation(spec.AgentType, spec.IsolationLevel)
+
+    // 2. 選擇節點
+    node := sc.scheduler.SelectNode(spec.Resources, isolation)
+
+    // 3. 建立 Pod
+    pod := sc.factory.CreatePod(spec, isolation, node)
+
+    // 4. 等待就緒
+    if err := sc.waitForReady(ctx, pod); err != nil {
+        sc.cleanup(pod)
+        return nil, err
+    }
+
+    return &amp;Sandbox{Pod: pod}, nil
+}
+</code></pre>
+<h3 id="452">4.5.2 隔離等級選擇</h3>
+<pre><code class="language-go">func (sc *SandboxController) selectIsolation(agentType string, requested IsolationLevel) IsolationConfig {
+    // 預設隔離策略
+    defaults := map[string]IsolationConfig{
+        "coding":   {Runtime: "runc", NetworkPolicy: "restricted"},
+        "browser":  {Runtime: "gvisor", NetworkPolicy: "permissive"},
+        "data":     {Runtime: "runc", NetworkPolicy: "restricted"},
+        "review":   {Runtime: "runc", NetworkPolicy: "restricted"},
+    }
+
+    config := defaults[agentType]
+
+    // 使用者可覆蓋
+    if requested != "" {
+        config.Runtime = string(requested)
+    }
+
+    return config
+}
+</code></pre>
+<h2 id="46">4.6 常見陷阱</h2>
+<h3 id="1session">陷阱 1：Session 狀態過大</h3>
+<pre><code class="language-go">// 錯誤：儲存所有對話歷史
+session.History = append(session.History, turn)  // 無限增長
+
+// 正確：定期摘要，只保留近期詳細記錄
+if len(session.History) &gt; 100 {
+    summary := summarize(session.History[:50])
+    session.History = append([]Turn{summary}, session.History[50:]...)
+}
+</code></pre>
+<h3 id="2memory-bank">陷阱 2：Memory Bank 檢索過慢</h3>
+<pre><code class="language-go">// 錯誤：線性掃描所有記憶
+for _, memory := range allMemories {
+    if match(memory, query) {
+        results = append(results, memory)
+    }
+}
+
+// 正確：使用向量資料庫
+memories := pgvector.Search(queryEmbedding, limit)
+</code></pre>
+<h3 id="3sandbox">陷阱 3：Sandbox 資源洩漏</h3>
+<pre><code class="language-go">// 錯誤：建立後忘記銷毀
+sandbox := controller.CreateSandbox(spec)
+// ... 使用 ...
+// 忘記銷毀！
+
+// 正確：使用 defer 或 context
+func runInSandbox(ctx context.Context, spec *SandboxSpec, fn func()) error {
+    sandbox, err := controller.CreateSandbox(ctx, spec)
+    if err != nil {
+        return err
+    }
+    defer controller.DestroySandbox(ctx, sandbox)  // 確保銷毀
+
+    fn()
+    return nil
+}
+</code></pre>
+<h2 id="47">4.7 總結</h2>
+<p>SCALE 層的核心是讓 Agent 在生產環境可靠運行：</p>
+<ol>
+<li><strong>Agent Runtime</strong>：管理生命週期、健康檢查、自動恢復</li>
+<li><strong>Session Manager</strong>：分層儲存策略（Hot/Warm/Cold）</li>
+<li><strong>Memory Bank</strong>：跨 Session 長期記憶，支援檢索和壓縮</li>
+<li><strong>Sandbox Controller</strong>：動態建立隔離環境</li>
+</ol>
+<p>關鍵原則：<br/>
+- 所有狀態都要持久化<br/>
+- 故障是自動恢復，不是人工介入<br/>
+- 資源使用要有上限和清理機制</p>
+<p>在下一章，我們將深入探討安全隔離的具體實作。</p>
+</body>
+</html>

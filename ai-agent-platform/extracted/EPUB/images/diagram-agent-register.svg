@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <defs>
+    <linearGradient id="bgr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="boxr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#212d45"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="step" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f4068"/>
+      <stop offset="100%" stop-color="#15325a"/>
+    </linearGradient>
+    <filter id="glr">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+  <rect width="500" height="400" fill="url(#bgr)" rx="12"/>
+  <rect x="20" y="20" width="460" height="360" fill="url(#boxr)" stroke="#30363d" stroke-width="2" rx="10"/>
+  <text x="250" y="52" text-anchor="middle" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" filter="url(#glr)">Agent 註冊流程</text>
+  <rect x="130" y="80" width="240" height="50" fill="url(#step)" stroke="#58a6ff" stroke-width="1.5" rx="8" filter="url(#glr)"/>
+  <text x="250" y="112" text-anchor="middle" fill="#e6edf3" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">生成唯一 ID (UUID)</text>
+  <line x1="250" y1="130" x2="250" y2="155" stroke="#8b949e" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="130" y="160" width="240" height="50" fill="url(#step)" stroke="#3fb950" stroke-width="1.5" rx="8" filter="url(#glr)"/>
+  <text x="250" y="185" text-anchor="middle" fill="#e6edf3" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">建立 Agent Card</text>
+  <text x="250" y="200" text-anchor="middle" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10">能力描述</text>
+  <line x1="250" y1="210" x2="250" y2="235" stroke="#8b949e" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="130" y="240" width="240" height="50" fill="url(#step)" stroke="#d29922" stroke-width="1.5" rx="8" filter="url(#glr)"/>
+  <text x="250" y="265" text-anchor="middle" fill="#e6edf3" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">寫入 NATS KV</text>
+  <text x="250" y="280" text-anchor="middle" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10">agents.info.*</text>
+  <line x1="250" y1="290" x2="250" y2="315" stroke="#8b949e" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="130" y="320" width="240" height="50" fill="url(#step)" stroke="#a371f7" stroke-width="1.5" rx="8" filter="url(#glr)"/>
+  <text x="250" y="345" text-anchor="middle" fill="#e6edf3" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">發送心跳</text>
+  <text x="250" y="360" text-anchor="middle" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10">每 30 秒</text>
+</svg>
