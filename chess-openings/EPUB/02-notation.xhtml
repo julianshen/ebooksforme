@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 2 章：代數記譜法——棋局的語言</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+  <h1>第 2 章：代數記譜法——棋局的語言</h1>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：貝絲第一次拿到棋譜書，眼睛睜得大大的】</p>
+    <p>「這些字母和數字是什麼意思？」貝絲指著書上的「1. e4 e5 2. Nf3 Nc6」。</p>
+    <p>老傑克微笑：「這是西洋棋的語言。學會它，你就能和全世界的棋手對話。」</p>
+  </div>
+
+  <h2>2.1 棋盤座標</h2>
+
+  <p>棋盤由 8 條橫線（rank，數字 1-8）和 8 條直線（file，字母 a-h）組成。每個格子都有唯一的座標，例如 e4、d5、a1。</p>
+
+  <table>
+    <tr><th>術語</th><th>說明</th></tr>
+    <tr><td>橫線（Rank）</td><td>水平的 8 排，白方底部是第 1 橫線</td></tr>
+    <tr><td>直線（File）</td><td>垂直的 8 排，從白方左側 a 到右側 h</td></tr>
+    <tr><td>大斜線（Diagonal）</td><td>同色格子組成的斜線，如 a1-h8</td></tr>
+    <tr><td>中心（Center）</td><td>d4、d5、e4、e5 四格</td></tr>
+    <tr><td>擴展中心</td><td>c4、c5、f4、f5 加上中心四格</td></tr>
+  </table>
+
+  <h2>2.2 棋子代號</h2>
+
+  <p>在英文代數記譜法中，每種棋子都有特定的字母代號：</p>
+
+  <table>
+    <tr><th>棋子</th><th>代號</th><th>範例</th></tr>
+    <tr><td>王（King）</td><td>K</td><td>Ke2</td></tr>
+    <tr><td>后（Queen）</td><td>Q</td><td>Qh5</td></tr>
+    <tr><td>車（Rook）</td><td>R</td><td>Ra1</td></tr>
+    <tr><td>象（Bishop）</td><td>B</td><td>Bc4</td></tr>
+    <tr><td>馬（Knight）</td><td>N</td><td>Nf3</td></tr>
+    <tr><td>兵（Pawn）</td><td>無（直接用格子）</td><td>e4</td></tr>
+  </table>
+
+  <h2>2.3 特殊符號</h2>
+
+  <table>
+    <tr><th>符號</th><th>意義</th></tr>
+    <tr><td>x</td><td>吃子，如 Bxc6</td></tr>
+    <tr><td>+</td><td>將軍，如 Qh5+</td></tr>
+    <tr><td>#</td><td>將死，如 Qf7#</td></tr>
+    <tr><td>O-O</td><td>王翼易位</td></tr>
+    <tr><td>O-O-O</td><td>后翼易位</td></tr>
+    <tr><td>=Q</td><td>升變為后，如 e8=Q</td></tr>
+    <tr><td>e.p.</td><td>吃過路兵</td></tr>
+    <tr><td>!</td><td>好棋</td></tr>
+    <tr><td>?</td><td>壞棋</td></tr>
+  </table>
+
+  <h2>2.4 完整棋譜範例</h2>
+
+  <p>讓我們來看一個簡短的對局：</p>
+
+  <pre><code>1. e4 e5
+2. Qh5?! Nc6
+3. Bc4 Nf6??
+4. Qxf7#</code></pre>
+
+  <p>這就是著名的「學者將死」（Scholar's Mate）。白方在第四步將死黑方，但黑方在第 3 步的 Nf6?? 是致命錯誤——應該改走 g6 或 Qe7 來防守 f7。</p>
+
+  <div class="manga-panel">
+    <p class="manga-caption">【漫畫：貝絲露出調皮的笑容】</p>
+    <p>「學者將死？」貝絲挑眉，「聽起來像是初學者的噩夢。」</p>
+    <p>「沒錯，」老傑克說，「但了解它，你就不會成為那個噩夢。」</p>
+  </div>
+
+  <h2>2.5 本章練習</h2>
+
+  <p>請將以下走法翻譯成文字描述：</p>
+
+  <ol>
+    <li><span class="notation">1. e4 e5 2. Nf3</span></li>
+    <li><span class="notation">3. Bb5 a6 4. Ba4 Nf6</span></li>
+    <li><span class="notation">5. O-O Be7</span></li>
+  </ol>
+
+  <p>答案在書末附錄。</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xmlns:dc="http://purl.org/dc/elements/1.1/" lang="zh-TW">
+  <metadata>
+    <dc:title>西洋棋開局完全攻略：從入門到精通</dc:title>
+    <dc:creator>Julian Shen</dc:creator>
+    <dc:language>zh-TW</dc:language>
+    <dc:identifier id="bookid">urn:uuid:chess-openings-2025</dc:identifier>
+    <dc:date>2025-06-06</dc:date>
+    <meta property="dcterms:modified">2025-06-06T00:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item href="cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+    <item href="00-preface.xhtml" id="preface" media-type="application/xhtml+xml"/>
+    <item href="01-principles.xhtml" id="ch1" media-type="application/xhtml+xml"/>
+    <item href="02-notation.xhtml" id="ch2" media-type="application/xhtml+xml"/>
+    <item href="03-italian.xhtml" id="ch3" media-type="application/xhtml+xml"/>
+    <item href="04-spanish.xhtml" id="ch4" media-type="application/xhtml+xml"/>
+    <item href="05-sicilian.xhtml" id="ch5" media-type="application/xhtml+xml"/>
+    <item href="06-queensgambit.xhtml" id="ch6" media-type="application/xhtml+xml"/>
+    <item href="07-kingsgambit.xhtml" id="ch7" media-type="application/xhtml+xml"/>
+    <item href="08-french.xhtml" id="ch8" media-type="application/xhtml+xml"/>
+    <item href="09-english.xhtml" id="ch9" media-type="application/xhtml+xml"/>
+    <item href="10-project.xhtml" id="ch10" media-type="application/xhtml+xml"/>
+    <item href="style/nav.css" id="css" media-type="text/css"/>
+    <item href="images/cover.png" id="img_cover" media-type="image/png"/>
+    <item href="images/manga-ch1-first.jpg" id="img_manga1" media-type="image/jpeg"/>
+    <item href="images/manga-ch6-queensgambit.jpg" id="img_manga2" media-type="image/jpeg"/>
+    <item href="images/manga-ch10-ceiling.jpg" id="img_manga3" media-type="image/jpeg"/>
+    <item href="images/board-italian.png" id="img_board1" media-type="image/png"/>
+    <item href="images/board-spanish.png" id="img_board2" media-type="image/png"/>
+    <item href="images/board-sicilian.png" id="img_board3" media-type="image/png"/>
+    <item href="images/board-queensgambit.png" id="img_board4" media-type="image/png"/>
+  </manifest>
+  <spine>
+    <itemref idref="cover"/>
+    <itemref idref="preface"/>
+    <itemref idref="ch1"/>
+    <itemref idref="ch2"/>
+    <itemref idref="ch3"/>
+    <itemref idref="ch4"/>
+    <itemref idref="ch5"/>
+    <itemref idref="ch6"/>
+    <itemref idref="ch7"/>
+    <itemref idref="ch8"/>
+    <itemref idref="ch9"/>
+    <itemref idref="ch10"/>
+  </spine>
+</package>
