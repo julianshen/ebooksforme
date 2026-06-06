@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 4 章：Pregel 執行引擎</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 4 章：Pregel 執行引擎</h1>
+
+<div class="manga-panel">
+  <p><img alt="小語揭開 Pregel 秘密" src="images/manga-ch4-pregel.jpg"/></p>
+  <p class="caption">「原來 Pregel 是這樣運作的！」——小語</p>
+</div>
+
+<h2>4.1 Pregel 是什麼？</h2>
+
+<p>Pregel 是 LangGraph 的<strong>執行引擎</strong>。它負責：</p>
+<ul>
+  <li>按照圖結構執行 Node</li>
+  <li>管理 Channel 的讀寫</li>
+  <li>處理並行執行</li>
+  <li>支援 Checkpoint 和恢復</li>
+</ul>
+
+<div class="tip-box">
+  <p><strong>名字由來：</strong>Pregel 是 Google 的圖計算框架名稱（用於 PageRank）。LangGraph 借用這個名字，因為它也用「圖的迭代計算」模型。</p>
+</div>
+
+<h2>4.2 Pregel 執行模型</h2>
+
+<p>Pregel 使用<strong>Superstep（超步）</strong>模型：</p>
+
+<pre><code># Pregel 執行循環（簡化版）
+
+class Pregel:
+    def invoke(self, input, config):
+        # 1. 初始化 State
+        state = self._initialize(input)
+        
+        # 2. Superstep 循環
+        while True:
+            # 2.1 找出當前可執行的 Nodes
+            ready_nodes = self._get_ready_nodes(state)
+            
+            # 2.2 並行執行這些 Nodes
+            updates = self._execute_nodes(ready_nodes, state)
+            
+            # 2.3 合併更新到 State
+            state = self._apply_updates(state, updates)
+            
+            # 2.4 檢查是否結束
+            if self._is_finished(state):
+                break
+        
+        return state
+</code></pre>
+
+<h3>4.2.1 Superstep 詳解</h3>
+
+<p>每個 Superstep 包含三個階段：</p>
+
+<table>
+  <tr><th>階段</th><th>動作</th><th>原始碼位置</th></tr>
+  <tr><td>1. 讀取</td><td>每個 Node 讀取自己關注的 Channel 值</td><td><code>pregel/_read.py</code></td></tr>
+  <tr><td>2. 執行</td><td>並行執行所有 ready 的 Node</td><td><code>pregel/_algo.py</code></td></tr>
+  <tr><td>3. 寫入</td><td>將 Node 回傳寫入對應 Channel</td><td><code>pregel/_write.py</code></td></tr>
+</table>
+
+<div class="character-box">
+  <p class="name">💬 小語的理解</p>
+  <p>「所以 Pregel 就像一個『回合制遊戲』：每回合（Superstep），所有準備好的角色（Node）同時行動，然後更新遊戲狀態（State）。」</p>
+</div>
+
+<h2>4.3 原始碼深度解析：_algo.py</h2>
+
+<p>_algo.py 是 Pregel 的核心算法：</p>
+
+<pre><code># langgraph/pregel/_algo.py（簡化版）
+
+def apply_writes(
+    channels: dict[str, BaseChannel],
+    writes: list[tuple[str, Any]],
+) -> None:
+    """將所有 Node 的寫入應用到 Channel。
+    
+    這是 Superstep 的『寫入階段』核心。
+    """
+    # 1. 按 Channel 分組寫入
+    grouped: dict[str, list] = defaultdict(list)
+    for channel_name, value in writes:
+        grouped[channel_name].append(value)
+    
+    # 2. 對每個 Channel 執行 update
+    for channel_name, values in grouped.items():
+        channel = channels[channel_name]
+        channel.update(values)  # Channel 自己決定如何合併
+</code></pre>
+
+<h2>4.4 並行執行機制</h2>
+
+<p>Pregel 如何決定哪些 Node 可以並行？</p>
+
+<pre><code># 判斷 Node 是否 ready：所有輸入 Channel 都有值
+
+def is_node_ready(node, channels):
+    for trigger in node.triggers:
+        if not channels[trigger].is_available():
+            return False
+    return True
+
+# 每個 Superstep 開始時，找出所有 ready 的 Node
+ready_nodes = [n for n in nodes if is_node_ready(n, channels)]
+
+# 並行執行（使用 ThreadPoolExecutor 或 Asyncio）
+with ThreadPoolExecutor() as executor:
+    futures = [executor.submit(n.run, state) for n in ready_nodes]
+    results = [f.result() for f in futures]
+</code></pre>
+
+<div class="warning-box">
+  <p><strong>關鍵：</strong>Node 之間沒有資料依賴時才能並行！如果 Node B 需要 Node A 的輸出，它們會在不同 Superstep 執行。</p>
+</div>
+
+<h2>4.5 本章總結</h2>
+
+<ul>
+  <li>✅ Pregel 是 LangGraph 的執行引擎，使用 Superstep 模型</li>
+  <li>✅ 每個 Superstep：讀取 → 並行執行 → 寫入</li>
+  <li>✅ _algo.py 負責核心算法：apply_writes、get_ready_nodes</li>
+  <li>✅ 並行執行由 Channel 依賴關係決定</li>
+</ul>
+
+</body>
+</html>

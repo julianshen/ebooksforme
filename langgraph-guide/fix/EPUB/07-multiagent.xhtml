@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>第 7 章：Multi-Agent 系統</title>
+  <link rel="stylesheet" type="text/css" href="style/nav.css"/>
+</head>
+<body>
+
+<h1>第 7 章：Multi-Agent 系統</h1>
+
+<div class="manga-panel">
+  <p><img alt="小語組建冒險小隊" src="images/manga-ch7-multiagent.jpg"/></p>
+  <p class="caption">「組建冒險小隊！」——小語</p>
+</div>
+
+<h2>7.1 為什麼需要多 Agent？</h2>
+
+<p>單一 Agent 面對複雜任務時容易「幻覺」或「分心」。多 Agent 系統讓每個 Agent 專注一件事：</p>
+
+<table>
+  <tr><th>模式</th><th>說明</th><th>適用場景</th></tr>
+  <tr><td>Supervisor</td><td>一個主管分配任務給多個 Worker</td><td>任務分類與分派</td></tr>
+  <tr><td>Network</td><td>所有 Agent 互相連接，任意通訊</td><td>開放式協作</td></tr>
+  <tr><td>Hierarchical</td><td>層級結構，上級指揮下級</td><td>企業流程</td></tr>
+  <tr><td>Plan-and-Execute</td><td>先規劃再執行</td><td>複雜多步驟任務</td></tr>
+</table>
+
+<h2>7.2 Supervisor 模式實作</h2>
+
+<pre><code>from langgraph.graph import StateGraph, START, END
+from typing import TypedDict, Annotated
+from operator import add
+
+class TeamState(TypedDict):
+    messages: Annotated[list, add_messages]
+    next: str  # 下一個執行的 Agent
+
+# Worker Agents
+def researcher(state):
+    return {"messages": ["Research result: ..."], "next": "supervisor"}
+
+def coder(state):
+    return {"messages": ["Code result: ..."], "next": "supervisor"}
+
+# Supervisor：決定誰來做
+def supervisor(state):
+    # LLM 判斷任務類型
+    task_type = classify_task(state["messages"][-1])
+    if task_type == "research":
+        return {"next": "researcher"}
+    else:
+        return {"next": "coder"}
+
+# 建圖
+graph = StateGraph(TeamState)
+graph.add_node("supervisor", supervisor)
+graph.add_node("researcher", researcher)
+graph.add_node("coder", coder)
+graph.add_edge(START, "supervisor")
+graph.add_conditional_edges("supervisor", lambda s: s["next"])
+graph.add_edge("researcher", "supervisor")
+graph.add_edge("coder", "supervisor")
+
+app = graph.compile()
+</code></pre>
+
+<h2>7.3 本章總結</h2>
+
+<ul>
+  <li>✅ Multi-Agent 讓每個 Agent 專注一件事</li>
+  <li>✅ Supervisor 模式：主管分配任務給 Worker</li>
+  <li>✅ Network 模式：Agent 之間自由通訊</li>
+  <li>✅ LangGraph 的 State 共享讓多 Agent 協作變簡單</li>
+</ul>
+
+</body>
+</html>

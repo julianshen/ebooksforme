@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="id" version="3.0" prefix="rendition: http://www.idpf.org/vocab/rendition/#">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <meta property="dcterms:modified">2026-06-06T12:41:50Z</meta>
+    <meta name="generator" content="Ebook-lib 0.20.0"/>
+    <dc:identifier id="id">manus-agent-platform-2025</dc:identifier>
+    <dc:title>建構生產級多 Agent 平台</dc:title>
+    <dc:language>zh-TW</dc:language>
+    <dc:creator id="creator">Julian Shen</dc:creator>
+    <dc:description>從零開始設計類似 Manus AI 的多智能體平台，深入解析 Google GEAP、ADK、A2A、Agent Runtime 等核心技術。</dc:description>
+  </metadata>
+  <manifest>
+    <item href="style/nav.css" id="style_nav" media-type="text/css"/>
+    <item href="images/cover.png" id="cover_image" media-type="image/png"/>
+    <item href="cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+    <item href="images/architecture-diagram.png" id="img_architecture-diagram.png" media-type="image/png"/>
+    <item href="images/geap-layers.png" id="img_geap-layers.png" media-type="image/png"/>
+    <item href="images/dual-track-communication.png" id="img_dual-track-communication.png" media-type="image/png"/>
+    <item href="images/multi-layer-isolation.png" id="img_multi-layer-isolation.png" media-type="image/png"/>
+    <item href="images/agent-collaboration.png" id="img_agent-collaboration.png" media-type="image/png"/>
+    <item href="images/sandbox-decision-tree.png" id="img_sandbox-decision-tree.png" media-type="image/png"/>
+    <item href="images/evaluation-framework.png" id="img_evaluation-framework.png" media-type="image/png"/>
+    <item href="images/durable-execution.png" id="img_durable-execution.png" media-type="image/png"/>
+    <item href="images/cover.png" id="img_cover.png" media-type="image/png"/>
+    <item href="images/comic-01-multi-agent.jpg" id="img_comic-01-multi-agent.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-02-manus-decompose.jpg" id="img_comic-02-manus-decompose.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-03-geap-layers.jpg" id="img_comic-03-geap-layers.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-04-nats-nervous.jpg" id="img_comic-04-nats-nervous.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-05-dual-track.jpg" id="img_comic-05-dual-track.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-06-why-sandbox.jpg" id="img_comic-06-why-sandbox.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-07-multi-layer.jpg" id="img_comic-07-multi-layer.jpg" media-type="image/jpeg"/>
+    <item href="images/comic-08-network-policy.jpg" id="img_comic-08-network-policy.jpg" media-type="image/jpeg"/>
+    <item href="images/diagram-geap-layers.png" id="img_diagram-geap-layers.png" media-type="image/png"/>
+    <item href="images/diagram-dual-track.png" id="img_diagram-dual-track.png" media-type="image/png"/>
+    <item href="images/diagram-isolation-layers.png" id="img_diagram-isolation-layers.png" media-type="image/png"/>
+    <item href="images/diagram-gvisor-comparison.png" id="img_diagram-gvisor-comparison.png" media-type="image/png"/>
+    <item href="images/diagram-agent-gateway.png" id="img_diagram-agent-gateway.png" media-type="image/png"/>
+    <item href="images/diagram-spiffe-flow.png" id="img_diagram-spiffe-flow.png" media-type="image/png"/>
+    <item href="images/manga-agent-collaboration.jpg" id="img_manga-agent-collaboration.jpg" media-type="image/jpeg"/>
+    <item href="images/manga-nats-nervous.jpg" id="img_manga-nats-nervous.jpg" media-type="image/jpeg"/>
+    <item href="images/manga-sandbox-layers.jpg" id="img_manga-sandbox-layers.jpg" media-type="image/jpeg"/>
+    <item href="images/diagram-agent-sandbox-gke.png" id="img_diagram-agent-sandbox-gke.png" media-type="image/png"/>
+    <item href="images/diagram-adk-internals.png" id="img_diagram-adk-internals.png" media-type="image/png"/>
+    <item href="images/diagram-ax-durable.png" id="img_diagram-ax-durable.png" media-type="image/png"/>
+    <item href="images/diagram-orchestrator.png" id="img_diagram-orchestrator.png" media-type="image/png"/>
+    <item href="images/diagram-rag-engine.png" id="img_diagram-rag-engine.png" media-type="image/png"/>
+    <item href="images/diagram-lifecycle.png" id="img_diagram-lifecycle.png" media-type="image/png"/>
+    <item href="images/diagram-session-storage.png" id="img_diagram-session-storage.png" media-type="image/png"/>
+    <item href="images/diagram-agent-register.png" id="img_diagram-agent-register.png" media-type="image/png"/>
+    <item href="images/diagram-marketplace.png" id="img_diagram-marketplace.png" media-type="image/png"/>
+    <item href="00-preface.xhtml" id="chapter_0" media-type="application/xhtml+xml"/>
+    <item href="01-introduction.xhtml" id="chapter_1" media-type="application/xhtml+xml"/>
+    <item href="02-communication.xhtml" id="chapter_2" media-type="application/xhtml+xml"/>
+    <item href="03-build-layer.xhtml" id="chapter_3" media-type="application/xhtml+xml"/>
+    <item href="04-scale-layer.xhtml" id="chapter_4" media-type="application/xhtml+xml"/>
+    <item href="05-security.xhtml" id="chapter_5" media-type="application/xhtml+xml"/>
+    <item href="06-govern-layer.xhtml" id="chapter_6" media-type="application/xhtml+xml"/>
+    <item href="07-optimize-layer.xhtml" id="chapter_7" media-type="application/xhtml+xml"/>
+    <item href="08-google-runtime.xhtml" id="chapter_8" media-type="application/xhtml+xml"/>
+    <item href="09-practical-guide.xhtml" id="chapter_9" media-type="application/xhtml+xml"/>
+    <item href="10-future.xhtml" id="chapter_10" media-type="application/xhtml+xml"/>
+    <item href="11-appendix.xhtml" id="chapter_11" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="nav"/>
+    <itemref idref="chapter_0"/>
+    <itemref idref="chapter_1"/>
+    <itemref idref="chapter_2"/>
+    <itemref idref="chapter_3"/>
+    <itemref idref="chapter_4"/>
+    <itemref idref="chapter_5"/>
+    <itemref idref="chapter_6"/>
+    <itemref idref="chapter_7"/>
+    <itemref idref="chapter_8"/>
+    <itemref idref="chapter_9"/>
+    <itemref idref="chapter_10"/>
+    <itemref idref="chapter_11"/>
+  </spine>
+</package>
