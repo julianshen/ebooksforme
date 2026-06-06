@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="zh-TW" xml:lang="zh-TW">
+  <head>
+    <title>第 3 章：BUILD 層</title>
+    <link href="style/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body><h1 class="chapter-title">第 3 章：BUILD 層</h1>
+    <h1 id="3-build-agent">第 3 章：BUILD 層 — 開發 Agent</h1>
+<h2 id="31-agent">3.1 問題：如何開發一個好的 Agent？</h2>
+<p>開發 Agent 和開發傳統軟體有本質區別。</p>
+<p>傳統軟體的邏輯是確定的：給定輸入 A，永遠輸出 B。Agent 的邏輯是概率的：給定輸入 A，可能輸出 B、C 或 D，取決於模型、上下文和隨機性。</p>
+<p>這帶來了幾個挑戰：</p>
+<ol>
+<li><strong>不可預測性</strong>：Agent 可能產生意料之外的輸出</li>
+<li><strong>狀態管理</strong>：Agent 需要記住對話歷史和上下文</li>
+<li><strong>工具整合</strong>：Agent 需要安全地呼叫外部工具</li>
+<li><strong>錯誤恢復</strong>：Agent 可能在工具呼叫失敗後陷入迴圈</li>
+</ol>
+<p>我們需要一個框架來管理這些複雜性。</p>
+<h2 id="32-adk">3.2 為什麼選擇 ADK？</h2>
+<p><img alt="GEAP 四層架構" src="../images/geap-layers.png"/></p>
+<p>Google 的 Agent Development Kit (ADK) 是目前最成熟的 Agent 開發框架之一。選擇它的原因：</p>
+<h3 id="321-agent">3.2.1 階層式 Agent 架構</h3>
+<p>ADK 支援將複雜任務拆解為多層 Agent：</p>
+<pre><code class="language-python">from google.adk import Agent, LlmAgent
+
+# 頂層 Orchestrator
+orchestrator = LlmAgent(
+    name="orchestrator",
+    model="gemini-2.0",
+    instruction="""你是一個任務規劃器。收到使用者請求後：
+1. 拆解為子任務
+2. 選擇合適的 Agent 執行
+3. 監控進度並處理異常
+""",
+    sub_agents=[
+        coding_agent,
+        browser_agent,
+        review_agent,
+    ]
+)
+
+# 子 Agent：Coding Agent
+coding_agent = LlmAgent(
+    name="coding_agent",
+    model="gemini-2.0",
+    instruction="""你是一個程式碼專家。你的任務是：
+1. 讀取和理解程式碼
+2. 執行靜態分析
+3. 生成修復建議
+""",
+    tools=[read_file, run_linter, generate_patch]
+)
+</code></pre>
+<h3 id="322-workflow">3.2.2 內建 Workflow 支援</h3>
+<p>ADK 支援多種 Workflow 模式：</p>
+<pre><code class="language-python">from google.adk import WorkflowAgent
+
+# 順序執行
+sequential = WorkflowAgent(
+    name="sequential_pipeline",
+    steps=[step1, step2, step3]
+)
+
+# 條件分支
+conditional = WorkflowAgent(
+    name="conditional_router",
+    condition=lambda ctx: ctx["task_type"],
+    branches={
+        "code": coding_agent,
+        "data": data_agent,
+        "search": search_agent,
+    }
+)
+
+# 並行執行
+parallel = WorkflowAgent(
+    name="parallel_executor",
+    steps=[task_a, task_b, task_c],
+    execution_mode="parallel"
+)
+</code></pre>
+<h3 id="323">3.2.3 多語言支援</h3>
+<p>ADK 提供 Python、Go、Java、TypeScript、Kotlin 版本。我們的架構中：</p>
+<ul>
+<li><strong>Orchestrator</strong>：Python ADK（功能最完整）</li>
+<li><strong>Agent Runtime</strong>：Go（容器化友好）</li>
+</ul>
+<h2 id="33-agent">3.3 Agent 類型設計</h2>
+<p>我們的系統中有幾種核心 Agent 類型：</p>
+<h3 id="331-orchestrator-agent">3.3.1 Orchestrator Agent</h3>
+<p><img alt="Orchestrator Agent 架構" src="../images/diagram-orchestrator.png"/></p>
+<p><strong>Planner</strong>：將使用者請求拆解為 Task Graph</p>
+<pre><code class="language-python">def plan_task(user_request: str) -&gt; TaskGraph:
+    """將使用者請求拆解為可執行的子任務圖"""
+    # 使用 LLM 分析請求
+    analysis = llm.analyze(user_request)
+
+    # 生成 Task Graph
+    graph = TaskGraph()
+    for subtask in analysis.subtasks:
+        graph.add_node(Task(
+            id=generate_id(),
+            type=subtask.type,
+            dependencies=subtask.dependencies,
+            input=subtask.input,
+        ))
+
+    return graph
+</code></pre>
+<p><strong>Router</strong>：根據任務特性選擇 Agent</p>
+<pre><code class="language-python">def route_task(task: Task) -&gt; Agent:
+    """根據任務類型選擇最合適的 Agent"""
+    routing_table = {
+        TaskType.CODE_REVIEW: coding_agent,
+        TaskType.WEB_SEARCH: browser_agent,
+        TaskType.DATA_ANALYSIS: data_agent,
+        TaskType.QUALITY_CHECK: review_agent,
+    }
+
+    return routing_table.get(task.type, default_agent)
+</code></pre>
+<p><strong>Monitor</strong>：追蹤任務執行，處理逾時和重試</p>
+<pre><code class="language-python">class TaskMonitor:
+    def monitor(self, task: Task):
+        """監控任務執行狀態"""
+        start_time = time.time()
+
+        while task.status != TaskStatus.COMPLETED:
+            elapsed = time.time() - start_time
+
+            # 逾時檢查
+            if elapsed &gt; task.timeout:
+                self.handle_timeout(task)
+                break
+
+            # 進度檢查
+            if task.status == TaskStatus.STUCK:
+                self.handle_stuck(task)
+                break
+
+            time.sleep(1)
+
+    def handle_timeout(self, task: Task):
+        """處理逾時任務"""
+        task.status = TaskStatus.TIMEOUT
+
+        # 通知相關方
+        self.notify_orchestrator(task)
+
+        # 嘗試優雅終止
+        self.graceful_shutdown(task)
+</code></pre>
+<h3 id="332-coding-agent">3.3.2 Coding Agent</h3>
+<p>Coding Agent 是最複雜的 Agent 類型之一：</p>
+<pre><code class="language-python">coding_agent = LlmAgent(
+    name="coding_agent",
+    model="gemini-2.0",
+    instruction="""你是一個程式碼專家。執行任務時：
+
+1. 先理解需求，不急着寫程式碼
+2. 使用工具讀取相關檔案
+3. 分析後給出修改建議
+4. 使用工具應用修改
+5. 驗證修改是否正確
+
+原則：
+- 不要修改不確定的程式碼
+- 保持原有程式碼風格
+- 添加必要的註釋
+""",
+    tools=[
+        read_file,      # 讀取檔案
+        write_file,     # 寫入檔案
+        search_code,    # 搜尋程式碼
+        run_tests,      # 執行測試
+        run_linter,     # 執行靜態分析
+        git_diff,       # 查看變更
+    ]
+)
+</code></pre>
+<h3 id="333-browser-agent">3.3.3 Browser Agent</h3>
+<p>Browser Agent 負責與網頁互動：</p>
+<pre><code class="language-python">browser_agent = LlmAgent(
+    name="browser_agent",
+    model="gemini-2.0",
+    instruction="""你是一個網頁互動專家。執行任務時：
+
+1. 使用 Playwright 瀏覽網頁
+2. 提取所需資訊
+3. 處理分頁和滾動
+4. 處理 JavaScript 渲染的內容
+
+限制：
+- 不要點擊不明連結
+- 不要提交表單（除非明確要求）
+- 遵守 robots.txt
+""",
+    tools=[
+        navigate,       # 導航到 URL
+        click,          # 點擊元素
+        fill_form,      # 填寫表單
+        extract_text,   # 提取文字
+        screenshot,     # 截圖
+    ]
+)
+</code></pre>
+<h2 id="34-tool-registrymcp-hub">3.4 Tool Registry（MCP Hub）</h2>
+<p>Agent 的能力來自於工具。我們需要一個中心化的工具管理系統。</p>
+<h3 id="341-tool-registry">3.4.1 為什麼需要 Tool Registry？</h3>
+<ol>
+<li><strong>統一管理</strong>：所有工具集中註冊，便於發現和授權</li>
+<li><strong>權限控制</strong>：不同 Agent 可使用的工具不同</li>
+<li><strong>審計追蹤</strong>：記錄誰在什麼時候呼叫了什麼工具</li>
+<li><strong>版本管理</strong>：工具升級不影響 Agent</li>
+</ol>
+<h3 id="342">3.4.2 設計</h3>
+<pre><code class="language-go">type ToolRegistry struct {
+    tools    map[string]*Tool      // 工具名稱 → 工具定義
+    permits  map[string][]string   // Agent ID → 允許的工具列表
+    auditLog jetstream.JetStream   // 審計日誌
+}
+
+type Tool struct {
+    Name        string            `json:"name"`
+    Description string            `json:"description"`
+    InputSchema jsonschema.Schema `json:"input_schema"`
+    Handler     ToolHandler       `json:"-"`
+    RateLimit   *RateLimitConfig  `json:"rate_limit,omitempty"`
+}
+</code></pre>
+<h3 id="343">3.4.3 使用範例</h3>
+<pre><code class="language-go">// 註冊工具
+registry.Register(&amp;Tool{
+    Name:        "file.read",
+    Description: "讀取檔案內容",
+    InputSchema: jsonschema.Schema{
+        Type: "object",
+        Properties: map[string]jsonschema.Schema{
+            "path": {Type: "string"},
+        },
+        Required: []string{"path"},
+    },
+    Handler: func(ctx context.Context, input map[string]interface{}) (interface{}, error) {
+        path := input["path"].(string)
+        return os.ReadFile(path)
+    },
+})
+
+// 授權 Agent 使用工具
+registry.Permit("coding-agent", "file.read")
+registry.Permit("coding-agent", "file.write")
+registry.Deny("browser-agent", "file.write")  // Browser Agent 不能寫檔案
+
+// 呼叫工具（帶審計）
+result, err := registry.CallWithAudit(ctx, "coding-agent", "file.read", map[string]interface{}{
+    "path": "/app/main.go",
+})
+</code></pre>
+<h2 id="35-rag-engine">3.5 RAG Engine</h2>
+<p>Agent 需要存取領域知識。RAG (Retrieval-Augmented Generation) 是標準方案。</p>
+<h3 id="351">3.5.1 架構</h3>
+<p><img alt="RAG Engine 架構" src="../images/diagram-rag-engine.png"/></p>
+<h3 id="352">3.5.2 實作</h3>
+<pre><code class="language-python">from sentence_transformers import SentenceTransformer
+import psycopg2
+
+class RAGEngine:
+    def __init__(self):
+        self.encoder = SentenceTransformer('all-MiniLM-L6-v2')
+        self.db = psycopg2.connect("postgresql://localhost/rag")
+
+    def index_document(self, doc_id: str, content: str):
+        """索引文件"""
+        # 分塊
+        chunks = self.chunk_text(content)
+
+        # 生成向量
+        embeddings = self.encoder.encode(chunks)
+
+        # 儲存到資料庫
+        with self.db.cursor() as cur:
+            for chunk, embedding in zip(chunks, embeddings):
+                cur.execute("""
+                    INSERT INTO documents (doc_id, chunk, embedding)
+                    VALUES (%s, %s, %s)
+                """, (doc_id, chunk, embedding.tolist()))
+
+        self.db.commit()
+
+    def retrieve(self, query: str, top_k: int = 5) -&gt; List[str]:
+        """檢索相關內容"""
+        # 生成查詢向量
+        query_embedding = self.encoder.encode([query])[0]
+
+        # 向量搜尋
+        with self.db.cursor() as cur:
+            cur.execute("""
+                SELECT chunk, embedding &lt;=&gt; %s AS distance
+                FROM documents
+                ORDER BY distance
+                LIMIT %s
+            """, (query_embedding.tolist(), top_k))
+
+            return [row[0] for row in cur.fetchall()]
+</code></pre>
+<h2 id="36">3.6 常見陷阱</h2>
+<h3 id="1agent">陷阱 1：Agent 過度自信</h3>
+<pre><code class="language-python"># 錯誤：Agent 沒有驗證就提交修改
+agent.run("修改這個 bug")
+# 結果：修改了錯誤的程式碼，引入了更多 bug
+
+# 正確：要求 Agent 先分析，再修改，最後驗證
+agent.run("""
+1. 分析這個 bug 的根本原因
+2. 提出修改方案
+3. 應用修改
+4. 執行測試驗證
+5. 如果測試失敗，回退修改
+""")
+</code></pre>
+<h3 id="2">陷阱 2：工具權限過大</h3>
+<pre><code class="language-python"># 錯誤：所有 Agent 都能使用所有工具
+registry.Permit("*", "*")
+
+# 正確：最小權限原則
+registry.Permit("coding-agent", "file.read")
+registry.Permit("coding-agent", "file.write")
+registry.Deny("coding-agent", "network.request")  # Coding Agent 不需要網路
+</code></pre>
+<h3 id="3">陷阱 3：忽略上下文視窗限制</h3>
+<pre><code class="language-python"># 錯誤：傳入整個程式碼庫
+context = read_entire_codebase()  # 100k tokens
+agent.run(context)  # 超出視窗限制，丟失資訊
+
+# 正確：分塊處理，只傳入相關部分
+relevant_files = search_relevant_files(query)
+for file in relevant_files:
+    agent.run(f"分析這個檔案: {file}")
+</code></pre>
+<h2 id="37">3.7 總結</h2>
+<p>BUILD 層的核心是讓開發者能夠：</p>
+<ol>
+<li><strong>快速開發</strong>：用 ADK 的階層式架構組織 Agent</li>
+<li><strong>安全整合</strong>：通過 MCP Hub 管理工具權限</li>
+<li><strong>知識增強</strong>：用 RAG Engine 提供領域知識</li>
+</ol>
+<p>關鍵原則：<br/>
+- Agent 應該專注於單一職責<br/>
+- 工具權限應該最小化<br/>
+- 所有操作應該可審計</p>
+<p>在下一章，我們將進入 SCALE 層，看看如何讓這些 Agent 在生產環境可靠運行。</p>
+</body>
+</html>
