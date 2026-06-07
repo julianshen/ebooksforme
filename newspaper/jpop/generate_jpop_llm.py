@@ -649,27 +649,29 @@ def build_prompt(date_info, music_data):
 </section>
 ```
 
-### Section 4: Japan Concerts
+### Section 4: Japan Concerts — ⚠️ 上方「真實數據」區塊有演唱會資料，請填入實際內容
 ```html
 <section>
   <h2 class="section-title">🎤 日本演唱會</h2>
   <table class="concert-table">
     <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
     <tbody>
-      <tr><td colspan="4" style="text-align:center;color:var(--muted);">本週資料整理中</td></tr>
+      <!-- ⚠️ 將上方「真實數據」中的日本演唱會資訊填入此處，每個演唱會一列 <tr> -->
+      <!-- 若確實無任何演唱會資料，才顯示「本週資料整理中」 -->
     </tbody>
   </table>
 </section>
 ```
 
-### Section 5: Taiwan Concerts
+### Section 5: Taiwan Concerts — ⚠️ 上方「真實數據」區塊有演唱會資料，請填入實際內容
 ```html
 <section>
   <h2 class="section-title">🇹🇼 台灣演唱會・活動</h2>
   <table class="concert-table">
     <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
     <tbody>
-      <tr><td colspan="4" style="text-align:center;color:var(--muted);">尚無已確認之資訊</td></tr>
+      <!-- ⚠️ 將上方「真實數據」中的台灣演唱會資訊填入此處，每個演唱會一列 <tr> -->
+      <!-- 若確實無任何演唱會資料，才顯示「尚無已確認之資訊」 -->
     </tbody>
   </table>
 </section>
@@ -678,6 +680,7 @@ def build_prompt(date_info, music_data):
 輸出時只需給以上 5 個 section 的 HTML，不要外層 html/head/body。
 使用繁體中文，歌曲名保留日文原文。
 所有連結使用 target="_blank" 在新分頁開啟。
+⚠️ 再次提醒：演唱會 data 已在上方「真實數據」區塊提供，請使用真實數據，不要寫「整理中」。
 """
     return prompt
 
