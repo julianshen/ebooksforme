@@ -9,7 +9,6 @@ import os
 import sys
 import json
 import re
-import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -103,7 +102,7 @@ def fetch_market_data():
                         "price": round(latest["Close"], 2),
                         "change": round(change, 2),
                         "change_pct": round(change_pct, 2),
-                        "volume": int(latest["Volume"]) if not pd.isna(latest["Volume"]) else 0
+                        "volume": int(latest.get("Volume", 0) or 0)
                     }
             except Exception as e:
                 print(f"Error fetching {symbol}: {e}")
@@ -162,11 +161,7 @@ def generate_llm_content(market_data, date_str, display_date):
 - 營收、EPS、展望
 
 ### 8. DJT 持股與內幕交易
-- DJT 股價、總股本、市值
-- 川普持股：114,787,498 股（41.45%），約 $9.49 億
-- Trump Revocable Trust：114,750,000 股
-- 前十大機構投資者
-- 近期內幕交易
+- DJT 股價、總股本、市值（請使用上方提供的真實數據）
 - 川投顧點評
 
 ### 9. 13F 機構持倉
@@ -202,52 +197,64 @@ def generate_llm_content(market_data, date_str, display_date):
 請確保所有數據都是真實的，新聞有明確來源連結。
 """
 
-    # 呼叫 LLM API
+    # 呼叫 LLM API（直接呼叫，不使用 subprocess）
     try:
-        # 嘗試使用本地 LLM 或 API
-        result = subprocess.run(
-            ["python3", "-c", f"""
-import os
-import sys
-
-# 嘗試使用不同的 LLM 提供者
-providers = [
-    ("openai", lambda: __import__("openai").OpenAI().chat.completions.create(
-        model="gpt-4o",
-        messages=[{{"role": "user", "content": {repr(prompt)}}}],
-        temperature=0.7
-    ).choices[0].message.content),
-    ("anthropic", lambda: __import__("anthropic").Anthropic().messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=8000,
-        messages=[{{"role": "user", "content": {repr(prompt)}}}]
-    ).content[0].text),
-]
-
-for name, fn in providers:
-    try:
-        result = fn()
-        print(result)
-        sys.exit(0)
-    except Exception as e:
-        print(f"{{name}} failed: {{e}}", file=sys.stderr)
-        continue
-
-print("All providers failed", file=sys.stderr)
-sys.exit(1)
-"""],
-            capture_output=True,
-            text=True,
-            timeout=120
-        )
+        # 優先使用 OpenAI
+        openai_key = os.environ.get("OPENAI_API_KEY")
+        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+        anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
         
-        if result.returncode == 0:
-            return result.stdout
-        else:
-            print(f"LLM generation failed: {result.stderr}")
-            return None
+        # 嘗試 OpenAI
+        if openai_key:
+            try:
+                import openai
+                print("使用 OpenAI API...")
+                client = openai.OpenAI(api_key=openai_key, timeout=120)
+                response = client.chat.completions.create(
+                    model="gpt-4o",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.7,
+                    max_tokens=8000
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                print(f"OpenAI failed: {e}")
+        
+        # 嘗試 Anthropic
+        if anthropic_key:
+            try:
+                import anthropic
+                print("使用 Anthropic API...")
+                client = anthropic.Anthropic(api_key=anthropic_key)
+                response = client.messages.create(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=8000,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                return response.content[0].text
+            except Exception as e:
+                print(f"Anthropic failed: {e}")
+        
+        # 嘗試 OpenRouter
+        if openrouter_key:
+            try:
+                import openai as openai_sdk
+                print("使用 OpenRouter API...")
+                client = openai_sdk.OpenAI(api_key=openrouter_key, base_url="https://openrouter.ai/api/v1", timeout=120)
+                response = client.chat.completions.create(
+                    model="openai/gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.7,
+                    max_tokens=8000
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                print(f"OpenRouter failed: {e}")
+        
+        print("All LLM providers failed: no API key available")
+        return None
     except Exception as e:
-        print(f"Error calling LLM: {e}")
+        print(f"Error generating LLM content: {e}")
         return None
 
 def generate_html_template(content, date_str, display_date):
