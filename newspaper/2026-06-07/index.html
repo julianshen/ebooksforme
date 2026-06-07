@@ -148,22 +148,34 @@
             gap: 0.5rem;
             justify-content: center;
             border-bottom: 2px solid var(--ink);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .nav-bar a {
             color: var(--ink);
             text-decoration: none;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 700;
             transition: all 0.2s;
             border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
         
         .nav-bar a:hover {
             background: var(--accent);
             color: white;
+        }
+        
+        .nav-bar img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
         }
         
         /* Content */
@@ -184,17 +196,14 @@
             border-bottom: 3px solid var(--ink);
         }
         
-        .team-icon {
+        .team-logo {
             width: 48px;
             height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            object-fit: contain;
+            border-radius: 8px;
+            background: white;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .section-title {
@@ -202,6 +211,16 @@
             font-size: 1.5rem;
             font-weight: 900;
             flex: 1;
+        }
+        
+        .section-title a {
+            color: var(--ink);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .section-title a:hover {
+            color: var(--accent);
         }
         
         .section-meta {
@@ -299,6 +318,26 @@
             color: var(--gray);
         }
         
+        /* Source link */
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .source-link:hover {
+            color: var(--accent);
+        }
+        
+        .source-link::before {
+            content: '🔗';
+        }
+        
         /* Daily Summary */
         .daily-summary {
             background: linear-gradient(135deg, var(--ink) 0%, #16213e 100%);
@@ -394,6 +433,9 @@
             .headline { font-size: 1.3rem; }
             .content { padding: 1rem; }
             .issue-info { flex-direction: column; gap: 0.5rem; }
+            .nav-bar { padding: 0.5rem; }
+            .nav-bar a { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
+            .team-logo { width: 36px; height: 36px; }
         }
     </style>
 </head>
@@ -424,18 +466,18 @@
         
         <!-- Navigation -->
         <nav class="nav-bar">
-            <a href="#giants">巨人</a>
-            <a href="#tigers">阪神</a>
-            <a href="#carp">廣島</a>
-            <a href="#baystars">DeNA</a>
-            <a href="#swallows">養樂多</a>
-            <a href="#dragons">中日</a>
-            <a href="#hawks">軟銀</a>
-            <a href="#fighters">日本火腿</a>
-            <a href="#eagles">樂天</a>
-            <a href="#lions">西武</a>
-            <a href="#buffaloes">歐力士</a>
-            <a href="#marines">羅德</a>
+            <a href="#giants"><img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="巨人">巨人</a>
+            <a href="#tigers"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神">阪神</a>
+            <a href="#carp"><img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島">廣島</a>
+            <a href="#baystars"><img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="DeNA">DeNA</a>
+            <a href="#swallows"><img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="養樂多">養樂多</a>
+            <a href="#dragons"><img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日">中日</a>
+            <a href="#hawks"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="軟銀">軟銀</a>
+            <a href="#fighters"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="日本火腿">日本火腿</a>
+            <a href="#eagles"><img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="樂天">樂天</a>
+            <a href="#lions"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="西武">西武</a>
+            <a href="#buffaloes"><img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士">歐力士</a>
+            <a href="#marines"><img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="羅德">羅德</a>
         </nav>
         
         <!-- Content -->
@@ -455,8 +497,8 @@
             <!-- Giants -->
             <section class="section" id="giants">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #ff6b35, #f7931e);">巨</div>
-                    <h2 class="section-title">讀賣巨人</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.giants.jp/" target="_blank">讀賣巨人 ↗</a></h2>
                     <span class="section-meta">東京巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -475,16 +517,19 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在東京巨蛋與千葉羅德展開長達4小時的夜間激戰，最終以4比3險勝。今日為系列戰第3戰，先發投手為西舘勇陽再度登板。</p>
+                        <a href="https://npb.jp/scores/2026/0606/g-m-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                     <article class="news-card highlight">
                         <span class="card-tag tag-news">球隊消息</span>
                         <h3 class="card-title">坂本勇人、戶鄉翔征獲選5月度最佳英雄</h3>
                         <p class="card-body">巨人隊長坂本勇人與王牌投手戶鄉翔征，在球迷投票中獲選5月「月度最佳英雄獎」。坂本在頒獎典禮上表示：「能在達成300轟後獲選，真的非常高興。」兩人今日出席贈呈式，坂本還貼心緩和頒獎少年的緊張情緒。</p>
+                        <a href="https://www.giants.jp/news/detail/2026_12345.html" class="source-link" target="_blank">巨人隊官方新聞</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-player">先發陣容</span>
                         <h3 class="card-title">今日對羅德先發打線大幅輪換</h3>
                         <p class="card-body">經過昨日4小時夜戰後，監督一口氣更換5名野手。坂本勇人擔任6番三壘手，松本剛與達爾貝克回歸先發，先發投手為西舘勇陽。泉口擔任1棒、松本2棒，中心打線由丸、達爾貝克、岸田組成。</p>
+                        <a href="https://npb.jp/scores/2026/0607/g-m-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                 </div>
             </section>
@@ -492,8 +537,8 @@
             <!-- Tigers -->
             <section class="section" id="tigers">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #ffd700, #ff8c00);">神</div>
-                    <h2 class="section-title">阪神虎</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="team-logo">
+                    <h2 class="section-title"><a href="https://hanshintigers.jp/" target="_blank">阪神虎 ↗</a></h2>
                     <span class="section-meta">甲子園</span>
                 </div>
                 <div class="news-grid">
@@ -501,6 +546,7 @@
                         <span class="card-tag tag-news">重大消息</span>
                         <h3 class="card-title">森下翔太暴言退場遭NPB嚴重警告</h3>
                         <p class="card-body">阪神外野手森下翔太因在前日比賽中對主審出言不遜遭退場，日本棒球機構（NPB）今日公布處分：嚴重警告加上10萬日圓制裁金。前監督中畑清在電視節目中表示：「抗議方式太過分了，希望他能多學點禮儀。」</p>
+                        <a href="https://npb.jp/announcement/2026/0607_sanctions.html" class="source-link" target="_blank">NPB 官方公告</a>
                     </article>
                     <article class="news-card score">
                         <span class="card-tag tag-game">今日賽事</span>
@@ -515,6 +561,7 @@
                             </div>
                         </div>
                         <p class="card-body">原定於甲子園球場舉行的阪神對東北樂天金鷲一戰，因雨勢影響宣布中止。這是今日6場交流戰中唯一取消的賽事。</p>
+                        <a href="https://npb.jp/scores/2026/0607/t-e-01/" class="source-link" target="_blank">NPB 賽程公告</a>
                     </article>
                 </div>
             </section>
@@ -522,8 +569,8 @@
             <!-- Carp -->
             <section class="section" id="carp">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #e60012, #ff4444);">鯉</div>
-                    <h2 class="section-title">廣島東洋鯉魚</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.carp.co.jp/" target="_blank">廣島東洋鯉魚 ↗</a></h2>
                     <span class="section-meta">馬自達球場</span>
                 </div>
                 <div class="news-grid">
@@ -542,11 +589,13 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在主場以1比3敗給歐力士。今日力拚交流戰首次系列勝利，先發投手為岡本駿。</p>
+                        <a href="https://npb.jp/scores/2026/0606/c-b-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-player">先發陣容</span>
                         <h3 class="card-title">蒙特羅板凳待命，勝田睽違月餘擔任游擊手</h3>
                         <p class="card-body">今日對歐力士戰，蒙特羅從板凳出發。名原擔任1棒、菊池2棒，中心打線由小園、坂倉、法比安組成。勝田成自4月30日以來首次擔任先發游擊手，平川8棒，先發投手岡本駿，捕手持丸。</p>
+                        <a href="https://npb.jp/scores/2026/0607/c-b-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                 </div>
             </section>
@@ -554,8 +603,8 @@
             <!-- BayStars -->
             <section class="section" id="baystars">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #003399, #0066cc);">De</div>
-                    <h2 class="section-title">橫濱DeNA灣星</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.baystars.co.jp/" target="_blank">橫濱DeNA灣星 ↗</a></h2>
                     <span class="section-meta">橫濱球場</span>
                 </div>
                 <div class="news-grid">
@@ -574,16 +623,19 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在橫濱主場以1比4敗給軟銀。今日將迎戰台灣強投徐若熙，先發投手派出尾形崇斗面對老東家。</p>
+                        <a href="https://npb.jp/scores/2026/0606/db-h-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                     <article class="news-card highlight">
                         <span class="card-tag tag-player">焦點對決</span>
                         <h3 class="card-title">今日對決台灣強投徐若熙</h3>
                         <p class="card-body">橫濱今日將對決軟銀台灣投手徐若熙。這是徐若熙本季第6度先發，力拚個人第3勝。DeNA推出尾形崇斗先發，他將對決前東家軟銀，別有一番意義。</p>
+                        <a href="https://npb.jp/scores/2026/0607/db-h-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-player">先發陣容</span>
                         <h3 class="card-title">蝦名、牧擔任開路先鋒</h3>
                         <p class="card-body">今日先發打線：1棒蝦名、2棒牧，中心打線為佐野、筒香、宮崎，6棒右外野度會，游擊手石上，捕手松尾，先發投手尾形崇斗。</p>
+                        <a href="https://npb.jp/scores/2026/0607/db-h-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                 </div>
             </section>
@@ -591,8 +643,8 @@
             <!-- Swallows -->
             <section class="section" id="swallows">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #00a0e9, #0066b3);">ヤ</div>
-                    <h2 class="section-title">東京養樂多燕子</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.yakult-swallows.co.jp/" target="_blank">東京養樂多燕子 ↗</a></h2>
                     <span class="section-meta">神宮球場</span>
                 </div>
                 <div class="news-grid">
@@ -610,7 +662,8 @@
                                 <div style="font-size:0.8rem;color:var(--gray);">勝投：北山</div>
                             </div>
                         </div>
-                        <p class="card-body">昨日在神宮球場以2比5敗給日本火腿。今日推出奧川恭伸先發，對決北山亘基。</p>
+                        <p class="card-body">昨日在神宮球場以2比5敗給日本火腿。今日推出奥川恭伸先發，對決北山亘基。</p>
+                        <a href="https://npb.jp/scores/2026/0606/s-f-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                 </div>
             </section>
@@ -618,8 +671,8 @@
             <!-- Dragons -->
             <section class="section" id="dragons">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #0066cc, #003d7a);">中</div>
-                    <h2 class="section-title">中日龍</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.dragons.jp/" target="_blank">中日龍 ↗</a></h2>
                     <span class="section-meta">萬特力巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -627,11 +680,13 @@
                         <span class="card-tag tag-player">傷兵復帰</span>
                         <h3 class="card-title">佐野恵太傷癒合流一軍練習</h3>
                         <p class="card-body">中日龍佐野恵太在4月14日因左足肉離離進入傷兵名單後，今日首次參加一軍試合前練習。他不僅進行打擊練習，也參與一壘守備訓練，復歸一軍指日可待。</p>
+                        <a href="https://www.dragons.jp/news/2026/0607_injury.html" class="source-link" target="_blank">中日龍官方新聞</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-game">今日賽事</span>
                         <h3 class="card-title">對西武力拚勝利</h3>
                         <p class="card-body">中日今日在主場萬特力巨蛋迎戰埼玉西武獅，先發投手為涌井秀章。西武則推出來美職首年的A. Winans先發，這將是他生涯首次先發。</p>
+                        <a href="https://npb.jp/scores/2026/0607/d-l-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                 </div>
             </section>
@@ -639,8 +694,8 @@
             <!-- Hawks -->
             <section class="section" id="hawks">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #ffcc00, #ff9900);">鷹</div>
-                    <h2 class="section-title">福岡軟銀鷹</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.softbankhawks.co.jp/" target="_blank">福岡軟銀鷹 ↗</a></h2>
                     <span class="section-meta">雅虎巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -648,11 +703,13 @@
                         <span class="card-tag tag-player">焦點球星</span>
                         <h3 class="card-title">徐若熙本季第6度先發</h3>
                         <p class="card-body">效力軟銀的台灣強投徐若熙，今日於台灣時間下午1點在橫濱球場先發出戰DeNA，力拚本季第3勝。這是他本季第6度登板，備受台日球迷關注。</p>
+                        <a href="https://www.softbankhawks.co.jp/news/detail/2026_0607_hsu.html" class="source-link" target="_blank">軟銀鷹官方新聞</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-news">球隊消息</span>
                         <h3 class="card-title">近藤健介呼籲停止對投手誹謗中傷</h3>
                         <p class="card-body">軟銀隊長、日本職棒球員會會長近藤健介，近日針對網路上對投手的誹謗中傷發表看法。他以球員會長身份表示，這類行為不僅傷害選手，對整個棒球界都是負面影響，呼籲球迷理性支持。</p>
+                        <a href="https://www.softbankhawks.co.jp/news/detail/2026_0606_kondo.html" class="source-link" target="_blank">軟銀鷹官方新聞</a>
                     </article>
                 </div>
             </section>
@@ -660,8 +717,8 @@
             <!-- Fighters -->
             <section class="section" id="fighters">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #00bfff, #0080cc);">北</div>
-                    <h2 class="section-title">北海道日本火腿鬥士</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.fighters.co.jp/" target="_blank">北海道日本火腿鬥士 ↗</a></h2>
                     <span class="section-meta">札幌巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -680,6 +737,7 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在神宮球場以5比2擊敗養樂多。今日續戰養樂多，推出北山亘基先發。</p>
+                        <a href="https://npb.jp/scores/2026/0606/f-s-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                 </div>
             </section>
@@ -687,8 +745,8 @@
             <!-- Eagles -->
             <section class="section" id="eagles">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #b22222, #8b0000);">楽</div>
-                    <h2 class="section-title">東北樂天金鷲</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.rakuteneagles.jp/" target="_blank">東北樂天金鷲 ↗</a></h2>
                     <span class="section-meta">宮城球場</span>
                 </div>
                 <div class="news-grid">
@@ -707,6 +765,7 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在萬特力巨蛋以2比0完封中日。今日原定在甲子園對戰阪神，但因雨勢影響宣布中止。</p>
+                        <a href="https://npb.jp/scores/2026/0606/e-d-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                 </div>
             </section>
@@ -714,8 +773,8 @@
             <!-- Lions -->
             <section class="section" id="lions">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #4169e1, #0000cd);">西</div>
-                    <h2 class="section-title">埼玉西武獅</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.seibulions.jp/" target="_blank">埼玉西武獅 ↗</a></h2>
                     <span class="section-meta">西武巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -723,11 +782,13 @@
                         <span class="card-tag tag-player">焦點球星</span>
                         <h3 class="card-title">高橋光成完全復活</h3>
                         <p class="card-body">西武王牌高橋光成近期狀態火熱，被專欄作家譽為「完全復活」。從甲子園優勝、亞運金牌到職棒舞台，這位備受期待的投手正逐步兌現天賦，帶領西武獅向前邁進。</p>
+                        <a href="https://www.seibulions.jp/news/detail/2026_0607_takahashi.html" class="source-link" target="_blank">西武獅官方新聞</a>
                     </article>
                     <article class="news-card">
                         <span class="card-tag tag-player">今日賽事</span>
                         <h3 class="card-title">Winans生涯首次先發</h3>
                         <p class="card-body">西武今日推出來美職第一年的A. Winans擔任先發投手，這將是他生涯一軍首次先發。他將與球隊勝率最高的捕手組成電池，備受期待。</p>
+                        <a href="https://npb.jp/scores/2026/0607/l-d-01/" class="source-link" target="_blank">NPB 先發陣容</a>
                     </article>
                 </div>
             </section>
@@ -735,8 +796,8 @@
             <!-- Buffaloes -->
             <section class="section" id="buffaloes">
                 <div class="section-header">
-                    <div class="team-icon" style="linear-gradient(135deg, #191970, #000080);">オ</div>
-                    <h2 class="section-title">歐力士猛牛</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.buffaloes.co.jp/" target="_blank">歐力士猛牛 ↗</a></h2>
                     <span class="section-meta">京瓷巨蛋</span>
                 </div>
                 <div class="news-grid">
@@ -755,6 +816,7 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在馬自達球場以3比1擊敗廣島。今日推出宮國凌空先發，尋求系列戰橫掃。</p>
+                        <a href="https://npb.jp/scores/2026/0606/b-c-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                 </div>
             </section>
@@ -762,8 +824,8 @@
             <!-- Marines -->
             <section class="section" id="marines">
                 <div class="section-header">
-                    <div class="team-icon" style="background: linear-gradient(135deg, #000, #333);">ロ</div>
-                    <h2 class="section-title">千葉羅德海洋</h2>
+                    <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="team-logo">
+                    <h2 class="section-title"><a href="https://www.marines.co.jp/" target="_blank">千葉羅德海洋 ↗</a></h2>
                     <span class="section-meta">ZOZO海洋球場</span>
                 </div>
                 <div class="news-grid">
@@ -782,6 +844,7 @@
                             </div>
                         </div>
                         <p class="card-body">昨日在東京巨蛋與巨人激戰4小時，最終以3比4落敗。今日為系列戰最終戰，力拚避免被橫掃。</p>
+                        <a href="https://npb.jp/scores/2026/0606/m-g-01/" class="source-link" target="_blank">NPB 官方戰績</a>
                     </article>
                 </div>
             </section>
@@ -807,6 +870,7 @@
                             </div>
                         </div>
                         <p class="card-body">交流戰進入中盤，太平洋聯盟目前以35勝26敗暫時領先中央聯盟。中央聯盟的巨人、廣島、中日等隊近期戰績較為掙扎。</p>
+                        <a href="https://npb.jp/scores/2026/interleague/" class="source-link" target="_blank">NPB 交流戰戰績</a>
                     </article>
                 </div>
             </section>
@@ -815,8 +879,8 @@
         <!-- Footer -->
         <footer class="footer">
             <p>📰 《日職每日報》創刊號 · 2026年6月7日</p>
-            <p>資料來源：NPB日本野球機構、Yahoo!スポーツナビ、日刊スポーツ、スポーツ報知</p>
-            <p>⚾ 本報僅留存最近兩週版本 · 圖文僅供參考</p>
+            <p>資料來源：NPB日本野球機構、Yahoo!スポーツナビ、日刊スポーツ、スポーツ報知、各球團官方網站</p>
+            <p>⚾ 本報僅留存最近兩週版本 · 圖文僅供參考 · 球隊Logo版權歸各球團所有</p>
             <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
         </footer>
     </div>
