@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日職每日報 - 2026.06.07 創刊號</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #fefefe;
+            --ink: #1a1a2e;
+            --accent: #e94560;
+            --accent-light: #ff6b6b;
+            --gold: #f4a261;
+            --blue: #2a9d8f;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: var(--ink);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .newspaper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .masthead {
+            background: linear-gradient(180deg, var(--ink) 0%, #16213e 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .masthead::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/cover.png') center/cover;
+            opacity: 0.15;
+        }
+        
+        .masthead-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-shadow: 3px 3px 0 rgba(233,69,96,0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 0.15em;
+        }
+        
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+        }
+        
+        .issue-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Cover Image */
+        .cover-section {
+            position: relative;
+        }
+        
+        .cover-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .cover-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(26,26,46,0.9));
+            padding: 3rem 2rem 1.5rem;
+            color: white;
+        }
+        
+        .headline {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .headline-sub {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        .nav-bar {
+            background: var(--light-gray);
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            border-bottom: 2px solid var(--ink);
+        }
+        
+        .nav-bar a {
+            color: var(--ink);
+            text-decoration: none;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .nav-bar a:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Content */
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--ink);
+        }
+        
+        .team-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            flex: 1;
+        }
+        
+        .section-meta {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Cards */
+        .news-grid {
+            display: grid;
+            gap: 1.25rem;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .news-card.highlight {
+            border-left-color: var(--gold);
+            background: linear-gradient(135deg, #fff 0%, #fffbf0 100%);
+        }
+        
+        .news-card.score {
+            border-left-color: var(--blue);
+        }
+        
+        .card-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .tag-game { background: #e3f2fd; color: #1565c0; }
+        .tag-news { background: #fce4ec; color: #c2185b; }
+        .tag-player { background: #f3e5f5; color: #7b1fa2; }
+        .tag-ranking { background: #e8f5e9; color: #2e7d32; }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+        }
+        
+        .card-body {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.7;
+        }
+        
+        .score-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0.75rem 0;
+            padding: 0.75rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        
+        .score-team {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .score-team.winner {
+            font-weight: 900;
+            color: var(--accent);
+        }
+        
+        .score-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            padding: 0 1rem;
+        }
+        
+        .score-vs {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        
+        /* Daily Summary */
+        .daily-summary {
+            background: linear-gradient(135deg, var(--ink) 0%, #16213e 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .daily-summary h2 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .daily-summary ul {
+            list-style: none;
+        }
+        
+        .daily-summary li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .daily-summary li::before {
+            content: '⚾';
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--light-gray);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--ink);
+        }
+        
+        .footer p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        
+        .back-link:hover {
+            background: var(--accent-light);
+        }
+        
+        /* Manga decorations */
+        .manga-bubble {
+            display: inline-block;
+            background: white;
+            border: 3px solid var(--ink);
+            border-radius: 50%;
+            padding: 0.5rem 1rem;
+            font-weight: 900;
+            font-size: 0.9rem;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        
+        .manga-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--ink);
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .headline { font-size: 1.3rem; }
+            .content { padding: 1rem; }
+            .issue-info { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <!-- Masthead -->
+        <header class="masthead">
+            <div class="masthead-content">
+                <div class="tagline">Nippon Professional Baseball Daily</div>
+                <h1 class="title">日職每日報</h1>
+                <p class="subtitle">日本職棒每日新聞 · 中文摘要 · 圖文並茂</p>
+                <div class="issue-info">
+                    <span>📅 2026年6月7日 星期日</span>
+                    <span>📰 創刊號</span>
+                    <span>⚾ 日本生命セ・パ交流戦</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Cover -->
+        <section class="cover-section">
+            <img src="images/cover.png" alt="日職每日報封面" class="cover-image">
+            <div class="cover-overlay">
+                <h2 class="headline">交流戰白熱化！太平洋聯盟暫時領先</h2>
+                <p class="headline-sub">台灣強投徐若熙今日先發迎戰橫濱DeNA · 阪神樂天因雨中止</p>
+            </div>
+        </section>
+        
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <a href="#giants">巨人</a>
+            <a href="#tigers">阪神</a>
+            <a href="#carp">廣島</a>
+            <a href="#baystars">DeNA</a>
+            <a href="#swallows">養樂多</a>
+            <a href="#dragons">中日</a>
+            <a href="#hawks">軟銀</a>
+            <a href="#fighters">日本火腿</a>
+            <a href="#eagles">樂天</a>
+            <a href="#lions">西武</a>
+            <a href="#buffaloes">歐力士</a>
+            <a href="#marines">羅德</a>
+        </nav>
+        
+        <!-- Content -->
+        <main class="content">
+            <!-- Daily Summary -->
+            <div class="daily-summary">
+                <h2>🔥 今日焦點快報</h2>
+                <ul>
+                    <li>太平洋聯盟在交流戰中以 35勝26敗 暫時領先中央聯盟</li>
+                    <li>台灣投手徐若熙今日於橫濱球場先發，對決橫濱DeNA尾形崇斗</li>
+                    <li>阪神虎森下翔太因對主審暴言遭退場，NPB公布嚴重警告及10萬日圓制裁金</li>
+                    <li>中日龍佐野恵太因左足肉離離傷勢，於4月14日後首次參加一軍試合前練習</li>
+                    <li>阪神對樂天戰因雨中止，為今日唯一取消賽事</li>
+                </ul>
+            </div>
+            
+            <!-- Giants -->
+            <section class="section" id="giants">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #ff6b35, #f7931e);">巨</div>
+                    <h2 class="section-title">讀賣巨人</h2>
+                    <span class="section-meta">東京巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">延長激戰擊敗羅德</h3>
+                        <div class="score-box">
+                            <div class="score-team winner">
+                                <div>巨人</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：西舘勇陽</div>
+                            </div>
+                            <div class="score-number">4 - 3</div>
+                            <div class="score-team">
+                                <div>羅德</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：S. Long</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在東京巨蛋與千葉羅德展開長達4小時的夜間激戰，最終以4比3險勝。今日為系列戰第3戰，先發投手為西舘勇陽再度登板。</p>
+                    </article>
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-news">球隊消息</span>
+                        <h3 class="card-title">坂本勇人、戶鄉翔征獲選5月度最佳英雄</h3>
+                        <p class="card-body">巨人隊長坂本勇人與王牌投手戶鄉翔征，在球迷投票中獲選5月「月度最佳英雄獎」。坂本在頒獎典禮上表示：「能在達成300轟後獲選，真的非常高興。」兩人今日出席贈呈式，坂本還貼心緩和頒獎少年的緊張情緒。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-player">先發陣容</span>
+                        <h3 class="card-title">今日對羅德先發打線大幅輪換</h3>
+                        <p class="card-body">經過昨日4小時夜戰後，監督一口氣更換5名野手。坂本勇人擔任6番三壘手，松本剛與達爾貝克回歸先發，先發投手為西舘勇陽。泉口擔任1棒、松本2棒，中心打線由丸、達爾貝克、岸田組成。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Tigers -->
+            <section class="section" id="tigers">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #ffd700, #ff8c00);">神</div>
+                    <h2 class="section-title">阪神虎</h2>
+                    <span class="section-meta">甲子園</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-news">重大消息</span>
+                        <h3 class="card-title">森下翔太暴言退場遭NPB嚴重警告</h3>
+                        <p class="card-body">阪神外野手森下翔太因在前日比賽中對主審出言不遜遭退場，日本棒球機構（NPB）今日公布處分：嚴重警告加上10萬日圓制裁金。前監督中畑清在電視節目中表示：「抗議方式太過分了，希望他能多學點禮儀。」</p>
+                    </article>
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">今日賽事</span>
+                        <h3 class="card-title">對樂天戰因雨中止</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>阪神</div>
+                            </div>
+                            <div class="score-number" style="font-size:1.2rem;">中 止</div>
+                            <div class="score-team">
+                                <div>樂天</div>
+                            </div>
+                        </div>
+                        <p class="card-body">原定於甲子園球場舉行的阪神對東北樂天金鷲一戰，因雨勢影響宣布中止。這是今日6場交流戰中唯一取消的賽事。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Carp -->
+            <section class="section" id="carp">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #e60012, #ff4444);">鯉</div>
+                    <h2 class="section-title">廣島東洋鯉魚</h2>
+                    <span class="section-meta">馬自達球場</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">不敵歐力士</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>廣島</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：岡田</div>
+                            </div>
+                            <div class="score-number">1 - 3</div>
+                            <div class="score-team winner">
+                                <div>歐力士</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：宮城</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在主場以1比3敗給歐力士。今日力拚交流戰首次系列勝利，先發投手為岡本駿。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-player">先發陣容</span>
+                        <h3 class="card-title">蒙特羅板凳待命，勝田睽違月餘擔任游擊手</h3>
+                        <p class="card-body">今日對歐力士戰，蒙特羅從板凳出發。名原擔任1棒、菊池2棒，中心打線由小園、坂倉、法比安組成。勝田成自4月30日以來首次擔任先發游擊手，平川8棒，先發投手岡本駿，捕手持丸。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- BayStars -->
+            <section class="section" id="baystars">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #003399, #0066cc);">De</div>
+                    <h2 class="section-title">橫濱DeNA灣星</h2>
+                    <span class="section-meta">橫濱球場</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">主場不敵軟銀</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>DeNA</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：尾形</div>
+                            </div>
+                            <div class="score-number">1 - 4</div>
+                            <div class="score-team winner">
+                                <div>軟銀</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：Stewart Jr.</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在橫濱主場以1比4敗給軟銀。今日將迎戰台灣強投徐若熙，先發投手派出尾形崇斗面對老東家。</p>
+                    </article>
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-player">焦點對決</span>
+                        <h3 class="card-title">今日對決台灣強投徐若熙</h3>
+                        <p class="card-body">橫濱今日將對決軟銀台灣投手徐若熙。這是徐若熙本季第6度先發，力拚個人第3勝。DeNA推出尾形崇斗先發，他將對決前東家軟銀，別有一番意義。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-player">先發陣容</span>
+                        <h3 class="card-title">蝦名、牧擔任開路先鋒</h3>
+                        <p class="card-body">今日先發打線：1棒蝦名、2棒牧，中心打線為佐野、筒香、宮崎，6棒右外野度會，游擊手石上，捕手松尾，先發投手尾形崇斗。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Swallows -->
+            <section class="section" id="swallows">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #00a0e9, #0066b3);">ヤ</div>
+                    <h2 class="section-title">東京養樂多燕子</h2>
+                    <span class="section-meta">神宮球場</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">不敵日本火腿</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>養樂多</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：奥川</div>
+                            </div>
+                            <div class="score-number">2 - 5</div>
+                            <div class="score-team winner">
+                                <div>日本火腿</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：北山</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在神宮球場以2比5敗給日本火腿。今日推出奧川恭伸先發，對決北山亘基。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Dragons -->
+            <section class="section" id="dragons">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #0066cc, #003d7a);">中</div>
+                    <h2 class="section-title">中日龍</h2>
+                    <span class="section-meta">萬特力巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-player">傷兵復帰</span>
+                        <h3 class="card-title">佐野恵太傷癒合流一軍練習</h3>
+                        <p class="card-body">中日龍佐野恵太在4月14日因左足肉離離進入傷兵名單後，今日首次參加一軍試合前練習。他不僅進行打擊練習，也參與一壘守備訓練，復歸一軍指日可待。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-game">今日賽事</span>
+                        <h3 class="card-title">對西武力拚勝利</h3>
+                        <p class="card-body">中日今日在主場萬特力巨蛋迎戰埼玉西武獅，先發投手為涌井秀章。西武則推出來美職首年的A. Winans先發，這將是他生涯首次先發。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Hawks -->
+            <section class="section" id="hawks">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #ffcc00, #ff9900);">鷹</div>
+                    <h2 class="section-title">福岡軟銀鷹</h2>
+                    <span class="section-meta">雅虎巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-player">焦點球星</span>
+                        <h3 class="card-title">徐若熙本季第6度先發</h3>
+                        <p class="card-body">效力軟銀的台灣強投徐若熙，今日於台灣時間下午1點在橫濱球場先發出戰DeNA，力拚本季第3勝。這是他本季第6度登板，備受台日球迷關注。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-news">球隊消息</span>
+                        <h3 class="card-title">近藤健介呼籲停止對投手誹謗中傷</h3>
+                        <p class="card-body">軟銀隊長、日本職棒球員會會長近藤健介，近日針對網路上對投手的誹謗中傷發表看法。他以球員會長身份表示，這類行為不僅傷害選手，對整個棒球界都是負面影響，呼籲球迷理性支持。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Fighters -->
+            <section class="section" id="fighters">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #00bfff, #0080cc);">北</div>
+                    <h2 class="section-title">北海道日本火腿鬥士</h2>
+                    <span class="section-meta">札幌巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">擊敗養樂多</h3>
+                        <div class="score-box">
+                            <div class="score-team winner">
+                                <div>日本火腿</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：北山</div>
+                            </div>
+                            <div class="score-number">5 - 2</div>
+                            <div class="score-team">
+                                <div>養樂多</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：奥川</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在神宮球場以5比2擊敗養樂多。今日續戰養樂多，推出北山亘基先發。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Eagles -->
+            <section class="section" id="eagles">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #b22222, #8b0000);">楽</div>
+                    <h2 class="section-title">東北樂天金鷲</h2>
+                    <span class="section-meta">宮城球場</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">擊敗中日</h3>
+                        <div class="score-box">
+                            <div class="score-team winner">
+                                <div>樂天</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：A. Winans</div>
+                            </div>
+                            <div class="score-number">2 - 0</div>
+                            <div class="score-team">
+                                <div>中日</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：涌井</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在萬特力巨蛋以2比0完封中日。今日原定在甲子園對戰阪神，但因雨勢影響宣布中止。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Lions -->
+            <section class="section" id="lions">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #4169e1, #0000cd);">西</div>
+                    <h2 class="section-title">埼玉西武獅</h2>
+                    <span class="section-meta">西武巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card highlight">
+                        <span class="card-tag tag-player">焦點球星</span>
+                        <h3 class="card-title">高橋光成完全復活</h3>
+                        <p class="card-body">西武王牌高橋光成近期狀態火熱，被專欄作家譽為「完全復活」。從甲子園優勝、亞運金牌到職棒舞台，這位備受期待的投手正逐步兌現天賦，帶領西武獅向前邁進。</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="card-tag tag-player">今日賽事</span>
+                        <h3 class="card-title">Winans生涯首次先發</h3>
+                        <p class="card-body">西武今日推出來美職第一年的A. Winans擔任先發投手，這將是他生涯一軍首次先發。他將與球隊勝率最高的捕手組成電池，備受期待。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Buffaloes -->
+            <section class="section" id="buffaloes">
+                <div class="section-header">
+                    <div class="team-icon" style="linear-gradient(135deg, #191970, #000080);">オ</div>
+                    <h2 class="section-title">歐力士猛牛</h2>
+                    <span class="section-meta">京瓷巨蛋</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">擊敗廣島</h3>
+                        <div class="score-box">
+                            <div class="score-team winner">
+                                <div>歐力士</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：宮城</div>
+                            </div>
+                            <div class="score-number">3 - 1</div>
+                            <div class="score-team">
+                                <div>廣島</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：岡田</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在馬自達球場以3比1擊敗廣島。今日推出宮國凌空先發，尋求系列戰橫掃。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Marines -->
+            <section class="section" id="marines">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #000, #333);">ロ</div>
+                    <h2 class="section-title">千葉羅德海洋</h2>
+                    <span class="section-meta">ZOZO海洋球場</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card score">
+                        <span class="card-tag tag-game">昨日戰績</span>
+                        <h3 class="card-title">延長賽惜敗巨人</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>羅德</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">敗投：S. Long</div>
+                            </div>
+                            <div class="score-number">3 - 4</div>
+                            <div class="score-team winner">
+                                <div>巨人</div>
+                                <div style="font-size:0.8rem;color:var(--gray);">勝投：西舘</div>
+                            </div>
+                        </div>
+                        <p class="card-body">昨日在東京巨蛋與巨人激戰4小時，最終以3比4落敗。今日為系列戰最終戰，力拚避免被橫掃。</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- League Standings -->
+            <section class="section" id="standings">
+                <div class="section-header">
+                    <div class="team-icon" style="background: linear-gradient(135deg, #2a9d8f, #264653);">順</div>
+                    <h2 class="section-title">交流戰戰績表</h2>
+                    <span class="section-meta">6月6日終了時</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <span class="card-tag tag-ranking">聯盟對抗</span>
+                        <h3 class="card-title">太平洋聯盟暫時領先中央聯盟</h3>
+                        <div class="score-box">
+                            <div class="score-team">
+                                <div>中央聯盟</div>
+                            </div>
+                            <div class="score-number">26 - 35</div>
+                            <div class="score-team winner">
+                                <div>太平洋聯盟</div>
+                            </div>
+                        </div>
+                        <p class="card-body">交流戰進入中盤，太平洋聯盟目前以35勝26敗暫時領先中央聯盟。中央聯盟的巨人、廣島、中日等隊近期戰績較為掙扎。</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>📰 《日職每日報》創刊號 · 2026年6月7日</p>
+            <p>資料來源：NPB日本野球機構、Yahoo!スポーツナビ、日刊スポーツ、スポーツ報知</p>
+            <p>⚾ 本報僅留存最近兩週版本 · 圖文僅供參考</p>
+            <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
+        </footer>
+    </div>
+</body>
+</html>
