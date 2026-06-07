@@ -48,7 +48,60 @@ def clean_old_issues():
     return removed
 
 
-def generate_html(info, games_data, standings_data, leaders_data):
+def fetch_team_news(max_per_team=3):
+    """從 Google News RSS 爬取 NPB 球隊新聞"""
+    import requests
+    from bs4 import BeautifulSoup
+
+    news = {}
+    base_url = "https://news.google.com/rss/search"
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+    }
+
+    # 為每支球隊建立搜尋查詢（使用日文隊名）
+    for team_key, team_info in TEAMS.items():
+        query = f"{team_info['name_jp']} プロ野球"
+        try:
+            params = {"q": query, "hl": "ja", "gl": "JP"}
+            resp = requests.get(base_url, params=params, headers=headers, timeout=10)
+            resp.raise_for_status()
+
+            soup = BeautifulSoup(resp.content, "xml")
+            items = soup.find_all("item")
+
+            team_news = []
+            for item in items[:max_per_team]:
+                title_el = item.find("title")
+                source_el = item.find("source")
+                link_el = item.find("link")
+
+                title = title_el.text.strip() if title_el is not None else ""
+                source = source_el.text.strip() if source_el is not None else ""
+                link = link_el.text.strip() if link_el is not None else ""
+
+                if not title:
+                    continue
+
+                team_news.append({
+                    "title": title,
+                    "source": source,
+                    "link": link,
+                })
+
+            if team_news:
+                news[team_key] = team_news
+        except Exception as e:
+            print(f"  News fetch failed for {team_key}: {e}")
+
+    return news
+
+
+def generate_html(info, games_data, standings_data, leaders_data, news_data=None):
     """生成電子報 HTML"""
     
     # ── 今日賽程卡片 ──
@@ -175,6 +228,58 @@ def generate_html(info, games_data, standings_data, leaders_data):
             <div class="news-card">
                 <span class="card-tag tag-game">排行榜</span>
                 <p class="card-body">排行榜資料暫時無法取得。</p>
+            </div>"""
+
+    # ── 球隊新聞摘要 ──
+    news_html = ""
+    if news_data:
+        # 依聯盟分組
+        for league_key, league_display in [("central", "中央聯盟"), ("pacific", "太平洋聯盟")]:
+            league_teams = [(k, v) for k, v in TEAMS.items() if v.get("league") == league_key]
+            league_news_html = ""
+            for team_key, team_info in league_teams:
+                team_news = news_data.get(team_key, [])
+                if not team_news:
+                    continue
+                logo_url = team_info.get("logo", "")
+                items_html = ""
+                for article in team_news:
+                    title = article.get("title", "")
+                    source = article.get("source", "")
+                    link = article.get("link", "")
+                    if link:
+                        items_html += f"""
+                        <li class="news-item">
+                            <a href="{link}" target="_blank" rel="noopener" class="news-link">{title}</a>
+                            <span class="news-source">— {source}</span>
+                        </li>"""
+                    else:
+                        items_html += f"""
+                        <li class="news-item">
+                            <span class="news-title">{title}</span>
+                            <span class="news-source">— {source}</span>
+                        </li>"""
+                if items_html:
+                    league_news_html += f"""
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="{logo_url}" alt="{team_info['name']}" class="news-team-logo">
+                            <span class="team-news-name">{team_info['name']}</span>
+                        </div>
+                        <ul class="team-news-list">{items_html}
+                        </ul>
+                    </div>"""
+            if league_news_html:
+                league_color = "var(--central)" if league_key == "central" else "var(--pacific)"
+                news_html += f"""
+                <h3 class="league-subtitle" style="color:{league_color};">◇ {league_display}</h3>
+                <div class="news-grid">{league_news_html}
+                </div>"""
+    if not news_html:
+        news_html = """
+            <div class="news-card">
+                <span class="card-tag tag-news">球隊新聞</span>
+                <p class="card-body">今日球隊新聞暫時無法取得。</p>
             </div>"""
 
     # ── 合併主模板 ──
@@ -449,6 +554,71 @@ def generate_html(info, games_data, standings_data, leaders_data):
             font-weight: 900;
             color: var(--accent);
         }}
+        /* ── 球隊新聞 ── */
+        .news-grid {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }}
+        .team-news-block {{
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+            flex: 1 1 280px;
+            min-width: 0;
+        }}
+        .team-news-header {{
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }}
+        .news-team-logo {{
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }}
+        .team-news-name {{
+            font-size: 1rem;
+            font-weight: 800;
+        }}
+        .team-news-list {{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }}
+        .news-item {{
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            line-height: 1.5;
+        }}
+        .news-item:last-child {{
+            border-bottom: none;
+        }}
+        .news-link {{
+            color: var(--ink);
+            text-decoration: none;
+            transition: color 0.15s;
+        }}
+        .news-link:hover {{
+            color: var(--accent);
+            text-decoration: underline;
+        }}
+        .news-title {{
+            color: var(--ink);
+        }}
+        .news-source {{
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.15rem;
+        }}
         .footer {{
             background: var(--light-gray);
             padding: 2rem;
@@ -499,9 +669,9 @@ def generate_html(info, games_data, standings_data, leaders_data):
                     <span class="card-tag tag-news">系統通知</span>
                     <h3 class="card-title">本報由自動化系統生成</h3>
                     <p class="card-body">
-                        本電子報於每日中午12:00自動生成，資料來源為 NPB 官方網站。<br>
+                        本電子報於每日中午12:00自動生成，資料來源為 NPB 官方網站與 Google 新聞。<br>
                         由於自動化限制，部分內容可能無法即時更新，建議參考官方網站取得最新資訊。<br>
-                        球隊新聞摘要需人工整理，自動化版本暫時僅提供賽程、戰績與排行資訊。
+                        球隊新聞摘要為 Google 新聞自動搜集，僅供參考。
                     </p>
                     <p class="card-body" style="margin-top: 1rem;">
                         <strong>今日日期：</strong>{info['today_display']} {info['today_weekday']}<br>
@@ -517,6 +687,14 @@ def generate_html(info, games_data, standings_data, leaders_data):
                     <h2 class="section-title">📅 今日賽程 ({info['today_display']})</h2>
                 </div>
                 {today_games_html}
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📰 球隊新聞摘要</h2>
+                    <span class="auto-badge">AUTO</span>
+                </div>
+                {news_html}
             </div>
             
             <div class="section">
@@ -605,17 +783,27 @@ def main():
         print(f"  取得排行榜失敗: {e}")
         leaders = {}
     
-    # 5. 生成 HTML（傳入真實數據）
-    print("生成電子報 HTML...")
-    html_content = generate_html(info, games, standings, leaders)
+    # 5. 取得球隊新聞
+    print("取得 NPB 球隊新聞...")
+    try:
+        news = fetch_team_news()
+        news_count = sum(len(v) for v in news.values())
+        print(f"  球隊新聞: {news_count} 篇")
+    except Exception as e:
+        print(f"  取得球隊新聞失敗: {e}")
+        news = {}
     
-    # 6. 寫入檔案
+    # 6. 生成 HTML（傳入真實數據）
+    print("生成電子報 HTML...")
+    html_content = generate_html(info, games, standings, leaders, news)
+    
+    # 7. 寫入檔案
     html_path = today_dir / "index.html"
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"已生成: {html_path}")
     
-    # 7. 複製封面圖（如果有）
+    # 8. 複製封面圖（如果有）
     cover_source = NEWSPAPER_DIR / "2026-06-07" / "images" / "cover.png"
     cover_target = images_dir / "cover.png"
     if cover_source.exists() and cover_source != cover_target:
@@ -623,10 +811,10 @@ def main():
         shutil.copy(cover_source, cover_target)
         print("已複製封面圖")
     
-    # 8. 更新報架索引
+    # 9. 更新報架索引
     update_rack_index(info)
     
-    # 9. 部署
+    # 10. 部署
     print("部署到 GitHub Pages...")
     deploy_to_github()
     
