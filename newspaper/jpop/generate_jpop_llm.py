@@ -44,102 +44,130 @@ def get_date_info():
     }
 
 def build_prompt(date_info):
-    """構建 LLM prompt"""
+    """構建 LLM prompt — 嵌入真實數據，只讓 LLM 格式化 HTML"""
     
-    prompt = f"""你是 JPOP流行報 的自動化編輯系統。請生成一份豐富的日本流行音樂週報 HTML 內容。
+    prompt = f"""你是 JPOP流行報 的編輯系統。請根據以下提供的真實數據生成 HTML 週報。
 
 ## 日期資訊
 - 報紙日期：{date_info['display_date']}
 - 第 {date_info['week_number']} 期
 
-## 角色設定
-- 你是專業的日本流行音樂編輯
-- 用繁體中文撰寫，歌曲原名保留日文
-- 內容必須真實，不能虛構
+## 真實數據（請直接使用以下數據，不要自己編造）
 
-## 重要規則
-1. **所有內容必須真實**：不能虛構歌曲、新聞、演唱會資訊
-2. **Spotify 連結必須是 track 連結**：格式為 `https://open.spotify.com/track/xxxxx`，不是 artist 連結
-3. **YouTube 連結必須真實**：必須是實際存在的影片 URL，格式為 `https://www.youtube.com/watch?v=xxxxx`
-4. **所有內容繁體中文**：歌曲原名保留日文
-5. **新聞必須標註來源**：音樂Natalie / Billboard Japan / Oricon / Model Press
-6. **演唱會資訊必須真實**：日期、地點、售票資訊都要準確
+### Highlight Artist: Ado
+- 真實簡介：Ado 是日本新生代最具代表性的歌い手（歌手），2020 年以〈うっせぇわ〉一鳴驚人。2026年6月宣布與 Giga × TeddyLoid 再度聯手推出新曲〈モンストロ（Monstruo）〉作為真人版電影《BLUE LOCK》主題歌，預計8月7日公開。7月將在日產體育場舉辦首次體育館級演唱會「Ado STADIUM LIVE 2026『Ao』」。
+- Spotify: https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl
+- YouTube: https://www.youtube.com/channel/UCln9P4Qm3-EAY4aiEPmRwEA
+- Official: https://www.universal-music.co.jp/ado/
 
-## 需要生成的內容區塊
+### 最新歌曲（使用以下真實資料）
 
-請生成以下 section（只需要 <section> 標籤內的內容，不需要外層的 html/head/body）：
+1. モンストロ (Monstruo) — Ado
+   真人電影《BLUE LOCK》主題歌。Giga × TeddyLoid 繼〈踊〉〈唱〉後再次聯手，拉丁節奏燃燒鬥志。
+   YouTube: https://www.youtube.com/watch?v=bq28BNi60S0
 
-### 1. Highlight Artist
-- 當週焦點歌手（選擇一位當週有話題的歌手）
-- 真實簡介
-- Spotify artist 連結（這裡可以是 artist 連結）
-- YouTube 頻道連結
-- Official 官網連結
+2. Crunchy — iri
+   6月5日配信。デビュー10周年イヤー第2弾！澤村一平(SANABAGUN.)等參與製作。
+   Spotify: https://open.spotify.com/track/3micqfC9Do9RNjfKXrgXJn
+   YouTube: https://www.youtube.com/watch?v=pxzvCLs5cWo
 
-### 2. New Songs（5-8首）
-每首歌曲必須包含：
-- 歌曲名（日文原名）
-- 歌手名
-- 中文簡介
-- **Spotify track 連結**（必須是 track 連結，不是 artist）
-- **YouTube 影片連結**（必須是實際存在的影片）
+3. FUNKY SUMMER — 僕が見たかった青空
+   6月3日發行第8張單曲表題曲。夏日清爽流行曲風。
 
-### 3. Music News（4-6則）
-每則新聞必須包含：
-- 標題（繁體中文）
-- 來源標註（音樂Natalie / Billboard Japan / Oricon / Model Press）
-- 原文連結（真實可點擊的 URL）
+4. Fright — Creepy Nuts
+   TBS系火曜ドラマ「時すでにおスシ!?」主題歌。Coachella演出、北美巡迴中。
 
-### 4. Japan Concerts
-- 日本演唱會資訊表格
-- 日期、歌手、場地、售票連結
+5. THE BOOK for, — YOASOBI
+   第4張EP，THE BOOK系列完結篇。收錄〈Biri-Biri〉〈Heart Beat〉等，6月26日發行。
+   官網: https://www.yoasobi-music.jp/news/583459
 
-### 5. Taiwan Concerts
-- 台灣場次資訊表格
-- 日期、歌手、場地、售票連結
+### 音樂新聞（使用以下真實連結）
 
-## CSS 類名參考
-- section, section-header, section-title
-- highlight, highlight-content, highlight-links
-- song-grid, song-card, song-title, song-artist, song-links
+1. Ado新曲「モンストロ」が実写映画『ブルーロック』主題歌に — Real Sound
+   https://realsound.jp/2026/06/post-2415892.html
+
+2. YOASOBI、4th EP『THE BOOK for,』6月26日リリース — THE FIRST TIMES
+   https://www.thefirsttimes.jp/news/0000811583/
+
+3. Reol、横浜アリーナ公演を収めたライブ映像作品を6月3日リリース — Billboard JAPAN
+   https://www.billboard-japan.com/d_news/detail/159452
+
+4. iri、デビュー10周年イヤー第2弾シングル「Crunchy」配信リリース — 音楽ナタリー
+   https://natalie.mu/music/news/674681
+
+5. 菊池桃子、約2年ぶりの新曲リリースを発表 — 音楽ナタリー
+   https://natalie.mu/music/news/674694
+
+### 日本演唱會
+- Ado STADIUM LIVE 2026「Ao」— 2026年7月、日産スタジアム
+- iri 10th Anniversary LIVE "Period" — 2026/10/22、ぴあアリーナMM
+- Creepy Nuts NORTH AMERICA TOUR 2026 — 夏季
+
+### 台灣演唱會
+（目前尚無已確認之JPOP歌手台灣公演資訊）
+
+## HTML 格式要求
+請生成 5 個 <section> 標籤的 HTML，使用以下 CSS 類名：
+- section, highlight, song-grid, song-card, song-title, song-artist, song-links
 - news-grid, news-card, news-title, news-source
 - concert-table
+- links (for highlight artist links)
 
-## 輸出格式
-請直接輸出 section 的 HTML 內容，不需要其他包裝。
-
-請確保：
-1. 所有連結真實可點擊
-2. Spotify 連結必須是 track 連結
-3. YouTube 連結必須是實際存在的影片
-4. 繁體中文
-5. 歌曲原名保留日文
+輸出時直接給 section 內容即可，不要外層 html/head/body 包裝。
+使用繁體中文，歌曲名保留日文原文。
 """
     
     return prompt
 
 def call_openai(prompt):
-    """呼叫 OpenAI API"""
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        print("未設定 OPENAI_API_KEY")
-        return None
+    """呼叫 OpenAI API，若配額不足則自動切換至 OpenRouter"""
+    openai_key = os.environ.get("OPENAI_API_KEY")
+    openrouter_key = os.environ.get("OPENROUTER_API_KEY")
     
-    try:
-        client = openai.OpenAI(api_key=api_key)
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。所有數據必須真實，連結必須可點擊。Spotify 連結必須是 track 連結（不是 artist）。"},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.7,
-            max_tokens=8000
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"OpenAI API 錯誤：{e}")
-        return None
+    # 優先使用 OpenAI
+    if openai_key:
+        print("嘗試使用 OpenAI API...")
+        try:
+            client = openai.OpenAI(api_key=openai_key)
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。所有數據必須真實，連結必須可點擊。Spotify 連結必須是 track 連結（不是 artist）。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=8000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            error_str = str(e)
+            if "429" in error_str or "insufficient_quota" in error_str or "quota" in error_str.lower():
+                print(f"OpenAI 配額不足 (429)，嘗試切換至 OpenRouter...")
+            else:
+                print(f"OpenAI API 錯誤：{e}")
+                return None
+    
+    # 備用：OpenRouter
+    if openrouter_key:
+        print("嘗試使用 OpenRouter API...")
+        try:
+            client = openai.OpenAI(api_key=openrouter_key, base_url="https://openrouter.ai/api/v1")
+            response = client.chat.completions.create(
+                model="openai/gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。所有數據必須真實，連結必須可點擊。Spotify 連結必須是 track 連結（不是 artist）。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=8000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"OpenRouter API 錯誤：{e}")
+            return None
+    
+    print("未設定 OPENAI_API_KEY 或 OPENROUTER_API_KEY")
+    return None
 
 def call_anthropic(prompt):
     """呼叫 Anthropic API"""
@@ -329,8 +357,9 @@ def main():
     print("正在生成 HTML...")
     html = generate_html(content, date_info)
     
-    # 儲存檔案
-    output_dir = OUTPUT_DIR / date_info['date_str']
+    # 儲存檔案到 GitHub repo
+    repo_dir = Path("/tmp/ebooksforme")
+    output_dir = repo_dir / "newspaper" / "jpop" / date_info['date_str']
     output_dir.mkdir(parents=True, exist_ok=True)
     
     output_file = output_dir / "index.html"
@@ -339,22 +368,6 @@ def main():
     
     print(f"\n✅ 已儲存：{output_file}")
     print(f"檔案大小：{len(html)} 字元")
-    
-    # 複製到 GitHub repo
-    repo_dir = Path("/tmp/ebooksforme")
-    repo_output_dir = repo_dir / "newspaper" / "jpop" / date_info['date_str']
-    repo_output_dir.mkdir(parents=True, exist_ok=True)
-    
-    import shutil
-    shutil.copy2(output_file, repo_output_dir / "index.html")
-    print(f"✅ 已複製到：{repo_output_dir / 'index.html'}")
-    
-    # Git 提交
-    print("\n正在 Git 提交...")
-    os.chdir(repo_dir)
-    os.system("git add -A")
-    os.system(f'git commit -m "JPOP流行報: {date_info["date_str"]} 自動生成" || echo "無變更需要提交"')
-    os.system("git push")
     
     print("\n" + "=" * 50)
     print("✅ 完成！")
