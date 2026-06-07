@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPOP流行報 - 2026年6月8日 第24期</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff2a6d;
+            --bg: #0f0f1a;
+            --card: #1a1a2e;
+            --text: #e0e0e0;
+            --muted: #a0a0b0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', 'Hiragino Sans', 'Meiryo', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            color: var(--accent);
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(255,42,109,0.4);
+        }
+        header .date { color: var(--muted); font-size: 1rem; margin-top: 8px; }
+        section { margin-bottom: 40px; }
+        h2.section-title {
+            font-size: 1.5rem;
+            border-left: 6px solid var(--accent);
+            padding-left: 14px;
+            margin: 30px 0 18px;
+            color: #fff;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a0f1a 100%);
+            border: 1px solid #331122;
+            border-radius: 14px;
+            padding: 24px;
+        }
+        .highlight .label { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
+        .highlight h3 { margin-top: 0; color: var(--accent); font-size: 1.4rem; }
+        .highlight p { margin: 10px 0; color: var(--muted); }
+        .links { margin-top: 12px; }
+        .links a {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.08);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #4fc3f7;
+            text-decoration: none;
+            transition: background .2s;
+        }
+        .links a:hover { background: rgba(255,255,255,0.15); }
+        .song-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .song-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #2a2a3e;
+            transition: transform .2s, border-color .2s;
+        }
+        .song-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .song-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
+        .song-card .artist-label { color: var(--accent); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+        .song-card p { font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }
+        .song-links { margin-top: 8px; }
+        .song-links a {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            background: rgba(79,195,247,0.1);
+            color: #4fc3f7;
+            text-decoration: none;
+        }
+        .song-links a:hover { background: rgba(79,195,247,0.2); }
+        .news-grid { display: grid; gap: 14px; }
+        .news-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #2a2a3e;
+        }
+        .news-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
+        .news-card .news-source { color: var(--accent); font-size: 0.85rem; font-weight: 700; }
+        .news-card p { font-size: 0.9rem; color: var(--muted); margin: 8px 0; }
+        .news-card a { color: #4fc3f7; font-size: 0.9rem; }
+        .data-info { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px; border-left: 3px solid var(--accent); font-size: 0.85rem; color: var(--muted); }
+        .chart-list { list-style: none; padding: 0; }
+        .chart-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .chart-rank { width: 30px; font-weight: 900; color: var(--accent); }
+        .chart-info { flex: 1; }
+        .chart-title { color: #fff; }
+        .chart-artist { font-size: 0.85rem; color: var(--muted); }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #2a2a3e;
+            margin-top: 40px;
+        }
+        @media (max-width: 640px) {
+            .song-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 JPOP流行報</h1>
+            <div class="date">2026年6月8日 · 第24期 · 隔週日發行</div>
+        </header>
+        
+        <section>
+  <h2 class="section-title">⭐ Highlight Artist</h2>
+  <div class="highlight">
+    <div class="label">🌟 本週焦點歌手</div>
+    <h3>CUTIE STREET</h3>
+    <p>CUTIE STREET 以〈キュートなキューたい〉登上本週 Billboard JAPAN Hot 100 冠軍，成為第 24 期 JPOP流行報焦點歌手。榜單資料來源為 Billboard JAPAN，資料收集時間為 2026-06-08 00:52:48。</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">🎶 最新歌曲</h2>
+  <div class="song-grid">
+    <div class="song-card">
+      <h4>〈キュートなキューたい〉</h4>
+      <div class="artist-label">CUTIE STREET</div>
+      <p>本週 Billboard JAPAN Hot 100 第 1 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈初めてのオール〉</h4>
+      <div class="artist-label">NMB48</div>
+      <p>本週 Billboard JAPAN Hot 100 第 2 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈夜の踊り子〉</h4>
+      <div class="artist-label">サカナクション</div>
+      <p>本週 Billboard JAPAN Hot 100 第 3 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈好きすぎて滅!〉</h4>
+      <div class="artist-label">M!LK</div>
+      <p>本週 Billboard JAPAN Hot 100 第 4 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈爆裂愛してる〉</h4>
+      <div class="artist-label">M!LK</div>
+      <p>本週 Billboard JAPAN Hot 100 第 5 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈IRIS OUT〉</h4>
+      <div class="artist-label">米津玄師</div>
+      <p>本週 Billboard JAPAN Hot 100 第 6 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈Five〉</h4>
+      <div class="artist-label">嵐</div>
+      <p>本週 Billboard JAPAN Hot 100 第 7 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈It's Me〉</h4>
+      <div class="artist-label">ILLIT</div>
+      <p>本週 Billboard JAPAN Hot 100 第 8 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈lulu.〉</h4>
+      <div class="artist-label">Mrs.GREEN APPLE</div>
+      <p>本週 Billboard JAPAN Hot 100 第 9 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+    <div class="song-card">
+      <h4>〈アイドルパワー〉</h4>
+      <div class="artist-label">M!LK</div>
+      <p>本週 Billboard JAPAN Hot 100 第 10 名。排行榜來源：Billboard JAPAN。</p>
+      <div class="song-links">[連結確認中]</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📰 音樂新聞</h2>
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>乃木坂46一ノ瀬美空が初センター、42ndシングルは「是非に及ばず」</h4>
+      <p>乃木坂46 於 7 月 22 日發行的 42nd 單曲標題確定為「是非に及ばず」，表題曲選拔成員已在 6 月 7 日深夜播出的「乃木坂工事中」中發表。</p>
+      <a href="https://natalie.mu/music/news/675193" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>SUPER EIGHT「anan」2500号の表紙を飾る、20年分の“過去の自分たち”と共演</h4>
+      <p>SUPER EIGHT 將登上 6 月 17 日發售的雜誌「anan」2500 號封面。</p>
+      <a href="https://natalie.mu/music/news/675177" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>FRUITS ZIPPERがパワーをチャージするMV公開、近い</h4>
+      <p>FRUITS ZIPPER 最新曲「ぱわーオブらぶ」的音樂錄影帶已在 YouTube 公開。</p>
+      <a href="https://natalie.mu/music/news/675186" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>「あなたたちがいるから僕たちがいます」BUDDiiSツアー「FLORiiA」大団円、涙の先で開いた笑顔の花</h4>
+      <p>BUDDiiS 全國巡演「BUDDiiS vol.11 Hall Tour -FLORiiA-」最終公演於 6 月 7 日在千葉・幕張イベントホール舉行。</p>
+      <a href="https://natalie.mu/music/news/675156" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>a crowd of rebellionからボーカル小林亮輔が脱退</h4>
+      <p>a crowd of rebellion 宣布小林亮輔（Vo, G）於 6 月 7 日退出團體。</p>
+      <a href="https://natalie.mu/music/news/675182" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>SPECIAL OTHERSが全国20カ所巡る、デビュー20周年を記念して</h4>
+      <p>SPECIAL OTHERS 將於 9 月至 12 月舉辦全國 20 地巡演「デビュー20周年！！20箇所記念ツアー！！全員集合☆彡」。</p>
+      <a href="https://natalie.mu/music/news/675167" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>SIX LOUNGE、日本武道館でワンマンライブ「正夢」開催</h4>
+      <p>SIX LOUNGE 將於 2027 年 2 月 13 日在東京・日本武道館舉辦單獨公演「SIX LOUNGE “正夢”」。</p>
+      <a href="https://natalie.mu/music/news/675164" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <div class="news-card">
+      <div class="news-source">音楽ナタリー</div>
+      <h4>ギターウルフが電話受けて急遽トリに、スウェーデンロックフェスの映像公開</h4>
+      <p>ギターウルフ臨時出演瑞典「Sweden Rock Festival 2026」6 月 5 日公演，並公開當日演出影像。</p>
+      <a href="https://natalie.mu/music/news/675179" target="_blank">🔗 原文を見る →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">🎤 日本演唱會</h2>
+  <table class="concert-table">
+    <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" style="text-align:center;color:var(--muted);">本週資料整理中</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2 class="section-title">🇹🇼 台灣演唱會・活動</h2>
+  <table class="concert-table">
+    <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" style="text-align:center;color:var(--muted);">尚無已確認之資訊</td></tr>
+    </tbody>
+  </table>
+</section>
+        
+        <footer>
+            <p>Issue Date: 2026-06-08 · 第24期</p>
+            <p>資料來源：Billboard JAPAN / 音楽ナタリー / ORICON</p>
+            <p>© JPOP流行報 · 每週日發行 · 僅保留最近六期</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -19,7 +19,7 @@ echo "=========================================="
 # 1. 生成週報
 echo ""
 echo "[1/4] 使用 LLM 生成週報..."
-python3 "$GENERATE_SCRIPT"
+python3 "$GENERATE_SCRIPT" "$@"
 
 # 2. 保留最多 6 期
 echo ""

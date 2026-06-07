@@ -197,25 +197,9 @@ def generate_llm_content(market_data, date_str, display_date):
 請確保所有數據都是真實的，新聞有明確來源連結。
 """
 
-    # 呼叫 LLM（使用 agy 為第一優先，codex 為備援）
+    # 呼叫 LLM（使用 codex 為第一優先，agy 為備援）
     try:
-        # 1) agy (antigravity CLI)
-        try:
-            print("使用 agy (antigravity)...")
-            import subprocess
-            result = subprocess.run(
-                ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
-                capture_output=True, text=True, timeout=300
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-            print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
-        except FileNotFoundError:
-            print("agy not found")
-        except Exception as e:
-            print(f"agy error: {e}")
-
-        # 2) codex CLI（備援）
+        # 1) codex CLI
         try:
             print("使用 codex CLI...")
             import subprocess
@@ -230,6 +214,22 @@ def generate_llm_content(market_data, date_str, display_date):
             print("codex not found")
         except Exception as e:
             print(f"codex error: {e}")
+
+        # 2) agy (antigravity CLI，備援)
+        try:
+            print("使用 agy (antigravity)...")
+            import subprocess
+            result = subprocess.run(
+                ["agy", "--sandbox", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
+                capture_output=True, text=True, timeout=300
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+            print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        except FileNotFoundError:
+            print("agy not found")
+        except Exception as e:
+            print(f"agy error: {e}")
 
         print("All LLM providers failed")
         return None

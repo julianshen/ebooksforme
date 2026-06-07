@@ -637,29 +637,8 @@ def build_fallback_prompt(date_info):
 # 第 4 部分：LLM API 呼叫
 # ============================================================
 
-def call_llm_agy(prompt, temperature=0.2):
-    """使用 agy (antigravity CLI) 呼叫 LLM"""
-    try:
-        import subprocess
-        print("使用 agy (antigravity)...")
-        result = subprocess.run(
-            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
-            capture_output=True, text=True, timeout=300
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            return result.stdout.strip()
-        print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
-        return None
-    except FileNotFoundError:
-        print("agy not found")
-        return None
-    except Exception as e:
-        print(f"agy error: {e}")
-        return None
-
-
 def call_llm_codex(prompt, temperature=0.2):
-    """使用 codex CLI 呼叫 LLM（備援）"""
+    """使用 codex CLI 呼叫 LLM（第一優先）"""
     try:
         import subprocess
         print("使用 codex CLI...")
@@ -679,21 +658,42 @@ def call_llm_codex(prompt, temperature=0.2):
         return None
 
 
+def call_llm_agy(prompt, temperature=0.2):
+    """使用 agy (antigravity CLI) 呼叫 LLM（備援）"""
+    try:
+        import subprocess
+        print("使用 agy (antigravity)...")
+        result = subprocess.run(
+            ["agy", "--sandbox", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
+            capture_output=True, text=True, timeout=300
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+        print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        return None
+    except FileNotFoundError:
+        print("agy not found")
+        return None
+    except Exception as e:
+        print(f"agy error: {e}")
+        return None
+
+
 def generate_content(date_info, music_data):
-    """使用 LLM 生成內容 — 優先 agy，備援 codex"""
+    """使用 LLM 生成內容 — 優先 codex，備援 agy"""
     prompt = build_prompt(date_info, music_data)
 
-    # 1) agy (antigravity CLI)
-    content = call_llm_agy(prompt)
-    if content:
-        return content
-
-    # 2) codex CLI（備援）
+    # 1) codex CLI（第一優先）
     content = call_llm_codex(prompt)
     if content:
         return content
 
-    print("所有 LLM 提供者皆失敗（agy → codex）")
+    # 2) agy (antigravity CLI，備援)
+    content = call_llm_agy(prompt)
+    if content:
+        return content
+
+    print("所有 LLM 提供者皆失敗（codex → agy）")
     return None
 
 
@@ -935,6 +935,7 @@ def generate_html_direct(music_data, date_info):
 
 def main():
     """主函數 — 資料收集 → Prompt 構建 → LLM 生成 → HTML 輸出"""
+
     print("=" * 50)
     print("JPOP流行報 - LLM 自動生成")
     print("=" * 50)
@@ -969,7 +970,7 @@ def main():
     has_llm = shutil.which("agy") is not None or shutil.which("codex") is not None
     
     if has_llm:
-        print("   正在呼叫 LLM API...")
+        print("   正在呼叫 LLM API (codex → agy)...")
         content = generate_content(date_info, music_data)
     else:
         print("   ⚠️ 未設定 LLM API Key，使用直接生成模式（無 LLM）")
@@ -1009,6 +1010,7 @@ def main():
     print(f"   資料收集：{'✅ 成功' if music_data.get('has_data') else '⚠️ 使用 fallback'}")
     print(f"   榜單歌曲：{len(music_data.get('billboard_chart', []))} 首")
     print(f"   新聞總數：{len(music_data.get('all_news', []))} 則")
+    print(f"   LLM 提供者：codex → agy")
     print(f"   LLM 溫度：0.2")
     print(f"   檔案：{output_file}")
     print(f"   URL: https://julianshen.github.io/ebooksforme/newspaper/jpop/{date_info['date_str']}/")
