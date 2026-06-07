@@ -61,7 +61,9 @@ def get_today_info():
 
 def fetch_npb_schedule(date_str):
     """抓取 NPB 賽程"""
-    url = f"{NPB_BASE_URL}/scores/{date_str.replace('-', '')}/"
+    # 將 YYYY-MM-DD 轉換為 YYYY/MM/DD 格式
+    parts = date_str.split('-')
+    url = f"{NPB_BASE_URL}/scores/{parts[0]}/{parts[1]}{parts[2]}/"
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
