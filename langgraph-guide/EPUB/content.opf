@@ -23,7 +23,8 @@
     <item href="10-project.xhtml" id="ch10" media-type="application/xhtml+xml"/>
     <item href="11-appendix.xhtml" id="appendix" media-type="application/xhtml+xml"/>
     <item href="style/nav.css" id="css" media-type="text/css"/>
-    <item href="images/cover.png" id="img_cover" media-type="image/png"/>
+    <item href="nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+    <item href="images/cover.png" id="img_cover" media-type="image/png" properties="cover-image"/>
     <item href="images/manga-xiaoyu-intro.jpg" id="img_manga1" media-type="image/jpeg"/>
     <item href="images/manga-ch1-hear-langgraph.jpg" id="img_manga2" media-type="image/jpeg"/>
     <item href="images/manga-ch1-vs.jpg" id="img_manga3" media-type="image/jpeg"/>
@@ -47,4 +48,8 @@
     <itemref idref="ch10"/>
     <itemref idref="appendix"/>
   </spine>
+  <guide>
+    <reference type="cover" title="封面" href="cover.xhtml"/>
+    <reference type="toc" title="目錄" href="nav.xhtml"/>
+  </guide>
 </package>
