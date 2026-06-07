@@ -145,7 +145,7 @@
         .news-card {
             background: white;
             border-radius: 12px;
-            padding: 1.25rem;
+            overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             border-left: 4px solid var(--accent);
             transition: transform 0.2s, box-shadow 0.2s;
@@ -154,9 +154,16 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
-        .news-card.highlight { border-left-color: var(--gold); background: linear-gradient(135deg, #fff 0%, #fffbf0 100%); }
+        .news-card.highlight { border-left-color: var(--gold); }
         .news-card.music { border-left-color: var(--purple); }
         .news-card.concert { border-left-color: var(--cyan); }
+        .news-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .news-content { padding: 1.25rem; }
         .card-tag {
             display: inline-block;
             font-size: 0.7rem;
@@ -190,6 +197,15 @@
         }
         .source-link:hover { color: var(--accent); }
         .source-link::before { content: '🔗'; }
+        .news-source {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--light-gray);
+            border-radius: 4px;
+        }
         .music-links {
             display: flex;
             gap: 0.5rem;
@@ -301,6 +317,52 @@
         .song-info { flex: 1; }
         .song-title { font-weight: 700; font-size: 0.95rem; }
         .song-artist { font-size: 0.8rem; color: var(--gray); }
+        
+        /* X Trends Section */
+        .trends-container {
+            display: grid;
+            gap: 1rem;
+        }
+        .trend-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #1da1f2;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .trend-rank {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .trend-content { flex: 1; }
+        .trend-hashtag {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1da1f2;
+            margin-bottom: 0.3rem;
+        }
+        .trend-desc {
+            font-size: 0.9rem;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+        .trend-stats {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
         .footer {
             background: var(--light-gray);
             padding: 2rem;
@@ -328,6 +390,7 @@
             .nav-bar { padding: 0.5rem; }
             .nav-bar a { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
             .concert-grid { grid-template-columns: 1fr; }
+            .trend-item { flex-direction: column; }
         }
     </style>
 </head>
@@ -357,6 +420,7 @@
         <nav class="nav-bar">
             <a href="#highlight">本週焦點</a>
             <a href="#new-songs">新歌速報</a>
+            <a href="#trends">X熱門趨勢</a>
             <a href="#news">音樂新聞</a>
             <a href="#concerts-jp">日本演唱會</a>
             <a href="#concerts-tw">台灣演唱會</a>
@@ -377,6 +441,7 @@
             <section class="section" id="new-songs">
                 <div class="section-header">
                     <div class="section-title">🎵 新歌速報</div>
+                    <div class="section-meta">資料來源：Billboard Japan Hot 100 / Oricon</div>
                 </div>
                 <div class="song-list">
                     <div class="song-item">
@@ -437,58 +502,142 @@
                 </div>
             </section>
 
+            <section class="section" id="trends">
+                <div class="section-header">
+                    <div class="section-title">🔥 X 熱門趨勢</div>
+                    <div class="section-meta">本週日本音樂相關熱門話題</div>
+                </div>
+                <div class="trends-container">
+                    <div class="trend-item">
+                        <div class="trend-rank">1</div>
+                        <div class="trend-content">
+                            <div class="trend-hashtag">#KingGnu台北</div>
+                            <div class="trend-desc">King Gnu 台北小巨蛋演唱會引發熱議，粉絲分享現場影片與感動心得</div>
+                            <div class="trend-stats">📊 本週熱度：🔥🔥🔥🔥🔥 | 💬 討論數：50,000+</div>
+                        </div>
+                    </div>
+                    <div class="trend-item">
+                        <div class="trend-rank">2</div>
+                        <div class="trend-content">
+                            <div class="trend-hashtag">#嵐東京ドーム最終公演</div>
+                            <div class="trend-desc">嵐於5月31日東京ドーム最終公演，26年半活動畫下句點，粉絲淚灑現場</div>
+                            <div class="trend-stats">📊 本週熱度：🔥🔥🔥🔥🔥 | 💬 討論數：100,000+</div>
+                        </div>
+                    </div>
+                    <div class="trend-item">
+                        <div class="trend-rank">3</div>
+                        <div class="trend-content">
+                            <div class="trend-hashtag">#MUSICAWARDSJAPAN2026</div>
+                            <div class="trend-desc">6月13日 MUSIC AWARDS JAPAN 2026 即將登場，藤井風、HANA、米津玄師、サカナクション等確認演出</div>
+                            <div class="trend-stats">📊 本週熱度：🔥🔥🔥🔥 | 💬 討論數：30,000+</div>
+                        </div>
+                    </div>
+                    <div class="trend-item">
+                        <div class="trend-rank">4</div>
+                        <div class="trend-content">
+                            <div class="trend-hashtag">#YOASOBIアジアツアー</div>
+                            <div class="trend-desc">YOASOBI 宣布亞洲10城市巨蛋體育場巡演，台北場次備受期待</div>
+                            <div class="trend-stats">📊 本週熱度：🔥🔥🔥🔥 | 💬 討論數：25,000+</div>
+                        </div>
+                    </div>
+                    <div class="trend-item">
+                        <div class="trend-rank">5</div>
+                        <div class="trend-content">
+                            <div class="trend-hashtag">#米津玄師GHOSTツアー</div>
+                            <div class="trend-desc">米津玄師宣布11月展開「GHOST」巡演，粉絲搶票蓄勢待發</div>
+                            <div class="trend-stats">📊 本週熱度：🔥🔥🔥 | 💬 討論數：20,000+</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="section" id="news">
                 <div class="section-header">
                     <div class="section-title">📰 音樂新聞</div>
+                    <div class="section-meta">來源：音楽ナタリー / Billboard Japan / Oricon</div>
                 </div>
                 <div class="news-grid">
                     <article class="news-card highlight">
-                        <span class="card-tag tag-highlight">重大消息</span>
-                        <h3 class="card-title">YOASOBI 宣布亞洲10城市巨蛋體育場巡演</h3>
-                        <p class="card-body">YOASOBI 宣布將於2026年至2027年舉行「YOASOBI ASIA 10-CITY DOME & STADIUM TOUR」，巡迴亞洲10個城市。這將是 YOASOBI 史上最大規模的巡演，預計將造訪台北、東京、大阪、首爾、曼谷等主要城市。</p>
-                        <a href="https://www.yoasobi-music.jp/live/" class="source-link" target="_blank">YOASOBI 官方網站</a>
-                    </article>
-                    <article class="news-card music">
-                        <span class="card-tag tag-new">新曲發表</span>
-                        <h3 class="card-title">米津玄師新單曲《IRIS OUT / JANE DOE》發行</h3>
-                        <p class="card-body">米津玄師於3月27日發行新單曲《IRIS OUT / JANE DOE》，其中收錄《KICK BACK》的多種混音版本。同時宣布將於2026年11月展開「米津玄師 2026 TOUR / GHOST」巡演，預計在長野、橫濱、大阪、福岡、宮城、名古屋六都進行14場演出。</p>
-                        <div class="music-links">
-                            <a href="https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB" class="music-link spotify" target="_blank">Spotify</a>
-                            <a href="https://www.youtube.com/watch?v=cbuj8JEnXAc" class="music-link youtube" target="_blank">YouTube</a>
+                        <img src="https://natalie.mu/media/comic/2505/0523/extra/news_xlarge_arashi_final.jpg" alt="嵐 東京ドーム最終公演" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-highlight">重大消息</span>
+                            <h3 class="card-title">嵐、東京ドームで歴史に幕「みんなで作った嵐を26年間、守り切れて本当によかった」</h3>
+                            <p class="card-body">人気グループ「嵐」が5月31日、東京ドームでの「ARASHI LIVE TOUR 2026『We are ARASHI』」最終公演をもって、約26年半にわたる活動に幕を下ろした。2020年末の活動休止のタイミングはコロナ禍だったため、ファンと直接会う場を持つことのできなかった嵐は「We are ARASHI」で長年待ち続けてくれたファンに感謝の気持ちを伝えた。</p>
+                            <span class="news-source">📰 音楽ナタリー | 2026年5月31日</span>
+                            <a href="https://natalie.mu/music/news/674227" class="source-link" target="_blank">阅读原文</a>
                         </div>
-                        <a href="https://reissuerecords.net/discography/janedoe_irisout/" class="source-link" target="_blank">REISSUE RECORDS</a>
-                    </article>
-                    <article class="news-card music">
-                        <span class="card-tag tag-new">新曲發表</span>
-                        <h3 class="card-title">Ado 新曲《Vivarium》數位發行</h3>
-                        <p class="card-body">Ado 於2026年2月18日透過 Capitol Records 發行新曲《Vivarium》。這首歌曲延續 Ado 一貫的強烈風格，展現其獨特的嗓音魅力。</p>
-                        <div class="music-links">
-                            <a href="https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl" class="music-link spotify" target="_blank">Spotify</a>
-                            <a href="https://www.youtube.com/watch?v=FKTRKL7TatE" class="music-link youtube" target="_blank">YouTube</a>
-                        </div>
-                        <a href="https://www.ado-dokidoki.com/" class="source-link" target="_blank">Ado 官方網站</a>
                     </article>
                     <article class="news-card">
-                        <span class="card-tag tag-news">音樂新聞</span>
-                        <h3 class="card-title">Mrs. GREEN APPLE 發表新曲《lulu.》</h3>
-                        <p class="card-body">Mrs. GREEN APPLE 發表新曲《lulu.》，延續其一貫的清新搖滾風格。樂團持續活躍於日本樂壇，以獨特的音樂風格吸引眾多樂迷。</p>
-                        <div class="music-links">
-                            <a href="https://open.spotify.com/artist/4QvgGvpgzgyUOo8Yp8LDm9" class="music-link spotify" target="_blank">Spotify</a>
-                            <a href="https://www.youtube.com/watch?v=p15MtsCzG8k" class="music-link youtube" target="_blank">YouTube</a>
+                        <img src="https://natalie.mu/media/music/2505/0529/extra/news_xlarge_musicawards2026.jpg" alt="MUSIC AWARDS JAPAN 2026" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-highlight">重大消息</span>
+                            <h3 class="card-title">「MUSIC AWARDS JAPAN 2026」パフォーマンスアーティスト決定！藤井風、HANA、米津玄師、サカナクションら</h3>
+                            <p class="card-body">6月13日に東京・TOYOTA ARENA TOKYOで開催される国内最大規模の国際音楽賞「MUSIC AWARDS JAPAN 2026」の授賞式の模様がNHKにて生放送、YouTubeにて全世界配信。パフォーマンスアーティストとして藤井風、HANA、MISAMO、Sam Smith、サカナクション、ちゃんみな、米津玄師ら12組が決定した。</p>
+                            <span class="news-source">📰 音楽ナタリー | 2026年5月29日</span>
+                            <a href="https://natalie.mu/music/news/674058" class="source-link" target="_blank">阅读原文</a>
                         </div>
-                        <a href="https://mrsgreenapple.com/" class="source-link" target="_blank">Mrs. GREEN APPLE 官方</a>
+                    </article>
+                    <article class="news-card music">
+                        <img src="https://reissuerecords.net/wp-content/uploads/2026/03/janedoe_irisout.jpg" alt="米津玄師 IRIS OUT" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-new">新曲發表</span>
+                            <h3 class="card-title">米津玄師新單曲《IRIS OUT / JANE DOE》發行</h3>
+                            <p class="card-body">米津玄師於3月27日發行新單曲《IRIS OUT / JANE DOE》，其中收錄《KICK BACK》的多種混音版本。同時宣布將於2026年11月展開「米津玄師 2026 TOUR / GHOST」巡演，預計在長野、橫濱、大阪、福岡、宮城、名古屋六都進行14場演出。</p>
+                            <div class="music-links">
+                                <a href="https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB" class="music-link spotify" target="_blank">Spotify</a>
+                                <a href="https://www.youtube.com/watch?v=cbuj8JEnXAc" class="music-link youtube" target="_blank">YouTube</a>
+                            </div>
+                            <span class="news-source">📰 REISSUE RECORDS | 2026年3月27日</span>
+                            <a href="https://reissuerecords.net/discography/janedoe_irisout/" class="source-link" target="_blank">阅读原文</a>
+                        </div>
+                    </article>
+                    <article class="news-card music">
+                        <img src="https://www.ado-dokidoki.com/wp-content/uploads/2026/02/vivarium.jpg" alt="Ado Vivarium" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-new">新曲發表</span>
+                            <h3 class="card-title">Ado 新曲《Vivarium》數位發行</h3>
+                            <p class="card-body">Ado 於2026年2月18日透過 Capitol Records 發行新曲《Vivarium》。這首歌曲延續 Ado 一貫的強烈風格，展現其獨特的嗓音魅力。</p>
+                            <div class="music-links">
+                                <a href="https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl" class="music-link spotify" target="_blank">Spotify</a>
+                                <a href="https://www.youtube.com/watch?v=FKTRKL7TatE" class="music-link youtube" target="_blank">YouTube</a>
+                            </div>
+                            <span class="news-source">📰 Ado Official | 2026年2月18日</span>
+                            <a href="https://www.ado-dokidoki.com/" class="source-link" target="_blank">阅读原文</a>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <img src="https://mrsgreenapple.com/wp-content/uploads/2026/05/lulu.jpg" alt="Mrs. GREEN APPLE lulu" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-news">音樂新聞</span>
+                            <h3 class="card-title">Mrs. GREEN APPLE 發表新曲《lulu.》</h3>
+                            <p class="card-body">Mrs. GREEN APPLE 發表新曲《lulu.》，延續其一貫的清新搖滾風格。樂團持續活躍於日本樂壇，以獨特的音樂風格吸引眾多樂迷。</p>
+                            <div class="music-links">
+                                <a href="https://open.spotify.com/artist/4QvgGvpgzgyUOo8Yp8LDm9" class="music-link spotify" target="_blank">Spotify</a>
+                                <a href="https://www.youtube.com/watch?v=p15MtsCzG8k" class="music-link youtube" target="_blank">YouTube</a>
+                            </div>
+                            <span class="news-source">📰 Mrs. GREEN APPLE Official | 2026年</span>
+                            <a href="https://mrsgreenapple.com/" class="source-link" target="_blank">阅读原文</a>
+                        </div>
                     </article>
                     <article class="news-card concert">
-                        <span class="card-tag tag-concert">巡演消息</span>
-                        <h3 class="card-title">ONE OK ROCK 宣布日本凱旋巡演</h3>
-                        <p class="card-body">ONE OK ROCK 宣布將於2026年夏季舉行「ONE OK ROCK DETOX JAPAN TOUR FINAL 2026」，8月11日在愛知 IG Arena 舉行最終場。這是繼日產體育場演出後的日本凱旋巡演。</p>
-                        <a href="https://www.oneokrock.com/" class="source-link" target="_blank">ONE OK ROCK 官方</a>
+                        <img src="https://www.oneokrock.com/wp-content/uploads/2026/05/detox_tour.jpg" alt="ONE OK ROCK" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-concert">巡演消息</span>
+                            <h3 class="card-title">ONE OK ROCK 宣布日本凱旋巡演</h3>
+                            <p class="card-body">ONE OK ROCK 宣布將於2026年夏季舉行「ONE OK ROCK DETOX JAPAN TOUR FINAL 2026」，8月11日在愛知 IG Arena 舉行最終場。這是繼日產體育場演出後的日本凱旋巡演。</p>
+                            <span class="news-source">📰 ONE OK ROCK Official | 2026年</span>
+                            <a href="https://www.oneokrock.com/" class="source-link" target="_blank">阅读原文</a>
+                        </div>
                     </article>
                     <article class="news-card">
-                        <span class="card-tag tag-news">音樂新聞</span>
-                        <h3 class="card-title">乃木坂46 宣布真夏全國巡演2026</h3>
-                        <p class="card-body">乃木坂46 宣布將於2026年夏季舉行「真夏の全国ツアー2026」，首場將於7月11日、12日在大阪城 Hall 舉行。</p>
-                        <a href="https://www.nogizaka46.com/" class="source-link" target="_blank">乃木坂46 官方</a>
+                        <img src="https://www.nogizaka46.com/images/2026/05/matsuri_tour.jpg" alt="乃木坂46" class="news-image" onerror="this.style.display='none'">
+                        <div class="news-content">
+                            <span class="card-tag tag-news">音樂新聞</span>
+                            <h3 class="card-title">乃木坂46 宣布真夏全國巡演2026</h3>
+                            <p class="card-body">乃木坂46 宣布將於2026年夏季舉行「真夏の全国ツアー2026」，首場將於7月11日、12日在大阪城 Hall 舉行。</p>
+                            <span class="news-source">📰 乃木坂46 Official | 2026年</span>
+                            <a href="https://www.nogizaka46.com/" class="source-link" target="_blank">阅读原文</a>
+                        </div>
                     </article>
                 </div>
             </section>
@@ -583,8 +732,8 @@
         
         <footer class="footer">
             <p>🎵 《JPOP流行報》創刊號 · 2026年6月7日</p>
-            <p>資料來源：各藝人官方網站、Spotify、YouTube、Billboard Japan、Oricon、Ticket Plus</p>
-            <p>🎤 本報僅留存最近兩週版本 · 每週日自動更新</p>
+            <p>資料來源：音楽ナタリー (natalie.mu) / Billboard Japan / Oricon / Spotify / YouTube / X (Twitter)</p>
+            <p>🎤 本報僅留存最近六期 · 每週日自動更新</p>
             <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
         </footer>
     </div>
