@@ -14,7 +14,8 @@
   "teams": {
     "giants": {
       "name": "讀賣巨人",
-      "name_jp": "Yomiuri Giants",
+      "name_jp": "読売ジャイアンツ",
+      "short": "巨人",
       "official_url": "https://www.giants.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_g_l.gif",
       "stadium": "東京巨蛋",
@@ -23,7 +24,8 @@
     },
     "tigers": {
       "name": "阪神虎",
-      "name_jp": "Hanshin Tigers",
+      "name_jp": "阪神タイガース",
+      "short": "阪神",
       "official_url": "https://hanshintigers.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_t_l.gif",
       "stadium": "甲子園",
@@ -32,7 +34,8 @@
     },
     "carp": {
       "name": "廣島東洋鯉魚",
-      "name_jp": "Hiroshima Carp",
+      "name_jp": "広島東洋カープ",
+      "short": "広島",
       "official_url": "https://www.carp.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_c_l.gif",
       "stadium": "馬自達球場",
@@ -41,7 +44,8 @@
     },
     "baystars": {
       "name": "橫濱DeNA灣星",
-      "name_jp": "Yokohama DeNA BayStars",
+      "name_jp": "横浜DeNAベイスターズ",
+      "short": "DeNA",
       "official_url": "https://www.baystars.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_db_l.gif",
       "stadium": "橫濱球場",
@@ -50,7 +54,8 @@
     },
     "swallows": {
       "name": "東京養樂多燕子",
-      "name_jp": "Tokyo Yakult Swallows",
+      "name_jp": "東京ヤクルトスワローズ",
+      "short": "ヤクルト",
       "official_url": "https://www.yakult-swallows.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_s_l.gif",
       "stadium": "神宮球場",
@@ -59,7 +64,8 @@
     },
     "dragons": {
       "name": "中日龍",
-      "name_jp": "Chunichi Dragons",
+      "name_jp": "中日ドラゴンズ",
+      "short": "中日",
       "official_url": "https://www.dragons.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_d_l.gif",
       "stadium": "萬特力巨蛋",
@@ -68,7 +74,8 @@
     },
     "hawks": {
       "name": "福岡軟銀鷹",
-      "name_jp": "Fukuoka SoftBank Hawks",
+      "name_jp": "福岡ソフトバンクホークス",
+      "short": "ソフトバンク",
       "official_url": "https://www.softbankhawks.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_h_l.gif",
       "stadium": "雅虎巨蛋",
@@ -77,7 +84,8 @@
     },
     "fighters": {
       "name": "北海道日本火腿鬥士",
-      "name_jp": "Hokkaido Nippon-Ham Fighters",
+      "name_jp": "北海道日本ハムファイターズ",
+      "short": "日本ハム",
       "official_url": "https://www.fighters.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_f_l.gif",
       "stadium": "札幌巨蛋",
@@ -86,7 +94,8 @@
     },
     "eagles": {
       "name": "東北樂天金鷲",
-      "name_jp": "Tohoku Rakuten Golden Eagles",
+      "name_jp": "東北楽天ゴールデンイーグルス",
+      "short": "楽天",
       "official_url": "https://www.rakuteneagles.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_e_l.gif",
       "stadium": "宮城球場",
@@ -95,7 +104,8 @@
     },
     "lions": {
       "name": "埼玉西武獅",
-      "name_jp": "Saitama Seibu Lions",
+      "name_jp": "埼玉西武ライオンズ",
+      "short": "西武",
       "official_url": "https://www.seibulions.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_l_l.gif",
       "stadium": "西武巨蛋",
@@ -104,7 +114,8 @@
     },
     "buffaloes": {
       "name": "歐力士猛牛",
-      "name_jp": "Orix Buffaloes",
+      "name_jp": "オリックス・バファローズ",
+      "short": "オリックス",
       "official_url": "https://www.buffaloes.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_b_l.gif",
       "stadium": "京瓷巨蛋",
@@ -113,7 +124,8 @@
     },
     "marines": {
       "name": "千葉羅德海洋",
-      "name_jp": "Chiba Lotte Marines",
+      "name_jp": "千葉ロッテマリーンズ",
+      "short": "ロッテ",
       "official_url": "https://www.marines.co.jp/",
       "logo": "https://p.npb.jp/img/common/logo/2026/logo_m_l.gif",
       "stadium": "ZOZO海洋球場",
@@ -123,294 +135,392 @@
   },
   "yesterday_games": [
     {
-      "home": "巨人",
-      "away": "羅德",
-      "home_score": "4",
-      "away_score": "3",
-      "winner": "巨人",
-      "stadium": "東京巨蛋",
-      "time": "14:00",
-      "win_pitcher": "西舘 勇陽",
-      "lose_pitcher": "S. Long",
-      "duration": "4時間00分"
-    },
-    {
-      "home": "養樂多",
-      "away": "日本火腿",
-      "home_score": "2",
-      "away_score": "5",
-      "winner": "日本火腿",
-      "stadium": "神宮球場",
-      "time": "14:00",
-      "win_pitcher": "北山 亘基",
-      "lose_pitcher": "高梨 裕稔",
-      "duration": "2時間56分"
-    },
-    {
-      "home": "DeNA",
-      "away": "軟銀",
+      "home_team": "讀賣巨人",
+      "away_team": "千葉羅德海洋",
+      "home_team_key": "giants",
+      "away_team_key": "marines",
       "home_score": "1",
-      "away_score": "4",
-      "winner": "軟銀",
-      "stadium": "橫濱球場",
-      "time": "14:00",
-      "win_pitcher": "Stewart Jr.",
-      "lose_pitcher": "庄司 陽斗",
-      "duration": "2時間57分"
+      "away_score": "1",
+      "stadium": "東京ドーム",
+      "time": "18:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/g-m-02/",
+      "home_pitcher_info": "分：高野脩",
+      "away_pitcher_info": "分：赤星",
+      "winning_pitcher_info": "分：高野脩",
+      "losing_pitcher_info": "分：赤星",
+      "start_time": "18:00",
+      "end_time": "】",
+      "duration": "4時間",
+      "attendance": "42280",
+      "home_runs": [
+        {
+          "team": "【巨人】",
+          "detail": "大城5号（6回ソロ澤田）"
+        }
+      ]
     },
     {
-      "home": "中日",
-      "away": "西武",
+      "home_team": "東京養樂多燕子",
+      "away_team": "北海道日本火腿鬥士",
+      "home_team_key": "swallows",
+      "away_team_key": "fighters",
+      "home_score": "0",
+      "away_score": "2",
+      "stadium": "神　宮",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/s-f-02/",
+      "home_pitcher_info": "敗：高梨",
+      "away_pitcher_info": "勝：山﨑福也",
+      "winning_pitcher_info": "敗：高梨",
+      "losing_pitcher_info": "勝：山﨑福也",
+      "start_time": "14:04",
+      "end_time": "】",
+      "duration": "2時間56分",
+      "attendance": "29328",
+      "home_runs": []
+    },
+    {
+      "home_team": "橫濱DeNA灣星",
+      "away_team": "福岡軟銀鷹",
+      "home_team_key": "baystars",
+      "away_team_key": "hawks",
+      "home_score": "3",
+      "away_score": "6",
+      "stadium": "横　浜",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/db-h-02/",
+      "home_pitcher_info": "敗：庄司",
+      "away_pitcher_info": "勝：前田悠",
+      "winning_pitcher_info": "敗：庄司",
+      "losing_pitcher_info": "勝：前田悠",
+      "start_time": "14:00",
+      "end_time": "】",
+      "duration": "2時間57分",
+      "attendance": "33640",
+      "home_runs": [
+        {
+          "team": "【ソフトバンク】",
+          "detail": "正木4号（4回ソロ庄司）"
+        },
+        {
+          "team": "【DeNA】",
+          "detail": "牧4号（9回2ラン木村光）"
+        }
+      ]
+    },
+    {
+      "home_team": "中日龍",
+      "away_team": "埼玉西武獅",
+      "home_team_key": "dragons",
+      "away_team_key": "lions",
       "home_score": "2",
       "away_score": "5",
-      "winner": "西武",
-      "stadium": "萬特力巨蛋",
-      "time": "13:30",
-      "win_pitcher": "隅田 知一郎",
-      "lose_pitcher": "大野 雄大",
-      "duration": "2時間33分"
+      "stadium": "バンテリンドーム",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/d-l-02/",
+      "home_pitcher_info": "敗：大野",
+      "away_pitcher_info": "勝：隅田",
+      "winning_pitcher_info": "敗：大野",
+      "losing_pitcher_info": "勝：隅田",
+      "start_time": "14:00",
+      "end_time": "】",
+      "duration": "2時間33分",
+      "attendance": "36695",
+      "home_runs": [
+        {
+          "team": "【西武】",
+          "detail": "ネビン11号（6回3ラン大野）"
+        },
+        {
+          "team": "【中日】",
+          "detail": "板山5号（2回2ラン隅田）"
+        }
+      ]
     },
     {
-      "home": "阪神",
-      "away": "樂天",
+      "home_team": "阪神虎",
+      "away_team": "東北樂天金鷲",
+      "home_team_key": "tigers",
+      "away_team_key": "eagles",
       "home_score": "1",
       "away_score": "0",
-      "winner": "阪神",
       "stadium": "甲子園",
       "time": "14:00",
-      "win_pitcher": "村上 頌樹",
-      "lose_pitcher": "早川 隆久",
-      "duration": "2時間55分"
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/t-e-02/",
+      "home_pitcher_info": "敗：早川",
+      "away_pitcher_info": "勝：村上",
+      "winning_pitcher_info": "敗：早川",
+      "losing_pitcher_info": "勝：村上",
+      "start_time": "14:00",
+      "end_time": "】",
+      "duration": "2時間55分",
+      "attendance": "42645",
+      "home_runs": []
     },
     {
-      "home": "廣島",
-      "away": "歐力士",
+      "home_team": "廣島東洋鯉魚",
+      "away_team": "歐力士猛牛",
+      "home_team_key": "carp",
+      "away_team_key": "buffaloes",
       "home_score": "7",
       "away_score": "4",
-      "winner": "廣島",
-      "stadium": "馬自達球場",
-      "time": "13:30",
-      "win_pitcher": "森下 暢仁",
-      "lose_pitcher": "田嶋 大樹",
-      "duration": "3時間05分"
+      "stadium": "マツダスタジアム",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0606/c-b-02/",
+      "home_pitcher_info": "敗：田嶋大",
+      "away_pitcher_info": "勝：森下",
+      "winning_pitcher_info": "敗：田嶋大",
+      "losing_pitcher_info": "勝：森下",
+      "start_time": "14:01",
+      "end_time": "】",
+      "duration": "3時間5分",
+      "attendance": "32326",
+      "home_runs": [
+        {
+          "team": "【オリックス】",
+          "detail": "紅林7号（4回ソロ森下）"
+        },
+        {
+          "team": "【広島】",
+          "detail": "坂倉7号（4回ソロ田嶋大）、持丸4号（4回ソロ田嶋大）"
+        }
+      ]
     }
   ],
   "today_games": [
     {
-      "home": "巨人",
-      "away": "羅德",
-      "stadium": "東京巨蛋",
-      "time": "14:00",
-      "home_pitcher": "西舘 勇陽",
-      "away_pitcher": "S. Long"
+      "home_team": "讀賣巨人",
+      "away_team": "千葉羅德海洋",
+      "home_team_key": "giants",
+      "away_team_key": "marines",
+      "home_score": "2",
+      "away_score": "2",
+      "stadium": "東京ドーム",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0607/g-m-03/"
     },
     {
-      "home": "養樂多",
-      "away": "日本火腿",
-      "stadium": "神宮球場",
-      "time": "14:00",
-      "home_pitcher": "奥川 恭伸",
-      "away_pitcher": "北山 亘基"
+      "home_team": "東京養樂多燕子",
+      "away_team": "北海道日本火腿鬥士",
+      "home_team_key": "swallows",
+      "away_team_key": "fighters",
+      "home_score": "1",
+      "away_score": "7",
+      "stadium": "神　宮",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0607/s-f-03/"
     },
     {
-      "home": "DeNA",
-      "away": "軟銀",
-      "stadium": "橫濱球場",
-      "time": "14:00",
-      "home_pitcher": "尾形 崇斗",
-      "away_pitcher": "徐 若熙"
+      "home_team": "橫濱DeNA灣星",
+      "away_team": "福岡軟銀鷹",
+      "home_team_key": "baystars",
+      "away_team_key": "hawks",
+      "home_score": "2",
+      "away_score": "4",
+      "stadium": "横　浜",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0607/db-h-03/"
     },
     {
-      "home": "中日",
-      "away": "西武",
-      "stadium": "萬特力巨蛋",
-      "time": "13:30",
-      "home_pitcher": "涌井 秀章",
-      "away_pitcher": "A. Winans"
+      "home_team": "中日龍",
+      "away_team": "埼玉西武獅",
+      "home_team_key": "dragons",
+      "away_team_key": "lions",
+      "home_score": "1",
+      "away_score": "4",
+      "stadium": "バンテリン",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0607/d-l-03/"
     },
     {
-      "home": "阪神",
-      "away": "樂天",
+      "home_team": "阪神虎",
+      "away_team": "東北樂天金鷲",
+      "home_team_key": "tigers",
+      "away_team_key": "eagles",
+      "home_score": "*",
+      "away_score": "*",
       "stadium": "甲子園",
-      "time": "14:00",
-      "status": "rainout",
-      "note": "因雨中止"
+      "status": "中止",
+      "detail_url": "https://npb.jp/scores/2026/0607/t-e-03/"
     },
     {
-      "home": "廣島",
-      "away": "歐力士",
-      "stadium": "馬自達球場",
-      "time": "13:30",
-      "home_pitcher": "岡本 駿",
-      "away_pitcher": "宮國 凌空"
+      "home_team": "廣島東洋鯉魚",
+      "away_team": "歐力士猛牛",
+      "home_team_key": "carp",
+      "away_team_key": "buffaloes",
+      "home_score": "5",
+      "away_score": "2",
+      "stadium": "マツダ",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0607/c-b-03/"
     }
   ],
   "tomorrow_games": [
     {
-      "home": "巨人",
-      "away": "羅德",
-      "stadium": "東京巨蛋",
-      "time": "18:00",
-      "note": "交流戰最終戰"
-    },
-    {
-      "home": "養樂多",
-      "away": "日本火腿",
-      "stadium": "神宮球場",
-      "time": "18:00",
-      "note": "交流戰最終戰"
-    },
-    {
-      "home": "DeNA",
-      "away": "軟銀",
-      "stadium": "橫濱球場",
-      "time": "18:00",
-      "note": "交流戰最終戰"
-    },
-    {
-      "home": "中日",
-      "away": "西武",
-      "stadium": "萬特力巨蛋",
-      "time": "18:00",
-      "note": "交流戰最終戰"
-    },
-    {
-      "home": "阪神",
-      "away": "樂天",
+      "home_team": "阪神虎",
+      "away_team": "東北樂天金鷲",
+      "home_team_key": "tigers",
+      "away_team_key": "eagles",
       "stadium": "甲子園",
       "time": "18:00",
-      "note": "交流戰最終戰 ※6/7雨中止分"
-    },
-    {
-      "home": "廣島",
-      "away": "歐力士",
-      "stadium": "馬自達球場",
-      "time": "18:00",
-      "note": "交流戰最終戰"
+      "note": "",
+      "home_pitcher": "",
+      "away_pitcher": "",
+      "status": "scheduled"
     }
   ],
   "standings": {
     "central": [
       {
         "rank": 1,
-        "team": "阪神",
-        "games": 56,
-        "wins": 32,
-        "losses": 23,
-        "draws": 1,
+        "team": "阪神虎",
+        "team_jp": "阪神タイガース",
+        "team_key": "tigers",
+        "games": "56",
+        "wins": "32",
+        "losses": "23",
+        "draws": "1",
         "pct": ".582",
         "gb": "-"
       },
       {
         "rank": 2,
-        "team": "養樂多",
-        "games": 57,
-        "wins": 32,
-        "losses": 24,
-        "draws": 1,
+        "team": "東京養樂多燕子",
+        "team_jp": "東京ヤクルトスワローズ",
+        "team_key": "swallows",
+        "games": "57",
+        "wins": "32",
+        "losses": "24",
+        "draws": "1",
         "pct": ".571",
         "gb": "0.5"
       },
       {
         "rank": 3,
-        "team": "巨人",
-        "games": 56,
-        "wins": 30,
-        "losses": 26,
-        "draws": 0,
-        "pct": ".536",
-        "gb": "2.5"
+        "team": "讀賣巨人",
+        "team_jp": "読売ジャイアンツ",
+        "team_key": "giants",
+        "games": "57",
+        "wins": "31",
+        "losses": "25",
+        "draws": "1",
+        "pct": ".554",
+        "gb": "1.5"
       },
       {
         "rank": 4,
-        "team": "DeNA",
-        "games": 56,
-        "wins": 28,
-        "losses": 28,
-        "draws": 0,
-        "pct": ".500",
-        "gb": "4.5"
+        "team": "橫濱DeNA灣星",
+        "team_jp": "横浜DeNAベイスターズ",
+        "team_key": "baystars",
+        "games": "57",
+        "wins": "25",
+        "losses": "30",
+        "draws": "2",
+        "pct": ".455",
+        "gb": "7.0"
       },
       {
         "rank": 5,
-        "team": "廣島",
-        "games": 57,
-        "wins": 25,
-        "losses": 31,
-        "draws": 1,
-        "pct": ".446",
-        "gb": "7.5"
+        "team": "廣島東洋鯉魚",
+        "team_jp": "広島東洋カープ",
+        "team_key": "carp",
+        "games": "54",
+        "wins": "20",
+        "losses": "31",
+        "draws": "3",
+        "pct": ".392",
+        "gb": "10.0"
       },
       {
         "rank": 6,
-        "team": "中日",
-        "games": 56,
-        "wins": 22,
-        "losses": 34,
-        "draws": 0,
-        "pct": ".393",
-        "gb": "10.5"
+        "team": "中日龍",
+        "team_jp": "中日ドラゴンズ",
+        "team_key": "dragons",
+        "games": "57",
+        "wins": "20",
+        "losses": "36",
+        "draws": "1",
+        "pct": ".357",
+        "gb": "12.5"
       }
     ],
     "pacific": [
       {
         "rank": 1,
-        "team": "西武",
-        "games": 57,
-        "wins": 35,
-        "losses": 21,
-        "draws": 1,
-        "pct": ".625",
+        "team": "埼玉西武獅",
+        "team_jp": "埼玉西武ライオンズ",
+        "team_key": "lions",
+        "games": "58",
+        "wins": "34",
+        "losses": "22",
+        "draws": "2",
+        "pct": ".607",
         "gb": "-"
       },
       {
         "rank": 2,
-        "team": "軟銀",
-        "games": 56,
-        "wins": 33,
-        "losses": 23,
-        "draws": 0,
-        "pct": ".589",
+        "team": "福岡軟銀鷹",
+        "team_jp": "福岡ソフトバンクホークス",
+        "team_key": "hawks",
+        "games": "56",
+        "wins": "32",
+        "losses": "24",
+        "draws": "0",
+        "pct": ".571",
         "gb": "2.0"
       },
       {
         "rank": 3,
-        "team": "歐力士",
-        "games": 57,
-        "wins": 31,
-        "losses": 25,
-        "draws": 1,
-        "pct": ".554",
+        "team": "歐力士猛牛",
+        "team_jp": "オリックス・バファローズ",
+        "team_key": "buffaloes",
+        "games": "57",
+        "wins": "30",
+        "losses": "26",
+        "draws": "1",
+        "pct": ".536",
         "gb": "4.0"
       },
       {
         "rank": 4,
-        "team": "日本火腿",
-        "games": 56,
-        "wins": 28,
-        "losses": 28,
-        "draws": 0,
-        "pct": ".500",
-        "gb": "7.0"
+        "team": "北海道日本火腿鬥士",
+        "team_jp": "北海道日本ハムファイターズ",
+        "team_key": "fighters",
+        "games": "59",
+        "wins": "30",
+        "losses": "29",
+        "draws": "0",
+        "pct": ".508",
+        "gb": "5.5"
       },
       {
         "rank": 5,
-        "team": "羅德",
-        "games": 56,
-        "wins": 25,
-        "losses": 30,
-        "draws": 1,
-        "pct": ".455",
-        "gb": "9.5"
+        "team": "千葉羅德海洋",
+        "team_jp": "千葉ロッテマリーンズ",
+        "team_key": "marines",
+        "games": "57",
+        "wins": "27",
+        "losses": "29",
+        "draws": "1",
+        "pct": ".482",
+        "gb": "7.0"
       },
       {
         "rank": 6,
-        "team": "樂天",
-        "games": 56,
-        "wins": 22,
-        "losses": 34,
-        "draws": 0,
-        "pct": ".393",
+        "team": "東北樂天金鷲",
+        "team_jp": "東北楽天ゴールデンイーグルス",
+        "team_key": "eagles",
+        "games": "57",
+        "wins": "21",
+        "losses": "35",
+        "draws": "1",
+        "pct": ".375",
         "gb": "13.0"
       }
     ]
@@ -419,264 +529,697 @@
     "batting_avg_central": [
       {
         "rank": 1,
-        "player": "佐藤 輝明",
-        "team": "阪神",
+        "player": "佐藤　輝明",
+        "team": "阪神虎",
+        "team_key": "tigers",
         "value": ".361"
       },
       {
         "rank": 2,
-        "player": "中野 拓夢",
-        "team": "阪神",
-        "value": ".329"
+        "player": "度会　隆輝",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".292"
       },
       {
         "rank": 3,
-        "player": "長岡 秀樹",
-        "team": "養樂多",
-        "value": ".318"
+        "player": "森下　翔太",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".280"
       },
       {
         "rank": 4,
-        "player": "牧 秀悟",
-        "team": "DeNA",
-        "value": ".312"
+        "player": "中野　拓夢",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".273"
       },
       {
         "rank": 5,
-        "player": "丸 佳浩",
-        "team": "巨人",
-        "value": ".305"
+        "player": "佐野　恵太",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".270"
+      },
+      {
+        "rank": 6,
+        "player": "キャベッジ",
+        "team": "讀賣巨人",
+        "team_key": "giants",
+        "value": ".269"
+      },
+      {
+        "rank": 7,
+        "player": "坂倉　将吾",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": ".268"
+      },
+      {
+        "rank": 8,
+        "player": "蝦名　達夫",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".268"
+      },
+      {
+        "rank": 9,
+        "player": "サンタナ",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": ".267"
+      },
+      {
+        "rank": 10,
+        "player": "大山　悠輔",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".263"
       }
     ],
     "batting_avg_pacific": [
       {
         "rank": 1,
-        "player": "Franmil Reyes",
-        "team": "日本火腿",
+        "player": "レイエス",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
         "value": ".311"
       },
       {
         "rank": 2,
-        "player": "近藤 健介",
-        "team": "軟銀",
-        "value": ".308"
+        "player": "西川　史礁",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": ".310"
       },
       {
         "rank": 3,
-        "player": "柳田 悠岐",
-        "team": "軟銀",
-        "value": ".302"
+        "player": "小川　龍成",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": ".294"
       },
       {
         "rank": 4,
-        "player": "栗原 陵矢",
-        "team": "軟銀",
-        "value": ".298"
+        "player": "近藤　健介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".293"
       },
       {
         "rank": 5,
-        "player": "愛斗",
-        "team": "西武",
-        "value": ".295"
+        "player": "辰己　涼介",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": ".291"
+      },
+      {
+        "rank": 6,
+        "player": "水野　達稀",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": ".286"
+      },
+      {
+        "rank": 7,
+        "player": "村林　一輝",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": ".284"
+      },
+      {
+        "rank": 8,
+        "player": "中川　圭太",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": ".281"
+      },
+      {
+        "rank": 9,
+        "player": "栗原　陵矢",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".281"
+      },
+      {
+        "rank": 10,
+        "player": "牧原　大成",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".276"
       }
     ],
     "home_runs_central": [
       {
         "rank": 1,
-        "player": "佐藤 輝明",
-        "team": "阪神",
+        "player": "佐藤　輝明",
+        "team": "阪神虎",
+        "team_key": "tigers",
         "value": "15"
       },
       {
         "rank": 2,
-        "player": "岡本 和真",
-        "team": "巨人",
-        "value": "12"
+        "player": "度会　隆輝",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "5"
       },
       {
         "rank": 3,
-        "player": "細川 成也",
-        "team": "廣島",
-        "value": "11"
-      },
-      {
-        "rank": 4,
-        "player": "牧 秀悟",
-        "team": "DeNA",
-        "value": "10"
+        "player": "森下　翔太",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "14"
       },
       {
         "rank": 5,
-        "player": "村上 宗隆",
-        "team": "養樂多",
-        "value": "9"
+        "player": "佐野　恵太",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "4"
+      },
+      {
+        "rank": 6,
+        "player": "キャベッジ",
+        "team": "讀賣巨人",
+        "team_key": "giants",
+        "value": "12"
+      },
+      {
+        "rank": 7,
+        "player": "坂倉　将吾",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": "7"
+      },
+      {
+        "rank": 8,
+        "player": "蝦名　達夫",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "2"
+      },
+      {
+        "rank": 9,
+        "player": "サンタナ",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "11"
+      },
+      {
+        "rank": 10,
+        "player": "大山　悠輔",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "6"
       }
     ],
     "home_runs_pacific": [
       {
         "rank": 1,
-        "player": "山川 穂高",
-        "team": "軟銀",
-        "value": "17"
-      },
-      {
-        "rank": 2,
-        "player": "柳田 悠岐",
-        "team": "軟銀",
-        "value": "14"
-      },
-      {
-        "rank": 3,
-        "player": "Franmil Reyes",
-        "team": "日本火腿",
-        "value": "12"
-      },
-      {
-        "rank": 4,
-        "player": "中村 剛也",
-        "team": "西武",
+        "player": "レイエス",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
         "value": "11"
       },
       {
+        "rank": 2,
+        "player": "西川　史礁",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "5"
+      },
+      {
+        "rank": 4,
+        "player": "近藤　健介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "9"
+      },
+      {
         "rank": 5,
-        "player": "淺村 栄斗",
-        "team": "樂天",
-        "value": "10"
+        "player": "辰己　涼介",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": "5"
+      },
+      {
+        "rank": 6,
+        "player": "水野　達稀",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "2"
+      },
+      {
+        "rank": 7,
+        "player": "村林　一輝",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": "4"
+      },
+      {
+        "rank": 8,
+        "player": "中川　圭太",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "4"
+      },
+      {
+        "rank": 9,
+        "player": "栗原　陵矢",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "17"
       }
     ],
     "era_central": [
       {
         "rank": 1,
-        "player": "高橋 宏斗",
-        "team": "中日",
+        "player": "髙橋　遥人",
+        "team": "阪神虎",
+        "team_key": "tigers",
         "value": "0.90"
       },
       {
         "rank": 2,
-        "player": "戶鄉 翔征",
-        "team": "巨人",
-        "value": "1.85"
+        "player": "村上　頌樹",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "1.78"
       },
       {
         "rank": 3,
-        "player": "村上 頌樹",
-        "team": "阪神",
-        "value": "2.12"
+        "player": "柳　裕也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "1.90"
       },
       {
         "rank": 4,
-        "player": "奥川 恭伸",
-        "team": "養樂多",
-        "value": "2.45"
+        "player": "山野　太一",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "1.92"
       },
       {
         "rank": 5,
-        "player": "東克樹",
-        "team": "DeNA",
-        "value": "2.68"
+        "player": "石田　裕太郎",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "1.93"
+      },
+      {
+        "rank": 6,
+        "player": "東　克樹",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "2.11"
+      },
+      {
+        "rank": 7,
+        "player": "大野　雄大",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "2.18"
+      },
+      {
+        "rank": 8,
+        "player": "床田　寛樹",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": "2.34"
+      },
+      {
+        "rank": 9,
+        "player": "金丸　夢斗",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "2.38"
+      },
+      {
+        "rank": 10,
+        "player": "高梨　裕稔",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "2.73"
       }
     ],
     "era_pacific": [
       {
         "rank": 1,
-        "player": "平良 海馬",
-        "team": "樂天",
+        "player": "平良　海馬",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
         "value": "0.75"
       },
       {
         "rank": 2,
-        "player": "高橋 光成",
-        "team": "西武",
-        "value": "1.42"
+        "player": "大津　亮介",
+        "team": "ソ",
+        "team_key": "ソ",
+        "value": "1.14"
       },
       {
         "rank": 3,
-        "player": "有原 航平",
-        "team": "軟銀",
-        "value": "1.89"
+        "player": "髙橋　光成",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "1.19"
       },
       {
         "rank": 4,
-        "player": "宮城 大弥",
-        "team": "歐力士",
-        "value": "2.15"
+        "player": "エスピノーザ",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "2.21"
       },
       {
         "rank": 5,
-        "player": "北山 亘基",
-        "team": "日本火腿",
-        "value": "2.38"
+        "player": "隅田　知一郎",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "2.42"
+      },
+      {
+        "rank": 6,
+        "player": "九里　亜蓮",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "2.81"
+      },
+      {
+        "rank": 7,
+        "player": "渡邉　勇太朗",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "2.98"
+      },
+      {
+        "rank": 8,
+        "player": "伊藤　大海",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "2.99"
+      },
+      {
+        "rank": 9,
+        "player": "荘司　康誠",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": "3.48"
+      },
+      {
+        "rank": 10,
+        "player": "ジャクソン",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "3.59"
       }
     ],
     "wins_central": [
       {
         "rank": 1,
-        "player": "高橋 宏斗",
-        "team": "中日",
+        "player": "髙橋　遥人",
+        "team": "阪神虎",
+        "team_key": "tigers",
         "value": "7"
       },
       {
         "rank": 2,
-        "player": "戶鄉 翔征",
-        "team": "巨人",
-        "value": "6"
-      },
-      {
-        "rank": 3,
-        "player": "村上 頌樹",
-        "team": "阪神",
-        "value": "6"
-      },
-      {
-        "rank": 4,
-        "player": "東克樹",
-        "team": "DeNA",
+        "player": "村上　頌樹",
+        "team": "阪神虎",
+        "team_key": "tigers",
         "value": "5"
       },
       {
+        "rank": 3,
+        "player": "柳　裕也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "4"
+      },
+      {
+        "rank": 4,
+        "player": "山野　太一",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "7"
+      },
+      {
         "rank": 5,
-        "player": "奥川 恭伸",
-        "team": "養樂多",
+        "player": "石田　裕太郎",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "3"
+      },
+      {
+        "rank": 6,
+        "player": "東　克樹",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "5"
+      },
+      {
+        "rank": 7,
+        "player": "大野　雄大",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "5"
+      },
+      {
+        "rank": 8,
+        "player": "床田　寛樹",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": "3"
+      },
+      {
+        "rank": 9,
+        "player": "金丸　夢斗",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "4"
+      },
+      {
+        "rank": 10,
+        "player": "高梨　裕稔",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
         "value": "5"
       }
     ],
     "wins_pacific": [
       {
         "rank": 1,
-        "player": "高橋 光成",
-        "team": "西武",
-        "value": "6"
+        "player": "平良　海馬",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "4"
       },
       {
         "rank": 2,
-        "player": "有原 航平",
-        "team": "軟銀",
+        "player": "大津　亮介",
+        "team": "ソ",
+        "team_key": "ソ",
         "value": "6"
       },
       {
         "rank": 3,
-        "player": "宮城 大弥",
-        "team": "歐力士",
-        "value": "5"
+        "player": "髙橋　光成",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "6"
       },
       {
         "rank": 4,
-        "player": "北山 亘基",
-        "team": "日本火腿",
+        "player": "エスピノーザ",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
         "value": "5"
       },
       {
         "rank": 5,
-        "player": "田中将大",
-        "team": "樂天",
+        "player": "隅田　知一郎",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "5"
+      },
+      {
+        "rank": 6,
+        "player": "九里　亜蓮",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "5"
+      },
+      {
+        "rank": 7,
+        "player": "渡邉　勇太朗",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "3"
+      },
+      {
+        "rank": 8,
+        "player": "伊藤　大海",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "6"
+      },
+      {
+        "rank": 9,
+        "player": "荘司　康誠",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
         "value": "4"
+      },
+      {
+        "rank": 10,
+        "player": "ジャクソン",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "3"
       }
     ]
   },
   "interleague": {
     "central_wins": 26,
     "pacific_wins": 35,
-    "leader": "pacific"
+    "leader": "pacific",
+    "standings": [
+      {
+        "team": "福岡軟銀鷹",
+        "team_jp": "福岡ソフトバンクホークス",
+        "team_key": "hawks",
+        "games": "11",
+        "wins": "9",
+        "losses": "2",
+        "draws": "0",
+        "pct": ".818",
+        "gb": "-"
+      },
+      {
+        "team": "埼玉西武獅",
+        "team_jp": "埼玉西武ライオンズ",
+        "team_key": "lions",
+        "games": "10",
+        "wins": "7",
+        "losses": "2",
+        "draws": "1",
+        "pct": ".778",
+        "gb": "1.0"
+      },
+      {
+        "team": "北海道日本火腿鬥士",
+        "team_jp": "北海道日本ハムファイターズ",
+        "team_key": "fighters",
+        "games": "10",
+        "wins": "7",
+        "losses": "3",
+        "draws": "0",
+        "pct": ".700",
+        "gb": "1.5"
+      },
+      {
+        "team": "讀賣巨人",
+        "team_jp": "読売ジャイアンツ",
+        "team_key": "giants",
+        "games": "11",
+        "wins": "7",
+        "losses": "3",
+        "draws": "1",
+        "pct": ".700",
+        "gb": "1.5"
+      },
+      {
+        "team": "千葉羅德海洋",
+        "team_jp": "千葉ロッテマリーンズ",
+        "team_key": "marines",
+        "games": "11",
+        "wins": "6",
+        "losses": "4",
+        "draws": "1",
+        "pct": ".600",
+        "gb": "2.5"
+      },
+      {
+        "team": "中日龍",
+        "team_jp": "中日ドラゴンズ",
+        "team_key": "dragons",
+        "games": "11",
+        "wins": "5",
+        "losses": "6",
+        "draws": "0",
+        "pct": ".455",
+        "gb": "4.0"
+      },
+      {
+        "team": "歐力士猛牛",
+        "team_jp": "オリックス・バファローズ",
+        "team_key": "buffaloes",
+        "games": "11",
+        "wins": "4",
+        "losses": "6",
+        "draws": "1",
+        "pct": ".400",
+        "gb": "4.5"
+      },
+      {
+        "team": "阪神虎",
+        "team_jp": "阪神タイガース",
+        "team_key": "tigers",
+        "games": "10",
+        "wins": "4",
+        "losses": "6",
+        "draws": "0",
+        "pct": ".400",
+        "gb": "4.5"
+      },
+      {
+        "team": "東京養樂多燕子",
+        "team_jp": "東京ヤクルトスワローズ",
+        "team_key": "swallows",
+        "games": "11",
+        "wins": "4",
+        "losses": "6",
+        "draws": "1",
+        "pct": ".400",
+        "gb": "4.5"
+      },
+      {
+        "team": "橫濱DeNA灣星",
+        "team_jp": "横浜DeNAベイスターズ",
+        "team_key": "baystars",
+        "games": "11",
+        "wins": "4",
+        "losses": "7",
+        "draws": "0",
+        "pct": ".364",
+        "gb": "5.0"
+      },
+      {
+        "team": "廣島東洋鯉魚",
+        "team_jp": "広島東洋カープ",
+        "team_key": "carp",
+        "games": "10",
+        "wins": "2",
+        "losses": "7",
+        "draws": "1",
+        "pct": ".222",
+        "gb": "6.0"
+      },
+      {
+        "team": "東北樂天金鷲",
+        "team_jp": "東北楽天ゴールデンイーグルス",
+        "team_key": "eagles",
+        "games": "11",
+        "wins": "2",
+        "losses": "9",
+        "draws": "0",
+        "pct": ".182",
+        "gb": "7.0"
+      }
+    ]
   },
-  "collected_at": "2026-06-07 13:10:11"
+  "collected_at": "2026-06-07 23:16:40"
 }

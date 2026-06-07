@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 日職每日報自動生成腳本
-- 抓取 NPB 官方數據
+- 使用 collect_data 模組抓取 NPB 數據
 - 生成 HTML 電子報
 - 清除超過14天的舊期數
 """
@@ -14,74 +14,20 @@ import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
-import requests
+# 從 collect_data 匯入數據收集功能
+from collect_data import (
+    TEAMS,
+    get_date_info,
+    fetch_standings,
+    fetch_today_games,
+    fetch_yesterday_games,
+    fetch_leaders,
+)
 
 # 設定
 NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper")
 GIT_DIR = Path("/tmp/ebooksforme")
 NPB_BASE_URL = "https://npb.jp"
-BASEBALL_DATA_URL = "https://baseballdata.jp"
-
-# 球隊資料
-TEAMS = {
-    "giants": {"name": "讀賣巨人", "name_jp": "Yomiuri Giants", "official_url": "https://www.giants.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_g_l.gif", "stadium": "東京巨蛋", "league": "central"},
-    "tigers": {"name": "阪神虎", "name_jp": "Hanshin Tigers", "official_url": "https://hanshintigers.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_t_l.gif", "stadium": "甲子園", "league": "central"},
-    "carp": {"name": "廣島東洋鯉魚", "name_jp": "Hiroshima Carp", "official_url": "https://www.carp.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_c_l.gif", "stadium": "馬自達球場", "league": "central"},
-    "baystars": {"name": "橫濱DeNA灣星", "name_jp": "Yokohama DeNA BayStars", "official_url": "https://www.baystars.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_db_l.gif", "stadium": "橫濱球場", "league": "central"},
-    "swallows": {"name": "東京養樂多燕子", "name_jp": "Tokyo Yakult Swallows", "official_url": "https://www.yakult-swallows.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_s_l.gif", "stadium": "神宮球場", "league": "central"},
-    "dragons": {"name": "中日龍", "name_jp": "Chunichi Dragons", "official_url": "https://www.dragons.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_d_l.gif", "stadium": "萬特力巨蛋", "league": "central"},
-    "hawks": {"name": "福岡軟銀鷹", "name_jp": "Fukuoka SoftBank Hawks", "official_url": "https://www.softbankhawks.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_h_l.gif", "stadium": "雅虎巨蛋", "league": "pacific"},
-    "fighters": {"name": "北海道日本火腿鬥士", "name_jp": "Hokkaido Nippon-Ham Fighters", "official_url": "https://www.fighters.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_f_l.gif", "stadium": "札幌巨蛋", "league": "pacific"},
-    "eagles": {"name": "東北樂天金鷲", "name_jp": "Tohoku Rakuten Golden Eagles", "official_url": "https://www.rakuteneagles.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_e_l.gif", "stadium": "宮城球場", "league": "pacific"},
-    "lions": {"name": "埼玉西武獅", "name_jp": "Saitama Seibu Lions", "official_url": "https://www.seibulions.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_l_l.gif", "stadium": "西武巨蛋", "league": "pacific"},
-    "buffaloes": {"name": "歐力士猛牛", "name_jp": "Orix Buffaloes", "official_url": "https://www.buffaloes.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_b_l.gif", "stadium": "京瓷巨蛋", "league": "pacific"},
-    "marines": {"name": "千葉羅德海洋", "name_jp": "Chiba Lotte Marines", "official_url": "https://www.marines.co.jp/", "logo": "https://p.npb.jp/img/common/logo/2026/logo_m_l.gif", "stadium": "ZOZO海洋球場", "league": "pacific"},
-}
-
-
-def get_today_info():
-    """取得今日日期資訊"""
-    today = datetime.now()
-    yesterday = today - timedelta(days=1)
-    tomorrow = today + timedelta(days=1)
-    
-    return {
-        "today": today.strftime("%Y-%m-%d"),
-        "today_display": today.strftime("%Y年%m月%d日"),
-        "today_weekday": ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"][today.weekday()],
-        "yesterday": yesterday.strftime("%Y-%m-%d"),
-        "yesterday_display": yesterday.strftime("%Y年%m月%d日"),
-        "tomorrow": tomorrow.strftime("%Y-%m-%d"),
-        "tomorrow_display": tomorrow.strftime("%Y年%m月%d日"),
-        "year": today.year,
-        "month": today.month,
-        "day": today.day,
-    }
-
-
-def fetch_npb_schedule(date_str):
-    """抓取 NPB 賽程"""
-    # 將 YYYY-MM-DD 轉換為 YYYY/MM/DD 格式
-    parts = date_str.split('-')
-    url = f"{NPB_BASE_URL}/scores/{parts[0]}/{parts[1]}{parts[2]}/"
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        return response.text
-    except Exception as e:
-        print(f"Error fetching schedule: {e}")
-        return None
-
-
-def fetch_baseball_data():
-    """抓取 Baseball Data 統計數據"""
-    try:
-        response = requests.get(BASEBALL_DATA_URL, timeout=10)
-        response.raise_for_status()
-        return response.text
-    except Exception as e:
-        print(f"Error fetching baseball data: {e}")
-        return None
 
 
 def clean_old_issues():
@@ -105,7 +51,133 @@ def clean_old_issues():
 def generate_html(info, games_data, standings_data, leaders_data):
     """生成電子報 HTML"""
     
-    # 簡化版 HTML 模板（實際使用時會更完整）
+    # ── 今日賽程卡片 ──
+    today_games_html = ""
+    if games_data and len(games_data) > 0:
+        for game in games_data:
+            home_key = game.get("home_team_key", "")
+            away_key = game.get("away_team_key", "")
+            home_logo = TEAMS.get(home_key, {}).get("logo", "")
+            away_logo = TEAMS.get(away_key, {}).get("logo", "")
+            home_name = game.get("home_team", "")
+            away_name = game.get("away_team", "")
+            home_score = game.get("home_score", "")
+            away_score = game.get("away_score", "")
+            stadium = game.get("stadium", "")
+            status = game.get("status", "")
+
+            if home_score or away_score:
+                score_display = f"{away_score} - {home_score}"
+            else:
+                score_display = "vs"
+
+            status_tag = f'<span class="game-status">{status}</span>' if status else ""
+            today_games_html += f"""
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="{away_logo}" alt="{away_name}" class="team-logo">
+                        <span class="team-name">{away_name}</span>
+                    </div>
+                    <div class="score-display">{score_display}</div>
+                    <div class="team-block home-block">
+                        <img src="{home_logo}" alt="{home_name}" class="team-logo">
+                        <span class="team-name">{home_name}</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 {stadium}</span>
+                    {status_tag}
+                </div>
+            </div>"""
+    else:
+        today_games_html = """
+            <div class="news-card">
+                <span class="card-tag tag-game">賽程資訊</span>
+                <p class="card-body">今日無安排比賽。</p>
+            </div>"""
+
+    # ── 戰績表 ──
+    standings_html = ""
+    if standings_data:
+        for league_key, league_display in [("central", "中央聯盟"), ("pacific", "太平洋聯盟")]:
+            teams = standings_data.get(league_key, [])
+            if not teams:
+                continue
+            league_color = "var(--central)" if league_key == "central" else "var(--pacific)"
+            rows = ""
+            for t in teams:
+                tk = t.get("team_key", "")
+                logo_url = TEAMS.get(tk, {}).get("logo", "")
+                rows += f"""
+                <tr>
+                    <td class="rank-cell">{t.get('rank', '')}</td>
+                    <td class="team-cell"><img src="{logo_url}" alt="" class="standings-logo"> {t.get('team', '')}</td>
+                    <td>{t.get('games', '')}</td>
+                    <td>{t.get('wins', '')}</td>
+                    <td>{t.get('losses', '')}</td>
+                    <td>{t.get('draws', '')}</td>
+                    <td>{t.get('pct', '')}</td>
+                    <td>{t.get('gb', '')}</td>
+                </tr>"""
+            standings_html += f"""
+            <h3 class="league-subtitle" style="color:{league_color};">◇ {league_display}</h3>
+            <table class="standings-table">
+                <thead><tr><th>順位</th><th>球隊</th><th>試合</th><th>勝</th><th>敗</th><th>分</th><th>率</th><th>差</th></tr></thead>
+                <tbody>{rows}</tbody>
+            </table>"""
+    else:
+        standings_html = """
+            <div class="news-card">
+                <span class="card-tag tag-game">即時戰績</span>
+                <p class="card-body">戰績資料暫時無法取得。</p>
+            </div>"""
+
+    # ── 個人排行榜 ──
+    leaders_html = ""
+    if leaders_data:
+        leader_sections = [
+            ("batting_avg_central", "打擊率", "中央聯盟"),
+            ("batting_avg_pacific", "打擊率", "太平洋聯盟"),
+            ("home_runs_central", "全壘打", "中央聯盟"),
+            ("home_runs_pacific", "全壘打", "太平洋聯盟"),
+            ("era_central", "防禦率", "中央聯盟"),
+            ("era_pacific", "防禦率", "太平洋聯盟"),
+            ("wins_central", "勝投", "中央聯盟"),
+            ("wins_pacific", "勝投", "太平洋聯盟"),
+        ]
+        for key, stat_name, league_name in leader_sections:
+            entries = leaders_data.get(key, [])
+            if not entries:
+                continue
+            league_color = "var(--central)" if "central" in key else "var(--pacific)"
+            rows = ""
+            for e in entries[:5]:
+                tk = e.get("team_key", "")
+                logo_url = TEAMS.get(tk, {}).get("logo", "")
+                rows += f"""
+                <tr>
+                    <td class="rank-cell">{e.get('rank', '')}</td>
+                    <td class="player-cell">{e.get('player', '')}</td>
+                    <td class="team-cell"><img src="{logo_url}" alt="" class="leaders-logo"> {e.get('team', '')}</td>
+                    <td class="value-cell">{e.get('value', '')}</td>
+                </tr>"""
+            leaders_html += f"""
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:{league_color};">{league_name} {stat_name}</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>{rows}</tbody>
+                </table>
+            </div>"""
+    else:
+        leaders_html = """
+            <div class="news-card">
+                <span class="card-tag tag-game">排行榜</span>
+                <p class="card-body">排行榜資料暫時無法取得。</p>
+            </div>"""
+
+    # ── 合併主模板 ──
     html = f"""<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -225,16 +297,158 @@ def generate_html(info, games_data, standings_data, leaders_data):
             margin-bottom: 0.5rem;
         }}
         .card-body {{ font-size: 0.95rem; color: #444; line-height: 1.7; }}
-        .source-link {{
-            display: inline-flex;
+        /* ── 賽程卡片 ── */
+        .game-card {{
+            background: white;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+        }}
+        .game-teams {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }}
+        .team-block {{
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 0.3rem;
-            margin-top: 0.75rem;
+            flex: 1;
+        }}
+        .team-logo {{
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }}
+        .team-name {{
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+        }}
+        .score-display {{
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--ink);
+            min-width: 4rem;
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+        }}
+        .game-meta {{
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
             font-size: 0.8rem;
             color: var(--gray);
-            text-decoration: none;
         }}
-        .source-link:hover {{ color: var(--accent); }}
+        .game-status {{
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }}
+        /* ── 戰績表 ── */
+        .league-subtitle {{
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+        }}
+        .standings-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }}
+        .standings-table th {{
+            background: var(--light-gray);
+            padding: 0.5rem 0.4rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid #ddd;
+        }}
+        .standings-table td {{
+            padding: 0.4rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }}
+        .standings-table .team-cell {{
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }}
+        .standings-logo {{
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+        }}
+        .rank-cell {{
+            font-weight: 700;
+            color: var(--gray);
+        }}
+        /* ── 排行榜 ── */
+        .leader-group {{
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            margin-bottom: 0.5rem;
+        }}
+        .leader-group:nth-child(odd) {{
+            margin-right: 2%;
+        }}
+        .leader-subtitle {{
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0.75rem 0 0.3rem;
+        }}
+        .leaders-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }}
+        .leaders-table th {{
+            background: var(--light-gray);
+            padding: 0.3rem 0.3rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid #ddd;
+        }}
+        .leaders-table td {{
+            padding: 0.3rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }}
+        .leaders-table .team-cell {{
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+        }}
+        .leaders-logo {{
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            vertical-align: middle;
+        }}
+        .player-cell {{
+            text-align: left !important;
+            font-weight: 700;
+        }}
+        .value-cell {{
+            font-weight: 900;
+            color: var(--accent);
+        }}
         .footer {{
             background: var(--light-gray);
             padding: 2rem;
@@ -252,11 +466,13 @@ def generate_html(info, games_data, standings_data, leaders_data):
             border-radius: 8px;
             font-weight: 700;
         }}
-        .back-link:hover {{ background: var(--accent-light); }}
+        .back-link:hover {{ background: #ff6b6b; }}
         @media (max-width: 600px) {{
             .title {{ font-size: 2rem; }}
             .content {{ padding: 1rem; }}
             .issue-info {{ flex-direction: column; gap: 0.5rem; }}
+            .game-teams {{ flex-wrap: wrap; }}
+            .leader-group {{ width: 100%; }}
         }}
     </style>
 </head>
@@ -283,9 +499,9 @@ def generate_html(info, games_data, standings_data, leaders_data):
                     <span class="card-tag tag-news">系統通知</span>
                     <h3 class="card-title">本報由自動化系統生成</h3>
                     <p class="card-body">
-                        本電子報於每日中午12:00自動生成，資料來源為 NPB 官方網站及 Baseball Data。<br>
+                        本電子報於每日中午12:00自動生成，資料來源為 NPB 官方網站。<br>
                         由於自動化限制，部分內容可能無法即時更新，建議參考官方網站取得最新資訊。<br>
-                        球隊新聞摘要需人工整理，自動化版本暫時僅提供賽程與戰績資訊。
+                        球隊新聞摘要需人工整理，自動化版本暫時僅提供賽程、戰績與排行資訊。
                     </p>
                     <p class="card-body" style="margin-top: 1rem;">
                         <strong>今日日期：</strong>{info['today_display']} {info['today_weekday']}<br>
@@ -300,30 +516,27 @@ def generate_html(info, games_data, standings_data, leaders_data):
                 <div class="section-header">
                     <h2 class="section-title">📅 今日賽程 ({info['today_display']})</h2>
                 </div>
-                <div class="news-card">
-                    <span class="card-tag tag-game">賽程資訊</span>
-                    <p class="card-body">
-                        請參考 <a href="{NPB_BASE_URL}/scores/{info['today'].replace('-', '')}/" target="_blank">NPB 官方賽程頁面</a> 取得今日最新賽程與比數。
-                    </p>
-                </div>
+                {today_games_html}
             </div>
             
             <div class="section">
                 <div class="section-header">
                     <h2 class="section-title">📊 戰績表</h2>
                 </div>
-                <div class="news-card">
-                    <span class="card-tag tag-game">即時戰績</span>
-                    <p class="card-body">
-                        請參考 <a href="{BASEBALL_DATA_URL}" target="_blank">Baseball Data 戰績頁面</a> 取得最新戰績與排名。
-                    </p>
+                {standings_html}
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🏆 個人排行榜</h2>
                 </div>
+                {leaders_html}
             </div>
         </main>
         
         <footer class="footer">
             <p>📰 《日職每日報》自動生成版 · {info['today_display']}</p>
-            <p>資料來源：NPB日本野球機構、Baseball Data</p>
+            <p>資料來源：NPB日本野球機構</p>
             <p>⚾ 本報僅留存最近兩週版本 · 自動生成時間：{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
             <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
         </footer>
@@ -353,7 +566,7 @@ def main():
     print(f"=== 日職每日報自動生成開始 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===")
     
     # 1. 取得日期資訊
-    info = get_today_info()
+    info = get_date_info()
     print(f"今日日期: {info['today_display']}")
     
     # 2. 清除舊期數
@@ -366,14 +579,35 @@ def main():
     images_dir = today_dir / "images"
     images_dir.mkdir(exist_ok=True)
     
-    # 4. 抓取數據（簡化版，實際使用時會更完整）
-    print("抓取 NPB 數據...")
-    schedule_html = fetch_npb_schedule(info["today"])
-    baseball_data = fetch_baseball_data()
+    # 4. 使用 collect_data 取得真實數據
+    print("使用 collect_data 取得 NPB 數據...")
+    try:
+        games = fetch_today_games()
+        print(f"  今日比賽: {len(games)} 場")
+    except Exception as e:
+        print(f"  取得今日比賽失敗: {e}")
+        games = []
     
-    # 5. 生成 HTML
+    try:
+        standings = fetch_standings()
+        central_count = len(standings.get("central", []))
+        pacific_count = len(standings.get("pacific", []))
+        print(f"  戰績表: 中央 {central_count} 隊, 太平洋 {pacific_count} 隊")
+    except Exception as e:
+        print(f"  取得戰績失敗: {e}")
+        standings = {"central": [], "pacific": []}
+    
+    try:
+        leaders = fetch_leaders()
+        leader_count = sum(len(v) for v in leaders.values())
+        print(f"  排行榜: {leader_count} 筆")
+    except Exception as e:
+        print(f"  取得排行榜失敗: {e}")
+        leaders = {}
+    
+    # 5. 生成 HTML（傳入真實數據）
     print("生成電子報 HTML...")
-    html_content = generate_html(info, None, None, None)
+    html_content = generate_html(info, games, standings, leaders)
     
     # 6. 寫入檔案
     html_path = today_dir / "index.html"
