@@ -467,7 +467,12 @@ def main():
     
     # 生成完整 HTML
     print("正在生成 HTML...")
-    html = generate_html(content, date_info)
+    # 移除 LLM 可能輸出的程式碼區塊標記
+    import re
+    content_clean = re.sub(r'```html?\n?', '', content)
+    content_clean = re.sub(r'\n?```', '', content_clean)
+    content_clean = content_clean.strip()
+    html = generate_html(content_clean, date_info)
     
     # 儲存檔案到 GitHub repo
     repo_dir = Path("/tmp/ebooksforme")
