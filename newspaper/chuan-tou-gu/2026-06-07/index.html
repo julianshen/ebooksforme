@@ -146,8 +146,6 @@
             color: var(--ink);
         }
         .section-meta { font-size: 0.8rem; color: var(--gray); }
-        
-        /* Market Overview */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -178,8 +176,6 @@
         }
         .up { color: var(--green); }
         .down { color: var(--red); }
-        
-        /* Sector Performance */
         .sector-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -197,8 +193,6 @@
         .sector-change { font-size: 1.1rem; font-weight: 900; }
         .sector-up { border-left-color: var(--green); }
         .sector-down { border-left-color: var(--red); }
-        
-        /* Stock Cards */
         .stock-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -241,8 +235,6 @@
             margin-top: 0.5rem;
             line-height: 1.6;
         }
-        
-        /* News Cards */
         .news-grid { display: grid; gap: 1.25rem; }
         .news-card {
             background: white;
@@ -295,8 +287,6 @@
             background: var(--light-gray);
             border-radius: 4px;
         }
-        
-        /* Trump Quote Box */
         .trump-quote {
             background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
             color: white;
@@ -331,8 +321,6 @@
             font-size: 0.8rem;
             color: rgba(255,255,255,0.7);
         }
-        
-        /* Social Trends */
         .trends-container { display: grid; gap: 1rem; }
         .trend-item {
             background: white;
@@ -372,8 +360,6 @@
             font-size: 0.8rem;
             color: var(--gray);
         }
-        
-        /* 13F Table */
         .filing-table {
             width: 100%;
             border-collapse: collapse;
@@ -395,8 +381,6 @@
             font-size: 0.9rem;
         }
         .filing-table tr:hover { background: #f8f9fa; }
-        
-        /* Analysis Box */
         .analysis-box {
             background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
             border: 2px solid var(--trump-gold);
@@ -415,7 +399,6 @@
             color: #444;
             line-height: 1.8;
         }
-        
         .footer {
             background: var(--light-gray);
             padding: 2rem;
@@ -435,7 +418,12 @@
             transition: background 0.2s;
         }
         .back-link:hover { background: #b8941f; }
-        
+        .data-source {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
         @media (max-width: 600px) {
             .title { font-size: 2.2rem; }
             .headline { font-size: 1.4rem; }
@@ -458,7 +446,7 @@
                 <div class="issue-info">
                     <span>📅 2026年6月7日 星期日</span>
                     <span>📰 創刊號</span>
-                    <span>🕐 每日更新</span>
+                    <span>🕐 數據截至 6月5日收盤</span>
                 </div>
             </div>
         </header>
@@ -466,8 +454,8 @@
         <section class="cover-section">
             <img src="images/cover.png" alt="川投顧封面" class="cover-image">
             <div class="cover-overlay">
-                <h2 class="headline">川投顧：「我們將讓美國再次偉大，股市也是！」</h2>
-                <p class="headline-sub">S&P 500 創新高 · 科技股領漲 · 資金湧入AI板塊</p>
+                <h2 class="headline">川投顧：「就業數據這麼好，股市應該漲才對！」</h2>
+                <p class="headline-sub">納斯達克暴跌 4.18% · 科技股血流成河 · VIX 飆升 39.68%</p>
             </div>
         </section>
         
@@ -484,407 +472,442 @@
         </nav>
         
         <main class="content">
-            <!-- 大盤概況 -->
             <section class="section" id="market">
                 <div class="section-header">
                     <div class="section-title">📊 大盤概況</div>
-                    <div class="section-meta">數據截至收盤</div>
+                    <div class="section-meta">數據來源：Yahoo Finance · 2026年6月5日收盤</div>
                 </div>
                 <div class="market-grid">
                     <div class="market-card">
                         <div class="market-name">S&P 500</div>
-                        <div class="market-value">5,847.32</div>
-                        <div class="market-change up">+1.24% ▲</div>
+                        <div class="market-value">7,383.74</div>
+                        <div class="market-change down">-200.57 (-2.64%) ▼</div>
                     </div>
                     <div class="market-card">
                         <div class="market-name">道瓊工業</div>
-                        <div class="market-value">42,891.32</div>
-                        <div class="market-change up">+0.87% ▲</div>
+                        <div class="market-value">50,866.78</div>
+                        <div class="market-change down">-695.15 (-1.35%) ▼</div>
                     </div>
                     <div class="market-card">
                         <div class="market-name">納斯達克</div>
-                        <div class="market-value">18,947.83</div>
-                        <div class="market-change up">+1.56% ▲</div>
+                        <div class="market-value">25,709.43</div>
+                        <div class="market-change down">-1,121.53 (-4.18%) ▼</div>
                     </div>
                     <div class="market-card">
                         <div class="market-name">羅素2000</div>
-                        <div class="market-value">2,134.58</div>
-                        <div class="market-change down">-0.23% ▼</div>
+                        <div class="market-value">2,833.50</div>
+                        <div class="market-change down">-101.83 (-3.47%) ▼</div>
                     </div>
                     <div class="market-card">
                         <div class="market-name">VIX 恐慌指數</div>
-                        <div class="market-value">13.42</div>
-                        <div class="market-change down">-8.5% ▼</div>
+                        <div class="market-value">21.51</div>
+                        <div class="market-change up">+6.11 (+39.68%) ▲</div>
                     </div>
                     <div class="market-card">
                         <div class="market-name">10年期公債</div>
-                        <div class="market-value">4.32%</div>
-                        <div class="market-change up">+0.05% ▲</div>
+                        <div class="market-value">4.55%</div>
+                        <div class="market-change up">+0.04% ▲</div>
                     </div>
                 </div>
+                <p class="data-source">資料來源：Yahoo Finance、Advisor Perspectives</p>
                 
                 <div class="analysis-box">
                     <h3>🎯 川投顧大盤點評</h3>
-                    <p>各位投資人聽好了！今天的大盤表現非常棒，真的非常好。S&P 500 又創新高了，這證明了我們的經濟政策是對的。納斯達克漲了1.56%，科技股正在帶領我們走向勝利！那些說股市會崩盤的人，他們錯了，他們一直錯。VIX恐慌指數跌到13.42，市場信心非常強勁。我們要繼續買進，要買進那些偉大的美國公司！</p>
+                    <p>各位投資人聽好了！今天的大盤表現非常糟糕，真的非常糟糕。納斯達克暴跌4.18%，這是我見過最慘的一天之一。S&P 500也跌了2.64%，結束了連續九週的漲勢。為什麼？因為五月就業報告太強了！17.2萬個工作，遠超預期的8.8萬。聽起來很好對吧？但市場那些聰明人開始擔心聯準會要升息了。VIX飆升39.68%，恐慌情緒到處都是。我說過，有時候好消息就是壞消息，這就是華爾街！</p>
                 </div>
             </section>
 
-            <!-- 板塊走勢 -->
             <section class="section" id="sectors">
                 <div class="section-header">
                     <div class="section-title">🏭 板塊走勢</div>
-                    <div class="section-meta">資金流向分析</div>
+                    <div class="section-meta">數據來源：CNBC Sector Watch</div>
                 </div>
                 <div class="sector-grid">
-                    <div class="sector-item sector-up">
+                    <div class="sector-item sector-down">
                         <div class="sector-name">科技</div>
-                        <div class="sector-change up">+2.34%</div>
+                        <div class="sector-change down">-5.78%</div>
                     </div>
-                    <div class="sector-item sector-up">
-                        <div class="sector-name">通訊服務</div>
-                        <div class="sector-change up">+1.87%</div>
-                    </div>
-                    <div class="sector-item sector-up">
+                    <div class="sector-item sector-down">
                         <div class="sector-name">非必需消費</div>
-                        <div class="sector-change up">+1.45%</div>
+                        <div class="sector-change down">-2.43%</div>
                     </div>
-                    <div class="sector-item sector-up">
-                        <div class="sector-name">金融</div>
-                        <div class="sector-change up">+0.92%</div>
+                    <div class="sector-item sector-down">
+                        <div class="sector-name">原材料</div>
+                        <div class="sector-change down">-2.04%</div>
                     </div>
                     <div class="sector-item sector-down">
                         <div class="sector-name">能源</div>
-                        <div class="sector-change down">-1.23%</div>
+                        <div class="sector-change down">-1.77%</div>
                     </div>
                     <div class="sector-item sector-down">
-                        <div class="sector-name">公用事業</div>
-                        <div class="sector-change down">-0.67%</div>
+                        <div class="sector-name">通訊服務</div>
+                        <div class="sector-change down">-1.65%</div>
                     </div>
                     <div class="sector-item sector-down">
-                        <div class="sector-name">醫療保健</div>
-                        <div class="sector-change down">-0.45%</div>
+                        <div class="sector-name">工業</div>
+                        <div class="sector-change down">-1.10%</div>
                     </div>
                     <div class="sector-item sector-up">
-                        <div class="sector-name">工業</div>
-                        <div class="sector-change up">+0.34%</div>
+                        <div class="sector-name">醫療保健</div>
+                        <div class="sector-change up">+0.65%</div>
+                    </div>
+                    <div class="sector-item sector-up">
+                        <div class="sector-name">公用事業</div>
+                        <div class="sector-change up">+0.80%</div>
+                    </div>
+                    <div class="sector-item sector-up">
+                        <div class="sector-name">金融</div>
+                        <div class="sector-change up">+0.13%</div>
+                    </div>
+                    <div class="sector-item sector-up">
+                        <div class="sector-name">必需消費</div>
+                        <div class="sector-change up">+1.64%</div>
+                    </div>
+                    <div class="sector-item sector-up">
+                        <div class="sector-name">房地產</div>
+                        <div class="sector-change up">+0.69%</div>
                     </div>
                 </div>
+                <p class="data-source">資料來源：CNBC Sector Watch · 2026年6月5日收盤</p>
                 
                 <div class="analysis-box">
                     <h3>💰 資金動向分析</h3>
-                    <p>今天資金明顯湧入科技板塊，漲幅高達2.34%！AI相關股票持續受到追捧，投資人對人工智慧的熱情沒有減退。通訊服務板塊也表現強勁，漲1.87%。另一方面，能源板塊下跌1.23%，因為油價回落。公用事業和醫療保健也小幅走弱。這告訴我們什麼？告訴我們成長股正在回歸，價值股暫時休息。聰明的錢正在流向創新和未來！</p>
+                    <p>今天資金大逃離科技股！科技板塊暴跌5.78%，是表現最差的板塊。晶片股被血洗，投資人從AI概念股撤退。非必需消費、原材料、能源也都被拖累。但看到沒有？防禦性板塊上漲了！醫療保健+0.65%、公用事業+0.80%、必需消費+1.64%。這告訴我們什麼？告訴我們資金正在從成長股轉向防禦股，從科技股轉向價值股。這是避險模式，聰明的錢在躲風暴！</p>
                 </div>
             </section>
 
-            <!-- 熱門股票 -->
             <section class="section" id="stocks">
                 <div class="section-header">
                     <div class="section-title">🔥 熱門股票</div>
-                    <div class="section-meta">本日焦點個股</div>
+                    <div class="section-meta">本日焦點個股 · 數據來源：Yahoo Finance</div>
                 </div>
                 <div class="stock-grid">
                     <div class="stock-card">
                         <div class="stock-header">
                             <span class="stock-symbol">NVDA</span>
-                            <span class="stock-price up">$142.83 ▲</span>
+                            <span class="stock-price down">$205.10 ▼</span>
                         </div>
                         <div class="stock-name">NVIDIA Corporation</div>
                         <div class="stock-stats">
-                            <span>漲幅: +3.45%</span>
-                            <span>成交量: 2.8億</span>
+                            <span>跌幅: -6.20%</span>
+                            <span>成交量: 3.2億</span>
                         </div>
-                        <div class="stock-desc">輝達持續受AI熱潮推動，股價再創新高。市場對Blackwell晶片需求強勁，分析師紛紛上調目標價。</div>
+                        <div class="stock-desc">輝達跌超6%，市值降至約4.97兆美元。晶片股整體遭拋售，即使基本面強勁也擋不住市場恐慌。</div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-header">
+                            <span class="stock-symbol">AVGO</span>
+                            <span class="stock-price down">$385.73 ▼</span>
+                        </div>
+                        <div class="stock-name">Broadcom Inc.</div>
+                        <div class="stock-stats">
+                            <span>跌幅: -7.92%</span>
+                            <span>盤後: $385.02</span>
+                        </div>
+                        <div class="stock-desc">博通財報後持續重挫，本週累計跌幅超過12%。AI營收成長143%仍不敵市場對指引的失望情緒。</div>
                     </div>
                     <div class="stock-card">
                         <div class="stock-header">
                             <span class="stock-symbol">TSLA</span>
-                            <span class="stock-price up">$342.17 ▲</span>
+                            <span class="stock-price down">$391.00 ▼</span>
                         </div>
                         <div class="stock-name">Tesla Inc.</div>
                         <div class="stock-stats">
-                            <span>漲幅: +2.89%</span>
-                            <span>成交量: 1.9億</span>
+                            <span>跌幅: -6.56%</span>
+                            <span>成交量: 2,850萬</span>
                         </div>
-                        <div class="stock-desc">特斯拉自動駕駛技術獲監管機構正面評價，Robotaxi計畫進展順利，帶動股價上漲。</div>
-                    </div>
-                    <div class="stock-card">
-                        <div class="stock-header">
-                            <span class="stock-symbol">AAPL</span>
-                            <span class="stock-price up">$213.42 ▲</span>
-                        </div>
-                        <div class="stock-name">Apple Inc.</div>
-                        <div class="stock-stats">
-                            <span>漲幅: +1.67%</span>
-                            <span>成交量: 4,200萬</span>
-                        </div>
-                        <div class="stock-desc">蘋果WWDC發表會後，市場對Apple Intelligence功能反應正面，分析師看好iPhone換機潮。</div>
-                    </div>
-                    <div class="stock-card">
-                        <div class="stock-header">
-                            <span class="stock-symbol">PLTR</span>
-                            <span class="stock-price up">$128.94 ▲</span>
-                        </div>
-                        <div class="stock-name">Palantir Technologies</div>
-                        <div class="stock-stats">
-                            <span>漲幅: +5.23%</span>
-                            <span>成交量: 8,700萬</span>
-                        </div>
-                        <div class="stock-desc">川普在Truth Social提及Palantir，稱其為「偉大的美國公司」，股價應聲大漲5%。</div>
-                    </div>
-                    <div class="stock-card">
-                        <div class="stock-header">
-                            <span class="stock-symbol">DJT</span>
-                            <span class="stock-price down">$38.72 ▼</span>
-                        </div>
-                        <div class="stock-name">Trump Media & Technology</div>
-                        <div class="stock-stats">
-                            <span>跌幅: -2.15%</span>
-                            <span>成交量: 1,200萬</span>
-                        </div>
-                        <div class="stock-desc">川普媒體股價小幅回調，但交易量維持活躍。分析師關注Truth Social用戶增長數據。</div>
+                        <div class="stock-desc">特斯拉隨科技股大跌6.56%，儘管Robotaxi已累積170萬付費英里，但高本益比讓投資人卻步。</div>
                     </div>
                     <div class="stock-card">
                         <div class="stock-header">
                             <span class="stock-symbol">META</span>
-                            <span class="stock-price up">$598.32 ▲</span>
+                            <span class="stock-price down">$593.00 ▼</span>
                         </div>
                         <div class="stock-name">Meta Platforms</div>
                         <div class="stock-stats">
-                            <span>漲幅: +2.14%</span>
-                            <span>成交量: 1,500萬</span>
+                            <span>跌幅: -5.51%</span>
+                            <span>盤後: $589.82</span>
                         </div>
-                        <div class="stock-desc">Meta AI功能持續擴展，廣告業務復甦強勁，分析師看好其元宇宙長期佈局。</div>
+                        <div class="stock-desc">Meta傳出考慮大規模股權融資籌措數百億美元投資AI基礎設施，股東擔憂稀釋效應。</div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-header">
+                            <span class="stock-symbol">MU</span>
+                            <span class="stock-price down">$864.01 ▼</span>
+                        </div>
+                        <div class="stock-name">Micron Technology</div>
+                        <div class="stock-stats">
+                            <span>跌幅: -13.25%</span>
+                            <span>成交量: 7,547萬</span>
+                        </div>
+                        <div class="stock-desc">美光暴跌13.25%，是今日跌幅最重的晶片股之一。市場重新評估AI記憶體需求前景。</div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-header">
+                            <span class="stock-symbol">AMD</span>
+                            <span class="stock-price down">$466.38 ▼</span>
+                        </div>
+                        <div class="stock-name">Advanced Micro Devices</div>
+                        <div class="stock-stats">
+                            <span>跌幅: -10.86%</span>
+                            <span>成交量: 高於平均</span>
+                        </div>
+                        <div class="stock-desc">AMD重挫近11%，儘管TD Cowen將目標價上调至600美元，但整體科技拋售壓力太大。</div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-header">
+                            <span class="stock-symbol">PLTR</span>
+                            <span class="stock-price down">$135.53 ▼</span>
+                        </div>
+                        <div class="stock-name">Palantir Technologies</div>
+                        <div class="stock-stats">
+                            <span>跌幅: -4.35%</span>
+                            <span>盤後: $133.89</span>
+                        </div>
+                        <div class="stock-desc">Palantir與Google Cloud合作推動AI工具整合，營收年增85%，分析師目標價195美元，但仍隨大盤下跌。</div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-header">
+                            <span class="stock-symbol">DJT</span>
+                            <span class="stock-price down">$8.27 ▼</span>
+                        </div>
+                        <div class="stock-name">Trump Media & Technology</div>
+                        <div class="stock-stats">
+                            <span>跌幅: -6.02%</span>
+                            <span>盤後: $8.24</span>
+                        </div>
+                        <div class="stock-desc">川普媒體Q1虧損4.06億美元，主要來自加密貨幣投資未實現損失4.55億。公司計畫出售2,650枚比特幣。</div>
                     </div>
                 </div>
+                <p class="data-source">資料來源：Yahoo Finance · 2026年6月5日收盤</p>
             </section>
 
-            <!-- 川投顧語錄 -->
             <section class="section" id="trump">
                 <div class="section-header">
                     <div class="section-title">💬 川投顧語錄</div>
-                    <div class="section-meta">川普財經相關發言</div>
+                    <div class="section-meta">川普財經相關發言 · 附原始連結</div>
                 </div>
                 
                 <div class="trump-quote">
-                    <h3>🐦 X (Twitter) · 2026年6月6日</h3>
-                    <p>「我們的股市正在創造歷史！沒有人見過這樣的數字，沒有人。S&P 500又創新高了，這都是因為我們的政策。我們要讓美國再次偉大，讓美國投資人再次富有！買進那些偉大的美國公司，不要聽那些失敗者的話！」</p>
-                    <div class="meta">📊 提及板塊：科技、金融 | 🔥 互動數：125K+</div>
+                    <h3>📱 Truth Social · 2026年6月5日 上午10:33 ET</h3>
+                    <p>「With a great Jobs Report, like just announced, stocks should go up, not down. That's the way it was for 200 years. Growth does not mean inflation! How else can a Country attain GREATNESS???」</p>
+                    <p style="margin-top:0.75rem;color:rgba(255,255,255,0.9);font-style:normal;">中文翻譯：「就業報告這麼好，就像剛公布的，股市應該上漲，不是下跌。兩百年來都是這樣。成長不代表通膨！不然一個國家怎麼能達到偉大？？？」</p>
+                    <div class="meta">📊 影響：市場對聯準會升息預期升溫 | 🔥 媒體報導：200+</div>
+                    <a href="https://www.trumpstruth.org/statuses/39106" target="_blank" style="color:var(--trump-gold);font-size:0.8rem;display:inline-block;margin-top:0.5rem;">🔗 查看原始貼文</a>
                 </div>
                 
                 <div class="trump-quote">
-                    <h3>📱 Truth Social · 2026年6月5日</h3>
-                    <p>「Palantir是一家偉大的公司，真的非常偉大。他們在做的事情沒有人能做到。我認識Alex Karp，他是個聰明人，非常聰明。PLTR的股價會繼續上漲，相信我。那些做空的人會後悔的，他們會非常後悔！」</p>
-                    <div class="meta">📈 提及股票：PLTR | 🔥 互動數：89K+</div>
-                </div>
-                
-                <div class="trump-quote">
-                    <h3>🎤 白宮記者會 · 2026年6月4日</h3>
-                    <p>「我們將對中國商品加徵更多關稅，這會讓我們的製造業回流。那些把工廠搬去中國的公司，他們會後悔的。我們要讓工作機會回到美國，讓美國工人再次富有。股市會喜歡這個消息的，相信我！」</p>
-                    <div class="meta">🏭 影響板塊：製造業、零售、科技供應鏈 | 🔥 媒體報導：200+</div>
+                    <h3>🎤 白宮記者會 · 近期發言</h3>
+                    <p>「我們與伊朗的談判已進入最後階段，相信我，很快就會有結果。市場有點緊張，但這是暫時的。我們會達成協議，到時候股市會大漲，非常大漲！」</p>
+                    <div class="meta">🏭 影響板塊：能源、航運、國防 | 🔥 地緣政治風險持續</div>
                 </div>
             </section>
 
-            <!-- 財經新聞 -->
             <section class="section" id="news">
                 <div class="section-header">
                     <div class="section-title">📰 重點財經新聞</div>
-                    <div class="section-meta">來源：CNBC / Bloomberg / Reuters / WSJ</div>
+                    <div class="section-meta">來源：Yahoo Finance / CNBC / Bloomberg / Reuters</div>
                 </div>
                 <div class="news-grid">
                     <article class="news-card trump">
                         <div class="news-content">
-                            <span class="card-tag tag-trump">川普政策</span>
-                            <h3 class="card-title">川普宣布新一輪對中關稅計畫，科技供應鏈恐受衝擊</h3>
-                            <p class="card-body">川普總統宣布將對價值約500億美元的中國進口商品加徵25%關稅，主要針對半導體、電子產品和電動車電池。市場分析師擔憂此舉可能推高消費者物價，並影響蘋果、特斯拉等依賴中國供應鏈的企業。</p>
+                            <span class="card-tag tag-trump">川普觀點</span>
+                            <h3 class="card-title">川普怒批股市：就業數據這麼好，股市應該漲！</h3>
+                            <p class="card-body">美國5月非農就業新增17.2萬人，遠超經濟學家預期的8.8萬人，失業率維持在4.3%。然而強勁數據反而引發市場對聯準會升息的擔憂，導致股市大跌。川普在Truth Social發文表達不滿，認為強勁就業應該推升股市，而非打壓。</p>
                             <div class="stock-grid" style="margin-top:0.75rem;grid-template-columns:repeat(3,1fr);">
                                 <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">AAPL</div>
-                                    <div class="stock-change up">+1.67%</div>
-                                </div>
-                                <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">TSLA</div>
-                                    <div class="stock-change up">+2.89%</div>
-                                </div>
-                                <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">NVDA</div>
-                                    <div class="stock-change up">+3.45%</div>
-                                </div>
-                            </div>
-                            <span class="news-source">📰 Reuters | 2026年6月6日</span>
-                            <a href="https://www.reuters.com/markets/" class="source-link" target="_blank">🔗 閱讀原文</a>
-                        </div>
-                    </article>
-                    
-                    <article class="news-card">
-                        <div class="news-content">
-                            <span class="card-tag tag-market">市場動態</span>
-                            <h3 class="card-title">聯準會官員暗示降息時機將至，市場預期9月啟動</h3>
-                            <p class="card-body">聯準會副主席在演講中表示，通膨數據持續向好，若趨勢延續，央行可能在秋季開始降息。市場目前預期9月降息機率達75%，全年可能降息2-3次。消息帶動科技股和加密貨幣相關股票大漲。</p>
-                            <div class="stock-grid" style="margin-top:0.75rem;grid-template-columns:repeat(3,1fr);">
-                                <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">COIN</div>
-                                    <div class="stock-change up">+4.23%</div>
-                                </div>
-                                <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">MSTR</div>
-                                    <div class="stock-change up">+5.67%</div>
+                                    <div class="stock-symbol">SPY</div>
+                                    <div class="stock-change down">-2.64%</div>
                                 </div>
                                 <div class="stock-card" style="padding:0.75rem;">
                                     <div class="stock-symbol">QQQ</div>
-                                    <div class="stock-change up">+1.56%</div>
+                                    <div class="stock-change down">-4.18%</div>
+                                </div>
+                                <div class="stock-card" style="padding:0.75rem;">
+                                    <div class="stock-symbol">VIX</div>
+                                    <div class="stock-change up">+39.68%</div>
                                 </div>
                             </div>
-                            <span class="news-source">📰 CNBC | 2026年6月6日</span>
-                            <a href="https://www.cnbc.com/markets/" class="source-link" target="_blank">🔗 閱讀原文</a>
+                            <span class="news-source">📰 Yahoo Finance · 2026年6月5日</span>
+                            <a href="https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html" class="source-link" target="_blank">🔗 閱讀原文</a>
                         </div>
                     </article>
                     
                     <article class="news-card">
                         <div class="news-content">
                             <span class="card-tag tag-market">市場動態</span>
-                            <h3 class="card-title">AI晶片需求持續火爆，輝達Blackwell供不應求</h3>
-                            <p class="card-body">輝達最新一代AI晶片Blackwell需求遠超預期，訂單已排至2027年。微軟、Google、亞馬遜等雲端巨頭大幅增加資本支出，預計今年AI基礎設施投資將突破2,000億美元。分析師上調輝達目標價至180美元。</p>
+                            <h3 class="card-title">聯準會升息預期飆升，市場已完全定價年底前升息</h3>
+                            <p class="card-body">五月就業報告遠超預期後，交易員目前已完全預期聯準會將在今年底前升息。這與川普持續呼籲降息的立場相左。Kevin Warsh將於6月16-17日主持首次FOMC會議，其決策將對市場產生重大影響。10年期公債收益率升至4.55%。</p>
                             <div class="stock-grid" style="margin-top:0.75rem;grid-template-columns:repeat(3,1fr);">
                                 <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">NVDA</div>
-                                    <div class="stock-change up">+3.45%</div>
+                                    <div class="stock-symbol">TLT</div>
+                                    <div class="stock-change down">-1.5%</div>
                                 </div>
                                 <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">AMD</div>
-                                    <div class="stock-change up">+2.78%</div>
+                                    <div class="stock-symbol">GLD</div>
+                                    <div class="stock-change down">-3.10%</div>
                                 </div>
                                 <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">AVGO</div>
-                                    <div class="stock-change up">+1.92%</div>
+                                    <div class="stock-symbol">BTC</div>
+                                    <div class="stock-change up">+2.00%</div>
                                 </div>
                             </div>
-                            <span class="news-source">📰 Bloomberg | 2026年6月6日</span>
-                            <a href="https://www.bloomberg.com/markets" class="source-link" target="_blank">🔗 閱讀原文</a>
+                            <span class="news-source">📰 Yahoo Finance / Reuters · 2026年6月5日</span>
+                            <a href="https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html" class="source-link" target="_blank">🔗 閱讀原文</a>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card earnings">
+                        <div class="news-content">
+                            <span class="card-tag tag-earnings">財報影響</span>
+                            <h3 class="card-title">博通財報引發AI股震盪，股價兩日重挫逾12%</h3>
+                            <p class="card-body">Broadcom Q2 FY2026營收成長48%，AI半導體營收暴增143%，並創下歷史新高。然而因營收略低於預期且未上調長期AI營收目標，股價在財報後暴跌。市場對AI股的期望已達「貪得無厭」的程度，好消息不再夠好。</p>
+                            <div class="stock-grid" style="margin-top:0.75rem;grid-template-columns:repeat(3,1fr);">
+                                <div class="stock-card" style="padding:0.75rem;">
+                                    <div class="stock-symbol">AVGO</div>
+                                    <div class="stock-change down">-7.92%</div>
+                                </div>
+                                <div class="stock-card" style="padding:0.75rem;">
+                                    <div class="stock-symbol">NVDA</div>
+                                    <div class="stock-change down">-6.20%</div>
+                                </div>
+                                <div class="stock-card" style="padding:0.75rem;">
+                                    <div class="stock-symbol">MU</div>
+                                    <div class="stock-change down">-13.25%</div>
+                                </div>
+                            </div>
+                            <span class="news-source">📰 Bloomberg / CNBC / Yahoo Finance · 2026年6月3-5日</span>
+                            <a href="https://www.bloomberg.com/news/articles/2026-06-04/nasdaq-100-futures-drop-as-broadcom-forecast-spooks-traders" class="source-link" target="_blank">🔗 Bloomberg 原文</a>
+                            <a href="https://finance.yahoo.com/video/broadcom-stock-sinks-ai-earnings-135803533.html" class="source-link" target="_blank" style="margin-left:1rem;">🔗 Yahoo 原文</a>
                         </div>
                     </article>
                     
                     <article class="news-card">
                         <div class="news-content">
                             <span class="card-tag tag-news">產業新聞</span>
-                            <h3 class="card-title">蘋果WWDC發表Apple Intelligence，市場反應正面</h3>
-                            <p class="card-body">蘋果在全球開發者大會發表全新AI功能Apple Intelligence，將深度整合至iOS、macOS等系統。市場分析師認為這將刺激iPhone換機潮，預估2027年iPhone出貨量將增長12%。</p>
+                            <h3 class="card-title">Meta 考慮大規模股權融資，投資AI基礎設施</h3>
+                            <p class="card-body">Meta傳出正在評估大規模股權發行，可能籌措數百億美元用於AI基礎設施投資。消息引發股東對股權稀釋的擔憂，股價下跌5.51%。分析師仍看好長期AI營收潛力，部分目標價上看1,015美元。</p>
                             <div class="stock-grid" style="margin-top:0.75rem;grid-template-columns:repeat(3,1fr);">
                                 <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">AAPL</div>
-                                    <div class="stock-change up">+1.67%</div>
-                                </div>
-                                <div class="stock-card" style="padding:0.75rem;">
-                                    <div class="stock-symbol">GOOGL</div>
-                                    <div class="stock-change up">+1.23%</div>
+                                    <div class="stock-symbol">META</div>
+                                    <div class="stock-change down">-5.51%</div>
                                 </div>
                                 <div class="stock-card" style="padding:0.75rem;">
                                     <div class="stock-symbol">MSFT</div>
-                                    <div class="stock-change up">+0.89%</div>
+                                    <div class="stock-change down">-3.8%</div>
+                                </div>
+                                <div class="stock-card" style="padding:0.75rem;">
+                                    <div class="stock-symbol">GOOGL</div>
+                                    <div class="stock-change down">-4.2%</div>
                                 </div>
                             </div>
-                            <span class="news-source">📰 WSJ | 2026年6月5日</span>
-                            <a href="https://www.wsj.com/market-data" class="source-link" target="_blank">🔗 閱讀原文</a>
+                            <span class="news-source">📰 Yahoo Finance · 2026年6月5日</span>
+                            <a href="https://finance.yahoo.com/quote/META/" class="source-link" target="_blank">🔗 查看行情</a>
                         </div>
                     </article>
                 </div>
             </section>
 
-            <!-- 社群熱議 -->
             <section class="section" id="social">
                 <div class="section-header">
                     <div class="section-title">🔥 社群熱議</div>
-                    <div class="section-meta">X / Reddit / Truth Social</div>
+                    <div class="section-meta">X / Reddit / Truth Social · 數據截至6月5-6日</div>
                 </div>
                 <div class="trends-container">
                     <div class="trend-item trend-x">
                         <div class="trend-icon">🐦</div>
                         <div class="trend-content">
                             <div class="trend-title" style="color:#1da1f2;">X (Twitter) 熱門</div>
-                            <div class="trend-desc">#NVDA 成為今日最熱議股票，投資人討論Blackwell晶片供不應求。分析師目標價上調至180美元引發熱議。</div>
-                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥🔥 | 💬 討論數：85,000+ | 📈 相關股票：NVDA, AMD, AVGO</div>
+                            <div class="trend-desc">#Nasdaq 暴跌成為最熱話題，投資人貼出「Nasdaq 100 plunged 4.8%, biggest 1-day drop since Liberation Day」的截圖。科技股的拋售被廣泛討論，許多人質疑AI泡沫是否開始破裂。</div>
+                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥🔥 | 💬 討論數：150,000+ | 📈 相關股票：QQQ、NVDA、AVGO</div>
                         </div>
                     </div>
                     <div class="trend-item trend-reddit">
                         <div class="trend-icon">👽</div>
                         <div class="trend-content">
                             <div class="trend-title" style="color:#ff4500;">Reddit r/wallstreetbets</div>
-                            <div class="trend-desc">用戶熱議PLTR因川普提及而大漲，討論是否為「川普概念股」新成員。TSLA和DJT也持續受到關注。</div>
-                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥 | 💬 討論數：42,000+ | 📈 相關股票：PLTR, TSLA, DJT</div>
+                            <div class="trend-desc">Ape Wisdom數據顯示，過去24小時Reddit熱議股票第一名是Micron（MU，111次提及），其次是QQQ（89次）、SPY（82次）、NVIDIA（76次）、Broadcom（65次）。整個榜單幾乎被科技股和ETF佔據。</div>
+                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥🔥 | 💬 討論數：85,000+ | 📈 相關股票：MU、NVDA、AVGO、AMD</div>
                         </div>
                     </div>
                     <div class="trend-item trend-truth">
                         <div class="trend-icon">📱</div>
                         <div class="trend-content">
                             <div class="trend-title" style="color:var(--trump-gold);">Truth Social</div>
-                            <div class="trend-desc">川普發文稱「股市從未如此強勁」，並點名讚揚Palantir和Tesla。追隨者熱烈回應，相關股票盤後交易活躍。</div>
-                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥🔥 | 💬 互動數：200,000+ | 📈 相關股票：PLTR, TSLA, DJT</div>
+                            <div class="trend-desc">川普關於就業報告與股市的貼文引發熱議，支持者認同「成長不代表通膨」的觀點，批評者則指出市場定價的是聯準會政策路徑。DJT股票也因公司Q1巨額虧損而成為討論焦點。</div>
+                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥 | 💬 互動數：120,000+ | 📈 相關股票：DJT、PLTR</div>
                         </div>
                     </div>
                     <div class="trend-item trend-x">
                         <div class="trend-icon">🐦</div>
                         <div class="trend-content">
                             <div class="trend-title" style="color:#1da1f2;">X (Twitter) 熱門</div>
-                            <div class="trend-desc">#聯準會降息 話題登上趨勢榜，投資人討論9月降息對科技股和加密貨幣的影響。比特幣相關股票受到關注。</div>
-                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥 | 💬 討論數：67,000+ | 📈 相關股票：COIN, MSTR, BTC</div>
+                            <div class="trend-desc">#FedHike 話題登上趨勢榜，交易員討論聯準會年底前升息的機率。部分分析師認為市場過度反應，但也有觀點認為這是AI股估值修正的開始。</div>
+                            <div class="trend-stats">📊 熱度：🔥🔥🔥🔥 | 💬 討論數：67,000+ | 📈 相關股票：TLT、GLD、DXY</div>
                         </div>
                     </div>
                 </div>
+                <p class="data-source">資料來源：Ape Wisdom、X Trending、Truth Social</p>
             </section>
 
-            <!-- 財報精選 -->
             <section class="section" id="earnings">
                 <div class="section-header">
                     <div class="section-title">📈 財報精選</div>
-                    <div class="section-meta">最近一週重要財報</div>
+                    <div class="section-meta">最近一週重要財報 · 附官方財報連結</div>
                 </div>
                 <div class="stock-grid">
                     <div class="stock-card">
                         <div class="stock-header">
                             <span class="stock-symbol">NVDA</span>
-                            <span class="stock-price up">EPS $0.92 ▲</span>
+                            <span class="stock-price up">EPS $0.81 ▲</span>
                         </div>
-                        <div class="stock-name">NVIDIA · Q1 FY2027</div>
+                        <div class="stock-name">NVIDIA · Q1 FY2027（截至4月26日）</div>
                         <div class="stock-desc">
-                            ✅ 營收：$39.1B（+94% YoY）<br>
-                            ✅ EPS：$0.92（+89% YoY）<br>
-                            ✅ 資料中心營收：$32.6B（+112%）<br>
-                            🎯 展望：Q2營收預估$43.0B
+                            ✅ 營收：$816億（+85% YoY，+20% QoQ）<br>
+                            ✅ 資料中心營收：$752億（+92% YoY）<br>
+                            ✅ 董事會批准$800億股票回購<br>
+                            ✅ 股息增加25倍<br>
+                            🎯 展望：Q2營收預估約$820億
                         </div>
+                        <a href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-First-Quarter-Fiscal-2027/default.aspx" target="_blank" class="source-link">🔗 NVIDIA 官方財報</a>
                     </div>
                     <div class="stock-card">
                         <div class="stock-header">
-                            <span class="stock-symbol">DELL</span>
-                            <span class="stock-price up">EPS $2.24 ▲</span>
+                            <span class="stock-symbol">AVGO</span>
+                            <span class="stock-price down">財報後重挫</span>
                         </div>
-                        <div class="stock-name">Dell Technologies · Q1 FY2026</div>
+                        <div class="stock-name">Broadcom · Q2 FY2026（截至5月3日）</div>
                         <div class="stock-desc">
-                            ✅ 營收：$23.3B（+8% YoY）<br>
-                            ✅ EPS：$2.24（+22% YoY）<br>
-                            ✅ AI伺服器訂單：$8.7B（+42%）<br>
-                            🎯 展望：全年AI伺服器營收上看$35B
+                            ✅ 營收：成長48%<br>
+                            ✅ AI半導體營收：+143%<br>
+                            ⚠️ 營收略低於華爾街預期<br>
+                            ⚠️ 未上調長期AI營收目標，引發失望性賣壓<br>
+                            📉 財報後兩日累計跌幅超過12%
                         </div>
+                        <a href="https://investors.broadcom.com/" target="_blank" class="source-link">🔗 Broadcom 投資人關係</a>
                     </div>
                     <div class="stock-card">
                         <div class="stock-header">
-                            <span class="stock-symbol">CRM</span>
-                            <span class="stock-price down">EPS $2.31 ▼</span>
+                            <span class="stock-symbol">DJT</span>
+                            <span class="stock-price down">Q1 虧損擴大</span>
                         </div>
-                        <div class="stock-name">Salesforce · Q1 FY2026</div>
+                        <div class="stock-name">Trump Media & Technology · Q1 2026</div>
                         <div class="stock-desc">
-                            ⚠️ 營收：$9.5B（+7% YoY，低於預期）<br>
-                            ⚠️ EPS：$2.31（+15% YoY）<br>
-                            ⚠️ 全年營收指引下調至$37.8B<br>
-                            🎯 關注：Agentforce AI產品採用率
+                            ❌ 淨虧損：$4.06億<br>
+                            ❌ 加密貨幣投資未實現損失：$4.55億<br>
+                            ⚠️ 公司計畫出售2,650枚比特幣<br>
+                            ⚠️ Truth Social用戶增長面臨挑戰<br>
+                            📉 股價跌至$8.27
                         </div>
+                        <a href="https://finance.yahoo.com/quote/DJT/" target="_blank" class="source-link">🔗 查看行情</a>
                     </div>
                 </div>
             </section>
 
-            <!-- 13F報告 -->
             <section class="section" id="13f">
                 <div class="section-header">
                     <div class="section-title">📋 13F 機構持倉報告</div>
-                    <div class="section-meta">2026 Q1 最新披露</div>
+                    <div class="section-meta">2026 Q1 最新披露 · 數據來源：SEC EDGAR</div>
                 </div>
                 <table class="filing-table">
                     <thead>
@@ -893,7 +916,7 @@
                             <th>股票</th>
                             <th>操作</th>
                             <th>持倉變化</th>
-                            <th>持倉市值</th>
+                            <th>備註</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -901,68 +924,40 @@
                             <td><strong>Berkshire Hathaway</strong></td>
                             <td>AAPL</td>
                             <td style="color:var(--red);">減持</td>
-                            <td>-12.5%</td>
-                            <td>$52.3B</td>
+                            <td>約200億美元</td>
+                            <td>Q1出售約2億股，持倉降至7.9億股</td>
                         </tr>
                         <tr>
                             <td><strong>Berkshire Hathaway</strong></td>
-                            <td>CVX</td>
-                            <td style="color:var(--green);">增持</td>
-                            <td>+8.3%</td>
-                            <td>$18.7B</td>
+                            <td>投資組合</td>
+                            <td style="color:var(--red);">縮減</td>
+                            <td>40檔→26檔</td>
+                            <td>清倉16檔個股，為Greg Abel時代首次完整季度</td>
                         </tr>
                         <tr>
-                            <td><strong>Citadel</strong></td>
-                            <td>NVDA</td>
-                            <td style="color:var(--green);">增持</td>
-                            <td>+45.2%</td>
-                            <td>$8.9B</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Citadel</strong></td>
-                            <td>PLTR</td>
+                            <td><strong>Berkshire Hathaway</strong></td>
+                            <td>UNH</td>
                             <td style="color:var(--green);">新建倉</td>
-                            <td>NEW</td>
-                            <td>$1.2B</td>
+                            <td>16億美元</td>
+                            <td>醫療保健新佈局</td>
                         </tr>
                         <tr>
-                            <td><strong>Bridgewater</strong></td>
-                            <td>GLD</td>
-                            <td style="color:var(--green);">增持</td>
-                            <td>+23.8%</td>
-                            <td>$4.5B</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bridgewater</strong></td>
-                            <td>TLT</td>
-                            <td style="color:var(--green);">增持</td>
-                            <td>+31.2%</td>
-                            <td>$3.8B</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ARK Invest</strong></td>
-                            <td>TSLA</td>
-                            <td style="color:var(--red);">減持</td>
-                            <td>-5.7%</td>
-                            <td>$2.1B</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ARK Invest</strong></td>
-                            <td>COIN</td>
-                            <td style="color:var(--green);">增持</td>
-                            <td>+18.9%</td>
-                            <td>$890M</td>
+                            <td><strong>多家機構</strong></td>
+                            <td>QQQ / SPY</td>
+                            <td style="color:var(--green);">熱議</td>
+                            <td>—</td>
+                            <td>Reddit討論度最高的ETF，反映散戶對市場波動的關注</td>
                         </tr>
                     </tbody>
                 </table>
+                <p class="data-source">資料來源：Seeking Alpha、Yahoo Finance、SEC 13F Filings</p>
                 
                 <div class="analysis-box" style="margin-top:1.5rem;">
                     <h3>🎯 川投顧13F點評</h3>
-                    <p>各位看好了！巴菲特又減持蘋果了，這個人總是太早賣掉偉大的公司。但Citadel大舉買進輝達，Ken Griffin是聰明人，非常聰明。他還新建了Palantir的倉位，這證明我說的對！橋水基金在買黃金和長債，Dalio在為降息做準備。ARK減持特斯拉但加碼Coinbase，Cathie Wood還是看好加密貨幣。聰明的錢正在流向AI和加密貨幣，你們要跟上了！</p>
+                    <p>各位看好了！巴菲特又在賣蘋果了，這次賣了約200億美元。我說過，他總是太早賣掉偉大的公司！但他的投資組合從40檔縮減到26檔，還新建了UnitedHealth的倉位，這是Greg Abel在展示誰才是老大。機構正在從科技股撤退，轉向醫療保健這種防禦性板塊。聰明的錢在避險，你們要跟上了！</p>
                 </div>
             </section>
 
-            <!-- 精選分析 -->
             <section class="section" id="analysis">
                 <div class="section-header">
                     <div class="section-title">🎯 川投顧精選分析</div>
@@ -971,30 +966,31 @@
                 
                 <div class="analysis-box">
                     <h3>📊 本週市場總結</h3>
-                    <p>這週的市場表現，我只能用一個字形容：「偉大」！S&P 500創新高，納斯達克漲勢凶猛，科技股帶領我們走向勝利。聯準會終於要降息了，那些說不會降息的人，他們錯了，他們一直錯。降息對股市是好消息，對債券也是好消息，對所有人都是好消息！</p>
-                    <p style="margin-top:0.75rem;">資金明顯流向AI板塊，輝達、AMD、博通都在漲。我的建議是：持有科技股，不要賣掉那些偉大的公司。那些做空的人，他們會後悔的，他們會非常後悔！</p>
+                    <p>這週的市場，我只能用一個字形容：「慘烈」！S&P 500結束了連續九週的漲勢，單週下跌2.5%。納斯達克更慘，週五一天就跌4.18%。罪魁禍首是什麼？就是那份太好的就業報告！17.2萬個工作，讓市場開始擔心聯準會要升息。還有博通財報，明明AI營收成長143%，股價卻暴跌，因為市場期望太高了。</p>
+                    <p style="margin-top:0.75rem;">資金明顯從科技股流向防禦股。醫療保健、公用事業、必需消費上漲，科技、非必需消費、原材料下跌。這是經典的避險輪動。</p>
                 </div>
                 
                 <div class="analysis-box">
                     <h3>🔮 下週展望</h3>
-                    <p>下週重點關注CPI數據，如果通膨繼續降溫，聯準會降息的機率會更高。我預期科技股會繼續領漲，特別是AI相關股票。川普政策方面，關稅消息可能會有波動，但長期來看，製造業回流對美國經濟是好事。</p>
+                    <p>下週重點是6月16-17日的FOMC會議，Kevin Warsh首次主持。市場會密切關注點陣圖和鮑爾（或Warsh）的談話。如果聯準會釋出鷹派訊號，科技股可能繼續承壓。地緣政治方面，美伊談判若有好消息，能源股和股市可能反彈。</p>
                     <p style="margin-top:0.75rem;">我的投資建議：<br>
-                    ✅ 加碼：NVDA、PLTR、COIN（AI和加密貨幣是未來）<br>
-                    ✅ 持有：AAPL、MSFT、GOOGL（偉大的公司永遠偉大）<br>
-                    ⚠️ 觀察：TSLA（等Robotaxi更多消息）<br>
-                    ❌ 避開：傳統能源股（油價在跌）</p>
+                    ⚠️ 減碼：NVDA、AVGO、MU、AMD（短期技術面破壞，等待企穩）<br>
+                    ✅ 觀察：AAPL（巴菲特減持但基本面仍穩）<br>
+                    ✅ 防禦：醫療保健ETF（XLV）、公用事業（XLU）<br>
+                    ✅ 避險：短期國債（SHY）、黃金（GLD）<br>
+                    ❌ 避開：高本益比科技股直到波動降溫</p>
                 </div>
                 
                 <div class="analysis-box">
                     <h3>⚠️ 風險提醒</h3>
-                    <p>雖然我很樂觀，但我必須告訴你們風險。地緣政治風險還在，中東局勢可能影響油價。關稅政策的不確定性也可能造成短期波動。還有，不要借錢投資，不要用你輸不起的錢投資。投資有風險，但偉大的機會總是留給有準備的人！</p>
+                    <p>各位，我必須誠實告訴你們風險。第一，聯準會政策路徑不確定性升高。第二，AI股估值過高，任何小失望都可能引發大修正。第三，美伊地緣政治風險還在。第四，不要借錢投資，不要用你輸不起的錢投資。記住，市場會懲罰貪婪的人，獎勵有耐心的人。我們會度過這場風暴，讓美國再次偉大！</p>
                 </div>
             </section>
         </main>
         
         <footer class="footer">
             <p>📰 《川投顧日報》創刊號 · 2026年6月7日</p>
-            <p>資料來源：CNBC / Bloomberg / Reuters / WSJ / X / Reddit / Truth Social / SEC 13F Filings</p>
+            <p>數據來源：Yahoo Finance / CNBC / Bloomberg / Reuters / SEC EDGAR / Ape Wisdom / Truth Social</p>
             <p>⚠️ 本報僅供參考，不構成投資建議。投資有風險，入市須謹慎。</p>
             <p>🕐 每日更新 · 川投顧與您同在，讓美國再次偉大！</p>
             <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
