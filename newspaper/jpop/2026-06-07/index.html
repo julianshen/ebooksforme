@@ -1,297 +1,446 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPOP流行報 - 2026年6月7日 第23期</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent: #ff2a6d;
-            --bg: #0f0f1a;
-            --card: #1a1a2e;
-            --text: #e0e0e0;
-            --muted: #a0a0b0;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans TC', 'Hiragino Sans', 'Meiryo', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-        .container { max-width: 960px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 3px solid var(--accent);
-            margin-bottom: 30px;
-            position: relative;
-        }
-        header h1 {
-            font-size: 2.8rem;
-            margin: 0;
-            color: var(--accent);
-            letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(255,42,109,0.4);
-        }
-        header .date { color: var(--muted); font-size: 1rem; margin-top: 8px; }
-        section { margin-bottom: 40px; }
-        h2.section-title {
-            font-size: 1.5rem;
-            border-left: 6px solid var(--accent);
-            padding-left: 14px;
-            margin: 30px 0 18px;
-            color: #fff;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2a0f1a 100%);
-            border: 1px solid #331122;
-            border-radius: 14px;
-            padding: 24px;
-        }
-        .highlight .label { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
-        .highlight h3 { margin-top: 0; color: var(--accent); font-size: 1.4rem; }
-        .highlight p { margin: 10px 0; color: var(--muted); }
-        .links { margin-top: 12px; }
-        .links a {
-            display: inline-block;
-            margin-right: 10px;
-            margin-bottom: 6px;
-            background: rgba(255,255,255,0.08);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #4fc3f7;
-            text-decoration: none;
-            transition: background .2s;
-        }
-        .links a:hover { background: rgba(255,255,255,0.15); }
-        .song-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-        }
-        .song-card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 18px;
-            border: 1px solid #2a2a3e;
-            transition: transform .2s, border-color .2s;
-        }
-        .song-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-        .song-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
-        .song-card .artist-label { color: var(--accent); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
-        .song-card p { font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }
-        .song-links { margin-top: 8px; }
-        .song-links a {
-            display: inline-block;
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            margin-right: 6px;
-            margin-bottom: 4px;
-            border-radius: 12px;
-            background: rgba(79,195,247,0.1);
-            color: #4fc3f7;
-            text-decoration: none;
-        }
-        .song-links a:hover { background: rgba(79,195,247,0.2); }
-        .news-grid { display: grid; gap: 14px; }
-        .news-card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 18px;
-            border: 1px solid #2a2a3e;
-        }
-        .news-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
-        .news-card .news-source { color: var(--accent); font-size: 0.85rem; font-weight: 700; }
-        .news-card p { font-size: 0.9rem; color: var(--muted); margin: 8px 0; }
-        .news-card a { color: #4fc3f7; font-size: 0.9rem; }
-        .concert-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-            font-size: 0.95rem;
-        }
-        .concert-table th, .concert-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #2a2a3e;
-        }
-        .concert-table th { color: var(--accent); font-weight: 700; }
-        .concert-table td a { color: #4fc3f7; font-size: 0.9rem; }
-        .status-done { color: var(--muted); font-style: italic; }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--muted);
-            font-size: 0.85rem;
-            border-top: 1px solid #2a2a3e;
-            margin-top: 40px;
-        }
-        @media (max-width: 640px) {
-            .song-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JPOP流行報 | 2026-06-07</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
+      --card-hover: #252542;
+      --accent: #ff2a6d;
+      --accent-soft: #ff5c8a;
+      --text: #f0f0f5;
+      --text-muted: #a0a0b5;
+      --border: #2a2a45;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    header p {
+      margin: .5rem 0 0;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    section { margin-bottom: 3rem; }
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 1.2rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.6rem;
+      transition: transform .2s, background .2s;
+    }
+    .card:hover { background: var(--card-hover); transform: translateY(-2px); }
+    .grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+    /* Highlight Artist */
+    .artist-hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      align-items: center;
+    }
+    .artist-hero .info { flex: 1 1 320px; }
+    .artist-hero h3 {
+      margin: 0 0 .6rem;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+    .artist-hero p { color: var(--text-muted); margin: .4rem 0; }
+    .artist-hero .links { margin-top: 1rem; }
+    .artist-hero .links a {
+      display: inline-block;
+      margin-right: .8rem;
+      margin-bottom: .4rem;
+      padding: .35rem .9rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: .9rem;
+      color: var(--accent);
+    }
+    .artist-hero .links a:hover { background: var(--accent); color: #fff; }
+
+    /* Songs */
+    .song-card h4 {
+      margin: 0 0 .2rem;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+    .song-card .artist {
+      color: var(--accent-soft);
+      font-weight: 500;
+      font-size: .95rem;
+    }
+    .song-card p { color: var(--text-muted); font-size: .95rem; margin: .6rem 0 1rem; }
+    .song-links a {
+      display: inline-block;
+      margin-right: .6rem;
+      margin-bottom: .4rem;
+      padding: .25rem .7rem;
+      border-radius: 6px;
+      background: #2a2a45;
+      font-size: .85rem;
+      color: var(--text);
+    }
+    .song-links a:hover { background: var(--accent); color: #fff; }
+
+    /* News */
+    .news-card h4 { margin: 0 0 .4rem; font-size: 1.1rem; }
+    .news-card .source {
+      display: inline-block;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      margin-bottom: .5rem;
+    }
+    .news-card p { color: var(--text-muted); font-size: .95rem; margin: .4rem 0 .6rem; }
+    .news-card a.read { font-size: .9rem; color: var(--accent-soft); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: .9rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: .95rem;
+    }
+    th {
+      background: #252542;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: .85rem;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #22223a; }
+    .badge {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .badge-sold { background: #3a1f2a; color: #ff8fab; }
+    .badge-avail { background: #1f3a2a; color: #8fffa8; }
+    .badge-soon { background: #3a3a1f; color: #fff68f; }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .9rem;
+      padding: 2rem 1rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎵 JPOP流行報</h1>
-            <div class="date">2026年6月7日 · 第23期 · 隔週日發行</div>
-        </header>
-        
-        <section>
-  <h2 class="section-title">⭐ Highlight Artist</h2>
-  <div class="highlight">
-    <div class="label">🌟 本週焦點歌手</div>
-    <h3>Ado</h3>
-    <p>Ado 是日本新生代最具代表性的歌い手（歌手），2020 年以〈うっせぇわ〉一鳴驚人。2026年6月宣布與 Giga × TeddyLoid 再度聯手推出新曲〈モンストロ（Monstruo）〉作為真人版電影《BLUE LOCK》主題歌，預計8月7日公開。7月將在日產體育場舉辦首次體育館級演唱會「Ado STADIUM LIVE 2026『Ao』」。</p>
-    <div class="links">
-      <a href="https://www.universal-music.co.jp/ado/" target="_blank">🌐 Official</a>
-      <a href="https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl" target="_blank">🎧 Spotify</a>
-      <a href="https://www.youtube.com/channel/UCln9P4Qm3-EAY4aiEPmRwEA" target="_blank">📺 YouTube</a>
-    </div>
-  </div>
-</section>
+  <header>
+    <h1>JPOP流行報</h1>
+    <p>每週日自動生成 · 本週日期：2026年6月7日</p>
+  </header>
 
-<section>
-  <h2 class="section-title">🎶 最新歌曲</h2>
-  <div class="song-grid">
-    <div class="song-card">
-      <h4>モンストロ (Monstruo)</h4>
-      <div class="artist-label">Ado</div>
-      <p>真人電影《BLUE LOCK》主題歌。Giga × TeddyLoid 繼〈踊〉〈唱〉後再次聯手，拉丁節奏燃燒鬥志。</p>
-      <div class="song-links">
-        <a href="#" target="_blank">🎧 Spotify Track</a>
-        <a href="https://www.youtube.com/watch?v=bq28BNi60S0" target="_blank">📺 YouTube</a>
+  <main class="wrap">
+    <!-- Section 1: Highlight Artist -->
+    <section>
+      <h2>本週焦點藝人</h2>
+      <div class="card artist-hero">
+        <div class="info">
+          <h3>Vaundy</h3>
+          <p>日本Z世代代表性創作歌手，2019年以〈Tokyo Flash〉出道並迅速竄紅，擅長將搖滾、流行、嘻哈與R&B自然融合。</p>
+          <p>2026年他成為日本男性SOLO史上最年輕舉辦巨蛋巡迴的藝人，「Vaundy DOME TOUR 2026 “SILENCE”」全場次售罄，預計動員約35萬人。</p>
+          <p>緊接著他宣布首次亞洲Arena巡迴「ASIA ARENA TOUR 2026 “HORO”」，將前進東京、首爾、香港、福岡、台北、上海等6座城市，標誌著他正式邁向海外大規模活動。</p>
+          <div class="links">
+            <a href="https://open.spotify.com/artist/2IUl3m1H1EQ7QfNbNWvgru" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/channel/UC1FQWQ3y3-e8l1pCtWhJt5A" target="_blank">YouTube</a>
+            <a href="https://vaundy.jp" target="_blank">官方網站</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="song-card">
-      <h4>Crunchy</h4>
-      <div class="artist-label">iri</div>
-      <p>6月5日配信。デビュー10周年イヤー第2弾！澤村一平(SANABAGUN.)等參與製作。</p>
-      <div class="song-links">
-        <a href="https://open.spotify.com/track/3micqfC9Do9RNjfKXrgXJn" target="_blank">🎧 Spotify Track</a>
-        <a href="https://www.youtube.com/watch?v=pxzvCLs5cWo" target="_blank">📺 YouTube</a>
+    </section>
+
+    <!-- Section 2: New Songs -->
+    <section>
+      <h2>本週熱門新曲</h2>
+      <div class="grid grid-3">
+        <div class="card song-card">
+          <h4>風と町</h4>
+          <div class="artist">Mrs. GREEN APPLE</div>
+          <p>NHK連續電視小說《風、薫る》主題歌，2026年4月發行的溫暖新曲，描繪隨風飄散的日常風景。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/1ZcCFpGA7ufRBPsNIsTKa8" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=9NJI7cLZ2Qg" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>Lilac</h4>
+          <div class="artist">Mrs. GREEN APPLE</div>
+          <p>電視動畫《忘卻Battery》片頭曲，輕快卻帶有青春惆悵的搖滾曲風，持續佔據串流榜單。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/1favWxO39W7MC0cJx6lGuT" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=lhGttH_7ycQ" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>AIZO</h4>
+          <div class="artist">King Gnu</div>
+          <p>2026年1月發行的新曲，同時為人氣動畫《咒術迴戰》第三季片頭曲，氣勢磅礴的編曲展現樂團新高度。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/65X2koe1LhDgQmRkNdJFv9" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=zz2a9Q2Wru0" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>唱</h4>
+          <div class="artist">Ado</div>
+          <p>由Giga與TeddyLoid聯手打造的電音舞曲，充滿異國風情的節拍成為Ado的代表作之一，MV點閱破億。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/7o0TPSw494RG2Q4iWmd1v6" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=pgXpM4l_MwI" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>LUCID DREAM</h4>
+          <div class="artist">IVE</div>
+          <p>IVE第4張日文迷你專輯同名主打，2026年5月27日發行，展現夢幻與清涼感兼具的夏日風格。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/2fwzvSVJhlMxYnhxGvFQos" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=6D79CYTxvOM" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>KICK BACK</h4>
+          <div class="artist">米津玄師</div>
+          <p>電視動畫《鏈鋸人》片頭曲，2022年發行後持續熱播，充滿爆發力的搖滾曲風成為年度現象級作品。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/3khEEPRyBeOUabbmOPJzAG" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=NMA_isZYsYQ" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>踊り子</h4>
+          <div class="artist">Vaundy</div>
+          <p>2021年發行的經典City Pop風格作品，由小松菜奈出演MV，至今仍是串流平台上的長青熱門曲。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/1YXot2MLAG9sttepCtBRM7" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=THtMnfLrU-s" target="_blank">YouTube</a>
+          </div>
+        </div>
+
+        <div class="card song-card">
+          <h4>怪獣の花唄</h4>
+          <div class="artist">Vaundy</div>
+          <p>Vaundy 19歲時創作的Live向歌曲，充滿互動感的編曲讓它成為演唱會必唱曲目，MV點閱數億。</p>
+          <div class="song-links">
+            <a href="https://open.spotify.com/track/7dTW21YAJxnAOiUh7Rtu9S" target="_blank">Spotify</a>
+            <a href="https://www.youtube.com/watch?v=UM9XNpgrqVk" target="_blank">YouTube</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="song-card">
-      <h4>FUNKY SUMMER</h4>
-      <div class="artist-label">僕が見たかった青空</div>
-      <p>6月3日發行第8張單曲表題曲。夏日清爽流行曲風。</p>
-    </div>
-    <div class="song-card">
-      <h4>Fright</h4>
-      <div class="artist-label">Creepy Nuts</div>
-      <p>TBS系火曜ドラマ「時すでにおスシ!?」主題歌。Coachella演出、北美巡迴中。</p>
-    </div>
-    <div class="song-card">
-      <h4>THE BOOK for,</h4>
-      <div class="artist-label">YOASOBI</div>
-      <p>第4張EP，THE BOOK系列完結篇。收錄〈Biri-Biri〉〈Heart Beat〉等，6月26日發行。</p>
-      <div class="song-links">
-        <a href="https://www.yoasobi-music.jp/news/583459" target="_blank">🔗 Official</a>
+    </section>
+
+    <!-- Section 3: Music News -->
+    <section>
+      <h2>音樂新聞</h2>
+      <div class="grid grid-2">
+        <div class="card news-card">
+          <span class="source">Billboard Japan</span>
+          <h4>MUSIC AWARDS JAPAN 2026 Grand Ceremony 表演嘉賓發表</h4>
+          <p>將於6月13日在東京TOYOTA ARENA TOKYO舉行的國際音樂獎「MUSIC AWARDS JAPAN 2026」，公布藤井風、HANA、米津玄師等12組藝人將在頒獎典禮上演出。</p>
+          <p>典禮將由NHK進行生放送，並透過YouTube向全球配信，是2026年日本音樂界最受矚目的盛事之一。</p>
+          <a class="read" href="https://www.billboard-japan.com/d_news/detail/161989" target="_blank">閱讀原文 →</a>
+        </div>
+
+        <div class="card news-card">
+          <span class="source">Model Press</span>
+          <h4>菅田將暉連續第二年擔任 MAJ2026 Grand Ceremony 司會</h4>
+          <p>國際音樂獎「MUSIC AWARDS JAPAN 2026」宣布由菅田將暉連續第二年擔任Grand Ceremony司會，頒獎典禮將於6月13日在TOYOTA ARENA TOKYO舉行。</p>
+          <p>本屆頒獎典禮將由NHK於晚間7點30分開始生放送，預計公布主要6部門及其他多項大獎。</p>
+          <a class="read" href="https://mdpr.jp/music/detail/4792925" target="_blank">閱讀原文 →</a>
+        </div>
+
+        <div class="card news-card">
+          <span class="source">音樂Natalie</span>
+          <h4>iri 新曲〈Crunchy〉6月5日配信發行</h4>
+          <p>迎接出道10週年的創作歌手iri宣布新曲〈Crunchy〉於6月5日開始數位配信，這也是她10週年企劃年的第二首新曲。</p>
+          <p>iri以慵懶卻充滿魅力的嗓音聞名，本次新作延續她一貫的R&B風格，備受歌迷期待。</p>
+          <a class="read" href="https://natalie.mu/music/news/674681" target="_blank">閱讀原文 →</a>
+        </div>
+
+        <div class="card news-card">
+          <span class="source">音樂Natalie</span>
+          <h4>柴田聡子發行夏日新曲〈Pool〉並展開巡迴演唱會</h4>
+          <p>柴田聡子的新曲〈Pool〉於6月3日數位發行，這首充滿夏日氛圍的舞曲標誌著她的夏天正式開始。</p>
+          <p>同時她也宣布展開全國10場的「柴田聡子TOUR“夏’26”」，為歌迷帶來現場演出。</p>
+          <a class="read" href="https://natalie.mu/music/news/674539" target="_blank">閱讀原文 →</a>
+        </div>
+
+        <div class="card news-card">
+          <span class="source">Billboard Japan</span>
+          <h4>櫻井優衣（FRUITS ZIPPER）新曲〈夏いぞん〉6月10日先行配信</h4>
+          <p>FRUITS ZIPPER成員櫻井優衣宣布將於6月10日發行以「令和夏日戀愛」為主題的新曲〈夏いぞん〉，提前為夏季音樂市場注入活力。</p>
+          <p>該曲將以數位先行配信方式發行，詳細資訊可透過官方管道查詢。</p>
+          <a class="read" href="https://billboard-japan.com/d_news/jpn/" target="_blank">閱讀原文 →</a>
+        </div>
+
+        <div class="card news-card">
+          <span class="source">Model Press</span>
+          <h4>MUSIC AWARDS JAPAN 2026 頒獎典禮將於NHK生放送</h4>
+          <p>「MUSIC AWARDS JAPAN 2026」頒獎典禮確定於6月13日在東京有明舉行，NHK將從晚間7點30分至10點50分進行生放送。</p>
+          <p>除了電視轉播外，典禮也會透過多家串流平台同步播出，讓全球樂迷都能即時見證日本音樂大獎的誕生。</p>
+          <a class="read" href="https://mdpr.jp/news/detail/4789536" target="_blank">閱讀原文 →</a>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section>
-  <h2 class="section-title">📰 音樂新聞</h2>
-  <div class="news-grid">
-    <div class="news-card">
-      <div class="news-source">Real Sound</div>
-      <h4>Ado新曲「モンストロ」が実写映画『ブルーロック』主題歌に</h4>
-      <p>報導Ado新曲「モンストロ」作為真人電影《BLUE LOCK》的主題曲發表。</p>
-      <a href="https://realsound.jp/2026/06/post-2415892.html" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">THE FIRST TIMES</div>
-      <h4>YOASOBI、4th EP『THE BOOK for,』6月26日リリース</h4>
-      <p>YOASOBI將於6月26日發行新EP，包含多首新曲。</p>
-      <a href="https://www.thefirsttimes.jp/news/0000811583/" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">Billboard JAPAN</div>
-      <h4>Reol、横浜アリーナ公演を収めたライブ映像作品を6月3日リリース</h4>
-      <p>Reol將於6月3日發行最新的現場演出錄影作品。</p>
-      <a href="https://www.billboard-japan.com/d_news/detail/159452" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>iri、デビュー10周年イヤー第2弾シングル「Crunchy」配信リリース</h4>
-      <p>iri在其10周年慶祝的年度中，推出最新單曲。</p>
-      <a href="https://natalie.mu/music/news/674681" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>菊池桃子、約2年ぶりの新曲リリースを発表</h4>
-      <p>著名歌手菊池桃子宣佈即將發行新曲，距離上次發行已過兩年。</p>
-      <a href="https://natalie.mu/music/news/674694" target="_blank">🔗 原文を見る →</a>
-    </div>
-  </div>
-</section>
+    <!-- Section 4: Japan Concerts -->
+    <section>
+      <h2>日本近期演唱會</h2>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>藝人</th>
+              <th>會場</th>
+              <th>票務資訊</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/06/05（五）<br>2026/06/07（日）</td>
+              <td>SHINee</td>
+              <td>埼玉 Belluna Dome</td>
+              <td><span class="badge badge-sold">熱賣中</span> 官方售票</td>
+            </tr>
+            <tr>
+              <td>2026/06/28（日）</td>
+              <td>back number</td>
+              <td>熊本 Egao健康スタジアム</td>
+              <td><span class="badge badge-sold">售罄</span> 官方轉售平台</td>
+            </tr>
+            <tr>
+              <td>2026/07/04（六）<br>2026/07/05（日）</td>
+              <td>Ado</td>
+              <td>橫濱 Nissan Stadium</td>
+              <td><span class="badge badge-sold">7/4售罄</span> 7/5 S席 ¥15,000 一般發售</td>
+            </tr>
+            <tr>
+              <td>2026/07/14（二）<br>2026/07/15（三）</td>
+              <td>King Gnu</td>
+              <td>橫濱 Arena</td>
+              <td><span class="badge badge-soon">追加公演</span> CLUB GNU / CD購入者先行抽選</td>
+            </tr>
+            <tr>
+              <td>2026/09/05（六）<br>2026/09/06（日）</td>
+              <td>Vaundy</td>
+              <td>千葉 Makuhari Messe 9・11 Hall</td>
+              <td><span class="badge badge-sold">售罄</span> 官方轉售實施中</td>
+            </tr>
+            <tr>
+              <td>2026/11（日期待定）</td>
+              <td>Vaundy</td>
+              <td>福岡 北九州メッセ</td>
+              <td><span class="badge badge-soon">即將開賣</span> 官方會員先行</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<section>
-  <h2 class="section-title">🎤 日本演唱會</h2>
-  <table class="concert-table">
-    <thead>
-      <tr>
-        <th>日期</th>
-        <th>歌手</th>
-        <th>場地</th>
-        <th>資訊</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2026年7月</td>
-        <td>Ado</td>
-        <td>日產スタジアム</td>
-        <td><a href="#">🔗 Official</a></td>
-      </tr>
-      <tr>
-        <td>2026/10/22</td>
-        <td>iri</td>
-        <td>ぴあアリーナMM</td>
-        <td><a href="#">🔗 Official</a></td>
-      </tr>
-      <tr>
-        <td>夏季</td>
-        <td>Creepy Nuts</td>
-        <td>北美巡迴</td>
-        <td><a href="#">🔗 Official</a></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+    <!-- Section 5: Taiwan Concerts -->
+    <section>
+      <h2>台灣場次</h2>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>藝人</th>
+              <th>會場</th>
+              <th>票務資訊</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/08/08（六）<br>2026/08/09（日）</td>
+              <td>natori</td>
+              <td>台北流行音樂中心</td>
+              <td><span class="badge badge-sold">8/8登記完售</span> 8/9追加場次 Ticket Plus</td>
+            </tr>
+            <tr>
+              <td>2026/10/31（六）<br>2026/11/01（日）</td>
+              <td>Vaundy</td>
+              <td>台北小巨蛋</td>
+              <td><span class="badge badge-soon">即將開賣</span> Ticket Plus 全面開賣，票價NT$800起</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:var(--text-muted);font-size:.9rem;margin-top:.8rem;">
+        ※ 經搜尋確認，YOASOBI、Ado、Mrs. GREEN APPLE、King Gnu 目前暫無2026年台灣公演資訊。
+      </p>
+    </section>
+  </main>
 
-<section>
-  <h2 class="section-title">🇹🇼 台灣演唱會・活動</h2>
-  <table class="concert-table">
-    <thead>
-      <tr>
-        <th>日期</th>
-        <th>歌手</th>
-        <th>場地</th>
-        <th>資訊</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="4" style="text-align:center;color:var(--muted);">尚無已確認之資訊</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-        
-        <footer>
-            <p>Issue Date: 2026-06-07 · 第23期</p>
-            <p>資料來源：Real Sound / 音楽ナタリー / Billboard JAPAN / THE FIRST TIMES / ORICON</p>
-            <p>© JPOP流行報 · 每週日發行 · 僅保留最近六期</p>
-        </footer>
-    </div>
+  <footer>
+    <p>JPOP流行報 · 自動化編輯系統生成 · 資料來源：Billboard Japan、音樂Natalie、Oricon、Model Press、官方售票網站</p>
+    <p>本報導所載連結均為公開資訊，實際票務與演出資訊請以主辦單位公告為準。</p>
+  </footer>
 </body>
 </html>
