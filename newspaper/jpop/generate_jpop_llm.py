@@ -543,6 +543,36 @@ def build_prompt(date_info, music_data):
     news_section = "\n".join(news_section_lines)
 
     # ----- 構建最終 prompt -----
+    # ----- 製作演唱會資訊區塊 -----
+    concerts = music_data.get("concerts", {}) or {}
+    jp_concerts = concerts.get("japan", []) if concerts else []
+    tw_concerts = concerts.get("taiwan", []) if concerts else []
+    
+    concert_lines = ["### 演唱會資訊（真實搜尋結果）"]
+    if jp_concerts:
+        concert_lines.append("\n🇯🇵 日本場次：")
+        for c in jp_concerts[:5]:
+            title = c.get("title", "")
+            source = c.get("source", "")
+            link = c.get("link", "")
+            concert_lines.append(f"- {title}")
+            concert_lines.append(f"  來源：{source} | 連結：{link}")
+    else:
+        concert_lines.append("\n🇯🇵 日本場次：目前暫無演唱會資訊")
+    
+    if tw_concerts:
+        concert_lines.append("\n🇹🇼 台灣場次：")
+        for c in tw_concerts[:3]:
+            title = c.get("title", "")
+            source = c.get("source", "")
+            link = c.get("link", "")
+            concert_lines.append(f"- {title}")
+            concert_lines.append(f"  來源：{source} | 連結：{link}")
+    else:
+        concert_lines.append("\n🇹🇼 台灣場次：目前暫無演唱會資訊")
+    
+    concerts_section = "\n".join(concert_lines)
+
     prompt = f"""你是 JPOP流行報 的編輯系統。以下為本週的真實爬取數據，請根據這些數據生成 HTML 週報。
 
 ## 📋 嚴格規則（請務必遵守）
@@ -567,11 +597,7 @@ def build_prompt(date_info, music_data):
 
 {news_section}
 
-### 日本演唱會
-（本週演唱會資料整理中 — 若無資料，顯示「尚無已確認之資訊」）
-
-### 台灣演唱會
-（目前尚無已確認之 JPOP 歌手台灣公演資訊）
+{concerts_section}
 
 ## HTML 格式要求
 請生成 5 個 <section> 標籤的 HTML，使用以下佈局：
