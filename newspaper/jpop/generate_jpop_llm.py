@@ -107,14 +107,89 @@ def build_prompt(date_info):
 （目前尚無已確認之JPOP歌手台灣公演資訊）
 
 ## HTML 格式要求
-請生成 5 個 <section> 標籤的 HTML，使用以下 CSS 類名：
-- section, highlight, song-grid, song-card, song-title, song-artist, song-links
-- news-grid, news-card, news-title, news-source
-- concert-table
-- links (for highlight artist links)
+請生成 5 個 <section> 標籤的 HTML，使用以下佈局：
 
-輸出時直接給 section 內容即可，不要外層 html/head/body 包裝。
+### Section 1: Highlight Artist
+```html
+<section>
+  <h2 class="section-title">⭐ Highlight Artist</h2>
+  <div class="highlight">
+    <div class="label">🌟 本週焦點歌手</div>
+    <h3>Ado</h3>
+    <p>真實簡介...</p>
+    <div class="links">
+      <a href="..." target="_blank">🌐 Official</a>
+      <a href="..." target="_blank">🎧 Spotify</a>
+      <a href="..." target="_blank">📺 YouTube</a>
+    </div>
+  </div>
+</section>
+```
+
+### Section 2: New Songs
+```html
+<section>
+  <h2 class="section-title">🎶 最新歌曲</h2>
+  <div class="song-grid">
+    <div class="song-card">
+      <h4>歌曲名</h4>
+      <div class="artist-label">歌手名</div>
+      <p>簡介...</p>
+      <div class="song-links">
+        <a href="..." target="_blank">🎧 Spotify Track</a>
+        <a href="..." target="_blank">📺 YouTube</a>
+      </div>
+    </div>
+    <!-- 更多歌曲 -->
+  </div>
+</section>
+```
+
+### Section 3: Music News
+```html
+<section>
+  <h2 class="section-title">📰 音樂新聞</h2>
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-source">來源名</div>
+      <h4>新聞標題</h4>
+      <p>摘要...</p>
+      <a href="link" target="_blank">🔗 原文を見る →</a>
+    </div>
+    <!-- 更多新聞 -->
+  </div>
+</section>
+```
+
+### Section 4: Japan Concerts
+```html
+<section>
+  <h2 class="section-title">🎤 日本演唱會</h2>
+  <table class="concert-table">
+    <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
+    <tbody>
+      <tr><td>日期</td><td>歌手</td><td>場地</td><td><a href="...">🔗 Official</a></td></tr>
+    </tbody>
+  </table>
+</section>
+```
+
+### Section 5: Taiwan Concerts
+```html
+<section>
+  <h2 class="section-title">🇹🇼 台灣演唱會・活動</h2>
+  <table class="concert-table">
+    <thead><tr><th>日期</th><th>歌手</th><th>場地</th><th>資訊</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" style="text-align:center;color:var(--muted);">尚無已確認之資訊</td></tr>
+    </tbody>
+  </table>
+</section>
+```
+
+輸出時直接給以上 5 個 section 的 HTML 即可，不要外層 html/head/body。
 使用繁體中文，歌曲名保留日文原文。
+所有連結使用 target="_blank" 在新分頁開啟。
 """
     
     return prompt
@@ -243,6 +318,7 @@ def generate_html(content, date_info):
             padding: 30px 0;
             border-bottom: 3px solid var(--accent);
             margin-bottom: 30px;
+            position: relative;
         }}
         header h1 {{
             font-size: 2.8rem;
@@ -253,8 +329,8 @@ def generate_html(content, date_info):
         }}
         header .date {{ color: var(--muted); font-size: 1rem; margin-top: 8px; }}
         section {{ margin-bottom: 40px; }}
-        h2 {{
-            font-size: 1.6rem;
+        h2.section-title {{
+            font-size: 1.5rem;
             border-left: 6px solid var(--accent);
             padding-left: 14px;
             margin: 30px 0 18px;
@@ -266,46 +342,77 @@ def generate_html(content, date_info):
             border-radius: 14px;
             padding: 24px;
         }}
+        .highlight .label {{ color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }}
         .highlight h3 {{ margin-top: 0; color: var(--accent); font-size: 1.4rem; }}
+        .highlight p {{ margin: 10px 0; color: var(--muted); }}
         .links {{ margin-top: 12px; }}
         .links a {{
             display: inline-block;
-            margin-right: 14px;
+            margin-right: 10px;
+            margin-bottom: 6px;
             background: rgba(255,255,255,0.08);
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.9rem;
             color: #4fc3f7;
             text-decoration: none;
+            transition: background .2s;
         }}
-        .links a:hover {{ text-decoration: underline; }}
-        .grid {{
+        .links a:hover {{ background: rgba(255,255,255,0.15); }}
+        .song-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 18px;
+            gap: 16px;
         }}
-        .card {{
+        .song-card {{
             background: var(--card);
             border-radius: 12px;
             padding: 18px;
             border: 1px solid #2a2a3e;
-            transition: transform .2s;
+            transition: transform .2s, border-color .2s;
         }}
-        .card:hover {{ transform: translateY(-4px); border-color: var(--accent); }}
-        .card h4 {{ margin: 0 0 8px; color: #fff; font-size: 1.1rem; }}
-        .card .artist {{ color: var(--accent); font-size: 0.9rem; margin-bottom: 6px; }}
-        .card p {{ font-size: 0.95rem; color: var(--muted); margin: 0 0 10px; }}
-        table {{
+        .song-card:hover {{ transform: translateY(-3px); border-color: var(--accent); }}
+        .song-card h4 {{ margin: 0 0 6px; color: #fff; font-size: 1.05rem; }}
+        .song-card .artist-label {{ color: var(--accent); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }}
+        .song-card p {{ font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }}
+        .song-links {{ margin-top: 8px; }}
+        .song-links a {{
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            background: rgba(79,195,247,0.1);
+            color: #4fc3f7;
+            text-decoration: none;
+        }}
+        .song-links a:hover {{ background: rgba(79,195,247,0.2); }}
+        .news-grid {{ display: grid; gap: 14px; }}
+        .news-card {{
+            background: var(--card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #2a2a3e;
+        }}
+        .news-card h4 {{ margin: 0 0 6px; color: #fff; font-size: 1.05rem; }}
+        .news-card .news-source {{ color: var(--accent); font-size: 0.85rem; font-weight: 700; }}
+        .news-card p {{ font-size: 0.9rem; color: var(--muted); margin: 8px 0; }}
+        .news-card a {{ color: #4fc3f7; font-size: 0.9rem; }}
+        .concert-table {{
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
+            font-size: 0.95rem;
         }}
-        th, td {{
+        .concert-table th, .concert-table td {{
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #2a2a3e;
         }}
-        th {{ color: var(--accent); font-weight: 700; }}
+        .concert-table th {{ color: var(--accent); font-weight: 700; }}
+        .concert-table td a {{ color: #4fc3f7; font-size: 0.9rem; }}
+        .status-done {{ color: var(--muted); font-style: italic; }}
         footer {{
             text-align: center;
             padding: 20px;
@@ -314,19 +421,24 @@ def generate_html(content, date_info):
             border-top: 1px solid #2a2a3e;
             margin-top: 40px;
         }}
+        @media (max-width: 640px) {{
+            .song-grid {{ grid-template-columns: 1fr; }}
+        }}
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>JPOP流行報</h1>
-            <div class="date">{date_info['display_date']} · 第{date_info['week_number']}期</div>
+            <h1>🎵 JPOP流行報</h1>
+            <div class="date">{date_info['display_date']} · 第{date_info['week_number']}期 · 隔週日發行</div>
         </header>
         
         {content}
         
         <footer>
-            Issue Date: {date_info['date_str']} · All links and info accurate as of issue date
+            <p>Issue Date: {date_info['date_str']} · 第{date_info['week_number']}期</p>
+            <p>資料來源：Real Sound / 音楽ナタリー / Billboard JAPAN / THE FIRST TIMES / ORICON</p>
+            <p>© JPOP流行報 · 每週日發行 · 僅保留最近六期</p>
         </footer>
     </div>
 </body>

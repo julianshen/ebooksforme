@@ -27,6 +27,7 @@
             padding: 30px 0;
             border-bottom: 3px solid var(--accent);
             margin-bottom: 30px;
+            position: relative;
         }
         header h1 {
             font-size: 2.8rem;
@@ -37,8 +38,8 @@
         }
         header .date { color: var(--muted); font-size: 1rem; margin-top: 8px; }
         section { margin-bottom: 40px; }
-        h2 {
-            font-size: 1.6rem;
+        h2.section-title {
+            font-size: 1.5rem;
             border-left: 6px solid var(--accent);
             padding-left: 14px;
             margin: 30px 0 18px;
@@ -50,46 +51,77 @@
             border-radius: 14px;
             padding: 24px;
         }
+        .highlight .label { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
         .highlight h3 { margin-top: 0; color: var(--accent); font-size: 1.4rem; }
+        .highlight p { margin: 10px 0; color: var(--muted); }
         .links { margin-top: 12px; }
         .links a {
             display: inline-block;
-            margin-right: 14px;
+            margin-right: 10px;
+            margin-bottom: 6px;
             background: rgba(255,255,255,0.08);
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.9rem;
             color: #4fc3f7;
             text-decoration: none;
+            transition: background .2s;
         }
-        .links a:hover { text-decoration: underline; }
-        .grid {
+        .links a:hover { background: rgba(255,255,255,0.15); }
+        .song-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 18px;
+            gap: 16px;
         }
-        .card {
+        .song-card {
             background: var(--card);
             border-radius: 12px;
             padding: 18px;
             border: 1px solid #2a2a3e;
-            transition: transform .2s;
+            transition: transform .2s, border-color .2s;
         }
-        .card:hover { transform: translateY(-4px); border-color: var(--accent); }
-        .card h4 { margin: 0 0 8px; color: #fff; font-size: 1.1rem; }
-        .card .artist { color: var(--accent); font-size: 0.9rem; margin-bottom: 6px; }
-        .card p { font-size: 0.95rem; color: var(--muted); margin: 0 0 10px; }
-        table {
+        .song-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .song-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
+        .song-card .artist-label { color: var(--accent); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+        .song-card p { font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }
+        .song-links { margin-top: 8px; }
+        .song-links a {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            background: rgba(79,195,247,0.1);
+            color: #4fc3f7;
+            text-decoration: none;
+        }
+        .song-links a:hover { background: rgba(79,195,247,0.2); }
+        .news-grid { display: grid; gap: 14px; }
+        .news-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #2a2a3e;
+        }
+        .news-card h4 { margin: 0 0 6px; color: #fff; font-size: 1.05rem; }
+        .news-card .news-source { color: var(--accent); font-size: 0.85rem; font-weight: 700; }
+        .news-card p { font-size: 0.9rem; color: var(--muted); margin: 8px 0; }
+        .news-card a { color: #4fc3f7; font-size: 0.9rem; }
+        .concert-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
+            font-size: 0.95rem;
         }
-        th, td {
+        .concert-table th, .concert-table td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #2a2a3e;
         }
-        th { color: var(--accent); font-weight: 700; }
+        .concert-table th { color: var(--accent); font-weight: 700; }
+        .concert-table td a { color: #4fc3f7; font-size: 0.9rem; }
+        .status-done { color: var(--muted); font-style: italic; }
         footer {
             text-align: center;
             padding: 20px;
@@ -98,102 +130,169 @@
             border-top: 1px solid #2a2a3e;
             margin-top: 40px;
         }
+        @media (max-width: 640px) {
+            .song-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>JPOP流行報</h1>
-            <div class="date">2026年6月7日 · 第23期</div>
+            <h1>🎵 JPOP流行報</h1>
+            <div class="date">2026年6月7日 · 第23期 · 隔週日發行</div>
         </header>
         
         ```html
-<section class="highlight">
-    <h2>焦點藝人：Ado</h2>
-    <p> Ado 是日本新生代最具代表性的歌い手（歌手），2020 年以〈うっせぇわ〉一鳴驚人。2026年6月宣布與 Giga × TeddyLoid 再度聯手推出新曲〈モンストロ（Monstruo）〉作為真人版電影《BLUE LOCK》主題歌，預計8月7日公開。7月將在日產體育場舉辦首次體育館級演唱會「Ado STADIUM LIVE 2026『Ao』」。</p>
+<section>
+  <h2 class="section-title">⭐ Highlight Artist</h2>
+  <div class="highlight">
+    <div class="label">🌟 本週焦點歌手</div>
+    <h3>Ado</h3>
+    <p>Ado 是日本新生代最具代表性的歌い手（歌手），2020 年以〈うっせぇわ〉一鳴驚人。2026年6月宣布與 Giga × TeddyLoid 再度聯手推出新曲〈モンストロ（Monstruo）〉作為真人版電影《BLUE LOCK》主題歌，預計8月7日公開。7月將在日產體育場舉辦首次體育館級演唱會「Ado STADIUM LIVE 2026『Ao』」。</p>
     <div class="links">
-        <a href="https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl" target="_blank">Spotify</a> | 
-        <a href="https://www.youtube.com/channel/UCln9P4Qm3-EAY4aiEPmRwEA" target="_blank">YouTube</a> | 
-        <a href="https://www.universal-music.co.jp/ado/" target="_blank">官方網站</a>
+      <a href="https://www.universal-music.co.jp/ado/" target="_blank">🌐 Official</a>
+      <a href="https://open.spotify.com/artist/6mEQK9m2krja6X1cfsAjfl" target="_blank">🎧 Spotify</a>
+      <a href="https://www.youtube.com/channel/UCln9P4Qm3-EAY4aiEPmRwEA" target="_blank">📺 YouTube</a>
     </div>
+  </div>
 </section>
 
-<section class="song-grid">
-    <h2>最新歌曲</h2>
+<section>
+  <h2 class="section-title">🎶 最新歌曲</h2>
+  <div class="song-grid">
     <div class="song-card">
-        <h3 class="song-title">モンストロ (Monstruo)</h3>
-        <p class="song-artist">Ado</p>
-        <p>真人電影《BLUE LOCK》主題歌。Giga × TeddyLoid 繼〈踊〉〈唱〉後再次聯手，拉丁節奏燃燒鬥志。</p>
-        <div class="song-links">
-            <a href="https://www.youtube.com/watch?v=bq28BNi60S0" target="_blank">YouTube</a>
-        </div>
+      <h4>モンストロ (Monstruo)</h4>
+      <div class="artist-label">Ado</div>
+      <p>真人電影《BLUE LOCK》主題歌。Giga × TeddyLoid 繼〈踊〉〈唱〉後再次聯手，拉丁節奏燃燒鬥志。</p>
+      <div class="song-links">
+        <a href="https://open.spotify.com/track/3micqfC9Do9RNjfKXrgXJn" target="_blank">🎧 Spotify Track</a>
+        <a href="https://www.youtube.com/watch?v=bq28BNi60S0" target="_blank">📺 YouTube</a>
+      </div>
     </div>
     <div class="song-card">
-        <h3 class="song-title">Crunchy</h3>
-        <p class="song-artist">iri</p>
-        <p>6月5日配信。デビュー10周年イヤー第2弾！澤村一平(SANABAGUN.)等參與製作。</p>
-        <div class="song-links">
-            <a href="https://open.spotify.com/track/3micqfC9Do9RNjfKXrgXJn" target="_blank">Spotify</a> | 
-            <a href="https://www.youtube.com/watch?v=pxzvCLs5cWo" target="_blank">YouTube</a>
-        </div>
+      <h4>Crunchy</h4>
+      <div class="artist-label">iri</div>
+      <p>6月5日配信。デビュー10周年イヤー第2弾！澤村一平(SANABAGUN.)等參與製作。</p>
+      <div class="song-links">
+        <a href="https://open.spotify.com/track/3micqfC9Do9RNjfKXrgXJn" target="_blank">🎧 Spotify Track</a>
+        <a href="https://www.youtube.com/watch?v=pxzvCLs5cWo" target="_blank">📺 YouTube</a>
+      </div>
     </div>
     <div class="song-card">
-        <h3 class="song-title">FUNKY SUMMER</h3>
-        <p class="song-artist">僕が見たかった青空</p>
-        <p>6月3日發行第8張單曲表題曲。夏日清爽流行曲風。</p>
+      <h4>FUNKY SUMMER</h4>
+      <div class="artist-label">僕が見たかった青空</div>
+      <p>6月3日發行第8張單曲表題曲。夏日清爽流行曲風。</p>
     </div>
     <div class="song-card">
-        <h3 class="song-title">Fright</h3>
-        <p class="song-artist">Creepy Nuts</p>
-        <p>TBS系火曜ドラマ「時すでにおスシ!?」主題歌。Coachella演出、北美巡迴中。</p>
+      <h4>Fright</h4>
+      <div class="artist-label">Creepy Nuts</div>
+      <p>TBS系火曜ドラマ「時すでにおスシ!?」主題歌。Coachella演出、北美巡迴中。</p>
     </div>
     <div class="song-card">
-        <h3 class="song-title">THE BOOK for,</h3>
-        <p class="song-artist">YOASOBI</p>
-        <p>第4張EP，THE BOOK系列完結篇。收錄〈Biri-Biri〉〈Heart Beat〉等，6月26日發行。</p>
-        <div class="song-links">
-            <a href="https://www.yoasobi-music.jp/news/583459" target="_blank">官網</a>
-        </div>
+      <h4>THE BOOK for,</h4>
+      <div class="artist-label">YOASOBI</div>
+      <p>第4張EP，THE BOOK系列完結篇。收錄〈Biri-Biri〉〈Heart Beat〉等，6月26日發行。</p>
+      <div class="song-links">
+        <a href="https://www.yoasobi-music.jp/news/583459" target="_blank">🔗 Official</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="news-grid">
-    <h2>音樂新聞</h2>
+<section>
+  <h2 class="section-title">📰 音樂新聞</h2>
+  <div class="news-grid">
     <div class="news-card">
-        <h3 class="news-title">Ado新曲「モンストロ」が実写映画『ブルーロック』主題歌に</h3>
-        <p class="news-source"><a href="https://realsound.jp/2026/06/post-2415892.html" target="_blank">來源：Real Sound</a></p>
+      <div class="news-source">Real Sound</div>
+      <h4>Ado新曲「モンストロ」が実写映画『ブルーロック』主題歌に</h4>
+      <p>新曲「モンストロ」將成為電影《BLUE LOCK》的主題歌，進一步提升Ado的知名度。</p>
+      <a href="https://realsound.jp/2026/06/post-2415892.html" target="_blank">🔗 原文を見る →</a>
     </div>
     <div class="news-card">
-        <h3 class="news-title">YOASOBI、4th EP『THE BOOK for,』6月26日リリース</h3>
-        <p class="news-source"><a href="https://www.thefirsttimes.jp/news/0000811583/" target="_blank">來源：THE FIRST TIMES</a></p>
+      <div class="news-source">THE FIRST TIMES</div>
+      <h4>YOASOBI、4th EP『THE BOOK for,』6月26日リリース</h4>
+      <p>YOASOBI的最新EP將於6月26日正式發行，粉絲期待不已。</p>
+      <a href="https://www.thefirsttimes.jp/news/0000811583/" target="_blank">🔗 原文を見る →</a>
     </div>
     <div class="news-card">
-        <h3 class="news-title">Reol、横浜アリーナ公演を収めたライブ映像作品を6月3日リリース</h3>
-        <p class="news-source"><a href="https://www.billboard-japan.com/d_news/detail/159452" target="_blank">來源：Billboard JAPAN</a></p>
+      <div class="news-source">Billboard JAPAN</div>
+      <h4>Reol、横浜アリーナ公演を収めたライブ映像作品を6月3日リリース</h4>
+      <p>Reol最新的現場錄影作品已於6月3日發行，展現她的精彩演出。</p>
+      <a href="https://www.billboard-japan.com/d_news/detail/159452" target="_blank">🔗 原文を見る →</a>
     </div>
     <div class="news-card">
-        <h3 class="news-title">iri、デビュー10周年イヤー第2弾シングル「Crunchy」配信リリース</h3>
-        <p class="news-source"><a href="https://natalie.mu/music/news/674681" target="_blank">來源：音楽ナタリー</a></p>
+      <div class="news-source">音楽ナタリー</div>
+      <h4>iri、デビュー10周年イヤー第2弾シングル「Crunchy」配信リリース</h4>
+      <p>iri在其出道10周年之際，推出最新單曲「Crunchy」。</p>
+      <a href="https://natalie.mu/music/news/674681" target="_blank">🔗 原文を見る →</a>
     </div>
     <div class="news-card">
-        <h3 class="news-title">菊池桃子、約2年ぶりの新曲リリースを発表</h3>
-        <p class="news-source"><a href="https://natalie.mu/music/news/674694" target="_blank">來源：音楽ナタリー</a></p>
+      <div class="news-source">音楽ナタリー</div>
+      <h4>菊池桃子、約2年ぶりの新曲リリースを発表</h4>
+      <p>菊池桃子宣布將於近期發行約兩年來的最新作品，讓粉絲期待。</p>
+      <a href="https://natalie.mu/music/news/674694" target="_blank">🔗 原文を見る →</a>
     </div>
+  </div>
 </section>
 
-<section class="concert-table">
-    <h2>即將舉行的演唱會</h2>
-    <ul>
-        <li>Ado STADIUM LIVE 2026「Ao」— 2026年7月、日産スタジアム</li>
-        <li>iri 10th Anniversary LIVE "Period" — 2026/10/22、ぴあアリーナMM</li>
-        <li>Creepy Nuts NORTH AMERICA TOUR 2026 — 夏季</li>
-    </ul>
-    <p>（目前尚無已確認之JPOP歌手台灣公演資訊）</p>
+<section>
+  <h2 class="section-title">🎤 日本演唱會</h2>
+  <table class="concert-table">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>歌手</th>
+        <th>場地</th>
+        <th>資訊</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026年7月</td>
+        <td>Ado</td>
+        <td>日產スタジアム</td>
+        <td><a href="https://www.universal-music.co.jp/ado/" target="_blank">🔗 Official</a></td>
+      </tr>
+      <tr>
+        <td>2026/10/22</td>
+        <td>iri</td>
+        <td>ぴあアリーナMM</td>
+        <td><a href="https://natalie.mu/music/news/674681" target="_blank">🔗 Official</a></td>
+      </tr>
+      <tr>
+        <td>夏季</td>
+        <td>Creepy Nuts</td>
+        <td>北美巡迴</td>
+        <td><a href="#" target="_blank">🔗 Official</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2 class="section-title">🇹🇼 台灣演唱會・活動</h2>
+  <table class="concert-table">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>歌手</th>
+        <th>場地</th>
+        <th>資訊</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4" style="text-align:center;color:var(--muted);">尚無已確認之資訊</td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 ```
         
         <footer>
-            Issue Date: 2026-06-07 · All links and info accurate as of issue date
+            <p>Issue Date: 2026-06-07 · 第23期</p>
+            <p>資料來源：Real Sound / 音楽ナタリー / Billboard JAPAN / THE FIRST TIMES / ORICON</p>
+            <p>© JPOP流行報 · 每週日發行 · 僅保留最近六期</p>
         </footer>
     </div>
 </body>
