@@ -109,6 +109,26 @@
         .news-card p { font-size: 0.9rem; color: var(--muted); margin: 8px 0; }
         .news-card a { color: #4fc3f7; font-size: 0.9rem; }
         .data-info { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px; border-left: 3px solid var(--accent); font-size: 0.85rem; color: var(--muted); }
+        .concert-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .concert-table th {
+            background: rgba(255,42,109,0.15);
+            color: var(--accent);
+            padding: 10px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+        }
+        .concert-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--muted);
+        }
+        .concert-table td a { color: #4fc3f7; font-size: 0.85rem; }
         .chart-list { list-style: none; padding: 0; }
         .chart-item {
             display: flex;
@@ -145,127 +165,47 @@
   <div class="highlight">
     <div class="label">🌟 本週焦點歌手</div>
     <h3>CUTIE STREET</h3>
-    <p>CUTIE STREET 以〈キュートなキューたい〉登上本週 Billboard JAPAN Hot 100 冠軍，成為第 24 期 JPOP流行報焦點歌手。榜單資料來源為 Billboard JAPAN，資料收集時間為 2026-06-08 00:52:48。</p>
+    <p>CUTIE STREET 以〈キュートなキューたい〉登上本週 Billboard Japan Hot 100 冠軍。榜單來源為 Billboard JAPAN，資料收集時間：2026-06-08 01:17:00。</p>
   </div>
 </section>
 
 <section>
   <h2 class="section-title">🎶 最新歌曲</h2>
   <div class="song-grid">
-    <div class="song-card">
-      <h4>〈キュートなキューたい〉</h4>
-      <div class="artist-label">CUTIE STREET</div>
-      <p>本週 Billboard JAPAN Hot 100 第 1 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈初めてのオール〉</h4>
-      <div class="artist-label">NMB48</div>
-      <p>本週 Billboard JAPAN Hot 100 第 2 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈夜の踊り子〉</h4>
-      <div class="artist-label">サカナクション</div>
-      <p>本週 Billboard JAPAN Hot 100 第 3 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈好きすぎて滅!〉</h4>
-      <div class="artist-label">M!LK</div>
-      <p>本週 Billboard JAPAN Hot 100 第 4 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈爆裂愛してる〉</h4>
-      <div class="artist-label">M!LK</div>
-      <p>本週 Billboard JAPAN Hot 100 第 5 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈IRIS OUT〉</h4>
-      <div class="artist-label">米津玄師</div>
-      <p>本週 Billboard JAPAN Hot 100 第 6 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈Five〉</h4>
-      <div class="artist-label">嵐</div>
-      <p>本週 Billboard JAPAN Hot 100 第 7 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈It's Me〉</h4>
-      <div class="artist-label">ILLIT</div>
-      <p>本週 Billboard JAPAN Hot 100 第 8 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈lulu.〉</h4>
-      <div class="artist-label">Mrs.GREEN APPLE</div>
-      <p>本週 Billboard JAPAN Hot 100 第 9 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
-    <div class="song-card">
-      <h4>〈アイドルパワー〉</h4>
-      <div class="artist-label">M!LK</div>
-      <p>本週 Billboard JAPAN Hot 100 第 10 名。排行榜來源：Billboard JAPAN。</p>
-      <div class="song-links">[連結確認中]</div>
-    </div>
+    <div class="song-card"><h4>〈キュートなキューたい〉</h4><div class="artist-label">CUTIE STREET</div><p>Billboard Japan Hot 100 本週第 1 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈初めてのオール〉</h4><div class="artist-label">NMB48</div><p>Billboard Japan Hot 100 本週第 2 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈夜の踊り子〉</h4><div class="artist-label">サカナクション</div><p>Billboard Japan Hot 100 本週第 3 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈好きすぎて滅!〉</h4><div class="artist-label">M!LK</div><p>Billboard Japan Hot 100 本週第 4 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈爆裂愛してる〉</h4><div class="artist-label">M!LK</div><p>Billboard Japan Hot 100 本週第 5 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈IRIS OUT〉</h4><div class="artist-label">米津玄師</div><p>Billboard Japan Hot 100 本週第 6 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈Five〉</h4><div class="artist-label">嵐</div><p>Billboard Japan Hot 100 本週第 7 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈It's Me〉</h4><div class="artist-label">ILLIT</div><p>Billboard Japan Hot 100 本週第 8 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈lulu.〉</h4><div class="artist-label">Mrs.GREEN APPLE</div><p>Billboard Japan Hot 100 本週第 9 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈アイドルパワー〉</h4><div class="artist-label">M!LK</div><p>Billboard Japan Hot 100 本週第 10 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈Blue Jeans〉</h4><div class="artist-label">HANA</div><p>Billboard Japan Hot 100 本週第 11 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈AIZO〉</h4><div class="artist-label">King Gnu</div><p>Billboard Japan Hot 100 本週第 13 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈風と町〉</h4><div class="artist-label">Mrs.GREEN APPLE</div><p>Billboard Japan Hot 100 本週第 14 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈BOOMPALA〉</h4><div class="artist-label">LE SSERAFIM</div><p>Billboard Japan Hot 100 本週第 15 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈革命道中〉</h4><div class="artist-label">アイナ・ジ・エンド</div><p>Billboard Japan Hot 100 本週第 16 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈3XL〉</h4><div class="artist-label">Number_i</div><p>Billboard Japan Hot 100 本週第 17 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈ライラック〉</h4><div class="artist-label">Mrs.GREEN APPLE</div><p>Billboard Japan Hot 100 本週第 19 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈SWIM〉</h4><div class="artist-label">BTS</div><p>Billboard Japan Hot 100 本週第 21 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈Kind of love〉</h4><div class="artist-label">日向坂46</div><p>Billboard Japan Hot 100 本週第 22 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
+    <div class="song-card"><h4>〈スターダスト〉</h4><div class="artist-label">Official髭男dism</div><p>Billboard Japan Hot 100 本週第 23 名。排行榜來源：Billboard JAPAN。</p><div class="song-links">[連結確認中]</div></div>
   </div>
 </section>
 
 <section>
   <h2 class="section-title">📰 音樂新聞</h2>
   <div class="news-grid">
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>乃木坂46一ノ瀬美空が初センター、42ndシングルは「是非に及ばず」</h4>
-      <p>乃木坂46 於 7 月 22 日發行的 42nd 單曲標題確定為「是非に及ばず」，表題曲選拔成員已在 6 月 7 日深夜播出的「乃木坂工事中」中發表。</p>
-      <a href="https://natalie.mu/music/news/675193" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>SUPER EIGHT「anan」2500号の表紙を飾る、20年分の“過去の自分たち”と共演</h4>
-      <p>SUPER EIGHT 將登上 6 月 17 日發售的雜誌「anan」2500 號封面。</p>
-      <a href="https://natalie.mu/music/news/675177" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>FRUITS ZIPPERがパワーをチャージするMV公開、近い</h4>
-      <p>FRUITS ZIPPER 最新曲「ぱわーオブらぶ」的音樂錄影帶已在 YouTube 公開。</p>
-      <a href="https://natalie.mu/music/news/675186" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>「あなたたちがいるから僕たちがいます」BUDDiiSツアー「FLORiiA」大団円、涙の先で開いた笑顔の花</h4>
-      <p>BUDDiiS 全國巡演「BUDDiiS vol.11 Hall Tour -FLORiiA-」最終公演於 6 月 7 日在千葉・幕張イベントホール舉行。</p>
-      <a href="https://natalie.mu/music/news/675156" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>a crowd of rebellionからボーカル小林亮輔が脱退</h4>
-      <p>a crowd of rebellion 宣布小林亮輔（Vo, G）於 6 月 7 日退出團體。</p>
-      <a href="https://natalie.mu/music/news/675182" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>SPECIAL OTHERSが全国20カ所巡る、デビュー20周年を記念して</h4>
-      <p>SPECIAL OTHERS 將於 9 月至 12 月舉辦全國 20 地巡演「デビュー20周年！！20箇所記念ツアー！！全員集合☆彡」。</p>
-      <a href="https://natalie.mu/music/news/675167" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>SIX LOUNGE、日本武道館でワンマンライブ「正夢」開催</h4>
-      <p>SIX LOUNGE 將於 2027 年 2 月 13 日在東京・日本武道館舉辦單獨公演「SIX LOUNGE “正夢”」。</p>
-      <a href="https://natalie.mu/music/news/675164" target="_blank">🔗 原文を見る →</a>
-    </div>
-    <div class="news-card">
-      <div class="news-source">音楽ナタリー</div>
-      <h4>ギターウルフが電話受けて急遽トリに、スウェーデンロックフェスの映像公開</h4>
-      <p>ギターウルフ臨時出演瑞典「Sweden Rock Festival 2026」6 月 5 日公演，並公開當日演出影像。</p>
-      <a href="https://natalie.mu/music/news/675179" target="_blank">🔗 原文を見る →</a>
-    </div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>乃木坂46一ノ瀬美空が初センター、42ndシングルは「是非に及ばず」</h4><p>乃木坂46 將於 7 月 22 日發行的第 42 張單曲標題確定為「是非に及ばず」，表題曲選拔成員已在 6 月 7 日深夜播出的「乃木坂工事中」中發表。</p><a href="https://natalie.mu/music/news/675193" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>SUPER EIGHT「anan」2500号の表紙を飾る、20年分の“過去の自分たち”と共演</h4><p>SUPER EIGHT 將登上 6 月 17 日發售的雜誌「anan」第 2500 號封面。</p><a href="https://natalie.mu/music/news/675177" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>FRUITS ZIPPERがパワーをチャージするMV公開、近い</h4><p>FRUITS ZIPPER 最新曲「ぱわーオブらぶ」的音樂錄影帶已在 YouTube 公開。</p><a href="https://natalie.mu/music/news/675186" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>「あなたたちがいるから僕たちがいます」BUDDiiSツアー「FLORiiA」大団円、涙の先で開いた笑顔の花</h4><p>BUDDiiS 全國巡演「BUDDiiS vol.11 Hall Tour -FLORiiA-」最終公演於 6 月 7 日在千葉・幕張イベントホール舉行。</p><a href="https://natalie.mu/music/news/675156" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>a crowd of rebellionからボーカル小林亮輔が脱退</h4><p>a crowd of rebellion 宣布小林亮輔（Vo, G）於 6 月 7 日退出樂團。</p><a href="https://natalie.mu/music/news/675182" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>SPECIAL OTHERSが全国20カ所巡る、デビュー20周年を記念して</h4><p>SPECIAL OTHERS 將於 9 月至 12 月舉辦紀念出道 20 週年的全國 20 地巡演。</p><a href="https://natalie.mu/music/news/675167" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>SIX LOUNGE、日本武道館でワンマンライブ「正夢」開催</h4><p>SIX LOUNGE 將於 2027 年 2 月 13 日在東京・日本武道館舉辦單獨公演「SIX LOUNGE “正夢”」。</p><a href="https://natalie.mu/music/news/675164" target="_blank">🔗 原文を見る →</a></div>
+    <div class="news-card"><div class="news-source">音楽ナタリー</div><h4>ギターウルフが電話受けて急遽トリに、スウェーデンロックフェスの映像公開</h4><p>ギターウルフ 臨時出演「Sweden Rock Festival 2026」6 月 5 日公演，相關影像已在 YouTube 公開。</p><a href="https://natalie.mu/music/news/675179" target="_blank">🔗 原文を見る →</a></div>
   </div>
 </section>
 

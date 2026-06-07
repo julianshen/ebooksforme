@@ -310,24 +310,79 @@ def search_spotify_track(artist, song):
     except Exception as e:
         print(f"    ⚠️ Spotify search 錯誤 ({artist} - {song}): {e}")
         return None
+def fetch_upcoming_concerts():
+    """搜尋近期 JPOP 演唱會資訊（日本+台灣）"""
+    print("  🎤 正在搜尋近期演唱會資訊...")
+    concerts = {"japan": [], "taiwan": []}
+    search_queries = {
+        "japan": "https://news.google.com/rss/search?q=J-POP+コンサート+2026&hl=ja&gl=JP",
+        "taiwan": "https://news.google.com/rss/search?q=J-POP+演唱會+2026+台灣&hl=zh-TW&gl=TW"
+    }
+    for region, url in search_queries.items():
+        try:
+            resp = safe_request(url)
+            if not resp:
+                continue
+            soup = BeautifulSoup(resp.text, "xml")
+            items = soup.find_all("item")
+            for item in items[:5]:
+                title = item.find("title").text if item.find("title") else ""
+                link = item.find("link").text if item.find("link") else ""
+                source = item.find("source").text if item.find("source") else ""
+                if title and link:
+                    concerts[region].append({"title": title, "link": link, "source": source})
+        except Exception as e:
+            print(f"  ⚠️ 搜尋 {region} 演唱會失敗: {e}")
+    total = len(concerts["japan"]) + len(concerts["taiwan"])
+    if total:
+        print(f"  ✅ 演唱會資訊: 日本 {len(concerts['japan'])} 則, 台灣 {len(concerts['taiwan'])} 則")
+    else:
+        print("  ⚠️ 演唱會資訊: 暫無資料")
+    return concerts
+
+
+def search_song_links(songs):
+    """為 Billboard 榜單歌曲搜尋 Spotify/YouTube 連結（前20首）"""
+    print("  🔗 正在搜尋歌曲串流連結...")
+    linked_songs = []
+    for song in songs[:20]:
+        artist = song["artist"]
+        title = song["title"]
+        entry = {"rank": song["rank"], "title": title, "artist": artist, "spotify": "", "youtube": ""}
+        # 搜尋 Spotify
+        try:
+            search_url = f"https://news.google.com/rss/search?q={requests.utils.quote(f'{artist} {title} Spotify')}&hl=ja&gl=JP"
+            resp = safe_request(search_url, timeout=10)
+            if resp:
+                soup = BeautifulSoup(resp.text, "xml")
+                for item in soup.find_all("item")[:3]:
+                    link = item.find("link").text if item.find("link") else ""
+                    if "open.spotify.com/track/" in link:
+                        entry["spotify"] = link
+                        break
+        except:
+            pass
+        # 搜尋 YouTube
+        try:
+            search_url = f"https://news.google.com/rss/search?q={requests.utils.quote(f'{artist} {title} YouTube')}&hl=ja&gl=JP"
+            resp = safe_request(search_url, timeout=10)
+            if resp:
+                soup = BeautifulSoup(resp.text, "xml")
+                for item in soup.find_all("item")[:3]:
+                    link = item.find("link").text if item.find("link") else ""
+                    if "youtube.com/watch" in link:
+                        entry["youtube"] = link
+                        break
+        except:
+            pass
+        linked_songs.append(entry)
+    found = sum(1 for s in linked_songs if s["spotify"] or s["youtube"])
+    print(f"  ✅ 歌曲連結搜尋: {found}/{len(linked_songs)} 首有找到連結")
+    return linked_songs
 
 
 def collect_music_data():
-    """
-    主要數據收集函數。從 Billboard Hot 100、音楽ナタリー、
-    Billboard JAPAN 新聞爬取即時 JPOP 資訊。
-
-    回傳結構：
-    {
-        "collection_time": "2026-06-07 12:30:00",   # 收集時間戳
-        "has_data": True/False,                      # 是否有任何真實數據
-        "billboard_chart": [ ... ],                  # Billboard Hot 100 榜單
-        "natalie_news": [ ... ],                     # 音楽ナタリー新聞
-        "billboard_news": [ ... ],                   # Billboard JAPAN 新聞
-        "all_news": [ ... ],                         # 合併後的新聞列表
-        "top_chart_songs": [ ... ]                   # 前 10 名歌曲
-    }
-    """
+    """收集所有 JPOP 資料（排行榜 + 新聞 + 演唱會 + 歌曲連結）"""
     print("\n" + "=" * 50)
     print("📡 資料收集階段")
     print("=" * 50)
@@ -335,49 +390,46 @@ def collect_music_data():
     collection_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"⏰ 收集時間：{collection_time}\n")
 
-    # 1. 爬取 Billboard Hot 100 榜單
     chart_songs = scrape_billboard_chart()
-    top_chart = chart_songs[:10] if chart_songs else []
+    top_chart = chart_songs[:20] if chart_songs else []
 
-    # 2. 爬取音楽ナタリー新聞
     natalie_articles = scrape_natalie_news()
-
-    # 3. 爬取 Billboard JAPAN 新聞
     bb_articles = scrape_billboard_news()
 
-    # 4. 合併新聞列表（去重）
     all_news = []
     seen_titles = set()
     for article in natalie_articles + bb_articles:
-        # 簡單去重：以標題前半段為 key
         title_key = article["title"][:30]
         if title_key not in seen_titles:
             seen_titles.add(title_key)
             all_news.append(article)
 
-    has_data = bool(chart_songs or natalie_articles or bb_articles)
+    concerts = fetch_upcoming_concerts()
+    song_links = []
+
+    has_data = bool(chart_songs or all_news)
 
     print(f"\n📊 資料收集摘要：")
     print(f"   Billboard Hot 100 歌曲：{len(chart_songs)} 首")
     print(f"   音楽ナタリー新聞：{len(natalie_articles)} 則")
     print(f"   Billboard JAPAN 新聞：{len(bb_articles)} 則")
     print(f"   合計不重複新聞：{len(all_news)} 則")
+    print(f"   演唱會資訊：日本 {len(concerts.get('japan',[]))} 則, 台灣 {len(concerts.get('taiwan',[]))} 則")
+    print(f"   歌曲連結搜尋：{len(song_links)} 首")
     print(f"   資料可用：{'✅ 是' if has_data else '❌ 否'}")
 
     return {
-        "collection_time": collection_time,
         "has_data": has_data,
+        "collection_time": collection_time,
         "billboard_chart": chart_songs,
         "natalie_news": natalie_articles,
         "billboard_news": bb_articles,
         "all_news": all_news,
-        "top_chart_songs": top_chart
+        "top_chart_songs": top_chart,
+        "concerts": concerts,
+        "song_links": song_links
     }
 
-
-# ============================================================
-# 第 2 部分：日期資訊
-# ============================================================
 
 def get_date_info():
     """取得日期資訊"""
@@ -814,6 +866,26 @@ def generate_html(content, date_info):
         .news-card p {{ font-size: 0.9rem; color: var(--muted); margin: 8px 0; }}
         .news-card a {{ color: #4fc3f7; font-size: 0.9rem; }}
         .data-info {{ background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px; border-left: 3px solid var(--accent); font-size: 0.85rem; color: var(--muted); }}
+        .concert-table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }}
+        .concert-table th {{
+            background: rgba(255,42,109,0.15);
+            color: var(--accent);
+            padding: 10px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+        }}
+        .concert-table td {{
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--muted);
+        }}
+        .concert-table td a {{ color: #4fc3f7; font-size: 0.85rem; }}
         .chart-list {{ list-style: none; padding: 0; }}
         .chart-item {{
             display: flex;
@@ -925,6 +997,38 @@ def generate_html_direct(music_data, date_info):
 </section>"""
     
     content = highlight_html + chart_html + news_html
+    
+    # --- Concerts ---
+    concerts = music_data.get("concerts", {})
+    jp_concerts = concerts.get("japan", []) if concerts else []
+    tw_concerts = concerts.get("taiwan", []) if concerts else []
+    
+    concerts_html = ""
+    if jp_concerts or tw_concerts:
+        concert_rows = ""
+        for c in jp_concerts[:5]:
+            title = c.get("title", "")
+            source = c.get("source", "")
+            link = c.get("link", "")
+            concert_rows += f"""<tr><td>近期</td><td>{title[:30]}</td><td>日本</td><td><a href="{link}" target="_blank">🔗 {source}</a></td></tr>"""
+        for c in tw_concerts[:3]:
+            title = c.get("title", "")
+            source = c.get("source", "")
+            link = c.get("link", "")
+            concert_rows += f"""<tr><td>近期</td><td>{title[:30]}</td><td>台灣</td><td><a href="{link}" target="_blank">🔗 {source}</a></td></tr>"""
+        if not concert_rows:
+            concert_rows = """<tr><td colspan="4" style="text-align:center;color:var(--muted);">本週演唱會資訊整理中</td></tr>"""
+        concerts_html = f"""
+<section>
+    <h2 class="section-title">🎤 演唱會資訊</h2>
+    <div class="data-info">來源：Google 新聞搜尋 · 僅供參考</div>
+    <table class="concert-table">
+        <thead><tr><th>日期</th><th>活動</th><th>地區</th><th>資訊</th></tr></thead>
+        <tbody>{concert_rows}</tbody>
+    </table>
+</section>"""
+    
+    content = highlight_html + chart_html + news_html + concerts_html
     return generate_html(content, date_info)
 
 
