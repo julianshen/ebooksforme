@@ -637,127 +637,63 @@ def build_fallback_prompt(date_info):
 # 第 4 部分：LLM API 呼叫
 # ============================================================
 
-def call_openai(prompt, temperature=0.2):
-    """呼叫 OpenAI API，若配額不足則自動切換至 OpenRouter"""
-    openai_key = os.environ.get("OPENAI_API_KEY")
-    openrouter_key = os.environ.get("OPENROUTER_API_KEY")
-
-    # 優先使用 OpenAI
-    if openai_key:
-        print("嘗試使用 OpenAI API...")
-        try:
-            client = openai.OpenAI(api_key=openai_key)
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。"
-                            "【重要】你只能使用使用者提供的真實數據。"
-                            "切勿自行編造任何連結、歌曲、新聞、或演唱會資訊。"
-                            "如果某條資料沒有連結，就不要顯示連結按鈕。"
-                            "Spotify 連結必須是 open.spotify.com/track/... 格式。"
-                        )
-                    },
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=temperature,
-                max_tokens=8000
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            error_str = str(e)
-            if "429" in error_str or "insufficient_quota" in error_str or "quota" in error_str.lower():
-                print(f"OpenAI 配額不足 (429)，嘗試切換至 OpenRouter...")
-            else:
-                print(f"OpenAI API 錯誤：{e}")
-                return None
-
-    # 備用：OpenRouter
-    if openrouter_key:
-        print("嘗試使用 OpenRouter API...")
-        try:
-            client = openai.OpenAI(
-                api_key=openrouter_key,
-                base_url="https://openrouter.ai/api/v1"
-            )
-            response = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。"
-                            "【重要】你只能使用使用者提供的真實數據。"
-                            "切勿自行編造任何連結、歌曲、新聞、或演唱會資訊。"
-                            "如果某條資料沒有連結，就不要顯示連結按鈕。"
-                            "Spotify 連結必須是 open.spotify.com/track/... 格式。"
-                        )
-                    },
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=temperature,
-                max_tokens=8000
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            print(f"OpenRouter API 錯誤：{e}")
-            return None
-
-    print("未設定 OPENAI_API_KEY 或 OPENROUTER_API_KEY")
-    return None
-
-
-def call_anthropic(prompt, temperature=0.2):
-    """呼叫 Anthropic API"""
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("未設定 ANTHROPIC_API_KEY")
+def call_llm_agy(prompt, temperature=0.2):
+    """使用 agy (antigravity CLI) 呼叫 LLM"""
+    try:
+        import subprocess
+        print("使用 agy (antigravity)...")
+        result = subprocess.run(
+            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
+            capture_output=True, text=True, timeout=300
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+        print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        return None
+    except FileNotFoundError:
+        print("agy not found")
+        return None
+    except Exception as e:
+        print(f"agy error: {e}")
         return None
 
+
+def call_llm_codex(prompt, temperature=0.2):
+    """使用 codex CLI 呼叫 LLM（備援）"""
     try:
-        client = anthropic.Anthropic(api_key=api_key)
-        response = client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=8000,
-            temperature=temperature,
-            system=(
-                "你是專業的日本流行音樂編輯。請用繁體中文生成 JPOP 週報的 HTML 內容。"
-                "【重要】你只能使用使用者提供的真實數據。"
-                "切勿自行編造任何連結、歌曲、新聞、或演唱會資訊。"
-                "如果某條資料沒有連結，就不要顯示連結按鈕。"
-                "Spotify 連結必須是 open.spotify.com/track/... 格式。"
-            ),
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
+        import subprocess
+        print("使用 codex CLI...")
+        result = subprocess.run(
+            ["codex", "exec", "--", prompt],
+            capture_output=True, text=True, timeout=300
         )
-        return response.content[0].text
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+        print(f"codex failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        return None
+    except FileNotFoundError:
+        print("codex not found")
+        return None
     except Exception as e:
-        print(f"Anthropic API 錯誤：{e}")
+        print(f"codex error: {e}")
         return None
 
 
 def generate_content(date_info, music_data):
-    """使用 LLM 生成內容，傳入動態數據"""
+    """使用 LLM 生成內容 — 優先 agy，備援 codex"""
     prompt = build_prompt(date_info, music_data)
 
-    # 嘗試 OpenAI
-    if HAS_OPENAI and os.environ.get("OPENAI_API_KEY"):
-        print("\n嘗試使用 OpenAI API ...")
-        content = call_openai(prompt, temperature=0.2)
-        if content:
-            return content
+    # 1) agy (antigravity CLI)
+    content = call_llm_agy(prompt)
+    if content:
+        return content
 
-    # 嘗試 Anthropic
-    if HAS_ANTHROPIC and os.environ.get("ANTHROPIC_API_KEY"):
-        print("\n嘗試使用 Anthropic API ...")
-        content = call_anthropic(prompt, temperature=0.2)
-        if content:
-            return content
+    # 2) codex CLI（備援）
+    content = call_llm_codex(prompt)
+    if content:
+        return content
 
-    print("無法使用 LLM API，請設定 OPENAI_API_KEY 或 ANTHROPIC_API_KEY")
+    print("所有 LLM 提供者皆失敗（agy → codex）")
     return None
 
 
@@ -1028,7 +964,9 @@ def main():
     print("   使用 temperature=0.2（低溫度，降低幻覺風險）")
     
     # 檢查是否有 LLM API key
-    has_llm = any(os.environ.get(k) for k in ["OPENAI_API_KEY", "ANTHROPIC_API_KEY", "OPENROUTER_API_KEY"])
+    # 檢查是否有 LLM CLI 工具
+    import shutil
+    has_llm = shutil.which("agy") is not None or shutil.which("codex") is not None
     
     if has_llm:
         print("   正在呼叫 LLM API...")

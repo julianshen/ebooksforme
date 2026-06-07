@@ -197,61 +197,41 @@ def generate_llm_content(market_data, date_str, display_date):
 請確保所有數據都是真實的，新聞有明確來源連結。
 """
 
-    # 呼叫 LLM API（直接呼叫，不使用 subprocess）
+    # 呼叫 LLM（使用 agy 為第一優先，codex 為備援）
     try:
-        # 優先使用 OpenAI
-        openai_key = os.environ.get("OPENAI_API_KEY")
-        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
-        anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
-        
-        # 嘗試 OpenAI
-        if openai_key:
-            try:
-                import openai
-                print("使用 OpenAI API...")
-                client = openai.OpenAI(api_key=openai_key, timeout=120)
-                response = client.chat.completions.create(
-                    model="gpt-4o",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.7,
-                    max_tokens=8000
-                )
-                return response.choices[0].message.content
-            except Exception as e:
-                print(f"OpenAI failed: {e}")
-        
-        # 嘗試 Anthropic
-        if anthropic_key:
-            try:
-                import anthropic
-                print("使用 Anthropic API...")
-                client = anthropic.Anthropic(api_key=anthropic_key)
-                response = client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=8000,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                return response.content[0].text
-            except Exception as e:
-                print(f"Anthropic failed: {e}")
-        
-        # 嘗試 OpenRouter
-        if openrouter_key:
-            try:
-                import openai as openai_sdk
-                print("使用 OpenRouter API...")
-                client = openai_sdk.OpenAI(api_key=openrouter_key, base_url="https://openrouter.ai/api/v1", timeout=120)
-                response = client.chat.completions.create(
-                    model="openai/gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.7,
-                    max_tokens=8000
-                )
-                return response.choices[0].message.content
-            except Exception as e:
-                print(f"OpenRouter failed: {e}")
-        
-        print("All LLM providers failed: no API key available")
+        # 1) agy (antigravity CLI)
+        try:
+            print("使用 agy (antigravity)...")
+            import subprocess
+            result = subprocess.run(
+                ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
+                capture_output=True, text=True, timeout=300
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+            print(f"agy failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        except FileNotFoundError:
+            print("agy not found")
+        except Exception as e:
+            print(f"agy error: {e}")
+
+        # 2) codex CLI（備援）
+        try:
+            print("使用 codex CLI...")
+            import subprocess
+            result = subprocess.run(
+                ["codex", "exec", "--", prompt],
+                capture_output=True, text=True, timeout=300
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+            print(f"codex failed: {result.stderr[:200] if result.stderr else 'no output'}")
+        except FileNotFoundError:
+            print("codex not found")
+        except Exception as e:
+            print(f"codex error: {e}")
+
+        print("All LLM providers failed")
         return None
     except Exception as e:
         print(f"Error generating LLM content: {e}")
