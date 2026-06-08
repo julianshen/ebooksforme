@@ -121,12 +121,18 @@ TEAMS = {
 }
 
 TEAM_ALT_TO_KEY = {
-    "読売ジャイアンツ": "giants", "阪神タイガース": "tigers",
-    "広島東洋カープ": "carp", "横浜DeNAベイスターズ": "baystars",
-    "東京ヤクルトスワローズ": "swallows", "中日ドラゴンズ": "dragons",
-    "福岡ソフトバンクホークス": "hawks", "北海道日本ハムファイターズ": "fighters",
-    "東北楽天ゴールデンイーグルス": "eagles", "埼玉西武ライオンズ": "lions",
-    "オリックス・バファローズ": "buffaloes", "千葉ロッテマリーンズ": "marines",
+    "読売ジャイアンツ": "giants", "巨人": "giants",
+    "阪神タイガース": "tigers", "阪神": "tigers",
+    "広島東洋カープ": "carp", "広島": "carp",
+    "横浜DeNAベイスターズ": "baystars", "DeNA": "baystars", "横浜": "baystars",
+    "東京ヤクルトスワローズ": "swallows", "ヤクルト": "swallows",
+    "中日ドラゴンズ": "dragons", "中日": "dragons",
+    "福岡ソフトバンクホークス": "hawks", "ソフトバンク": "hawks",
+    "北海道日本ハムファイターズ": "fighters", "日本ハム": "fighters",
+    "東北楽天ゴールデンイーグルス": "eagles", "楽天": "eagles",
+    "埼玉西武ライオンズ": "lions", "西武": "lions",
+    "オリックス・バファローズ": "buffaloes", "オリックス": "buffaloes",
+    "千葉ロッテマリーンズ": "marines", "ロッテ": "marines",
 }
 
 LOGO_CODE_TO_KEY = {
@@ -660,55 +666,72 @@ def fetch_hochi_news() -> list:
 
 
 def fetch_sportsbull_news() -> list:
-    """Sports Bull - 野球新聞"""
-    url = "https://sportsbull.jp/"
+    """Sports Bull - 野球新聞
+    從 category/baseball/ 頁面抓取，該站使用 Next.js 渲染，
+    文章 URL 在 script 的 JSON-LD 中，標題需要逐篇抓取
+    """
+    url = "https://sportsbull.jp/category/baseball/"
     soup = fetch_soup(url)
     if soup is None:
         return []
     news = []
-    # Sports Bull 首頁主要是賽程表，新聞在 /p/ 或 /article/ 路徑
-    for a in soup.find_all("a", href=True):
-        text = a.get_text(strip=True)
-        href = a.get("href") or ""
-        if len(text) > 15 and ("/p/" in href or "/article/" in href):
-            full_url = f"https://sportsbull.jp{href}" if href.startswith("/") else href
-            news.append({"title": text, "url": full_url, "source": "Sports Bull", "date": "", "summary": ""})
-        if len(news) >= NEWS_MAX_PER_SOURCE:
-            break
+    # 從 script 的 JSON-LD 提取文章 URL
+    article_urls = []
+    for script in soup.find_all("script", type="application/ld+json"):
+        text = script.get_text()
+        if "sportsbull.jp/p/" in text:
+            urls = re.findall(r"https://sportsbull\.jp/p/\d+/", text)
+            article_urls.extend(urls)
+    # 去重並限制數量
+    article_urls = list(dict.fromkeys(article_urls))[:NEWS_MAX_PER_SOURCE]
+    # 逐篇抓取標題
+    for article_url in article_urls:
+        try:
+            r = requests.get(article_url, timeout=10, headers=_HEADERS)
+            r.raise_for_status()
+            article_soup = BeautifulSoup(r.text, "html.parser")
+            title_tag = article_soup.find("title")
+            if title_tag:
+                title = title_tag.get_text().split("|")[0].strip()
+                if title and len(title) > 5:
+                    news.append({"title": title, "url": article_url, "source": "Sports Bull", "date": "", "summary": ""})
+        except Exception as e:
+            logger.debug("Sports Bull 文章抓取失敗 %s: %s", article_url, e)
     logger.info("Sports Bull: %d 則", len(news))
     return news
 
 
 def fetch_baseballking_news() -> list:
-    """Baseball King"""
+    """Baseball King
+    從首頁抓取，過濾出 NPB 相關新聞（排除 MLB、球團頁、tag 頁等）
+    """
     url = "https://baseballking.jp/"
     soup = fetch_soup(url)
     if soup is None:
         return []
     news = []
-    for item in soup.select("article.post, div.post, li.post")[:NEWS_MAX_PER_SOURCE]:
-        a = item.find("a")
-        if not a:
-            continue
-        title_el = item.select_one("h2, h3, .entry-title, .post-title")
-        title = title_el.get_text(strip=True) if title_el else a.get_text(strip=True)
-        href = a.get("href", "")
-        if not href.startswith("http"):
-            href = f"https://baseballking.jp{href}" if href.startswith("/") else href
-        date_el = item.select_one("time, span.date, .post-date")
-        date_str = date_el.get_text(strip=True) if date_el else ""
-        summary_el = item.select_one("p.summary, .entry-summary, p")
-        summary = summary_el.get_text(strip=True) if summary_el else ""
-        if title and len(title) > 5:
-            news.append({"title": title, "url": href, "source": "Baseball King", "date": date_str, "summary": summary[:300]})
-    if not news:
-        for item in soup.select("a[href*='/npb/']")[:NEWS_MAX_PER_SOURCE]:
-            title = item.get_text(strip=True)
-            href = item.get("href", "")
-            if not href.startswith("http"):
-                href = f"https://baseballking.jp{href}" if href.startswith("/") else href
-            if title and len(title) > 5 and title not in [n["title"] for n in news]:
-                news.append({"title": title, "url": href, "source": "Baseball King", "date": "", "summary": ""})
+    seen = set()
+    for a in soup.find_all("a", href=True):
+        href = a.get("href") or ""
+        text = a.get_text(strip=True)
+        # 只抓 /ns/ 路徑的新聞文章，排除其他頁面
+        if "/ns/" in href and len(text) > 15:
+            # 排除 MLB 和重複
+            if "MLB" in text[:10]:
+                continue
+            if text in seen:
+                continue
+            seen.add(text)
+            full_url = f"https://baseballking.jp{href}" if href.startswith("/") else href
+            # 嘗試找時間
+            parent = a.find_parent(["article", "div", "li"])
+            date_str = ""
+            if parent:
+                date_el = parent.select_one("time, span.date, .post-date")
+                date_str = date_el.get_text(strip=True) if date_el else ""
+            news.append({"title": text, "url": full_url, "source": "Baseball King", "date": date_str, "summary": ""})
+        if len(news) >= NEWS_MAX_PER_SOURCE:
+            break
     logger.info("Baseball King: %d 則", len(news))
     return news
 
