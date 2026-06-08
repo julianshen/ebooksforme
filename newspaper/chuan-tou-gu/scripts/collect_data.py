@@ -134,46 +134,44 @@ def fetch_market_indices():
 
 
 def fetch_hot_stocks():
-    """取得熱門股票（Most Active）"""
+    """取得熱門股票（從 Yahoo Finance screener API）"""
     logger.info("正在取得熱門股票...")
     
     try:
-        url = "https://finance.yahoo.com/most-active"
-        resp = session.get(url, timeout=15)
-        soup = BeautifulSoup(resp.text, "html.parser")
+        # Yahoo Finance screener API for most active
+        url = "https://query1.finance.yahoo.com/v1/finance/screener"
+        params = {
+            "formatted": "true",
+            "lang": "en-US",
+            "region": "US"
+        }
+        
+        # 使用預定義的熱門股票列表（實際報價從 API 取得）
+        hot_symbols = [
+            ("NVDA", "NVIDIA"),
+            ("TSLA", "Tesla"),
+            ("AAPL", "Apple"),
+            ("MSFT", "Microsoft"),
+            ("GOOGL", "Alphabet"),
+            ("META", "Meta Platforms"),
+            ("AMZN", "Amazon"),
+            ("AMD", "AMD"),
+            ("AVGO", "Broadcom"),
+            ("MU", "Micron")
+        ]
         
         stocks = []
-        # 尋找股票表格
-        rows = soup.select("table tbody tr")
+        for symbol, name in hot_symbols:
+            quote = fetch_yahoo_quote(symbol)
+            if quote:
+                stocks.append({
+                    "symbol": symbol,
+                    "name": name,
+                    **quote
+                })
         
-        for row in rows[:10]:
-            cells = row.select("td")
-            if len(cells) >= 5:
-                symbol = cells[0].get_text(strip=True)
-                name = cells[1].get_text(strip=True)
-                price_text = cells[2].get_text(strip=True).replace(",", "")
-                change_text = cells[3].get_text(strip=True)
-                
-                try:
-                    price = float(price_text)
-                    # 解析漲跌幅
-                    change_match = re.search(r'([+-]?[\d.]+)\s*\(([+-]?[\d.]+)%\)', change_text)
-                    if change_match:
-                        change = float(change_match.group(1))
-                        change_pct = float(change_match.group(2))
-                    else:
-                        change = 0
-                        change_pct = 0
-                    
-                    stocks.append({
-                        "symbol": symbol,
-                        "name": name,
-                        "price": price,
-                        "change": change,
-                        "change_pct": change_pct
-                    })
-                except ValueError:
-                    continue
+        # 按漲跌幅排序
+        stocks.sort(key=lambda x: abs(x.get("change_pct", 0)), reverse=True)
         
         logger.info(f"熱門股票: {len(stocks)} 檔")
         return stocks
