@@ -427,7 +427,7 @@ def generate_html(data: dict, cover_file: str) -> str:
                 logo_url = tinfo.get("logo", "")
                 items_html = ""
                 for article in articles[:3]:
-                    title = article.get("title", "")
+                    title = article.get("title_zh", article.get("title", ""))
                     source = article.get("source", "")
                     link = article.get("link", "")
                     if link:
@@ -1220,7 +1220,24 @@ def main():
         print(f"[警告] 封面圖不存在: {cover_src}")
         cover_file = None
 
-    # 5. 生成 HTML
+    # 5. 翻譯球隊新聞（每隊前3則）
+    print("翻譯球隊新聞...")
+    team_news = data.get("team_news", {})
+    if team_news and has_llm():
+        for tk, articles in team_news.items():
+            if articles:
+                # 每隊只翻譯前3則
+                to_translate = articles[:3]
+                translated = translate_news_batch(to_translate)
+                team_news[tk] = translated
+        data["team_news"] = team_news
+    elif team_news:
+        # LLM 不可用，使用原文
+        for tk, articles in team_news.items():
+            for article in articles:
+                article["title_zh"] = article.get("title", "")
+
+    # 6. 生成 HTML
     print("生成電子報 HTML...")
     html_content = generate_html(data, cover_file if cover_file else "")
 
