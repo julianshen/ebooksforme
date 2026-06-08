@@ -835,18 +835,39 @@ def main():
 
     # 儲存
     date_info = data["date_info"]
-    output_path = OUTPUT_DIR / date_info["date_str"] / "index.html"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    date_dir = OUTPUT_DIR / date_info["date_str"]
+    output_path = date_dir / "index.html"
+    date_dir.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
 
     print(f"已生成: {output_path}")
 
+    # 複製封面圖片到日期目錄
+    covers_dir = BASE_DIR / "covers"
+    images_dir = date_dir / "images"
+    images_dir.mkdir(exist_ok=True)
+    for i in range(1, 6):
+        src = covers_dir / f"cover-{i}.png"
+        dst = images_dir / f"cover-{i}.png"
+        if src.exists():
+            import shutil
+            shutil.copy2(src, dst)
+
     # 同時儲存到最新版本
     latest_path = OUTPUT_DIR / "latest.html"
     with open(latest_path, "w", encoding="utf-8") as f:
         f.write(html)
+
+    # 複製封面到 latest 所在目錄（相對路徑需要）
+    latest_images_dir = OUTPUT_DIR / "images"
+    latest_images_dir.mkdir(exist_ok=True)
+    for i in range(1, 6):
+        src = covers_dir / f"cover-{i}.png"
+        dst = latest_images_dir / f"cover-{i}.png"
+        if src.exists():
+            shutil.copy2(src, dst)
 
     print(f"已更新: {latest_path}")
 
