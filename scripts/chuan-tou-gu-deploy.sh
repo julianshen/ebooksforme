@@ -33,7 +33,7 @@ python3 "$GENERATE_SCRIPT"
 echo ""
 echo "[2/4] 複製到 GitHub repo..."
 mkdir -p "$REPO_DIR/newspaper/chuan-tou-gu/$DATE_STR"
-cp /tmp/chuan-tou-gu-output/$DATE_STR/index.html "$REPO_DIR/newspaper/chuan-tou-gu/$DATE_STR/"
+cp /home/julianshen/projects/ebooksforme/newspaper/chuan-tou-gu-output/$DATE_STR/index.html "$REPO_DIR/newspaper/chuan-tou-gu/$DATE_STR/"
 
 # 3. Git 提交
 echo ""

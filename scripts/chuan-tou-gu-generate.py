@@ -726,7 +726,7 @@ def main():
     print(f"已儲存：{output_path}")
     
     # 同時儲存到 /tmp/chuan-tou-gu-output 供部署腳本使用
-    tmp_output = Path("/tmp/chuan-tou-gu-output") / date_info['date_str'] / "index.html"
+    tmp_output = Path("/home/julianshen/projects/ebooksforme/newspaper/chuan-tou-gu-output") / date_info['date_str'] / "index.html"
     tmp_output.parent.mkdir(parents=True, exist_ok=True)
     with open(tmp_output, "w", encoding="utf-8") as f:
         f.write(html)
