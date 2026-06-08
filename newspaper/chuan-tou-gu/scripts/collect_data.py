@@ -2,7 +2,7 @@
 """
 川投顧日報 - 數據收集腳本
 純爬蟲，不使用 LLM
-資料來源：Yahoo Finance, Finnhub, RSS 新聞
+資料來源：Yahoo Finance, RSS 新聞, 財報日曆
 """
 
 import json
@@ -66,7 +66,7 @@ def get_date_info():
 
 
 def fetch_yahoo_quote(symbol):
-    """從 Yahoo Finance 取得報價"""
+    """從 Yahoo Finance v8 API 取得報價"""
     try:
         url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
         params = {
@@ -91,7 +91,7 @@ def fetch_yahoo_quote(symbol):
             return None
         
         latest_close = valid_data[-1][1]
-        prev_close = meta.get("previousClose", valid_data[-2][1] if len(valid_data) > 1 else latest_close)
+        prev_close = meta.get("chartPreviousClose", valid_data[-2][1] if len(valid_data) > 1 else latest_close)
         
         change = latest_close - prev_close
         change_pct = (change / prev_close * 100) if prev_close else 0
@@ -116,7 +116,8 @@ def fetch_market_indices():
         "^DJI": {"name": "道瓊工業", "symbol": "DJI"},
         "^IXIC": {"name": "納斯達克", "symbol": "IXIC"},
         "^VIX": {"name": "VIX 恐慌指數", "symbol": "VIX"},
-        "^TNX": {"name": "10年期公債殖利率", "symbol": "TNX"}
+        "^TNX": {"name": "10年期公債殖利率", "symbol": "TNX"},
+        "^RUT": {"name": "羅素2000", "symbol": "RUT"}
     }
     
     results = []
@@ -134,50 +135,39 @@ def fetch_market_indices():
 
 
 def fetch_hot_stocks():
-    """取得熱門股票（從 Yahoo Finance screener API）"""
+    """取得熱門股票報價"""
     logger.info("正在取得熱門股票...")
     
-    try:
-        # Yahoo Finance screener API for most active
-        url = "https://query1.finance.yahoo.com/v1/finance/screener"
-        params = {
-            "formatted": "true",
-            "lang": "en-US",
-            "region": "US"
-        }
-        
-        # 使用預定義的熱門股票列表（實際報價從 API 取得）
-        hot_symbols = [
-            ("NVDA", "NVIDIA"),
-            ("TSLA", "Tesla"),
-            ("AAPL", "Apple"),
-            ("MSFT", "Microsoft"),
-            ("GOOGL", "Alphabet"),
-            ("META", "Meta Platforms"),
-            ("AMZN", "Amazon"),
-            ("AMD", "AMD"),
-            ("AVGO", "Broadcom"),
-            ("MU", "Micron")
-        ]
-        
-        stocks = []
-        for symbol, name in hot_symbols:
-            quote = fetch_yahoo_quote(symbol)
-            if quote:
-                stocks.append({
-                    "symbol": symbol,
-                    "name": name,
-                    **quote
-                })
-        
-        # 按漲跌幅排序
-        stocks.sort(key=lambda x: abs(x.get("change_pct", 0)), reverse=True)
-        
-        logger.info(f"熱門股票: {len(stocks)} 檔")
-        return stocks
-    except Exception as e:
-        logger.warning(f"熱門股票取得失敗: {e}")
-        return []
+    hot_symbols = [
+        ("NVDA", "NVIDIA"),
+        ("TSLA", "Tesla"),
+        ("AAPL", "Apple"),
+        ("MSFT", "Microsoft"),
+        ("GOOGL", "Alphabet"),
+        ("META", "Meta Platforms"),
+        ("AMZN", "Amazon"),
+        ("AMD", "AMD"),
+        ("AVGO", "Broadcom"),
+        ("MU", "Micron"),
+        ("PLTR", "Palantir"),
+        ("DJT", "Trump Media & Technology")
+    ]
+    
+    stocks = []
+    for symbol, name in hot_symbols:
+        quote = fetch_yahoo_quote(symbol)
+        if quote:
+            stocks.append({
+                "symbol": symbol,
+                "name": name,
+                **quote
+            })
+    
+    # 按漲跌幅絕對值排序
+    stocks.sort(key=lambda x: abs(x.get("change_pct", 0)), reverse=True)
+    
+    logger.info(f"熱門股票: {len(stocks)} 檔")
+    return stocks
 
 
 def fetch_sector_performance():
@@ -214,51 +204,42 @@ def fetch_sector_performance():
     return results
 
 
-def fetch_yahoo_news():
-    """從 Yahoo Finance 取得財經新聞"""
-    logger.info("正在取得 Yahoo Finance 新聞...")
+def fetch_yahoo_rss_news():
+    """從 Yahoo Finance RSS 取得新聞"""
+    logger.info("正在取得 Yahoo Finance RSS 新聞...")
     
     try:
-        url = "https://finance.yahoo.com/news/"
+        url = "https://finance.yahoo.com/rss/topstories"
         resp = session.get(url, timeout=15)
-        soup = BeautifulSoup(resp.text, "html.parser")
+        soup = BeautifulSoup(resp.text, "xml")
         
         articles = []
+        for item in soup.find_all("item"):
+            title = item.find("title")
+            link = item.find("link")
+            pub_date = item.find("pubDate")
+            source = item.find("source")
+            
+            if title and link:
+                title_text = title.get_text(strip=True)
+                # 過濾掉導航連結
+                if title_text in ["Today's news", "Newsletters", "Financial News"]:
+                    continue
+                if len(title_text) < 15:
+                    continue
+                    
+                articles.append({
+                    "title": title_text,
+                    "url": link.get_text(strip=True),
+                    "source": source.get_text(strip=True) if source else "Yahoo Finance",
+                    "published": pub_date.get_text(strip=True) if pub_date else "",
+                    "has_description": False
+                })
         
-        # 尋找新聞連結
-        for item in soup.select("a[href*='/news/']"):
-            href = item.get("href", "")
-            title = item.get_text(strip=True)
-            
-            if not title or len(title) < 10:
-                continue
-            
-            # 過濾掉非新聞連結
-            if "/news/" not in href:
-                continue
-            
-            # 補全 URL
-            if href.startswith("/"):
-                href = f"https://finance.yahoo.com{href}"
-            
-            articles.append({
-                "title": title,
-                "url": href,
-                "source": "Yahoo Finance"
-            })
-        
-        # 去重
-        seen = set()
-        unique = []
-        for a in articles:
-            if a["title"] not in seen:
-                seen.add(a["title"])
-                unique.append(a)
-        
-        logger.info(f"Yahoo Finance 新聞: {len(unique[:15])} 則")
-        return unique[:15]
+        logger.info(f"Yahoo Finance RSS 新聞: {len(articles)} 則")
+        return articles
     except Exception as e:
-        logger.warning(f"Yahoo Finance 新聞失敗: {e}")
+        logger.warning(f"Yahoo Finance RSS 失敗: {e}")
         return []
 
 
@@ -275,27 +256,32 @@ def fetch_cnbc_news():
         for item in soup.find_all("item"):
             title = item.find("title")
             link = item.find("link")
+            desc = item.find("description")
+            pub_date = item.find("pubDate")
             
             if title and link:
                 articles.append({
                     "title": title.get_text(strip=True),
                     "url": link.get_text(strip=True),
-                    "source": "CNBC"
+                    "description": desc.get_text(strip=True) if desc else "",
+                    "source": "CNBC",
+                    "published": pub_date.get_text(strip=True) if pub_date else "",
+                    "has_description": bool(desc and desc.get_text(strip=True))
                 })
         
-        logger.info(f"CNBC 新聞: {len(articles[:10])} 則")
-        return articles[:10]
+        logger.info(f"CNBC 新聞: {len(articles)} 則")
+        return articles
     except Exception as e:
         logger.warning(f"CNBC 新聞失敗: {e}")
         return []
 
 
-def fetch_bloomberg_news():
-    """從 Bloomberg RSS 取得新聞"""
-    logger.info("正在取得 Bloomberg 新聞...")
+def fetch_marketwatch_news():
+    """從 MarketWatch RSS 取得新聞"""
+    logger.info("正在取得 MarketWatch 新聞...")
     
     try:
-        url = "https://feeds.bloomberg.com/markets/news.rss"
+        url = "https://www.marketwatch.com/rss/topstories"
         resp = session.get(url, timeout=15)
         soup = BeautifulSoup(resp.text, "xml")
         
@@ -303,27 +289,97 @@ def fetch_bloomberg_news():
         for item in soup.find_all("item"):
             title = item.find("title")
             link = item.find("link")
+            desc = item.find("description")
+            pub_date = item.find("pubDate")
             
             if title and link:
                 articles.append({
                     "title": title.get_text(strip=True),
                     "url": link.get_text(strip=True),
-                    "source": "Bloomberg"
+                    "description": desc.get_text(strip=True) if desc else "",
+                    "source": "MarketWatch",
+                    "published": pub_date.get_text(strip=True) if pub_date else "",
+                    "has_description": bool(desc and desc.get_text(strip=True))
                 })
         
-        logger.info(f"Bloomberg 新聞: {len(articles[:10])} 則")
-        return articles[:10]
+        logger.info(f"MarketWatch 新聞: {len(articles)} 則")
+        return articles
     except Exception as e:
-        logger.warning(f"Bloomberg 新聞失敗: {e}")
+        logger.warning(f"MarketWatch 新聞失敗: {e}")
+        return []
+
+
+def fetch_wsj_news():
+    """從 WSJ RSS 取得新聞"""
+    logger.info("正在取得 WSJ 新聞...")
+    
+    try:
+        url = "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+        resp = session.get(url, timeout=15)
+        soup = BeautifulSoup(resp.text, "xml")
+        
+        articles = []
+        for item in soup.find_all("item"):
+            title = item.find("title")
+            link = item.find("link")
+            desc = item.find("description")
+            pub_date = item.find("pubDate")
+            
+            if title and link:
+                articles.append({
+                    "title": title.get_text(strip=True),
+                    "url": link.get_text(strip=True),
+                    "description": desc.get_text(strip=True) if desc else "",
+                    "source": "WSJ",
+                    "published": pub_date.get_text(strip=True) if pub_date else "",
+                    "has_description": bool(desc and desc.get_text(strip=True))
+                })
+        
+        logger.info(f"WSJ 新聞: {len(articles)} 則")
+        return articles
+    except Exception as e:
+        logger.warning(f"WSJ 新聞失敗: {e}")
+        return []
+
+
+def fetch_ft_news():
+    """從 Financial Times RSS 取得新聞"""
+    logger.info("正在取得 FT 新聞...")
+    
+    try:
+        url = "https://www.ft.com/?format=rss"
+        resp = session.get(url, timeout=15)
+        soup = BeautifulSoup(resp.text, "xml")
+        
+        articles = []
+        for item in soup.find_all("item"):
+            title = item.find("title")
+            link = item.find("link")
+            desc = item.find("description")
+            pub_date = item.find("pubDate")
+            
+            if title and link:
+                articles.append({
+                    "title": title.get_text(strip=True),
+                    "url": link.get_text(strip=True),
+                    "description": desc.get_text(strip=True) if desc else "",
+                    "source": "Financial Times",
+                    "published": pub_date.get_text(strip=True) if pub_date else "",
+                    "has_description": bool(desc and desc.get_text(strip=True))
+                })
+        
+        logger.info(f"FT 新聞: {len(articles)} 則")
+        return articles
+    except Exception as e:
+        logger.warning(f"FT 新聞失敗: {e}")
         return []
 
 
 def fetch_earnings():
-    """取得今日財報日曆（簡化版）"""
+    """取得今日財報日曆"""
     logger.info("正在取得財報日曆...")
     
     try:
-        # Yahoo Finance earnings calendar
         today = datetime.now().strftime("%Y-%m-%d")
         url = f"https://finance.yahoo.com/calendar/earnings?day={today}"
         resp = session.get(url, timeout=15)
@@ -332,24 +388,58 @@ def fetch_earnings():
         earnings = []
         rows = soup.select("table tbody tr")
         
-        for row in rows[:15]:
+        for row in rows[:20]:
             cells = row.select("td")
-            if len(cells) >= 4:
+            if len(cells) >= 6:
                 symbol = cells[0].get_text(strip=True)
                 name = cells[1].get_text(strip=True)
-                eps_est = cells[2].get_text(strip=True) if len(cells) > 2 else "-"
+                event_name = cells[2].get_text(strip=True) if len(cells) > 2 else ""
+                call_time = cells[3].get_text(strip=True) if len(cells) > 3 else ""
+                eps_est = cells[4].get_text(strip=True) if len(cells) > 4 else "-"
+                reported = cells[5].get_text(strip=True) if len(cells) > 5 else "-"
+                surprise = cells[6].get_text(strip=True) if len(cells) > 6 else "-"
                 
-                earnings.append({
-                    "symbol": symbol,
-                    "name": name,
-                    "eps_estimate": eps_est
-                })
+                # 只保留有 EPS 預估或已公布 EPS 的
+                if eps_est != "-" or reported != "-":
+                    earnings.append({
+                        "symbol": symbol,
+                        "name": name,
+                        "event": event_name,
+                        "call_time": call_time,
+                        "eps_estimate": eps_est if eps_est != "-" else None,
+                        "reported_eps": reported if reported != "-" else None,
+                        "surprise_pct": surprise if surprise != "-" else None
+                    })
         
         logger.info(f"財報: {len(earnings)} 檔")
         return earnings
     except Exception as e:
         logger.warning(f"財報取得失敗: {e}")
         return []
+
+
+def fetch_futures():
+    """取得美股期貨數據"""
+    logger.info("正在取得美股期貨...")
+    
+    futures = {
+        "ES=F": {"name": "S&P 500 期貨", "symbol": "ES"},
+        "NQ=F": {"name": "納斯達克期貨", "symbol": "NQ"},
+        "YM=F": {"name": "道瓊期貨", "symbol": "YM"}
+    }
+    
+    results = []
+    for symbol, info in futures.items():
+        quote = fetch_yahoo_quote(symbol)
+        if quote:
+            results.append({
+                "name": info["name"],
+                "symbol": info["symbol"],
+                **quote
+            })
+    
+    logger.info(f"期貨: {len(results)} 個")
+    return results
 
 
 def main():
@@ -363,11 +453,14 @@ def main():
         "hot_stocks": fetch_hot_stocks(),
         "sector_performance": fetch_sector_performance(),
         "news": {
-            "yahoo": fetch_yahoo_news(),
+            "yahoo": fetch_yahoo_rss_news(),
             "cnbc": fetch_cnbc_news(),
-            "bloomberg": fetch_bloomberg_news()
+            "marketwatch": fetch_marketwatch_news(),
+            "wsj": fetch_wsj_news(),
+            "ft": fetch_ft_news()
         },
-        "earnings": fetch_earnings()
+        "earnings": fetch_earnings(),
+        "futures": fetch_futures()
     }
     
     # 儲存 JSON
@@ -378,13 +471,14 @@ def main():
     logger.info(f"數據已儲存: {output_path}")
     
     # 統計
-    total_news = len(data["news"]["yahoo"]) + len(data["news"]["cnbc"]) + len(data["news"]["bloomberg"])
+    total_news = sum(len(v) for v in data["news"].values())
     logger.info(f"=== 完成 ===")
     logger.info(f"  大盤指數: {len(data['market_indices'])} 個")
     logger.info(f"  熱門股票: {len(data['hot_stocks'])} 檔")
     logger.info(f"  板塊表現: {len(data['sector_performance'])} 個")
     logger.info(f"  新聞合計: {total_news} 則")
     logger.info(f"  財報: {len(data['earnings'])} 檔")
+    logger.info(f"  期貨: {len(data['futures'])} 個")
     
     return output_path
 

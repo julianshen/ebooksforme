@@ -7,7 +7,9 @@
 import json
 import os
 import random
+import subprocess
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -25,67 +27,201 @@ def load_data(date_str):
         return json.load(f)
 
 
-def translate_news_with_llm(news_list, max_items=8):
-    """用 LLM 翻譯新聞標題為繁體中文"""
+def call_llm_translate_news(news_list, max_items=10):
+    """使用 agy CLI 翻譯新聞為繁體中文"""
     if not news_list:
         return []
-    
-    # 簡易翻譯：保留原文，加上 LLM 風格的翻譯註解
-    # 實際執行時由外部 LLM 處理
-    translated = []
-    for item in news_list[:max_items]:
-        translated.append({
+
+    # 準備要翻譯的內容
+    items_to_translate = news_list[:max_items]
+
+    # 構建 prompt
+    news_text = "\n\n".join([
+        f"[{i+1}] 來源: {item['source']}\n標題: {item['title']}\n"
+        f"摘要: {item.get('description', '')}"[:300]
+        for i, item in enumerate(items_to_translate)
+    ])
+
+    prompt = f"""你是一位專業財經新聞編輯。請將以下英文財經新聞翻譯成繁體中文。
+
+要求：
+1. 標題要簡潔有力，符合台灣新聞風格
+2. 摘要要翻譯成流暢的繁體中文（100字以內）
+3. 保留原文連結和來源
+4. 人名、公司名、股票代號保持原文
+5. 數字、百分比、金額保持不變
+6. 輸出格式必須是 JSON 陣列
+
+新聞內容：
+{news_text}
+
+請輸出以下格式的 JSON（只輸出 JSON，不要其他文字）：
+[
+  {{
+    "title_zh": "中文標題",
+    "summary_zh": "中文摘要",
+    "title_en": "原文標題",
+    "url": "原文連結",
+    "source": "來源"
+  }}
+]
+"""
+
+    try:
+        # 使用 agy CLI
+        result = subprocess.run(
+            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)"],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=120
+        )
+
+        if result.returncode != 0:
+            print(f"LLM 翻譯失敗: {result.stderr}")
+            return fallback_news(items_to_translate)
+
+        # 解析 JSON
+        output = result.stdout.strip()
+        # 尋找 JSON 部分
+        json_start = output.find("[")
+        json_end = output.rfind("]")
+        if json_start >= 0 and json_end > json_start:
+            json_str = output[json_start:json_end+1]
+            translated = json.loads(json_str)
+            return translated
+        else:
+            print("LLM 輸出無法解析為 JSON")
+            return fallback_news(items_to_translate)
+
+    except subprocess.TimeoutExpired:
+        print("LLM 翻譯超時")
+        return fallback_news(items_to_translate)
+    except Exception as e:
+        print(f"LLM 翻譯錯誤: {e}")
+        return fallback_news(items_to_translate)
+
+
+def fallback_news(news_list):
+    """當 LLM 失敗時，回傳原文"""
+    return [
+        {
+            "title_zh": item["title"],
+            "summary_zh": item.get("description", "")[:200] or "（無摘要）",
             "title_en": item["title"],
-            "title_zh": item["title"],  # 待 LLM 翻譯
             "url": item["url"],
             "source": item["source"]
-        })
-    return translated
+        }
+        for item in news_list
+    ]
 
 
-def generate_trump_analysis(indices, sectors, hot_stocks):
-    """生成川普風格分析（由 LLM 填充）"""
-    # 這個函數會被 LLM 調用來生成內容
-    return {
-        "market_overview": "<!-- LLM: 生成川普風格市場總評 -->",
-        "hot_picks": "<!-- LLM: 生成熱門股推薦 -->",
-        "sector_commentary": "<!-- LLM: 生成板塊評論 -->"
-    }
+def call_llm_daily_analysis(market_data):
+    """使用 agy CLI 生成每日市場分析"""
+    indices = market_data.get("market_indices", [])
+    sectors = market_data.get("sector_performance", [])
+    hot_stocks = market_data.get("hot_stocks", [])
+
+    # 構建市場數據摘要
+    indices_text = "\n".join([
+        f"- {i['name']} ({i['symbol']}): {i['price']} ({i['change_pct']}%)"
+        for i in indices
+    ])
+
+    sectors_text = "\n".join([
+        f"- {s['name']}: {s['change_pct']}%"
+        for s in sectors[:5]
+    ])
+
+    stocks_text = "\n".join([
+        f"- {s['symbol']} ({s['name']}): ${s['price']} ({s['change_pct']}%)"
+        for s in hot_stocks[:5]
+    ])
+
+    prompt = f"""你是一位以川普說話風格聞名的投資顧問「川投顧」。請根據以下市場數據生成一段每日市場分析。
+
+## 市場數據
+
+### 大盤指數
+{indices_text}
+
+### 領漲/領跌板塊
+{sectors_text}
+
+### 熱門股票
+{stocks_text}
+
+## 要求
+
+1. 用繁體中文撰寫
+2. 語氣模仿川普：使用「偉大」、「沒有人見過」、「相信我」、「他們錯了」、「讓美國再次偉大」等詞彙
+3. 分析要基於真實數據，不能編造
+4. 長度約 200-300 字
+5. 包含對大盤的點評、對熱門股的看法、以及對投資人的建議
+6. 語氣要幽默但分析要專業
+
+請直接輸出分析文字，不要有任何格式標記。
+"""
+
+    try:
+        result = subprocess.run(
+            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)"],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=120
+        )
+
+        if result.returncode != 0:
+            print(f"LLM 分析失敗: {result.stderr}")
+            return fallback_analysis()
+
+        analysis = result.stdout.strip()
+        # 移除可能的引號或格式標記
+        analysis = analysis.strip('"').strip("'")
+        return analysis
+
+    except subprocess.TimeoutExpired:
+        print("LLM 分析超時")
+        return fallback_analysis()
+    except Exception as e:
+        print(f"LLM 分析錯誤: {e}")
+        return fallback_analysis()
+
+
+def fallback_analysis():
+    """當 LLM 失敗時的回退分析"""
+    return "今日市場波動較大，投資人應保持冷靜，關注基本面良好的優質股票。記住：低買高賣是永恆的真理。"
 
 
 def get_trend_emoji(change_pct):
     """取得趨勢表情"""
-    if change_pct > 2:
+    if change_pct > 3:
         return "🚀"
-    elif change_pct > 0.5:
+    elif change_pct > 1:
         return "📈"
     elif change_pct > 0:
         return "🟢"
-    elif change_pct > -0.5:
+    elif change_pct > -1:
         return "🔴"
-    elif change_pct > -2:
+    elif change_pct > -3:
         return "📉"
     else:
         return "💥"
 
 
-def generate_html(data):
+def generate_html(data, translated_news, daily_analysis):
     """生成 HTML 日報"""
     date_info = data["date_info"]
     indices = data.get("market_indices", [])
     hot_stocks = data.get("hot_stocks", [])
     sectors = data.get("sector_performance", [])
-    news = data.get("news", {})
     earnings = data.get("earnings", [])
-    
-    # 合併所有新聞
-    all_news = []
-    for source, items in news.items():
-        all_news.extend(items)
-    
+    futures = data.get("futures", [])
+
     # 隨機選封面
     cover_num = random.randint(1, 5)
-    
+
     html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -109,16 +245,16 @@ def generate_html(data):
             --border: #2a2a3a;
             --border-hover: #3a3a50;
         }}
-        
+
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        
+
         body {{
             font-family: 'Noto Sans TC', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
         }}
-        
+
         /* 封面 */
         .cover {{
             position: relative;
@@ -131,7 +267,7 @@ def generate_html(data):
             text-align: center;
             overflow: hidden;
         }}
-        
+
         .cover::before {{
             content: '';
             position: absolute;
@@ -139,12 +275,12 @@ def generate_html(data):
             background: url('images/cover-{cover_num}.png') center/cover;
             opacity: 0.4;
         }}
-        
+
         .cover-content {{
             position: relative;
             z-index: 1;
         }}
-        
+
         .cover h1 {{
             font-size: 3.5rem;
             font-weight: 900;
@@ -152,18 +288,18 @@ def generate_html(data):
             text-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
             margin-bottom: 0.5rem;
         }}
-        
+
         .cover .subtitle {{
             font-size: 1.3rem;
             color: var(--text-secondary);
             margin-bottom: 1rem;
         }}
-        
+
         .cover .date {{
             font-size: 1rem;
             color: var(--text-muted);
         }}
-        
+
         .cover .tagline {{
             margin-top: 1.5rem;
             padding: 0.5rem 2rem;
@@ -173,19 +309,19 @@ def generate_html(data):
             color: var(--accent-gold-light);
             font-size: 0.95rem;
         }}
-        
+
         /* 容器 */
         .container {{
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }}
-        
+
         /* 區塊標題 */
         .section {{
             margin-bottom: 3rem;
         }}
-        
+
         .section-title {{
             display: flex;
             align-items: center;
@@ -196,18 +332,18 @@ def generate_html(data):
             padding-bottom: 0.75rem;
             border-bottom: 2px solid var(--border);
         }}
-        
+
         .section-title .icon {{
             font-size: 1.8rem;
         }}
-        
+
         /* 大盤指數卡片 */
         .indices-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
         }}
-        
+
         .index-card {{
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -215,38 +351,54 @@ def generate_html(data):
             padding: 1.5rem;
             transition: all 0.3s;
         }}
-        
+
         .index-card:hover {{
             border-color: var(--border-hover);
             transform: translateY(-4px);
         }}
-        
+
         .index-card .name {{
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 0.5rem;
         }}
-        
+
         .index-card .price {{
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }}
-        
+
         .index-card .change {{
             font-size: 1rem;
             font-weight: 600;
         }}
-        
+
         .positive {{ color: var(--accent-green); }}
         .negative {{ color: var(--accent-red); }}
-        
+
+        /* 期貨區塊 */
+        .futures-bar {{
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }}
+
+        .future-pill {{
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }}
+
         /* 板塊表格 */
         .sector-table {{
             width: 100%;
             border-collapse: collapse;
         }}
-        
+
         .sector-table th {{
             text-align: left;
             padding: 1rem;
@@ -254,23 +406,23 @@ def generate_html(data):
             font-weight: 500;
             border-bottom: 2px solid var(--border);
         }}
-        
+
         .sector-table td {{
             padding: 1rem;
             border-bottom: 1px solid var(--border);
         }}
-        
+
         .sector-table tr:hover td {{
             background: var(--bg-card-hover);
         }}
-        
+
         /* 熱門股票 */
         .stocks-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1rem;
         }}
-        
+
         .stock-card {{
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -281,37 +433,37 @@ def generate_html(data):
             align-items: center;
             transition: all 0.3s;
         }}
-        
+
         .stock-card:hover {{
             border-color: var(--accent-gold);
         }}
-        
+
         .stock-info .symbol {{
             font-weight: 700;
             font-size: 1.1rem;
         }}
-        
+
         .stock-info .name {{
             font-size: 0.8rem;
             color: var(--text-muted);
         }}
-        
+
         .stock-price {{
             text-align: right;
         }}
-        
+
         .stock-price .price {{
             font-size: 1.2rem;
             font-weight: 700;
         }}
-        
+
         /* 新聞 */
         .news-list {{
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }}
-        
+
         .news-item {{
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -319,11 +471,11 @@ def generate_html(data):
             padding: 1.25rem;
             transition: all 0.3s;
         }}
-        
+
         .news-item:hover {{
             border-color: var(--border-hover);
         }}
-        
+
         .news-item .source {{
             display: inline-block;
             padding: 0.2rem 0.6rem;
@@ -333,36 +485,43 @@ def generate_html(data):
             font-size: 0.75rem;
             margin-bottom: 0.5rem;
         }}
-        
-        .news-item .title {{
-            font-size: 1rem;
+
+        .news-item .title-zh {{
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             line-height: 1.5;
         }}
-        
-        .news-item .title a {{
+
+        .news-item .title-zh a {{
             color: var(--text-primary);
             text-decoration: none;
         }}
-        
-        .news-item .title a:hover {{
+
+        .news-item .title-zh a:hover {{
             color: var(--accent-gold);
         }}
-        
+
+        .news-item .summary-zh {{
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }}
+
         .news-item .title-en {{
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-style: italic;
         }}
-        
+
         /* 財報 */
         .earnings-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 0.75rem;
         }}
-        
+
         .earnings-item {{
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -370,18 +529,30 @@ def generate_html(data):
             padding: 1rem;
             text-align: center;
         }}
-        
+
         .earnings-item .symbol {{
             font-weight: 700;
             color: var(--accent-gold);
+            font-size: 1.1rem;
         }}
-        
-        .earnings-item .eps {{
-            font-size: 0.85rem;
+
+        .earnings-item .name {{
+            font-size: 0.8rem;
             color: var(--text-muted);
+            margin: 0.25rem 0;
+        }}
+
+        .earnings-item .eps {{
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }}
+
+        .earnings-item .reported {{
+            font-size: 0.85rem;
+            color: var(--accent-green);
             margin-top: 0.25rem;
         }}
-        
+
         /* 川普分析區塊 */
         .trump-analysis {{
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(139, 69, 19, 0.1));
@@ -390,7 +561,7 @@ def generate_html(data):
             padding: 2rem;
             margin-bottom: 3rem;
         }}
-        
+
         .trump-analysis h2 {{
             color: var(--accent-gold);
             font-size: 1.5rem;
@@ -399,16 +570,17 @@ def generate_html(data):
             align-items: center;
             gap: 0.5rem;
         }}
-        
+
         .trump-analysis .content {{
             line-height: 1.8;
             color: var(--text-secondary);
+            font-size: 1.05rem;
         }}
-        
+
         .trump-analysis .content p {{
             margin-bottom: 1rem;
         }}
-        
+
         /* 頁尾 */
         footer {{
             text-align: center;
@@ -417,13 +589,13 @@ def generate_html(data):
             color: var(--text-muted);
             font-size: 0.9rem;
         }}
-        
+
         footer .disclaimer {{
             margin-top: 1rem;
             font-size: 0.8rem;
             opacity: 0.7;
         }}
-        
+
         /* 響應式 */
         @media (max-width: 768px) {{
             .cover h1 {{ font-size: 2.5rem; }}
@@ -442,31 +614,31 @@ def generate_html(data):
             <div class="tagline">"讓美國再次偉大，讓你的投資組合也偉大！"</div>
         </div>
     </div>
-    
+
     <div class="container">
         <!-- 川普分析 -->
         <div class="trump-analysis">
             <h2>🎯 川投顧每日金句</h2>
-            <div class="content" id="llm-analysis">
-                <!-- LLM_TRANSLATION_START -->
-                <p>今日市場分析由川投顧親自把關。我們看到大盤走勢，有些股票表現得非常棒，真的非常好，可以說是歷史上最好的表現之一。</p>
-                <p>記住：低買高賣，這是常識，但很多人沒有這種常識。我們要聰明投資，像我一樣聰明。</p>
-                <!-- LLM_TRANSLATION_END -->
+            <div class="content">
+                <p>{daily_analysis}</p>
             </div>
         </div>
-        
+
+        <!-- 期貨 -->
+        {generate_futures_html(futures)}
+
         <!-- 大盤指數 -->
         <section class="section">
             <h2 class="section-title"><span class="icon">📊</span> 美股大盤</h2>
             <div class="indices-grid">
 '''
-    
+
     # 大盤指數
     for idx in indices:
         emoji = get_trend_emoji(idx.get("change_pct", 0))
         trend_class = "positive" if idx.get("change_pct", 0) >= 0 else "negative"
         sign = "+" if idx.get("change_pct", 0) >= 0 else ""
-        
+
         html += f'''
                 <div class="index-card">
                     <div class="name">{idx["name"]} ({idx["symbol"]})</div>
@@ -474,11 +646,11 @@ def generate_html(data):
                     <div class="change {trend_class}">{emoji} {sign}{idx.get("change", 0):.2f} ({sign}{idx.get("change_pct", 0):.2f}%)</div>
                 </div>
 '''
-    
+
     html += '''
             </div>
         </section>
-        
+
         <!-- 板塊表現 -->
         <section class="section">
             <h2 class="section-title"><span class="icon">🏭</span> 板塊表現</h2>
@@ -493,11 +665,11 @@ def generate_html(data):
                 </thead>
                 <tbody>
 '''
-    
+
     for i, sector in enumerate(sectors[:10], 1):
         trend_class = "positive" if sector.get("change_pct", 0) >= 0 else "negative"
         sign = "+" if sector.get("change_pct", 0) >= 0 else ""
-        
+
         html += f'''
                     <tr>
                         <td>{i}</td>
@@ -506,22 +678,22 @@ def generate_html(data):
                         <td>${sector.get("price", 0):.2f}</td>
                     </tr>
 '''
-    
+
     html += '''
                 </tbody>
             </table>
         </section>
-        
+
         <!-- 熱門股票 -->
         <section class="section">
             <h2 class="section-title"><span class="icon">🔥</span> 熱門股票</h2>
             <div class="stocks-grid">
 '''
-    
-    for stock in hot_stocks[:10]:
+
+    for stock in hot_stocks[:12]:
         trend_class = "positive" if stock.get("change_pct", 0) >= 0 else "negative"
         sign = "+" if stock.get("change_pct", 0) >= 0 else ""
-        
+
         html += f'''
                 <div class="stock-card">
                     <div class="stock-info">
@@ -534,54 +706,60 @@ def generate_html(data):
                     </div>
                 </div>
 '''
-    
+
     html += '''
             </div>
         </section>
-        
+
         <!-- 財經新聞 -->
         <section class="section">
             <h2 class="section-title"><span class="icon">📰</span> 財經新聞</h2>
             <div class="news-list">
 '''
-    
-    # 顯示新聞（待 LLM 翻譯）
-    news_count = 0
-    for item in all_news[:12]:
-        if news_count >= 10:
-            break
-        news_count += 1
-        
+
+    # 顯示翻譯後的新聞
+    for item in translated_news[:10]:
         html += f'''
                 <div class="news-item">
                     <span class="source">{item.get("source", "News")}</span>
-                    <div class="title"><a href="{item["url"]}" target="_blank">{item["title"]}</a></div>
+                    <div class="title-zh"><a href="{item["url"]}" target="_blank">{item.get("title_zh", item.get("title_en", ""))}</a></div>
+                    <div class="summary-zh">{item.get("summary_zh", "")}</div>
+                    <div class="title-en">{item.get("title_en", "")}</div>
                 </div>
 '''
-    
+
     html += '''
             </div>
         </section>
-        
+
         <!-- 今日財報 -->
         <section class="section">
             <h2 class="section-title"><span class="icon">📈</span> 今日財報焦點</h2>
             <div class="earnings-grid">
 '''
-    
-    for earn in earnings[:8]:
+
+    for earn in earnings[:12]:
+        reported_html = ""
+        if earn.get("reported_eps"):
+            reported_html = f'<div class="reported">實際 EPS: {earn["reported_eps"]}'
+            if earn.get("surprise_pct"):
+                reported_html += f' ({earn["surprise_pct"]})'
+            reported_html += '</div>'
+
         html += f'''
                 <div class="earnings-item">
                     <div class="symbol">{earn["symbol"]}</div>
-                    <div class="eps">EPS 預估: {earn.get("eps_estimate", "-")}</div>
+                    <div class="name">{earn.get("name", "")}</div>
+                    <div class="eps">EPS 預估: {earn.get("eps_estimate", "-") or "-"}</div>
+                    {reported_html}
                 </div>
 '''
-    
+
     html += '''
             </div>
         </section>
     </div>
-    
+
     <footer>
         <p>川投顧日報 | 自動生成於 ''' + datetime.now().strftime("%Y-%m-%d %H:%M") + '''</p>
         <p class="disclaimer">⚠️ 本報僅供參考，不構成投資建議。投資有風險，決策需謹慎。</p>
@@ -589,7 +767,25 @@ def generate_html(data):
 </body>
 </html>
 '''
-    
+
+    return html
+
+
+def generate_futures_html(futures):
+    """生成期貨 HTML"""
+    if not futures:
+        return ""
+
+    html = '<section class="section">\n'
+    html += '<h2 class="section-title"><span class="icon">📉</span> 美股期貨</h2>\n'
+    html += '<div class="futures-bar">\n'
+
+    for f in futures:
+        trend_class = "positive" if f.get("change_pct", 0) >= 0 else "negative"
+        sign = "+" if f.get("change_pct", 0) >= 0 else ""
+        html += f'<div class="future-pill {trend_class}">{f["name"]}: {f["price"]} ({sign}{f["change_pct"]:.2f}%)</div>\n'
+
+    html += '</div>\n</section>\n'
     return html
 
 
@@ -598,32 +794,62 @@ def main():
         date_str = sys.argv[1]
     else:
         date_str = datetime.now().strftime("%Y-%m-%d")
-    
+
     print(f"=== 川投顧日報生成: {date_str} ===")
-    
+
     # 載入資料
     data = load_data(date_str)
-    
+
+    # 合併所有新聞，優先有 description 的
+    all_news = []
+    for source, items in data.get("news", {}).items():
+        all_news.extend(items)
+
+    # 排序：有 description 的優先
+    all_news.sort(key=lambda x: (not x.get("has_description", False), x.get("source", "")))
+
+    # 去重（依標題）
+    seen_titles = set()
+    unique_news = []
+    for item in all_news:
+        title = item.get("title", "")
+        if title and title not in seen_titles:
+            seen_titles.add(title)
+            unique_news.append(item)
+
+    print(f"去重後新聞: {len(unique_news)} 則")
+
+    # 選擇要翻譯的新聞（優先有 description 的）
+    news_to_translate = unique_news[:15]
+
+    # 使用 LLM 翻譯新聞
+    print("正在翻譯新聞...")
+    translated_news = call_llm_translate_news(news_to_translate, max_items=10)
+
+    # 使用 LLM 生成每日分析
+    print("正在生成每日分析...")
+    daily_analysis = call_llm_daily_analysis(data)
+
     # 生成 HTML
-    html = generate_html(data)
-    
+    html = generate_html(data, translated_news, daily_analysis)
+
     # 儲存
     date_info = data["date_info"]
     output_path = OUTPUT_DIR / date_info["date_str"] / "index.html"
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
-    
+
     print(f"已生成: {output_path}")
-    
+
     # 同時儲存到最新版本
     latest_path = OUTPUT_DIR / "latest.html"
     with open(latest_path, "w", encoding="utf-8") as f:
         f.write(html)
-    
+
     print(f"已更新: {latest_path}")
-    
+
     return output_path
 
 
