@@ -73,24 +73,31 @@ def call_llm(prompt: str, timeout: int = 300) -> str | None:
     # 安全過濾：移除可能引發 prompt injection 的控制字元
     safe_prompt = prompt.replace("\x00", "").replace("\x1b", "")
 
+    # 1) agy（第一優先 - 純文字模式，用 stdin 傳遞 prompt）
     if shutil.which("agy"):
         try:
-            result = subprocess.run(
-                ["agy", "--print", "--model", AGY_MODEL, safe_prompt],
-                capture_output=True, text=True, timeout=timeout,
+            proc = subprocess.Popen(
+                ["agy", "--print", "--model", AGY_MODEL, "--print-timeout", f"{timeout}s"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
                 env={**os.environ, "AGY_NO_TOOLS": "1"},
+                cwd="/tmp",
             )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
+            stdout, stderr = proc.communicate(input=safe_prompt, timeout=timeout)
+            if proc.returncode == 0 and stdout.strip():
+                return stdout.strip()
         except Exception as e:
             print(f"  agy 失敗: {e}")
 
+    # 2) codex CLI（備援 - 限制工作目錄）
     if shutil.which("codex"):
         try:
             result = subprocess.run(
                 ["codex", "exec", "--", safe_prompt],
                 capture_output=True, text=True, timeout=timeout,
-                cwd="/tmp",  # 限制工作目錄
+                cwd="/tmp",
             )
             if result.returncode == 0 and result.stdout.strip():
                 return result.stdout.strip()
