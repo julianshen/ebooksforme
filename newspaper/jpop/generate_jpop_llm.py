@@ -17,6 +17,7 @@ JPOP流行報 - LLM 生成腳本
               - 修正 import re 重複問題
 """
 
+import argparse
 import os
 import sys
 import json
@@ -26,6 +27,17 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+
+# 解析命令列參數及環境變數以動態選擇 LLM 模型
+parser = argparse.ArgumentParser(description="JPOP流行報 LLM 自動生成器")
+parser.add_argument(
+    "--model",
+    type=str,
+    default=os.environ.get("AGY_MODEL", "Claude Opus 4.6 (Thinking)"),
+    help="使用 agy 時指定的 LLM 模型"
+)
+args, _ = parser.parse_known_args()
+AGY_MODEL = args.model
 
 # 嘗試導入 LLM 庫
 try:
@@ -745,7 +757,7 @@ def call_llm_agy(prompt, temperature=0.2):
         import subprocess
         print("使用 agy (antigravity)...")
         result = subprocess.run(
-            ["agy", "--sandbox", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
+            ["agy", "--sandbox", "--print", "--model", AGY_MODEL, prompt],
             capture_output=True, text=True, timeout=300
         )
         if result.returncode == 0 and result.stdout.strip():

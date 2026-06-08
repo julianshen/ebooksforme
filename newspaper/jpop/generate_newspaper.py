@@ -6,6 +6,8 @@ JPOP流行報 - HTML 生成腳本 v2.0
 讀取 collect_data.py 產生的 JSON，生成電子報 HTML
 """
 
+import argparse
+import html
 import json
 import os
 import re
@@ -14,6 +16,18 @@ import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse
+
+# 解析命令列參數及環境變數以動態選擇 LLM 模型
+parser = argparse.ArgumentParser(description="JPOP流行報生成器")
+parser.add_argument(
+    "--model",
+    type=str,
+    default=os.environ.get("AGY_MODEL", "Claude Opus 4.6 (Thinking)"),
+    help="使用 agy 時指定的 LLM 模型"
+)
+args, _ = parser.parse_known_args()
+AGY_MODEL = args.model
 
 # ============================================================
 # 設定
@@ -25,6 +39,28 @@ COVERS_DIR = NEWSPAPER_DIR / "covers"
 COVERS = ["cover-1.png", "cover-2.png", "cover-3.png", "cover-4.png", "cover-5.png"]
 
 # ============================================================
+# HTML 安全輔助函數
+# ============================================================
+ALLOWED_SCHEMES = {"https", "http"}
+
+
+def h(value) -> str:
+    """HTML escape 文字內容"""
+    return html.escape(str(value or ""), quote=True)
+
+
+def safe_url(value: str) -> str:
+    """過濾 URL，只允許 http/https scheme"""
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    parsed = urlparse(value)
+    if parsed.scheme not in ALLOWED_SCHEMES:
+        return ""
+    return html.escape(value, quote=True)
+
+
+# ============================================================
 # LLM 新聞翻譯
 # ============================================================
 
@@ -33,28 +69,33 @@ def has_llm() -> bool:
 
 
 def call_llm(prompt: str, timeout: int = 300) -> str | None:
-    """呼叫本地 LLM 進行新聞翻譯/摘要"""
-    if shutil.which("codex"):
-        try:
-            result = subprocess.run(
-                ["codex", "exec", "--", prompt],
-                capture_output=True, text=True, timeout=timeout
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-        except Exception as e:
-            print(f"  codex 失敗: {e}")
+    """呼叫本地 LLM 進行新聞翻譯/摘要 - 使用純文字模式避免 prompt injection"""
+    # 安全過濾：移除可能引發 prompt injection 的控制字元
+    safe_prompt = prompt.replace("\x00", "").replace("\x1b", "")
 
     if shutil.which("agy"):
         try:
             result = subprocess.run(
-                ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
-                capture_output=True, text=True, timeout=timeout
+                ["agy", "--print", "--model", AGY_MODEL, safe_prompt],
+                capture_output=True, text=True, timeout=timeout,
+                env={**os.environ, "AGY_NO_TOOLS": "1"},
             )
             if result.returncode == 0 and result.stdout.strip():
                 return result.stdout.strip()
         except Exception as e:
             print(f"  agy 失敗: {e}")
+
+    if shutil.which("codex"):
+        try:
+            result = subprocess.run(
+                ["codex", "exec", "--", safe_prompt],
+                capture_output=True, text=True, timeout=timeout,
+                cwd="/tmp",  # 限制工作目錄
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+        except Exception as e:
+            print(f"  codex 失敗: {e}")
 
     return None
 
@@ -158,16 +199,16 @@ def generate_html(data: dict) -> tuple[str, str]:
         rows = ""
         for song in top_songs:
             rank = song.get("rank", "")
-            title = song.get("title", "")
-            artist = song.get("artist", "")
+            title = h(song.get("title", ""))
+            artist = h(song.get("artist", ""))
             last_rank = song.get("last_rank", "")
-            weeks = song.get("weeks_on_chart", "")
-            yt = song.get("youtube_url", "")
-            sp = song.get("spotify_url", "")
+            weeks = h(song.get("weeks_on_chart", ""))
+            yt = safe_url(song.get("youtube_url", ""))
+            sp = safe_url(song.get("spotify_url", ""))
 
             # 排名變化
             trend = ""
-            if last_rank and last_rank.isdigit():
+            if last_rank and str(last_rank).isdigit():
                 diff = int(last_rank) - int(rank)
                 if diff > 0:
                     trend = f'<span class="trend-up">▲{diff}</span>'
@@ -178,9 +219,9 @@ def generate_html(data: dict) -> tuple[str, str]:
 
             links = ""
             if yt:
-                links += f'<a href="{yt}" target="_blank" class="link-yt">▶ YouTube</a>'
+                links += f'<a href="{yt}" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a>'
             if sp:
-                links += f'<a href="{sp}" target="_blank" class="link-sp">♫ Spotify</a>'
+                links += f'<a href="{sp}" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a>'
 
             rows += f"""
                 <tr>
@@ -207,8 +248,8 @@ def generate_html(data: dict) -> tuple[str, str]:
     # ── 本週焦點 ──
     highlight_html = ""
     if highlight:
-        artist = highlight.get("artist", "")
-        song = highlight.get("song", "")
+        artist = h(highlight.get("artist", ""))
+        song = h(highlight.get("song", ""))
         highlight_html = f"""
             <div class="highlight-card">
                 <div class="highlight-badge">本週 No.1</div>
@@ -220,14 +261,16 @@ def generate_html(data: dict) -> tuple[str, str]:
     news_html = ""
     if news:
         for article in news[:12]:
-            title = article.get("title_zh", article.get("title", ""))
-            summary = article.get("summary_zh", article.get("summary", ""))[:150]
-            source = article.get("source", "")
-            url = article.get("url", "")
-            image = article.get("image", "")
-            date_str = article.get("date", "")
+            title = h(article.get("title_zh", article.get("title", "")))
+            summary = h(article.get("summary_zh", article.get("summary", ""))[:150])
+            source = h(article.get("source", ""))
+            url = safe_url(article.get("url", ""))
+            image = safe_url(article.get("image", ""))
+            date_str = h(article.get("date", ""))
 
             img_tag = f'<img src="{image}" alt="" class="news-thumb">' if image else ""
+            link_start = f'<a href="{url}" target="_blank" rel="noopener noreferrer">' if url else ""
+            link_end = "</a>" if url else ""
 
             news_html += f"""
             <div class="news-card">
@@ -237,7 +280,7 @@ def generate_html(data: dict) -> tuple[str, str]:
                         <span class="news-source-tag">{source}</span>
                         <span class="news-date">{date_str}</span>
                     </div>
-                    <h4 class="news-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h4>
+                    <h4 class="news-title">{link_start}{title}{link_end}</h4>
                     <p class="news-summary">{summary}</p>
                 </div>
             </div>"""
@@ -248,14 +291,14 @@ def generate_html(data: dict) -> tuple[str, str]:
     releases_html = ""
     if new_releases:
         for rel in new_releases[:8]:
-            title = rel.get("title", "")
-            artist = rel.get("artist", "")
-            date_str = rel.get("date", "")
-            url = rel.get("url", "")
-            image = rel.get("image", "")
+            title = h(rel.get("title", ""))
+            artist = h(rel.get("artist", ""))
+            date_str = h(rel.get("date", ""))
+            url = safe_url(rel.get("url", ""))
+            image = safe_url(rel.get("image", ""))
 
             img_tag = f'<img src="{image}" alt="" class="release-thumb">' if image else ""
-            link_start = f'<a href="{url}" target="_blank" rel="noopener">' if url else ""
+            link_start = f'<a href="{url}" target="_blank" rel="noopener noreferrer">' if url else ""
             link_end = "</a>" if url else ""
 
             releases_html += f"""
@@ -274,13 +317,13 @@ def generate_html(data: dict) -> tuple[str, str]:
     concerts_html = ""
     if concerts:
         for c in concerts[:8]:
-            title = c.get("title", "")
-            artist = c.get("artist", "")
-            date_str = c.get("date", "")
-            venue = c.get("venue", "")
-            url = c.get("url", "")
+            title = h(c.get("title", ""))
+            artist = h(c.get("artist", ""))
+            date_str = h(c.get("date", ""))
+            venue = h(c.get("venue", ""))
+            url = safe_url(c.get("url", ""))
 
-            link_start = f'<a href="{url}" target="_blank" rel="noopener">' if url else ""
+            link_start = f'<a href="{url}" target="_blank" rel="noopener noreferrer">' if url else ""
             link_end = "</a>" if url else ""
 
             concerts_html += f"""
@@ -787,12 +830,12 @@ def main():
 
 def clean_old_issues():
     """清除超過6期的舊期數"""
-    dirs = [d for d in NEWSPAPER_DIR.iterdir() if d.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}", d.name)]
+    ISSUE_DIR_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+    dirs = [d for d in NEWSPAPER_DIR.iterdir() if d.is_dir() and ISSUE_DIR_RE.fullmatch(d.name)]
     dirs.sort(key=lambda d: d.name, reverse=True)
 
     if len(dirs) > 6:
         for old_dir in dirs[6:]:
-            import shutil
             shutil.rmtree(old_dir)
             print(f"移除舊期數: {old_dir.name}")
 

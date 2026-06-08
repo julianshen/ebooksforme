@@ -13,10 +13,12 @@ import sys
 import urllib.parse
 from datetime import datetime, timedelta
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # ============================================================
 # 設定區
@@ -37,28 +39,42 @@ _HEADERS = {
     "Accept-Language": "ja,en;q=0.9",
 }
 
+# 建立帶 retry 的 session
+_session = requests.Session()
+_session.headers.update(_HEADERS)
+_session.mount(
+    "https://",
+    HTTPAdapter(
+        max_retries=Retry(
+            total=3,
+            backoff_factor=0.5,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET"],
+        )
+    ),
+)
+
 
 # ============================================================
 # HTTP 輔助
 # ============================================================
 def fetch_soup(url: str, timeout: int = HTTP_TIMEOUT) -> BeautifulSoup | None:
     try:
-        resp = requests.get(url, timeout=timeout, headers=_HEADERS)
+        resp = _session.get(url, timeout=(5, timeout))
         resp.raise_for_status()
-        resp.encoding = "utf-8"
+        # 信任 response header 的 encoding，而非強制 utf-8
         return BeautifulSoup(resp.text, "html.parser")
-    except Exception as e:
+    except requests.RequestException as e:
         logger.error("請求失敗 %s: %s", url, e)
         return None
 
 
 def fetch_text(url: str, timeout: int = HTTP_TIMEOUT) -> str | None:
     try:
-        resp = requests.get(url, timeout=timeout, headers=_HEADERS)
+        resp = _session.get(url, timeout=(5, timeout))
         resp.raise_for_status()
-        resp.encoding = "utf-8"
         return resp.text
-    except Exception as e:
+    except requests.RequestException as e:
         logger.error("請求失敗 %s: %s", url, e)
         return None
 
@@ -155,12 +171,25 @@ def fetch_billboard_chart():
             continue
 
     logger.info("Billboard Hot 100: 取得 %d 首", len(songs))
+    if len(songs) < 10:
+        logger.warning("Billboard Hot 100 解析筆數異常，僅取得 %d 首，請檢查 selector", len(songs))
     return songs
 
 
 # ============================================================
-# 2. 音楽ナタリー新聞
+# 2. 音楽ナタリー新聞（共用 soup）
 # ============================================================
+_natalie_soup_cache: BeautifulSoup | None = None
+
+
+def _get_natalie_soup() -> BeautifulSoup | None:
+    """共用 Natalie 首頁 soup，避免重複請求"""
+    global _natalie_soup_cache
+    if _natalie_soup_cache is None:
+        _natalie_soup_cache = fetch_soup("https://natalie.mu/music")
+    return _natalie_soup_cache
+
+
 def fetch_natalie_news():
     """
     從音楽ナタリー (natalie.mu/music) 爬取音樂新聞
@@ -168,8 +197,7 @@ def fetch_natalie_news():
     """
     logger.info("爬取 音楽ナタリー 新聞...")
     news = []
-    url = "https://natalie.mu/music"
-    soup = fetch_soup(url)
+    soup = _get_natalie_soup()
     if not soup:
         return news
 
@@ -332,12 +360,11 @@ def fetch_modelpress_news():
 # ============================================================
 def fetch_new_releases():
     """
-    從音楽ナタリー新聞中篩選新曲發行相關新聞
+    從音楽ナタリー新聞中篩選新曲發行相關新聞（共用 soup）
     """
     logger.info("爬取新曲發行情報...")
     releases = []
-    url = "https://natalie.mu/music"
-    soup = fetch_soup(url)
+    soup = _get_natalie_soup()
     if not soup:
         return releases
 
@@ -399,12 +426,11 @@ def fetch_new_releases():
 # ============================================================
 def fetch_concert_info():
     """
-    從音楽ナタリー新聞中篩選演唱會相關新聞
+    從音楽ナタリー新聞中篩選演唱會相關新聞（共用 soup）
     """
     logger.info("爬取演唱會情報...")
     concerts = []
-    url = "https://natalie.mu/music"
-    soup = fetch_soup(url)
+    soup = _get_natalie_soup()
     if not soup:
         return concerts
 
@@ -524,12 +550,22 @@ def collect_all_data():
         future_releases = executor.submit(fetch_new_releases)
         future_concerts = executor.submit(fetch_concert_info)
 
-        chart = future_chart.result()
-        natalie_news = future_natalie.result()
-        bb_news = future_bb_news.result()
-        modelpress_news = future_modelpress.result()
-        releases = future_releases.result()
-        concerts = future_concerts.result()
+        def result_or_empty(name, future):
+            try:
+                return future.result()
+            except Exception:
+                logger.exception("%s 收集失敗", name)
+                return []
+
+        chart = result_or_empty("Billboard chart", future_chart)
+        natalie_news = result_or_empty("Natalie news", future_natalie)
+        bb_news = result_or_empty("Billboard news", future_bb_news)
+        modelpress_news = result_or_empty("Model Press news", future_modelpress)
+        releases = result_or_empty("New releases", future_releases)
+        concerts = result_or_empty("Concert info", future_concerts)
+
+    if not chart:
+        logger.warning("Billboard chart 為空，請檢查 selector 或網站狀態")
 
     # 合併新聞並去重
     all_news = natalie_news + bb_news + modelpress_news
@@ -541,7 +577,7 @@ def collect_all_data():
             unique_news.append(n)
 
     # 為 Top 10 歌曲搜尋 YouTube/Spotify 連結
-    top_songs = chart[:10] if chart else []
+    top_songs = [song.copy() for song in chart[:10]] if chart else []
     logger.info("為 Top %d 歌曲搜尋串流連結...", len(top_songs))
     for song in top_songs:
         song["youtube_url"] = search_youtube_link(song["title"], song["artist"])
