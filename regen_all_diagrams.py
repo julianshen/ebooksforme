@@ -2,7 +2,7 @@
 """Regenerate all chess opening diagrams with professional piece images."""
 
 import sys
-sys.path.insert(0, '/tmp/ebooksforme')
+sys.path.insert(0, '/home/julianshen/projects/ebooksforme')
 
 from chess_renderer_v2 import ChessRenderer
 
@@ -18,7 +18,7 @@ openings = [
     (["c4", "e5", "Nc3", "Nf6", "Nf3", "Nc6"], "English Opening", "english"),
 ]
 
-output_dir = '/tmp/ebooksforme/chess-openings/EPUB/images'
+output_dir = '/home/julianshen/projects/ebooksforme/chess-openings/EPUB/images'
 
 for moves, title, prefix in openings:
     files = renderer.render_opening(moves, title=title, output_dir=output_dir)

@@ -23,7 +23,7 @@ from urllib3.util.retry import Retry
 # ============================================================
 # 設定區
 # ============================================================
-NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper/jpop")
+NEWSPAPER_DIR = Path("/home/julianshen/projects/ebooksforme/newspaper/jpop")
 HTTP_TIMEOUT = 20
 NEWS_MAX_PER_SOURCE = 10  # 每個新聞來源最多取幾則
 

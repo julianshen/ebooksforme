@@ -2,7 +2,7 @@ from PIL import Image
 import os
 import glob
 
-img_dir = '/tmp/ebooksforme/chess-openings/EPUB/images'
+img_dir = '/home/julianshen/projects/ebooksforme/chess-openings/EPUB/images'
 
 # Compress board diagrams (PNG -> JPEG quality 80%)
 board_files = glob.glob(os.path.join(img_dir, '*_*.png'))

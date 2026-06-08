@@ -32,8 +32,8 @@ AGY_MODEL = args.model
 # ============================================================
 # 設定
 # ============================================================
-NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper/jpop")
-GIT_DIR = Path("/tmp/ebooksforme")
+NEWSPAPER_DIR = Path("/home/julianshen/projects/ebooksforme/newspaper/jpop")
+GIT_DIR = Path("/home/julianshen/projects/ebooksforme")
 COVERS_DIR = NEWSPAPER_DIR / "covers"
 
 COVERS = ["cover-1.png", "cover-2.png", "cover-3.png", "cover-4.png", "cover-5.png"]

@@ -25,8 +25,8 @@ from collect_data import (
 )
 
 # 設定
-NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper")
-GIT_DIR = Path("/tmp/ebooksforme")
+NEWSPAPER_DIR = Path("/home/julianshen/projects/ebooksforme/newspaper")
+GIT_DIR = Path("/home/julianshen/projects/ebooksforme")
 NPB_BASE_URL = "https://npb.jp"
 
 

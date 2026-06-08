@@ -5,8 +5,8 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-GIT_DIR="/tmp/ebooksforme"
-VENV_PYTHON="/tmp/ebooksforme/newspaper/.venv/bin/python3"
+GIT_DIR="/home/julianshen/projects/ebooksforme"
+VENV_PYTHON="/home/julianshen/projects/ebooksforme/newspaper/.venv/bin/python3"
 
 echo "========================================"
 echo "JPOP流行報自動生成開始: $(date)"

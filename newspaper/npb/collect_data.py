@@ -32,7 +32,7 @@ from urllib3.util.retry import Retry
 # ============================================================
 # 設定區
 # ============================================================
-NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper/npb")
+NEWSPAPER_DIR = Path("/home/julianshen/projects/ebooksforme/newspaper/npb")
 NPB_BASE_URL = "https://npb.jp"
 
 HTTP_TIMEOUT = 20

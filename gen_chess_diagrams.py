@@ -2,7 +2,7 @@ import chess
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-os.makedirs('/tmp/ebooksforme/chess-openings/EPUB/images', exist_ok=True)
+os.makedirs('/home/julianshen/projects/ebooksforme/chess-openings/EPUB/images', exist_ok=True)
 
 LIGHT_SQUARE = "#F0D9B5"
 DARK_SQUARE = "#B58863"
@@ -84,7 +84,7 @@ def generate_opening_diagrams(moves, filename_prefix, title):
     images = []
     
     img = draw_chessboard(board, title=title, caption="Initial Position")
-    img.save(f'/tmp/ebooksforme/chess-openings/EPUB/images/{filename_prefix}_00.png')
+    img.save(f'/home/julianshen/projects/ebooksforme/chess-openings/EPUB/images/{filename_prefix}_00.png')
     images.append(f'{filename_prefix}_00.png')
     
     for i, move_san in enumerate(moves):
@@ -98,7 +98,7 @@ def generate_opening_diagrams(moves, filename_prefix, title):
         caption = f"{move_num}. {color}: {move_san}"
         
         img = draw_chessboard(board, title=title, caption=caption, highlight_from=from_sq, highlight_to=to_sq)
-        img.save(f'/tmp/ebooksforme/chess-openings/EPUB/images/{filename_prefix}_{i+1:02d}.png')
+        img.save(f'/home/julianshen/projects/ebooksforme/chess-openings/EPUB/images/{filename_prefix}_{i+1:02d}.png')
         images.append(f'{filename_prefix}_{i+1:02d}.png')
     
     return images

@@ -5,7 +5,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="$(dirname "$SCRIPT_DIR")"
+GENERATE_SCRIPT="$SCRIPT_DIR/chuan-tou-gu-generate.py"
 REPO_DIR="/home/julianshen/projects/ebooksforme"
 DATE_STR=$(date +%Y-%m-%d)
 
@@ -15,27 +15,25 @@ echo "日期: $DATE_STR"
 echo "時間: $(date '+%H:%M:%S')"
 echo "========================================"
 
-# 1. 生成日報
-echo ""
-echo "[1/4] 生成日報..."
-cd "$SCRIPT_DIR"
-
 # 檢查是否有 API key
 if [ -z "$OPENAI_API_KEY" ] && [ -z "$ANTHROPIC_API_KEY" ]; then
     echo "警告: 未設定 OPENAI_API_KEY 或 ANTHROPIC_API_KEY"
     echo "請先設定環境變數:"
-    echo "  export OPENAI_API_KEY='your-key'"
-    echo "  export ANTHROPIC_API_KEY='your-key'"
+    echo "  export OPENAI_API_KEY='***'"
+    echo "  export ANTHROPIC_API_KEY='***'"
     exit 1
 fi
 
-# 執行生成腳本
-python3 generate_with_llm.py
+# 1. 生成日報
+echo ""
+echo "[1/4] 生成日報..."
+python3 "$GENERATE_SCRIPT"
 
 # 2. 複製到 repo
 echo ""
 echo "[2/4] 複製到 GitHub repo..."
-cp -r "$BASE_DIR/$DATE_STR" "$REPO_DIR/newspaper/chuan-tou-gu/"
+mkdir -p "$REPO_DIR/newspaper/chuan-tou-gu/$DATE_STR"
+cp /tmp/chuan-tou-gu-output/$DATE_STR/index.html "$REPO_DIR/newspaper/chuan-tou-gu/$DATE_STR/"
 
 # 3. Git 提交
 echo ""

@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup
 # ============================================================
 # 設定區
 # ============================================================
-NEWSPAPER_DIR = Path("/tmp/ebooksforme/newspaper")
+NEWSPAPER_DIR = Path("/home/julianshen/projects/ebooksforme/newspaper")
 NPB_BASE_URL = "https://npb.jp"
 
 # 請求超時（秒）
