@@ -237,29 +237,28 @@ def fetch_billboard_news():
     if not soup:
         return news
 
-    # 新聞列表在 <li> 中，連結為 /d_news/detail/XXXX
-    lis = soup.find_all("li")
+    # 新聞列表: div.d_news__box 包含 h3 > a
+    boxes = soup.find_all("div", class_="d_news__box")
 
-    for li in lis[:NEWS_MAX_PER_SOURCE * 2]:
+    for box in boxes[:NEWS_MAX_PER_SOURCE]:
         try:
-            a_tag = li.find("a", href=re.compile(r"/d_news/detail/\d+"))
+            h3 = box.find("h3")
+            if not h3:
+                continue
+            a_tag = h3.find("a", href=re.compile(r"/d_news/detail/\d+"))
             if not a_tag:
                 continue
 
-            # 標題在 <p> 中（排除 <p class="lank"> 排名數字）
-            p_tags = a_tag.find_all("p")
-            title = ""
-            for p in p_tags:
-                if p.get("class") == ["lank"]:
-                    continue
-                txt = p.get_text(strip=True)
-                if len(txt) > 10:
-                    title = txt
-                    break
-
+            title = a_tag.get_text(strip=True)
             href = a_tag.get("href", "")
             if href and not str(href).startswith("http"):
                 href = f"https://www.billboard-japan.com{href}"
+
+            # 嘗試找日期
+            date_str = ""
+            date_el = box.select_one(".date, time")
+            if date_el:
+                date_str = date_el.get_text(strip=True)
 
             if title and href:
                 news.append({
@@ -267,7 +266,7 @@ def fetch_billboard_news():
                     "url": href,
                     "summary": "",
                     "image": "",
-                    "date": "",
+                    "date": date_str,
                     "source": "Billboard JAPAN",
                 })
         except Exception as e:
