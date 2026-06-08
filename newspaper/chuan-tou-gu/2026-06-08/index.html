@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>川投顧日報 - 2026年06月08日</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252540;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6a6a7a;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f0d878;
+            --accent-red: #ff4444;
+            --accent-green: #00c853;
+            --border: #2a2a3a;
+            --border-hover: #3a3a50;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 封面 */
+        .cover {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 50%, #1a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/cover-3.png') center/cover;
+            opacity: 0.4;
+        }
+        
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cover .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .cover .date {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .cover .tagline {
+            margin-top: 1.5rem;
+            padding: 0.5rem 2rem;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            color: var(--accent-gold-light);
+            font-size: 0.95rem;
+        }
+        
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* 區塊標題 */
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-title .icon {
+            font-size: 1.8rem;
+        }
+        
+        /* 大盤指數卡片 */
+        .indices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        
+        .index-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .index-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+        
+        .index-card .name {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .index-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .index-card .change {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .positive { color: var(--accent-green); }
+        .negative { color: var(--accent-red); }
+        
+        /* 板塊表格 */
+        .sector-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .sector-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .sector-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .sector-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        
+        /* 熱門股票 */
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stock-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .stock-card:hover {
+            border-color: var(--accent-gold);
+        }
+        
+        .stock-info .symbol {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .stock-info .name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .stock-price {
+            text-align: right;
+        }
+        
+        .stock-price .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        /* 新聞 */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .news-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        
+        .news-item:hover {
+            border-color: var(--border-hover);
+        }
+        
+        .news-item .source {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-item .title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .news-item .title a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .news-item .title a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .news-item .title-en {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* 財報 */
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .earnings-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .earnings-item .symbol {
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        .earnings-item .eps {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        /* 川普分析區塊 */
+        .trump-analysis {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(139, 69, 19, 0.1));
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .trump-analysis h2 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .trump-analysis .content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .trump-analysis .content p {
+            margin-bottom: 1rem;
+        }
+        
+        /* 頁尾 */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        footer .disclaimer {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 2.5rem; }
+            .container { padding: 1rem; }
+            .indices-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 封面 -->
+    <div class="cover">
+        <div class="cover-content">
+            <h1>🦅 川投顧日報</h1>
+            <div class="subtitle">TRUMP FINANCIAL ADVISORY</div>
+            <div class="date">2026年06月08日 星期一</div>
+            <div class="tagline">"讓美國再次偉大，讓你的投資組合也偉大！"</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- 川普分析 -->
+        <div class="trump-analysis">
+            <h2>🎯 川投顧每日金句</h2>
+            <div class="content" id="llm-analysis">
+                <!-- LLM_TRANSLATION_START -->
+                <p>今日市場分析由川投顧親自把關。我們看到大盤走勢，有些股票表現得非常棒，真的非常好，可以說是歷史上最好的表現之一。</p>
+                <p>記住：低買高賣，這是常識，但很多人沒有這種常識。我們要聰明投資，像我一樣聰明。</p>
+                <!-- LLM_TRANSLATION_END -->
+            </div>
+        </div>
+        
+        <!-- 大盤指數 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📊</span> 美股大盤</h2>
+            <div class="indices-grid">
+
+                <div class="index-card">
+                    <div class="name">S&P 500 (SPX)</div>
+                    <div class="price">7383.74</div>
+                    <div class="change negative">💥 -200.57 (-2.64%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">道瓊工業 (DJI)</div>
+                    <div class="price">50866.78</div>
+                    <div class="change negative">📉 -695.15 (-1.35%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">納斯達克 (IXIC)</div>
+                    <div class="price">25709.43</div>
+                    <div class="change negative">💥 -1121.53 (-4.18%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">VIX 恐慌指數 (VIX)</div>
+                    <div class="price">21.51</div>
+                    <div class="change positive">🚀 +6.11 (+39.68%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">10年期公債殖利率 (TNX)</div>
+                    <div class="price">4.54</div>
+                    <div class="change positive">📈 +0.06 (+1.32%)</div>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- 板塊表現 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">🏭</span> 板塊表現</h2>
+            <table class="sector-table">
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>板塊</th>
+                        <th>漲跌幅</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>必需消費 (XLP)</td>
+                        <td class="positive">+1.71%</td>
+                        <td>$83.44</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>公用事業 (XLU)</td>
+                        <td class="positive">+0.93%</td>
+                        <td>$44.35</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>房地產 (XLRE)</td>
+                        <td class="positive">+0.68%</td>
+                        <td>$44.70</td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>醫療保健 (XLV)</td>
+                        <td class="positive">+0.61%</td>
+                        <td>$153.01</td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>金融 (XLF)</td>
+                        <td class="positive">+0.21%</td>
+                        <td>$52.30</td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td>工業 (XLI)</td>
+                        <td class="negative">-1.12%</td>
+                        <td>$174.18</td>
+                    </tr>
+
+                    <tr>
+                        <td>7</td>
+                        <td>能源 (XLE)</td>
+                        <td class="negative">-1.84%</td>
+                        <td>$57.67</td>
+                    </tr>
+
+                    <tr>
+                        <td>8</td>
+                        <td>原物料 (XLB)</td>
+                        <td class="negative">-1.92%</td>
+                        <td>$50.63</td>
+                    </tr>
+
+                    <tr>
+                        <td>9</td>
+                        <td>非必需消費 (XLY)</td>
+                        <td class="negative">-2.05%</td>
+                        <td>$114.86</td>
+                    </tr>
+
+                    <tr>
+                        <td>10</td>
+                        <td>科技 (XLK)</td>
+                        <td class="negative">-6.66%</td>
+                        <td>$180.30</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- 熱門股票 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">🔥</span> 熱門股票</h2>
+            <div class="stocks-grid">
+
+            </div>
+        </section>
+        
+        <!-- 財經新聞 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📰</span> 財經新聞</h2>
+            <div class="news-list">
+
+                <div class="news-item">
+                    <span class="source">Yahoo Finance</span>
+                    <div class="title"><a href="https://www.yahoo.com/news/" target="_blank">Today's news</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">Yahoo Finance</span>
+                    <div class="title"><a href="https://finance.yahoo.com/news/sign-up-for-yahoo-finances-morning-brief-174158888.html/" target="_blank">Newsletters</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">Yahoo Finance</span>
+                    <div class="title"><a href="https://finance.yahoo.com/news/" target="_blank">Financial News</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/07/trump-election-fraud-doj-fund-weaponization-storms-out.html" target="_blank">Trump storms out of interview after being challenged about election fraud claims, DOJ fund</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/08/kospi-sk-hynix-samsung-electronics-why-foreign-investors-are-selling.html" target="_blank">Foreign investors have dumped billions of dollars of Korean stocks this year despite record rally. Here's why</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/08/softbank-samsung-tech-ai-stocks-asia-fall.html" target="_blank">Asia tech stocks extend sell-off with SoftBank down over 7% as investors sour on AI-linked names</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/08/oil-prices-today-us-iran-missile-middle-east-israel-opec.html" target="_blank">Oil prices spike over 3% as Iran and Israel trade strikes, escalating regional tensions</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/07/delta-takes-on-united-over-the-pacific.html" target="_blank">'Bring 'em on': Delta wants United's crown over the Pacific, too</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/07/women-long-term-care-retirement.html" target="_blank">Women often outlive men. Here's how they should approach their long-term care needs</a></div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title"><a href="https://www.cnbc.com/2026/06/07/iran-war-100-days-trump-stocks-sp500-bonds-oil.html" target="_blank">100 days of the Iran war: How global markets and the economy have been affected, in charts</a></div>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- 今日財報 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📈</span> 今日財報焦點</h2>
+            <div class="earnings-grid">
+
+                <div class="earnings-item">
+                    <div class="symbol">TCOM</div>
+                    <div class="eps">EPS 預估: Q1 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">RGC</div>
+                    <div class="eps">EPS 預估: H1 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">WSE</div>
+                    <div class="eps">EPS 預估: H2 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">ICLR</div>
+                    <div class="eps">EPS 預估: Q1 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">CPB</div>
+                    <div class="eps">EPS 預估: Q3 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">MTN</div>
+                    <div class="eps">EPS 預估: Q3 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">ODC</div>
+                    <div class="eps">EPS 預估: Q3 2026 Earnings Announcement</div>
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">FCEL</div>
+                    <div class="eps">EPS 預估: Q2 2026 Earnings Announcement</div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>川投顧日報 | 自動生成於 2026-06-08 14:30</p>
+        <p class="disclaimer">⚠️ 本報僅供參考，不構成投資建議。投資有風險，決策需謹慎。</p>
+    </footer>
+</body>
+</html>
