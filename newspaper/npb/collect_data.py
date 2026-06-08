@@ -21,10 +21,13 @@ import re
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # ============================================================
 # 設定區
@@ -42,80 +45,102 @@ logging.basicConfig(
 )
 logger = logging.getLogger("collect_data")
 
+_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept-Language": "ja,en;q=0.9",
+}
+
+# 建立帶 retry 的 session
+_session = requests.Session()
+_session.headers.update(_HEADERS)
+_session.mount(
+    "https://",
+    HTTPAdapter(
+        max_retries=Retry(
+            total=3,
+            backoff_factor=0.5,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET"],
+        )
+    ),
+)
+
 # ============================================================
-# 球隊資料
+# 球隊資料 - logo URL 使用動態年份
 # ============================================================
+_LOGO_YEAR = datetime.now().year
+
 TEAMS = {
     "giants": {
         "name": "讀賣巨人", "name_jp": "読売ジャイアンツ", "short": "巨人",
         "official_url": "https://www.giants.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_g_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_g_l.gif",
         "stadium": "東京巨蛋", "league": "central", "code": "g",
     },
     "tigers": {
         "name": "阪神虎", "name_jp": "阪神タイガース", "short": "阪神",
         "official_url": "https://hanshintigers.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_t_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_t_l.gif",
         "stadium": "甲子園", "league": "central", "code": "t",
     },
     "carp": {
         "name": "廣島東洋鯉魚", "name_jp": "広島東洋カープ", "short": "広島",
         "official_url": "https://www.carp.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_c_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_c_l.gif",
         "stadium": "馬自達球場", "league": "central", "code": "c",
     },
     "baystars": {
         "name": "橫濱DeNA灣星", "name_jp": "横浜DeNAベイスターズ", "short": "DeNA",
         "official_url": "https://www.baystars.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_db_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_db_l.gif",
         "stadium": "橫濱球場", "league": "central", "code": "db",
     },
     "swallows": {
         "name": "東京養樂多燕子", "name_jp": "東京ヤクルトスワローズ", "short": "ヤクルト",
         "official_url": "https://www.yakult-swallows.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_s_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_s_l.gif",
         "stadium": "神宮球場", "league": "central", "code": "s",
     },
     "dragons": {
         "name": "中日龍", "name_jp": "中日ドラゴンズ", "short": "中日",
         "official_url": "https://www.dragons.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_d_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_d_l.gif",
         "stadium": "萬特力巨蛋", "league": "central", "code": "d",
     },
     "hawks": {
         "name": "福岡軟銀鷹", "name_jp": "福岡ソフトバンクホークス", "short": "ソフトバンク",
         "official_url": "https://www.softbankhawks.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_h_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_h_l.gif",
         "stadium": "雅虎巨蛋", "league": "pacific", "code": "h",
     },
     "fighters": {
         "name": "北海道日本火腿鬥士", "name_jp": "北海道日本ハムファイターズ", "short": "日本ハム",
         "official_url": "https://www.fighters.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_f_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_f_l.gif",
         "stadium": "札幌巨蛋", "league": "pacific", "code": "f",
     },
     "eagles": {
         "name": "東北樂天金鷲", "name_jp": "東北楽天ゴールデンイーグルス", "short": "楽天",
         "official_url": "https://www.rakuteneagles.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_e_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_e_l.gif",
         "stadium": "宮城球場", "league": "pacific", "code": "e",
     },
     "lions": {
         "name": "埼玉西武獅", "name_jp": "埼玉西武ライオンズ", "short": "西武",
         "official_url": "https://www.seibulions.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_l_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_l_l.gif",
         "stadium": "西武巨蛋", "league": "pacific", "code": "l",
     },
     "buffaloes": {
         "name": "歐力士猛牛", "name_jp": "オリックス・バファローズ", "short": "オリックス",
         "official_url": "https://www.buffaloes.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_b_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_b_l.gif",
         "stadium": "京瓷巨蛋", "league": "pacific", "code": "b",
     },
     "marines": {
         "name": "千葉羅德海洋", "name_jp": "千葉ロッテマリーンズ", "short": "ロッテ",
         "official_url": "https://www.marines.co.jp/",
-        "logo": "https://p.npb.jp/img/common/logo/2026/logo_m_l.gif",
+        "logo": f"https://p.npb.jp/img/common/logo/{_LOGO_YEAR}/logo_m_l.gif",
         "stadium": "ZOZO海洋球場", "league": "pacific", "code": "m",
     },
 }
@@ -153,6 +178,8 @@ TEAM_ABBR_MAP = {
 
 def resolve_team_name(name_text: str) -> str:
     name_text = name_text.strip()
+    if not name_text:
+        return ""
     if name_text in TEAM_ALT_TO_KEY:
         return TEAM_ALT_TO_KEY[name_text]
     m = re.search(r"logo_([a-z]+)_s\.gif", name_text)
@@ -170,15 +197,10 @@ def resolve_team_name(name_text: str) -> str:
 # ============================================================
 # HTTP 輔助
 # ============================================================
-_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept-Language": "ja,en;q=0.9",
-}
-
 
 def fetch_soup(url: str, timeout: int = HTTP_TIMEOUT) -> BeautifulSoup | None:
     try:
-        resp = requests.get(url, timeout=timeout, headers=_HEADERS)
+        resp = _session.get(url, timeout=timeout)
         resp.raise_for_status()
         resp.encoding = "utf-8"
         return BeautifulSoup(resp.text, "html.parser")
@@ -189,7 +211,7 @@ def fetch_soup(url: str, timeout: int = HTTP_TIMEOUT) -> BeautifulSoup | None:
 
 def fetch_text(url: str, timeout: int = HTTP_TIMEOUT) -> str | None:
     try:
-        resp = requests.get(url, timeout=timeout, headers=_HEADERS)
+        resp = _session.get(url, timeout=timeout)
         resp.raise_for_status()
         resp.encoding = "utf-8"
         return resp.text
@@ -647,18 +669,41 @@ def fetch_sponichi_news() -> list:
 
 
 def fetch_hochi_news() -> list:
-    """スポーツ報知 - 野球新聞"""
+    """スポーツ報知 - 野球新聞
+    抓取 hochi.news 首頁，過濾野球相關文章，只保留 hochi.news domain
+    """
     url = "https://hochi.news/"
     soup = fetch_soup(url)
     if soup is None:
         return []
     news = []
+    seen_titles = set()
+    BASEBALL_KEYWORDS = (
+        "野球", "NPB", "プロ野球", "セ・リーグ", "パ・リーグ",
+        "巨人", "阪神", "広島", "中日", "DeNA", "ヤクルト", "横浜",
+        "ソフトバンク", "オリックス", "西武", "ロッテ", "日本ハム", "楽天",
+    )
     for a in soup.find_all("a", href=True):
         text = a.get_text(strip=True)
-        href = a.get("href") or ""
-        if len(text) > 15 and "/articles/" in href:
-            full_url = f"https://hochi.news{href}" if href.startswith("/") else href
-            news.append({"title": text, "url": full_url, "source": "スポーツ報知", "date": "", "summary": ""})
+        href = str(a.get("href") or "")
+        if not text or len(text) < 10:
+            continue
+        if "/articles/" not in href:
+            continue
+        # 過濾非棒球內容
+        if not any(kw in text for kw in BASEBALL_KEYWORDS):
+            continue
+        # 確保 URL 在 hochi.news domain
+        if href.startswith("/"):
+            full_url = f"https://hochi.news{href}"
+        elif urlparse(href).netloc == "hochi.news":
+            full_url = href
+        else:
+            continue
+        if text in seen_titles:
+            continue
+        seen_titles.add(text)
+        news.append({"title": text, "url": full_url, "source": "スポーツ報知", "date": "", "summary": ""})
         if len(news) >= NEWS_MAX_PER_SOURCE:
             break
     logger.info("スポーツ報知: %d 則", len(news))
@@ -759,7 +804,8 @@ def fetch_fullcount_news() -> list:
         if title and len(title) > 5:
             news.append({"title": title, "url": href, "source": "Full-Count", "date": date_str, "summary": summary[:300]})
     if not news:
-        for item in soup.select("a[href*='/2026/']")[:NEWS_MAX_PER_SOURCE]:
+        current_year = datetime.now().year
+        for item in soup.select(f"a[href*='/{current_year}/']")[:NEWS_MAX_PER_SOURCE]:
             title = item.get_text(strip=True)
             href = item.get("href", "")
             if not href.startswith("http"):
@@ -784,7 +830,7 @@ def fetch_all_news() -> dict:
     results = {}
     with ThreadPoolExecutor(max_workers=7) as executor:
         futures = {executor.submit(fn): name for name, fn in sources.items()}
-        for future in as_completed(futures):
+        for future in futures:
             name = futures[future]
             try:
                 results[name] = future.result()

@@ -6,6 +6,8 @@
 讀取 collect_data.py 產生的 JSON，生成電子報 HTML
 """
 
+import argparse
+import html
 import json
 import os
 import re
@@ -14,6 +16,7 @@ import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse
 
 # ============================================================
 # 設定
@@ -24,6 +27,36 @@ COVERS_DIR = NEWSPAPER_DIR / "covers"
 
 COVERS = ["cover-1.png", "cover-2.png", "cover-3.png", "cover-4.png", "cover-5.png"]
 
+# LLM 模型的預設值 (在呼叫 agy 時使用)
+LLM_MODEL = "Gemini 3.5 Flash (Medium)"
+
+# ============================================================
+# HTML 安全輔助函數
+# ============================================================
+ALLOWED_SCHEMES = {"https", "http"}
+
+
+def h(value) -> str:
+    """HTML escape 文字內容（用於標籤內文字）"""
+    return html.escape(str(value or ""), quote=False)
+
+
+def attr(value) -> str:
+    """HTML escape 屬性值（用於 href/src/alt 等）"""
+    return html.escape(str(value or ""), quote=True)
+
+
+def safe_url(value: str) -> str:
+    """過濾 URL，只允許 http/https scheme"""
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    parsed = urlparse(value)
+    if parsed.scheme not in ALLOWED_SCHEMES:
+        return ""
+    return value
+
+
 # ============================================================
 # LLM 新聞翻譯
 # ============================================================
@@ -33,30 +66,35 @@ def has_llm() -> bool:
 
 
 def call_llm(prompt: str, timeout: int = 300) -> str | None:
-    """呼叫本地 LLM 進行新聞翻譯/摘要"""
-    # 1) codex CLI（第一優先）
-    if shutil.which("codex"):
-        try:
-            result = subprocess.run(
-                ["codex", "exec", "--", prompt],
-                capture_output=True, text=True, timeout=timeout
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-        except Exception as e:
-            print(f"  codex 失敗: {e}")
+    """呼叫本地 LLM 進行新聞翻譯/摘要 - 安全過濾 prompt injection"""
+    # 安全過濾：移除可能引發 prompt injection 的控制字元
+    safe_prompt = prompt.replace("\x00", "").replace("\x1b", "")
 
-    # 2) agy（備援）
+    # 1) agy（第一優先 - 純文字模式）
     if shutil.which("agy"):
         try:
             result = subprocess.run(
-                ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)", prompt],
-                capture_output=True, text=True, timeout=timeout
+                ["agy", "--print", "--model", LLM_MODEL, safe_prompt],
+                capture_output=True, text=True, timeout=timeout,
+                env={**os.environ, "AGY_NO_TOOLS": "1"},
             )
             if result.returncode == 0 and result.stdout.strip():
                 return result.stdout.strip()
         except Exception as e:
             print(f"  agy 失敗: {e}")
+
+    # 2) codex CLI（備援 - 限制工作目錄）
+    if shutil.which("codex"):
+        try:
+            result = subprocess.run(
+                ["codex", "exec", "--", safe_prompt],
+                capture_output=True, text=True, timeout=timeout,
+                cwd="/tmp",
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+        except Exception as e:
+            print(f"  codex 失敗: {e}")
 
     return None
 
@@ -150,7 +188,7 @@ def generate_html(data: dict, cover_file: str) -> str:
     team_news = data.get("team_news", {})
 
     # ── 封面 ──
-    cover_html = f'<div class="cover-banner"><img src="images/{cover_file}" alt="日職每日報封面"></div>' if cover_file else ""
+    cover_html = f'<div class="cover-banner"><img src="images/{attr(cover_file)}" alt="日職每日報封面"></div>' if cover_file else ""
 
     # ── 昨日戰報 ──
     yesterday_html = ""
@@ -158,18 +196,18 @@ def generate_html(data: dict, cover_file: str) -> str:
         for game in yesterday_games:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
-            home_logo = teams.get(home_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            away_logo = teams.get(away_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            home_name = game.get("home_team", "")
-            away_name = game.get("away_team", "")
-            home_score = game.get("home_score", "")
-            away_score = game.get("away_score", "")
-            stadium = game.get("stadium", "")
-            status = game.get("status", "")
-            winning_pitcher = game.get("winning_pitcher", "")
-            losing_pitcher = game.get("losing_pitcher", "")
-            attendance = game.get("attendance", "")
-            duration = game.get("duration", "")
+            home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            away_logo = safe_url(teams.get(away_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            home_name = h(game.get("home_team", ""))
+            away_name = h(game.get("away_team", ""))
+            home_score = h(game.get("home_score", ""))
+            away_score = h(game.get("away_score", ""))
+            stadium = h(game.get("stadium", ""))
+            status = h(game.get("status", ""))
+            winning_pitcher = h(game.get("winning_pitcher", ""))
+            losing_pitcher = h(game.get("losing_pitcher", ""))
+            attendance = h(game.get("attendance", ""))
+            duration = h(game.get("duration", ""))
 
             score_display = f"{away_score} - {home_score}" if home_score or away_score else "vs"
             extra_info = ""
@@ -187,12 +225,12 @@ def generate_html(data: dict, cover_file: str) -> str:
             <div class="game-card">
                 <div class="game-teams">
                     <div class="team-block away-block">
-                        <img src="{away_logo}" alt="{away_name}" class="team-logo">
+                        <img src="{attr(away_logo)}" alt="{attr(away_name)}" class="team-logo">
                         <span class="team-name">{away_name}</span>
                     </div>
                     <div class="score-display">{score_display}</div>
                     <div class="team-block home-block">
-                        <img src="{home_logo}" alt="{home_name}" class="team-logo">
+                        <img src="{attr(home_logo)}" alt="{attr(home_name)}" class="team-logo">
                         <span class="team-name">{home_name}</span>
                     </div>
                 </div>
@@ -211,15 +249,15 @@ def generate_html(data: dict, cover_file: str) -> str:
         for game in today_games:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
-            home_logo = teams.get(home_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            away_logo = teams.get(away_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            home_name = game.get("home_team", "")
-            away_name = game.get("away_team", "")
-            home_score = game.get("home_score", "")
-            away_score = game.get("away_score", "")
-            stadium = game.get("stadium", "")
-            status = game.get("status", "")
-            game_time = game.get("time", "")
+            home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            away_logo = safe_url(teams.get(away_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            home_name = h(game.get("home_team", ""))
+            away_name = h(game.get("away_team", ""))
+            home_score = h(game.get("home_score", ""))
+            away_score = h(game.get("away_score", ""))
+            stadium = h(game.get("stadium", ""))
+            status = h(game.get("status", ""))
+            game_time = h(game.get("time", ""))
 
             score_display = f"{away_score} - {home_score}" if home_score and away_score and home_score != "*" else "vs"
             time_tag = f'<span class="game-time">⏰ {game_time}</span>' if game_time else ""
@@ -228,12 +266,12 @@ def generate_html(data: dict, cover_file: str) -> str:
             <div class="game-card">
                 <div class="game-teams">
                     <div class="team-block away-block">
-                        <img src="{away_logo}" alt="{away_name}" class="team-logo">
+                        <img src="{attr(away_logo)}" alt="{attr(away_name)}" class="team-logo">
                         <span class="team-name">{away_name}</span>
                     </div>
                     <div class="score-display">{score_display}</div>
                     <div class="team-block home-block">
-                        <img src="{home_logo}" alt="{home_name}" class="team-logo">
+                        <img src="{attr(home_logo)}" alt="{attr(home_name)}" class="team-logo">
                         <span class="team-name">{home_name}</span>
                     </div>
                 </div>
@@ -252,14 +290,14 @@ def generate_html(data: dict, cover_file: str) -> str:
         for game in tomorrow_games:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
-            home_logo = teams.get(home_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            away_logo = teams.get(away_key, {}).get("logo", "") if isinstance(teams, dict) else ""
-            home_name = game.get("home_team", "")
-            away_name = game.get("away_team", "")
-            stadium = game.get("stadium", "")
-            game_time = game.get("time", "")
-            home_pitcher = game.get("home_pitcher", "")
-            away_pitcher = game.get("away_pitcher", "")
+            home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            away_logo = safe_url(teams.get(away_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
+            home_name = h(game.get("home_team", ""))
+            away_name = h(game.get("away_team", ""))
+            stadium = h(game.get("stadium", ""))
+            game_time = h(game.get("time", ""))
+            home_pitcher = h(game.get("home_pitcher", ""))
+            away_pitcher = h(game.get("away_pitcher", ""))
 
             pitcher_info = ""
             if away_pitcher:
@@ -271,12 +309,12 @@ def generate_html(data: dict, cover_file: str) -> str:
             <div class="game-card">
                 <div class="game-teams">
                     <div class="team-block away-block">
-                        <img src="{away_logo}" alt="{away_name}" class="team-logo">
+                        <img src="{attr(away_logo)}" alt="{attr(away_name)}" class="team-logo">
                         <span class="team-name">{away_name}</span>
                     </div>
                     <div class="score-display">vs</div>
                     <div class="team-block home-block">
-                        <img src="{home_logo}" alt="{home_name}" class="team-logo">
+                        <img src="{attr(home_logo)}" alt="{attr(home_name)}" class="team-logo">
                         <span class="team-name">{home_name}</span>
                     </div>
                 </div>
@@ -393,19 +431,19 @@ def generate_html(data: dict, cover_file: str) -> str:
         news_to_translate = focus_news[:8]
         translated = translate_news_batch(news_to_translate)
         for article in translated:
-            title = article.get("title_zh", article.get("title", ""))
-            summary = article.get("summary_zh", article.get("summary", "")[:200])
-            source = article.get("source", "")
-            url = article.get("url", "")
-            date_str = article.get("date", "")
+            title = h(article.get("title_zh", article.get("title", "")))
+            summary = h(article.get("summary_zh", article.get("summary", ""))[:200])
+            source = h(article.get("source", ""))
+            url = attr(safe_url(article.get("url", "")))
+            date_str = h(article.get("date", ""))
             focus_news_html += f"""
             <div class="news-card focus-news">
                 <span class="card-tag tag-news">{source}</span>
-                <h3 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h3>
+                <h3 class="card-title"><a href="{url}" target="_blank" rel="noopener noreferrer">{title}</a></h3>
                 <p class="card-body">{summary}</p>
                 <div class="news-meta">
                     <span class="news-date">{date_str}</span>
-                    <a href="{url}" target="_blank" rel="noopener" class="read-more">閱讀原文 →</a>
+                    <a href="{url}" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
                 </div>
             </div>"""
     else:
@@ -424,22 +462,22 @@ def generate_html(data: dict, cover_file: str) -> str:
             league_color = "var(--central)" if league_key == "central" else "var(--pacific)"
             league_news_block = ""
             for tk, tinfo, articles in league_teams_news:
-                logo_url = tinfo.get("logo", "")
+                logo_url = safe_url(tinfo.get("logo", ""))
                 items_html = ""
                 for article in articles[:3]:
-                    title = article.get("title_zh", article.get("title", ""))
-                    source = article.get("source", "")
-                    link = article.get("link", "")
+                    title = h(article.get("title_zh", article.get("title", "")))
+                    source = h(article.get("source", ""))
+                    link = attr(safe_url(article.get("link", "")))
                     if link:
-                        items_html += f'<li class="news-item"><a href="{link}" target="_blank" rel="noopener" class="news-link">{title}</a><span class="news-source">— {source}</span></li>'
+                        items_html += f'<li class="news-item"><a href="{link}" target="_blank" rel="noopener noreferrer" class="news-link">{title}</a><span class="news-source">— {source}</span></li>'
                     else:
                         items_html += f'<li class="news-item"><span class="news-title">{title}</span><span class="news-source">— {source}</span></li>'
                 if items_html:
                     league_news_block += f"""
                     <div class="team-news-block">
                         <div class="team-news-header">
-                            <img src="{logo_url}" alt="{tinfo.get('name', '')}" class="news-team-logo">
-                            <span class="team-news-name">{tinfo.get('name', '')}</span>
+                            <img src="{attr(logo_url)}" alt="{attr(tinfo.get('name', ''))}" class="news-team-logo">
+                            <span class="team-news-name">{h(tinfo.get('name', ''))}</span>
                         </div>
                         <ul class="team-news-list">{items_html}</ul>
                     </div>"""
@@ -1013,21 +1051,33 @@ def generate_html(data: dict, cover_file: str) -> str:
 def clean_old_issues():
     cutoff_date = datetime.now() - timedelta(days=14)
     removed = []
+    ISSUE_DIR_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
     for item in NEWSPAPER_DIR.iterdir():
-        if item.is_dir() and re.match(r"\d{{4}}-\d{{2}}-\d{{2}}", item.name):
+        if item.is_dir() and ISSUE_DIR_RE.fullmatch(item.name):
             issue_date = datetime.strptime(item.name, "%Y-%m-%d")
             if issue_date < cutoff_date:
-                import shutil
                 shutil.rmtree(item)
                 removed.append(item.name)
-                print(f"Removed old issue: {{item.name}}")
+                print(f"Removed old issue: {item.name}")
     return removed
 
 
 def deploy_to_github():
     try:
         os.chdir(GIT_DIR)
-        subprocess.run(["git", "add", "-A"], check=True)
+        # 只 add 明確路徑，避免把其他未提交改動一起推上去
+        rel_path = str(NEWSPAPER_DIR.relative_to(GIT_DIR))
+        subprocess.run(["git", "add", rel_path], check=True)
+
+        # 檢查是否有變更需要提交
+        diff = subprocess.run(
+            ["git", "diff", "--cached", "--quiet"],
+            cwd=GIT_DIR,
+        )
+        if diff.returncode == 0:
+            print("No changes to deploy.")
+            return True
+
         subprocess.run(["git", "commit", "-m", f"日職每日報自動更新: {datetime.now().strftime('%Y-%m-%d %H:%M')}"], check=True)
         subprocess.run(["git", "push"], check=True)
         print("Deployed to GitHub Pages successfully!")
@@ -1176,7 +1226,21 @@ def update_rack_index(info):
 
 
 def main():
+    # 解析命令列參數
+    parser = argparse.ArgumentParser(description="日職每日報 - HTML 生成腳本")
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="Gemini 3.5 Flash (Medium)",
+        help="指定 LLM 模型名稱 (預設: Gemini 3.5 Flash (Medium))",
+    )
+    args = parser.parse_args()
+
+    global LLM_MODEL
+    LLM_MODEL = args.model
+
     print(f"=== 日職每日報生成開始 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===")
+    print(f"使用 LLM 模型: {LLM_MODEL}")
 
     # 1. 讀取數據
     today_str = datetime.now().strftime("%Y-%m-%d")
