@@ -102,16 +102,13 @@ def fetch_billboard_chart():
     if not soup:
         return songs
 
-    # 解析排行榜表格
-    rows = soup.select("table.musiclist tbody tr")
-    if not rows:
-        # 備用選擇器
-        rows = soup.select(".musiclist tr")
+    # 解析排行榜表格 - 每首歌在 <tr class="rankN"> 中
+    rows = soup.find_all("tr", class_=re.compile(r"rank\d+"))
 
     for row in rows:
         try:
             # 排名
-            rank_td = row.select_one("td.ranking")
+            rank_td = row.select_one("td.rank_td span")
             if not rank_td:
                 continue
             rank_text = rank_td.get_text(strip=True)
@@ -128,12 +125,22 @@ def fetch_billboard_chart():
             artist = artist_el.get_text(strip=True) if artist_el else ""
 
             # 上週排名
-            last_rank_el = row.select_one("td.l_rank")
-            last_rank = last_rank_el.get_text(strip=True) if last_rank_el else ""
+            last_rank = ""
+            last_span = row.select_one("span.last")
+            if last_span:
+                last_text = last_span.get_text(strip=True)
+                m = re.search(r"前回：(\d+|-)", last_text)
+                if m:
+                    last_rank = m.group(1)
 
             # 週數
-            weeks_el = row.select_one("td.wks")
-            weeks_on_chart = weeks_el.get_text(strip=True) if weeks_el else ""
+            weeks_on_chart = ""
+            charts_span = row.select_one("span.charts_in")
+            if charts_span:
+                weeks_text = charts_span.get_text(strip=True)
+                m = re.search(r"チャートイン：(\d+)", weeks_text)
+                if m:
+                    weeks_on_chart = m.group(1)
 
             if title and artist:
                 songs.append({
@@ -157,6 +164,7 @@ def fetch_billboard_chart():
 def fetch_natalie_news():
     """
     從音楽ナタリー (natalie.mu/music) 爬取音樂新聞
+    新聞卡片 class: NA_card
     """
     logger.info("爬取 音楽ナタリー 新聞...")
     news = []
@@ -165,38 +173,36 @@ def fetch_natalie_news():
     if not soup:
         return news
 
-    # 新聞卡片
-    articles = soup.select("article.NA_article, article.news-article, .NA_article")
-    if not articles:
-        # 備用選擇器
-        articles = soup.select("article")
+    # 新聞卡片: <div class="NA_card NA_card-topnews"> 或 <div class="NA_card NA_card-l">
+    cards = soup.find_all("div", class_=re.compile(r"NA_card"))
 
-    for article in articles[:NEWS_MAX_PER_SOURCE]:
+    for card in cards[:NEWS_MAX_PER_SOURCE]:
         try:
-            # 標題
-            title_el = article.select_one("h2.NA_article_title, h3, .NA_article_title")
-            title = title_el.get_text(strip=True) if title_el else ""
+            # 連結和標題在 <a> 內
+            a_tag = card.find("a", href=re.compile(r"/music/news/\d+"))
+            if not a_tag:
+                continue
 
-            # 連結
-            link_el = article.select_one("a.NA_article_link, a[href*='/music/news/']")
-            if not link_el:
-                link_el = article.find("a")
-            href = link_el.get("href", "") if link_el else ""
+            href = a_tag.get("href", "")
             if href and not str(href).startswith("http"):
                 href = f"https://natalie.mu{href}"
 
+            # 標題
+            title_el = a_tag.select_one("p.NA_card_title")
+            title = title_el.get_text(strip=True) if title_el else ""
+
             # 摘要
-            summary_el = article.select_one("p.NA_article_description, p.description")
+            summary_el = a_tag.select_one("p.NA_card_summary")
             summary = summary_el.get_text(strip=True) if summary_el else ""
 
             # 圖片
-            img_el = article.select_one("img")
+            img_el = a_tag.select_one("img")
             image = img_el.get("src", "") if img_el else ""
             if image and image.startswith("//"):
                 image = f"https:{image}"
 
             # 日期
-            date_el = article.select_one("time, .NA_article_date")
+            date_el = a_tag.select_one("div.NA_card_date")
             date_str = date_el.get_text(strip=True) if date_el else ""
 
             if title and href:
@@ -222,46 +228,46 @@ def fetch_natalie_news():
 def fetch_billboard_news():
     """
     從 Billboard JAPAN 新聞頁面爬取音樂新聞
+    URL: https://www.billboard-japan.com/d_news/
     """
     logger.info("爬取 Billboard JAPAN 新聞...")
     news = []
-    url = "https://www.billboard-japan.com/news/"
+    url = "https://www.billboard-japan.com/d_news/"
     soup = fetch_soup(url)
     if not soup:
         return news
 
-    # 新聞列表
-    articles = soup.select("div.news_list ul li, .news-item")
-    if not articles:
-        articles = soup.select("article, .news-article")
+    # 新聞列表在 <li> 中，連結為 /d_news/detail/XXXX
+    lis = soup.find_all("li")
 
-    for article in articles[:NEWS_MAX_PER_SOURCE]:
+    for li in lis[:NEWS_MAX_PER_SOURCE * 2]:
         try:
-            # 標題
-            title_el = article.select_one("a, h3, h2")
-            title = title_el.get_text(strip=True) if title_el else ""
+            a_tag = li.find("a", href=re.compile(r"/d_news/detail/\d+"))
+            if not a_tag:
+                continue
 
-            # 連結
-            link_el = article.find("a")
-            href = link_el.get("href", "") if link_el else ""
+            # 標題在 <p> 中（排除 <p class="lank"> 排名數字）
+            p_tags = a_tag.find_all("p")
+            title = ""
+            for p in p_tags:
+                if p.get("class") == ["lank"]:
+                    continue
+                txt = p.get_text(strip=True)
+                if len(txt) > 10:
+                    title = txt
+                    break
+
+            href = a_tag.get("href", "")
             if href and not str(href).startswith("http"):
                 href = f"https://www.billboard-japan.com{href}"
-
-            # 日期
-            date_el = article.select_one(".date, time")
-            date_str = date_el.get_text(strip=True) if date_el else ""
-
-            # 摘要（Billboard 列表頁通常沒有摘要，嘗試找 description）
-            summary_el = article.select_one("p, .description")
-            summary = summary_el.get_text(strip=True) if summary_el else ""
 
             if title and href:
                 news.append({
                     "title": title,
                     "url": href,
-                    "summary": summary,
+                    "summary": "",
                     "image": "",
-                    "date": date_str,
+                    "date": "",
                     "source": "Billboard JAPAN",
                 })
         except Exception as e:
@@ -323,45 +329,61 @@ def fetch_modelpress_news():
 
 
 # ============================================================
-# 5. 新曲發行情報（從 Natalie 新曲頁面）
+# 5. 新曲發行情報（從 Natalie 首頁新聞中篩選）
 # ============================================================
 def fetch_new_releases():
     """
-    從音楽ナタリー新曲頁面爬取本週新發行
+    從音楽ナタリー新聞中篩選新曲發行相關新聞
     """
     logger.info("爬取新曲發行情報...")
     releases = []
-    url = "https://natalie.mu/music/release"
+    url = "https://natalie.mu/music"
     soup = fetch_soup(url)
     if not soup:
         return releases
 
-    items = soup.select(".NA_release, .release-item, article")
+    # 尋找包含「リリース」「シングル」「アルバム」的新聞
+    cards = soup.find_all("div", class_=re.compile(r"NA_card"))
 
-    for item in items[:10]:
+    keywords = ["リリース", "シングル", "アルバム", "配信", "CD", "新曲"]
+    for card in cards:
         try:
-            title_el = item.select_one(".title, h3, h2")
+            a_tag = card.find("a", href=re.compile(r"/music/news/\d+"))
+            if not a_tag:
+                continue
+
+            title_el = a_tag.select_one("p.NA_card_title")
             title = title_el.get_text(strip=True) if title_el else ""
 
-            artist_el = item.select_one(".artist, .name")
-            artist = artist_el.get_text(strip=True) if artist_el else ""
+            # 檢查是否為新曲相關
+            if not any(kw in title for kw in keywords):
+                continue
 
-            date_el = item.select_one(".date, time")
-            date_str = date_el.get_text(strip=True) if date_el else ""
+            summary_el = a_tag.select_one("p.NA_card_summary")
+            summary = summary_el.get_text(strip=True) if summary_el else ""
 
-            link_el = item.find("a")
-            href = link_el.get("href", "") if link_el else ""
+            href = a_tag.get("href", "")
             if href and not str(href).startswith("http"):
                 href = f"https://natalie.mu{href}"
 
-            img_el = item.select_one("img")
+            img_el = a_tag.select_one("img")
             image = img_el.get("src", "") if img_el else ""
+            if image and image.startswith("//"):
+                image = f"https:{image}"
+
+            # 嘗試從摘要提取藝人名
+            artist = ""
+            if summary:
+                # 通常格式: 「藝人名」が... 或 藝人名が...
+                m = re.match(r"^「?([^」]+)」?が", summary)
+                if m:
+                    artist = m.group(1)
 
             if title:
                 releases.append({
                     "title": title,
                     "artist": artist,
-                    "date": date_str,
+                    "date": "",
                     "url": href,
                     "image": image,
                 })
@@ -374,39 +396,61 @@ def fetch_new_releases():
 
 
 # ============================================================
-# 6. 演唱會情報（從 Natalie Live）
+# 6. 演唱會情報（從 Natalie 首頁新聞中篩選）
 # ============================================================
 def fetch_concert_info():
     """
-    從音楽ナタリー Live 頁面爬取演唱會情報
+    從音楽ナタリー新聞中篩選演唱會相關新聞
     """
     logger.info("爬取演唱會情報...")
     concerts = []
-    url = "https://natalie.mu/music/live"
+    url = "https://natalie.mu/music"
     soup = fetch_soup(url)
     if not soup:
         return concerts
 
-    items = soup.select(".NA_live, .live-item, article")
+    cards = soup.find_all("div", class_=re.compile(r"NA_card"))
 
-    for item in items[:10]:
+    keywords = ["ライブ", "ツアー", "フェス", "公演", "コンサート", "出演", "開催"]
+    for card in cards:
         try:
-            title_el = item.select_one("h3, h2, .title")
+            a_tag = card.find("a", href=re.compile(r"/music/news/\d+"))
+            if not a_tag:
+                continue
+
+            title_el = a_tag.select_one("p.NA_card_title")
             title = title_el.get_text(strip=True) if title_el else ""
 
-            artist_el = item.select_one(".artist, .performer")
-            artist = artist_el.get_text(strip=True) if artist_el else ""
+            # 檢查是否為演唱會相關
+            if not any(kw in title for kw in keywords):
+                continue
 
-            date_el = item.select_one(".date, time")
-            date_str = date_el.get_text(strip=True) if date_el else ""
+            summary_el = a_tag.select_one("p.NA_card_summary")
+            summary = summary_el.get_text(strip=True) if summary_el else ""
 
-            venue_el = item.select_one(".venue, .place")
-            venue = venue_el.get_text(strip=True) if venue_el else ""
-
-            link_el = item.find("a")
-            href = link_el.get("href", "") if link_el else ""
+            href = a_tag.get("href", "")
             if href and not str(href).startswith("http"):
                 href = f"https://natalie.mu{href}"
+
+            # 嘗試提取日期和場地
+            date_str = ""
+            venue = ""
+            if summary:
+                # 尋找日期模式: X月X日 或 X/X
+                m = re.search(r"(\d{1,2}月\d{1,2}日|\d{1,2}/\d{1,2})", summary)
+                if m:
+                    date_str = m.group(1)
+                # 尋找場地: 在「会場」「場所」後
+                m = re.search(r"(東京|大阪|名古屋|福岡|札幌|仙台|広島|横浜)[・\w]*", summary)
+                if m:
+                    venue = m.group(0)
+
+            # 嘗試提取藝人名
+            artist = ""
+            if summary:
+                m = re.match(r"^「?([^」]+)」?が", summary)
+                if m:
+                    artist = m.group(1)
 
             if title:
                 concerts.append({
