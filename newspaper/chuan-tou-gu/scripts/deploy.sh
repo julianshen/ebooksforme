@@ -30,6 +30,8 @@ echo "[3/3] Git 提交..."
 cd "$REPO_DIR"
 git add -A
 git commit -m "川投顧日報: $DATE_STR 自動生成" || echo "無變更需要提交"
+echo "  正在拉取遠端變更..."
+git pull --rebase --autostash || echo "⚠️ git pull 失敗，繼續嘗試 push"
 git push
 
 echo ""
