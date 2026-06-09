@@ -91,7 +91,10 @@ def fetch_yahoo_quote(symbol):
             return None
         
         latest_close = valid_data[-1][1]
-        prev_close = meta.get("chartPreviousClose", valid_data[-2][1] if len(valid_data) > 1 else latest_close)
+        # 使用前一個有效交易日作為 prev_close，不是 chartPreviousClose！
+        # chartPreviousClose 是整個範圍前的收盤（5天前），用來算漲跌幅會是
+        # 累積 5 天的變化，不是一天的日變化。
+        prev_close = valid_data[-2][1] if len(valid_data) > 1 else meta.get("chartPreviousClose", latest_close)
         
         change = latest_close - prev_close
         change_pct = (change / prev_close * 100) if prev_close else 0
