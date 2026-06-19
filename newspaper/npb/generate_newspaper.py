@@ -17,6 +17,7 @@ import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
+import urllib.request
 
 # ============================================================
 # 設定
@@ -61,16 +62,56 @@ def safe_url(value: str) -> str:
 # LLM 新聞翻譯
 # ============================================================
 
+# OpenRouter API 設定（比 agy/codex 快 20x）
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
+# 模型優先順序: DeepSeek Chat V3（快+便宜）→ Gemini Flash（備援）
+LLM_MODELS = [
+    "deepseek/deepseek-chat-v3-0324",
+    "google/gemini-2.0-flash-001",
+]
+
+
 def has_llm() -> bool:
-    return shutil.which("codex") is not None or shutil.which("agy") is not None
+    return bool(OPENROUTER_API_KEY) or shutil.which("agy") is not None or shutil.which("codex") is not None
 
 
-def call_llm(prompt: str, timeout: int = 300) -> str | None:
-    """呼叫本地 LLM 進行新聞翻譯/摘要 - 安全過濾 prompt injection"""
+def call_llm(prompt: str, timeout: int = 120) -> str | None:
+    """呼叫 LLM 進行新聞翻譯/摘要 - 優先使用 OpenRouter API（最快），再 fallback 到 agy/codex"""
+    import json as _json
+
     # 安全過濾：移除可能引發 prompt injection 的控制字元
     safe_prompt = prompt.replace("\x00", "").replace("\x1b", "")
 
-    # 1) agy（第一優先 - 純文字模式，用 stdin 傳遞 prompt）
+    # 0) OpenRouter API（最快，1-3 秒回應）
+    if OPENROUTER_API_KEY:
+        for model in LLM_MODELS:
+            try:
+                data = _json.dumps({
+                    "model": model,
+                    "messages": [{"role": "user", "content": safe_prompt}],
+                    "max_tokens": 4096,
+                    "temperature": 0.3,
+                }).encode()
+                req = urllib.request.Request(
+                    OPENROUTER_BASE_URL,
+                    data=data,
+                    headers={
+                        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                        "Content-Type": "application/json",
+                    },
+                )
+                with urllib.request.urlopen(req, timeout=timeout) as resp:
+                    result = _json.loads(resp.read())
+                content = result["choices"][0]["message"]["content"].strip()
+                if content:
+                    print(f"  [OpenRouter/{model.split('/')[-1]}] OK")
+                    return content
+            except Exception as e:
+                print(f"  [OpenRouter/{model.split('/')[-1]}] 失敗: {e}")
+                continue
+
+    # 1) agy（備援 - 純文字模式）
     if shutil.which("agy"):
         try:
             proc = subprocess.Popen(
@@ -88,7 +129,7 @@ def call_llm(prompt: str, timeout: int = 300) -> str | None:
         except Exception as e:
             print(f"  agy 失敗: {e}")
 
-    # 2) codex CLI（備援 - 限制工作目錄）
+    # 2) codex CLI（最後備援）
     if shutil.which("codex"):
         try:
             result = subprocess.run(

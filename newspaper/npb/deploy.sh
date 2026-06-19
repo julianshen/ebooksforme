@@ -8,6 +8,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GIT_DIR="/home/julianshen/projects/ebooksforme"
 VENV_PYTHON="/home/julianshen/projects/ebooksforme/newspaper/.venv/bin/python3"
 
+# 載入 API 金鑰（OpenRouter 用於 LLM 翻譯）
+if [ -f "$HOME/.hermes/.env" ]; then
+    set -a; source "$HOME/.hermes/.env"; set +a
+fi
+
 echo "========================================"
 echo "日職每日報自動生成開始: $(date)"
 echo "========================================"
