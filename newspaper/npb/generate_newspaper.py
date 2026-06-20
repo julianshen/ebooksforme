@@ -73,7 +73,7 @@ def translate_source(name: str) -> str:
         return SOURCE_TRANSLATIONS[name]
     for jp, zh in SOURCE_TRANSLATIONS.items():
         if jp in name:
-            return name.replace(jp, zh)
+            name = name.replace(jp, zh)
     # 通用：「公式サイト」→「官網」
     name = name.replace('公式サイト', '官網')
     return name
