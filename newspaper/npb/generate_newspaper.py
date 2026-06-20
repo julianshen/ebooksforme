@@ -31,6 +31,44 @@ COVERS = ["cover-1.png", "cover-2.png", "cover-3.png", "cover-4.png", "cover-5.p
 # LLM 模型的預設值 (在呼叫 agy 時使用)
 LLM_MODEL = "Gemini 3.5 Flash (Medium)"
 
+# 日文新聞來源名稱翻譯對照表
+SOURCE_TRANSLATIONS = {
+    "Yahoo!ニュース": "Yahoo!新聞",
+    "ベースボールチャンネル": "棒球頻道",
+    "サンスポ": "日刊體育",
+    "スポーツナビ": "SportNavi",
+    "日刊スポーツ": "日刊體育",
+    "ｄメニューニュース": "d選單新聞",
+    "インサイド": "Inside",
+    "パ・リーグ.com": "太平洋聯盟官網",
+    "阪神タイガース 公式サイト": "阪神虎官網",
+    "横浜DeNAベイスターズ": "橫濱DeNA海灣之星",
+    "福岡ソフトバンクホークス": "福岡軟銀鷹",
+    "オリックス・バファローズ": "歐力士猛牛",
+    "東北楽天ゴールデンイーグルス": "東北樂天金鷹",
+    "中日ドラゴンズ オフィシャルウェブサイト": "中日龍官網",
+    "読売巨人公式サイト": "讀賣巨人官網",
+    "東京ヤクルトスワローズ": "東京養樂多燕子",
+    "広島東洋カープ": "廣島東洋鯉魚",
+    "北海道日本ハムファイターズ": "北海道日本火腿鬥士",
+    "埼玉西武ライオンズ": "埼玉西武獅",
+    "千葉ロッテマリーンズ": "千葉羅德海洋",
+}
+
+
+def translate_source(name: str) -> str:
+    """翻譯日文新聞來源名稱為中文"""
+    if not name:
+        return ""
+    name = name.strip()
+    if name in SOURCE_TRANSLATIONS:
+        return SOURCE_TRANSLATIONS[name]
+    for jp, zh in SOURCE_TRANSLATIONS.items():
+        if jp in name:
+            return name.replace(jp, zh)
+    return name
+
+
 # ============================================================
 # HTML 安全輔助函數
 # ============================================================
@@ -238,8 +276,9 @@ def generate_html(data: dict, cover_file: str) -> str:
 
     # ── 昨日戰報 ──
     yesterday_html = ""
-    if yesterday_games:
-        for game in yesterday_games:
+    valid_yesterday = [g for g in yesterday_games if g.get("home_team") or g.get("away_team")] if yesterday_games else []
+    if valid_yesterday:
+        for game in valid_yesterday:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
             home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
@@ -291,8 +330,9 @@ def generate_html(data: dict, cover_file: str) -> str:
 
     # ── 今日賽程 ──
     today_html = ""
-    if today_games:
-        for game in today_games:
+    valid_today = [g for g in today_games if g.get("home_team") or g.get("away_team")] if today_games else []
+    if valid_today:
+        for game in valid_today:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
             home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
@@ -332,8 +372,9 @@ def generate_html(data: dict, cover_file: str) -> str:
 
     # ── 明日預告 ──
     tomorrow_html = ""
-    if tomorrow_games:
-        for game in tomorrow_games:
+    valid_tomorrow = [g for g in tomorrow_games if g.get("home_team") or g.get("away_team")] if tomorrow_games else []
+    if valid_tomorrow:
+        for game in valid_tomorrow:
             home_key = game.get("home_team_key", "")
             away_key = game.get("away_team_key", "")
             home_logo = safe_url(teams.get(home_key, {}).get("logo", "")) if isinstance(teams, dict) else ""
@@ -479,7 +520,7 @@ def generate_html(data: dict, cover_file: str) -> str:
         for article in translated:
             title = h(article.get("title_zh", article.get("title", "")))
             summary = h(article.get("summary_zh", article.get("summary", ""))[:200])
-            source = h(article.get("source", ""))
+            source = h(translate_source(article.get("source", "")))
             url = attr(safe_url(article.get("url", "")))
             date_str = h(article.get("date", ""))
             focus_news_html += f"""
@@ -512,7 +553,7 @@ def generate_html(data: dict, cover_file: str) -> str:
                 items_html = ""
                 for article in articles[:3]:
                     title = h(article.get("title_zh", article.get("title", "")))
-                    source = h(article.get("source", ""))
+                    source = h(translate_source(article.get("source", "")))
                     link = attr(safe_url(article.get("link", "")))
                     if link:
                         items_html += f'<li class="news-item"><a href="{link}" target="_blank" rel="noopener noreferrer" class="news-link">{title}</a><span class="news-source">— {source}</span></li>'
