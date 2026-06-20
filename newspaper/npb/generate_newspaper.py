@@ -53,6 +53,14 @@ SOURCE_TRANSLATIONS = {
     "北海道日本ハムファイターズ": "北海道日本火腿鬥士",
     "埼玉西武ライオンズ": "埼玉西武獅",
     "千葉ロッテマリーンズ": "千葉羅德海洋",
+    "公式サイト": "官網",
+    "webスポルティーバ": "Web Sportiva",
+    "スポルティーバ": "Sportiva",
+    "スポーツ報知": "報知體育",
+    "Full-Count": "Full-Count",
+    "Baseball King": "Baseball King",
+    "スポニチ": "體育日本",
+    "Sports Bull": "Sports Bull",
 }
 
 
@@ -66,6 +74,8 @@ def translate_source(name: str) -> str:
     for jp, zh in SOURCE_TRANSLATIONS.items():
         if jp in name:
             return name.replace(jp, zh)
+    # 通用：「公式サイト」→「官網」
+    name = name.replace('公式サイト', '官網')
     return name
 
 
