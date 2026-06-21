@@ -220,46 +220,63 @@ def translate_news_batch(news_items: list[dict]) -> list[dict]:
             news_text += f"    來源: {item.get('source', '')}\n"
             news_text += f"    摘要: {item.get('summary', '')[:400]}\n"
 
-        prompt = f"""你是一位專業的日本職棒新聞編輯。請將以下日文新聞翻譯成繁體中文，並為每則新聞生成 50-80 字的中文摘要。
+        prompt = f"""你是專業日本職棒新聞編輯。將以下日文新聞翻譯成繁體中文，並為每則生成50-80字摘要。
 
-要求：
-1. 標題翻譯要準確且吸引人
-2. 摘要要涵蓋新聞重點
-3. 人名、球隊名使用台灣慣用譯名
-4. 直接回傳格式化的結果，不要額外解釋
+重要：必須輸出 JSON 陣列格式，不要輸出任何其他文字。
 
-輸出格式（嚴格遵守）：
-[0] 中文標題: <翻譯後標題>
-[0] 摘要: <中文摘要>
-[1] 中文標題: <翻譯後標題>
-[1] 摘要: <中文摘要>
-...
+輸出範例：
+[{{"title_zh":"中文標題","summary_zh":"中文摘要"}},{{"title_zh":"中文標題","summary_zh":"中文摘要"}}]
 
 新聞內容：
 {news_text}
-"""
+
+只輸出 JSON 陣列："""
         print(f"  呼叫 LLM 翻譯新聞批次 {i//batch_size + 1}/{(len(news_items)-1)//batch_size + 1}...")
         response = call_llm(prompt, timeout=300)
 
         if response:
-            # 解析回傳結果
-            for idx, item in enumerate(batch):
-                title_pattern = rf"\[{idx}\]\s*中文標題[:：]\s*(.+?)(?:\n|$)"
-                summary_pattern = rf"\[{idx}\]\s*摘要[:：]\s*(.+?)(?:\n\[|\Z)"
-                title_match = re.search(title_pattern, response, re.DOTALL)
-                summary_match = re.search(summary_pattern, response, re.DOTALL)
-
-                title_zh = title_match.group(1).strip() if title_match else item.get("title", "")
-                summary_zh = summary_match.group(1).strip() if summary_match else item.get("summary", "")[:200]
-
-                # Strip trailing source name from translated title
-                for src in [item.get("source", ""), "Yahoo!ニュース", "サンスポ"]:
-                    if src and title_zh.endswith(src):
-                        title_zh = title_zh[:-len(src)].rstrip(" -").rstrip()
-                        break
-                item["title_zh"] = title_zh
-                item["summary_zh"] = summary_zh
-                results.append(item)
+            # Try JSON parsing first
+            try:
+                # Extract JSON array from response
+                json_start = response.find("[")
+                json_end = response.rfind("]")
+                if json_start >= 0 and json_end > json_start:
+                    json_str = response[json_start:json_end+1]
+                    translated_list = json.loads(json_str)
+                    for idx, item in enumerate(batch):
+                        if idx < len(translated_list):
+                            t = translated_list[idx]
+                            title_zh = t.get("title_zh", "").strip()
+                            summary_zh = t.get("summary_zh", "").strip()
+                        else:
+                            title_zh = item.get("title", "")
+                            summary_zh = item.get("summary", "")[:200]
+                        # Strip trailing source name
+                        for src in [item.get("source", ""), "Yahoo!ニュース", "サンスポ"]:
+                            if src and title_zh.endswith(src):
+                                title_zh = title_zh[:-len(src)].rstrip(" -").rstrip()
+                                break
+                        item["title_zh"] = title_zh if title_zh else item.get("title", "")
+                        item["summary_zh"] = summary_zh if summary_zh else item.get("summary", "")[:200]
+                        results.append(item)
+                else:
+                    raise ValueError("No JSON found")
+            except (json.JSONDecodeError, ValueError):
+                # Fallback to regex parsing
+                for idx, item in enumerate(batch):
+                    title_pattern = rf"\[{idx}\]\s*中文標題[:：]\s*(.+?)(?:\n|$)"
+                    summary_pattern = rf"\[{idx}\]\s*摘要[:：]\s*(.+?)(?:\n\[|\Z)"
+                    title_match = re.search(title_pattern, response, re.DOTALL)
+                    summary_match = re.search(summary_pattern, response, re.DOTALL)
+                    title_zh = title_match.group(1).strip() if title_match else item.get("title", "")
+                    summary_zh = summary_match.group(1).strip() if summary_match else item.get("summary", "")[:200]
+                    for src in [item.get("source", ""), "Yahoo!ニュース", "サンスポ"]:
+                        if src and title_zh.endswith(src):
+                            title_zh = title_zh[:-len(src)].rstrip(" -").rstrip()
+                            break
+                    item["title_zh"] = title_zh
+                    item["summary_zh"] = summary_zh
+                    results.append(item)
         else:
             # LLM 失敗，使用原文
             for item in batch:
