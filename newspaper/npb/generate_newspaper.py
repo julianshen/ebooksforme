@@ -252,6 +252,11 @@ def translate_news_batch(news_items: list[dict]) -> list[dict]:
                 title_zh = title_match.group(1).strip() if title_match else item.get("title", "")
                 summary_zh = summary_match.group(1).strip() if summary_match else item.get("summary", "")[:200]
 
+                # Strip trailing source name from translated title
+                for src in [item.get("source", ""), "Yahoo!ニュース", "サンスポ"]:
+                    if src and title_zh.endswith(src):
+                        title_zh = title_zh[:-len(src)].rstrip(" -").rstrip()
+                        break
                 item["title_zh"] = title_zh
                 item["summary_zh"] = summary_zh
                 results.append(item)
