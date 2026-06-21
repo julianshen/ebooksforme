@@ -4,6 +4,11 @@
 
 set -e
 
+# Load API keys
+if [ -f "$HOME/.hermes/.env" ]; then
+    set -a; source "$HOME/.hermes/.env"; set +a
+fi
+
 REPO_DIR="/home/julianshen/projects/ebooksforme"
 DATE_STR=$(date +%Y-%m-%d)
 
@@ -22,7 +27,7 @@ python3 scripts/collect_data.py
 # 2. 生成報紙（由 LLM 翻譯新聞 + 生成分析）
 echo ""
 echo "[2/4] 生成報紙..."
-python3 scripts/generate_newspaper.py "$DATE_STR"
+python3 scripts/generate_newspaper.py
 
 # 3. 更新圖書館 index.html
 echo ""

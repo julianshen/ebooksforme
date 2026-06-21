@@ -10,6 +10,7 @@ import random
 import subprocess
 import sys
 import tempfile
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -27,8 +28,37 @@ def load_data(date_str):
         return json.load(f)
 
 
+def call_llm_api(prompt, system_prompt='You are a helpful assistant.'):
+    """使用 OpenRouter API 呼叫 LLM"""
+    api_key = os.environ.get('OPENROUTER_API_KEY', '')
+    if not api_key:
+        print('OpenRouter API key not set (OPENROUTER_API_KEY)')
+        return None
+    url = 'https://openrouter.ai/api/v1/chat/completions'
+    body = json.dumps({
+        'model': 'deepseek/deepseek-chat-v3-0324',
+        'messages': [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': prompt}
+        ],
+        'temperature': 0.3,
+        'max_tokens': 4096
+    }).encode()
+    req = urllib.request.Request(url, data=body, method='POST')
+    req.add_header('Authorization', f'Bearer {api_key}')
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('HTTP-Referer', 'https://github.com/julianshen/ebooksforme')
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            result = json.loads(resp.read())
+            return result['choices'][0]['message']['content']
+    except Exception as e:
+        print(f'OpenRouter API error: {e}')
+        return None
+
+
 def call_llm_translate_news(news_list, max_items=10):
-    """使用 agy CLI 翻譯新聞為繁體中文"""
+    """使用 OpenRouter API 翻譯新聞為繁體中文"""
     if not news_list:
         return []
 
@@ -67,38 +97,26 @@ def call_llm_translate_news(news_list, max_items=10):
 ]
 """
 
-    try:
-        # 使用 agy CLI
-        result = subprocess.run(
-            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)"],
-            input=prompt,
-            capture_output=True,
-            text=True,
-            timeout=120
-        )
+    system_prompt = '你是一位專業的財經新聞翻譯編輯，精通英文到繁體中文翻譯。'
+    output = call_llm_api(prompt, system_prompt)
+    if output is None:
+        return fallback_news(items_to_translate)
 
-        if result.returncode != 0:
-            print(f"LLM 翻譯失敗: {result.stderr}")
-            return fallback_news(items_to_translate)
-
-        # 解析 JSON
-        output = result.stdout.strip()
-        # 尋找 JSON 部分
-        json_start = output.find("[")
-        json_end = output.rfind("]")
-        if json_start >= 0 and json_end > json_start:
-            json_str = output[json_start:json_end+1]
+    # 解析 JSON
+    output = output.strip()
+    # 尋找 JSON 部分
+    json_start = output.find("[")
+    json_end = output.rfind("]")
+    if json_start >= 0 and json_end > json_start:
+        json_str = output[json_start:json_end+1]
+        try:
             translated = json.loads(json_str)
             return translated
-        else:
-            print("LLM 輸出無法解析為 JSON")
+        except json.JSONDecodeError as e:
+            print(f"LLM 輸出無法解析為 JSON: {e}")
             return fallback_news(items_to_translate)
-
-    except subprocess.TimeoutExpired:
-        print("LLM 翻譯超時")
-        return fallback_news(items_to_translate)
-    except Exception as e:
-        print(f"LLM 翻譯錯誤: {e}")
+    else:
+        print("LLM 輸出無法解析為 JSON")
         return fallback_news(items_to_translate)
 
 
@@ -117,7 +135,7 @@ def fallback_news(news_list):
 
 
 def call_llm_daily_analysis(market_data):
-    """使用 agy CLI 生成每日市場分析"""
+    """使用 OpenRouter API 生成每日市場分析"""
     indices = market_data.get("market_indices", [])
     sectors = market_data.get("sector_performance", [])
     hot_stocks = market_data.get("hot_stocks", [])
@@ -163,30 +181,15 @@ def call_llm_daily_analysis(market_data):
 請直接輸出分析文字，不要有任何格式標記。
 """
 
-    try:
-        result = subprocess.run(
-            ["agy", "--print", "--model", "Claude Opus 4.6 (Thinking)"],
-            input=prompt,
-            capture_output=True,
-            text=True,
-            timeout=120
-        )
-
-        if result.returncode != 0:
-            print(f"LLM 分析失敗: {result.stderr}")
-            return fallback_analysis()
-
-        analysis = result.stdout.strip()
-        # 移除可能的引號或格式標記
-        analysis = analysis.strip('"').strip("'")
-        return analysis
-
-    except subprocess.TimeoutExpired:
-        print("LLM 分析超時")
+    system_prompt = '你是一位以川普說話風格聞名的投資顧問「川投顧」，擅長用幽默且專業的方式分析市場。'
+    output = call_llm_api(prompt, system_prompt)
+    if output is None:
         return fallback_analysis()
-    except Exception as e:
-        print(f"LLM 分析錯誤: {e}")
-        return fallback_analysis()
+
+    analysis = output.strip()
+    # 移除可能的引號或格式標記
+    analysis = analysis.strip('"').strip("'")
+    return analysis
 
 
 def fallback_analysis():
@@ -793,7 +796,12 @@ def main():
     if len(sys.argv) > 1:
         date_str = sys.argv[1]
     else:
-        date_str = datetime.now().strftime("%Y-%m-%d")
+        # Find latest data file
+        data_files = sorted(DATA_DIR.glob('*.json'), reverse=True)
+        if data_files:
+            date_str = data_files[0].stem
+        else:
+            date_str = datetime.now().strftime("%Y-%m-%d")
 
     print(f"=== 川投顧日報生成: {date_str} ===")
 
