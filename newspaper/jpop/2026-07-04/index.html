@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPOP流行報 第27期 - 06/28 - 07/04</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-hover: #252540;
+            --text: #e8e8f0;
+            --text-muted: #a0a0b8;
+            --accent: #ff2a6d;
+            --accent2: #05d9e8;
+            --gold: #ffd700;
+            --border: #2a2a45;
+            --gradient-start: #ff2a6d;
+            --gradient-end: #05d9e8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .newspaper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg);
+            min-height: 100vh;
+        }
+        /* ── 封面 ── */
+        .cover-banner {
+            width: 100%;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 0 40px rgba(255,42,109,0.15);
+        }
+        .cover-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* ── 報頭 ── */
+        .masthead {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+        }
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        /* ── 內容區 ── */
+        .content { padding: 2rem; }
+        .section { margin-bottom: 3rem; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            flex: 1;
+            color: var(--text);
+        }
+        .section-icon {
+            font-size: 1.5rem;
+        }
+        /* ── 焦點卡片 ── */
+        .highlight-card {
+            background: linear-gradient(135deg, var(--bg-card), #252540);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        }
+        .highlight-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .highlight-song {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .highlight-artist {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+        /* ── 排行榜表格 ── */
+        .chart-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .chart-table thead {
+            background: var(--bg-card);
+        }
+        .chart-table th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            color: var(--accent2);
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+        }
+        .chart-table td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .rank-cell {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--accent);
+            width: 50px;
+            text-align: center;
+        }
+        .song-cell { min-width: 200px; }
+        .song-title { font-weight: 700; color: var(--text); }
+        .song-artist { font-size: 0.85rem; color: var(--text-muted); }
+        .trend-cell { width: 60px; text-align: center; }
+        .trend-up { color: #4ade80; }
+        .trend-down { color: #f87171; }
+        .trend-same { color: var(--text-muted); }
+        .weeks-cell { width: 60px; text-align: center; color: var(--text-muted); }
+        .links-cell { width: 150px; }
+        .links-cell a {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            margin-right: 0.3rem;
+            margin-bottom: 0.2rem;
+        }
+        .link-yt { background: #ff0000; color: white; }
+        .link-sp { background: #1db954; color: white; }
+        /* ── 新聞卡片 ── */
+        .news-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+        .news-card:hover { background: var(--bg-hover); }
+        .news-thumb {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .news-content { flex: 1; }
+        .news-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+        .news-source-tag {
+            background: rgba(255,42,109,0.2);
+            color: var(--accent);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .news-date { color: var(--text-muted); }
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .news-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .news-title a:hover { color: var(--accent2); }
+        .news-summary {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        /* ── 新曲卡片 ── */
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .release-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .release-card:hover { transform: translateY(-4px); }
+        .release-thumb {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .release-info { padding: 1rem; }
+        .release-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+        .release-artist {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+        .release-date {
+            font-size: 0.8rem;
+            color: var(--accent2);
+        }
+        /* ── 演唱會卡片 ── */
+        .concerts-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .concert-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .concert-date {
+            background: linear-gradient(135deg, var(--accent), #ff6b9d);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            min-width: 80px;
+        }
+        .concert-info { flex: 1; }
+        .concert-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .concert-artist {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .concert-venue {
+            font-size: 0.85rem;
+            color: var(--accent2);
+            margin-top: 0.2rem;
+        }
+        /* ── 空訊息 ── */
+        .empty-msg {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
+        /* ── 頁尾 ── */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        /* ── 響應式 ── */
+        @media (max-width: 600px) {
+            .content { padding: 1rem; }
+            .title { font-size: 2rem; }
+            .news-card { flex-direction: column; }
+            .news-thumb { width: 100%; height: 150px; }
+            .releases-grid { grid-template-columns: 1fr; }
+            .chart-table { font-size: 0.85rem; }
+            .links-cell { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <!-- 封面 -->
+        <div class="cover-banner">
+            <img src="images/cover-2.png" alt="JPOP流行報封面">
+        </div>
+
+        <!-- 報頭 -->
+        <div class="masthead">
+            <div class="tagline">Japanese Pop Music Weekly</div>
+            <div class="title">JPOP流行報</div>
+            <div class="subtitle">每週精選日本最新音樂情報</div>
+            <div class="issue-info">
+                <span>第 27 期</span>
+                <span>2026年</span>
+                <span>06/28 - 07/04</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 本週焦點 -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🎵</span>
+                    <h2 class="section-title">本週焦點</h2>
+                </div>
+                
+            <div class="highlight-card">
+                <div class="highlight-badge">本週 No.1</div>
+                <div class="highlight-song">愛くださいませ</div>
+                <div class="highlight-artist">≠ME</div>
+            </div>
+            </div>
+
+            <!-- 新歌速報 -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">📊</span>
+                    <h2 class="section-title">Billboard Japan Hot 100 Top 10</h2>
+                </div>
+                
+            <table class="chart-table">
+                <thead>
+                    <tr><th>#</th><th>歌曲</th><th>趨勢</th><th>週數</th><th>連結</th></tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="song-cell">
+                        <div class="song-title">愛くださいませ</div>
+                        <div class="song-artist">≠ME</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-up">▲93</span></td>
+                    <td class="weeks-cell">2週</td>
+                    <td class="links-cell"><a href="https://youtu.be/oWRCXGvcU9s" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/%E6%84%9B%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%81%BE%E3%81%9B%20%E2%89%A0ME" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="song-cell">
+                        <div class="song-title">烏</div>
+                        <div class="song-artist">米津玄師</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-down">▼1</span></td>
+                    <td class="weeks-cell">2週</td>
+                    <td class="links-cell"><a href="https://youtu.be/YjPMupS1Lg4" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/%E7%83%8F%20%E7%B1%B3%E6%B4%A5%E7%8E%84%E5%B8%AB" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="song-cell">
+                        <div class="song-title">夜の踊り子</div>
+                        <div class="song-artist">サカナクション</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-up">▲1</span></td>
+                    <td class="weeks-cell">20週</td>
+                    <td class="links-cell"><a href="https://youtu.be/2I25AFSBm2g" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/%E5%A4%9C%E3%81%AE%E8%B8%8A%E3%82%8A%E5%AD%90%20%E3%82%B5%E3%82%AB%E3%83%8A%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="song-cell">
+                        <div class="song-title">好きすぎて滅!</div>
+                        <div class="song-artist">M!LK</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-up">▲1</span></td>
+                    <td class="weeks-cell">35週</td>
+                    <td class="links-cell"><a href="https://youtu.be/ZVUxJsPfoX8" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/%E5%A5%BD%E3%81%8D%E3%81%99%E3%81%8E%E3%81%A6%E6%BB%85%21%20M%21LK" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="song-cell">
+                        <div class="song-title">爆裂愛してる</div>
+                        <div class="song-artist">M!LK</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-down">▼2</span></td>
+                    <td class="weeks-cell">20週</td>
+                    <td class="links-cell"><a href="https://youtu.be/tpFDnOnOdSQ" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/%E7%88%86%E8%A3%82%E6%84%9B%E3%81%97%E3%81%A6%E3%82%8B%20M%21LK" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">6</td>
+                    <td class="song-cell">
+                        <div class="song-title">IRIS OUT</div>
+                        <div class="song-artist">米津玄師</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-same">→</span></td>
+                    <td class="weeks-cell">41週</td>
+                    <td class="links-cell"><a href="https://youtu.be/LmZD-TU96q4" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/IRIS%20OUT%20%E7%B1%B3%E6%B4%A5%E7%8E%84%E5%B8%AB" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">7</td>
+                    <td class="song-cell">
+                        <div class="song-title">So Strawberry</div>
+                        <div class="song-artist">MAZZEL</div>
+                    </td>
+                    <td class="trend-cell"></td>
+                    <td class="weeks-cell">1週</td>
+                    <td class="links-cell"><a href="https://youtu.be/76lNhpUKrEc" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/So%20Strawberry%20MAZZEL" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">8</td>
+                    <td class="song-cell">
+                        <div class="song-title">It&#x27;s Me</div>
+                        <div class="song-artist">ILLIT</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-up">▲1</span></td>
+                    <td class="weeks-cell">9週</td>
+                    <td class="links-cell"><a href="https://youtu.be/bMhDJ0S0OBA" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/It%27s%20Me%20ILLIT" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">9</td>
+                    <td class="song-cell">
+                        <div class="song-title">Dance Forever</div>
+                        <div class="song-artist">SixTONES</div>
+                    </td>
+                    <td class="trend-cell"></td>
+                    <td class="weeks-cell">1週</td>
+                    <td class="links-cell"><a href="https://youtu.be/dJbGLb-FpZg" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/Dance%20Forever%20SixTONES" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">10</td>
+                    <td class="song-cell">
+                        <div class="song-title">Five</div>
+                        <div class="song-artist">嵐</div>
+                    </td>
+                    <td class="trend-cell"><span class="trend-down">▼2</span></td>
+                    <td class="weeks-cell">17週</td>
+                    <td class="links-cell"><a href="https://youtu.be/1DzBKtD3JzI" target="_blank" class="link-yt" rel="noopener noreferrer">▶ YouTube</a><a href="https://open.spotify.com/search/Five%20%E5%B5%90" target="_blank" class="link-sp" rel="noopener noreferrer">♫ Spotify</a></td>
+                </tr></tbody>
+            </table>
+            </div>
+
+            <!-- 音樂新聞 -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">📰</span>
+                    <h2 class="section-title">音樂新聞</h2>
+                </div>
+                <div class="news-grid">
+                    
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163096" target="_blank" rel="noopener noreferrer">三宅香帆剖析「夫妻」關係最新著作『「夫婦」不在社会』將於 7/16 發售</a></h4>
+                    <p class="news-summary">文藝評論家三宅香帆將於7月16日推出新書『「夫婦」不在社会』。該書透過剖析昭和至令和的影視與文學作品，探討現代工作與家庭兩立的困境，並探究夫妻關係的本質。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163103" target="_blank" rel="noopener noreferrer">PURPLE BUBBLE 最新單曲「いきぬく」MV 公開！360度舞台熱血呈現</a></h4>
+                    <p class="news-summary">PURPLE BUBBLE於7月3日公開了新歌「いきぬく」的MV。該曲為森永製菓廣告曲，團員在被觀客360度圍繞的舞台上展現熱血演奏。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163118" target="_blank" rel="noopener noreferrer">マカロニえんぴつ 新曲「終宵」MV 曝光！全片採用 1:1 畫角致敬能樂舞台</a></h4>
+                    <p class="news-summary">マカロニえんぴつ為動畫《ワールド イズ ダンシング》演唱的片頭曲「終宵」MV已公開。導演木村太一從能樂堂獲得靈感，全片採用一比一的畫角呈現震撼演出。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163117" target="_blank" rel="noopener noreferrer">セブンス・ベガ 夏日單曲「南風のアイドル」7/7 發行！重現 80 年代歌謠曲哀愁</a></h4>
+                    <p class="news-summary">樂團セブンス・ベガ將於7月7日發行新單曲「南風のアイドル」。此曲以80年代歌謠曲為靈感，搭配插畫家琥珀雨操刀的封面，展現復古哀愁的夏日風情。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163073" target="_blank" rel="noopener noreferrer">【現場報導】Ave Mujica 燃燒靈魂！巡迴最終公演【「Exitus」-FINAL-】DAY1 現場直擊</a></h4>
+                    <p class="news-summary">Ave Mujica於6月19日在東京舉辦巡迴最終公演DAY1。主唱佐々木李子以清唱驚豔開場，樂團接連演奏多首熱門曲目，帶來威嚴且燃燒靈魂的震撼演出。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163074" target="_blank" rel="noopener noreferrer">【現場報導】Ave Mujica 迎來華麗進化！身穿 Diggy-MO&#x27; 監製新裝亮相【「Exitus」-FINAL-】DAY2</a></h4>
+                    <p class="news-summary">Ave Mujica巡迴最終公演DAY2於6月20日舉辦。本場歌單與舞台全新換新，團員換上Diggy-MO&#x27;監製的哥德風華麗新裝，展現驚豔進化。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163112" target="_blank" rel="noopener noreferrer">【週榜速報】YOASOBI《THE BOOK for,》蟬聯數位專輯榜冠軍！長渕剛、NiziU 緊追在後</a></h4>
+                    <p class="news-summary">根據Billboard JAPAN速報，YOASOBI的EP『THE BOOK for,』持續領跑數位專輯榜首位。長渕剛與NiziU則緊隨其後分列二、三名。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163108" target="_blank" rel="noopener noreferrer">【週榜速報】BE:FIRST「Missing」稱霸數位單曲榜！Tomohiro Kamiyama 與 Kis-My-Ft2 緊追在後</a></h4>
+                    <p class="news-summary">根據速報，BE:FIRST新單曲「Missing」暫居數位單曲下載榜首位。Tomohiro Kamiyama與Kis-My-Ft2則緊隨其後。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163116" target="_blank" rel="noopener noreferrer">【速報・數位】BE:FIRST「Missing」串流歌曲榜暫居首位　前十名中唯一新歌</a></h4>
+                    <p class="news-summary">根據 Billboard JAPAN 數據，BE:FIRST 新歌「Missing」以逾330萬播放暫居串流榜首，為前十名中唯一新歌，且於下載與實體銷量亦均奪冠。</p>
+                </div>
+            </div>
+            <div class="news-card">
+                
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-source-tag">Billboard JAPAN</span>
+                        <span class="news-date"></span>
+                    </div>
+                    <h4 class="news-title"><a href="https://www.billboard-japan.com/d_news/detail/163115" target="_blank" rel="noopener noreferrer">高橋優 擔綱日本電視台《閒晃途中下車之旅》2026年7月起主題曲</a></h4>
+                    <p class="news-summary">高橋優 的新歌「鐘の音が聴こえるか」獲選為日本電視台《閒晃途中下車之旅》自2026年7月起的主題曲。該曲已於7月4日播出，並將於7月10日數位上架。</p>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <!-- 新曲發行 -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">💿</span>
+                    <h2 class="section-title">新曲發行</h2>
+                </div>
+                <div class="releases-grid">
+                    <div class="empty-msg">暫時無法取得新曲資料</div>
+                </div>
+            </div>
+
+            <!-- 演唱會情報 -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🎤</span>
+                    <h2 class="section-title">演唱會情報</h2>
+                </div>
+                <div class="concerts-grid">
+                    <div class="empty-msg">暫時無法取得演唱會資料</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>JPOP流行報 第27期 | 自動生成於 2026-07-04 12:02</p>
+            <p>數據來源：Billboard Japan、音楽ナタリー、Billboard JAPAN、Model Press</p>
+        </div>
+    </div>
+</body>
+</html>
