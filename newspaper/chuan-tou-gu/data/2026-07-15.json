@@ -1,0 +1,1322 @@
+{
+  "date_info": {
+    "date_str": "2026-07-15",
+    "prev_date_str": "2026-07-14",
+    "display": "2026年07月15日",
+    "weekday": "星期三",
+    "prev_display": "2026年07月14日"
+  },
+  "generated_at": "2026-07-15T11:00:37.297437",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7543.59,
+      "change": 28.25,
+      "change_pct": 0.38,
+      "prev_close": 7515.34
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 52508.27,
+      "change": 9.63,
+      "change_pct": 0.02,
+      "prev_close": 52498.64
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 26107.01,
+      "change": 233.83,
+      "change_pct": 0.9,
+      "prev_close": 25873.18
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 16.5,
+      "change": -0.66,
+      "change_pct": -3.85,
+      "prev_close": 17.16
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 4.59,
+      "change": -0.02,
+      "change_pct": -0.52,
+      "prev_close": 4.61
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 2964.76,
+      "change": 11.59,
+      "change_pct": 0.39,
+      "prev_close": 2953.17
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 9.03,
+      "change": 0.51,
+      "change_pct": 5.99,
+      "prev_close": 8.52
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 983.12,
+      "change": 46.12,
+      "change_pct": 4.92,
+      "prev_close": 937.0
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 211.8,
+      "change": 8.27,
+      "change_pct": 4.06,
+      "prev_close": 203.53
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 133.72,
+      "change": 3.68,
+      "change_pct": 2.83,
+      "prev_close": 130.04
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 548.13,
+      "change": 13.74,
+      "change_pct": 2.57,
+      "prev_close": 534.39
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 359.51,
+      "change": 7.0,
+      "change_pct": 1.99,
+      "prev_close": 352.51
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 384.93,
+      "change": -6.06,
+      "change_pct": -1.55,
+      "prev_close": 390.99
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 389.11,
+      "change": 5.06,
+      "change_pct": 1.32,
+      "prev_close": 384.05
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 314.86,
+      "change": -2.45,
+      "change_pct": -0.77,
+      "prev_close": 317.31
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 661.04,
+      "change": 4.31,
+      "change_pct": 0.66,
+      "prev_close": 656.73
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 396.18,
+      "change": 1.42,
+      "change_pct": 0.36,
+      "prev_close": 394.76
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 247.49,
+      "change": 0.18,
+      "change_pct": 0.07,
+      "prev_close": 247.31
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 183.62,
+      "change": 2.34,
+      "change_pct": 1.29,
+      "prev_close": 181.28
+    },
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 56.95,
+      "change": 0.21,
+      "change_pct": 0.37,
+      "prev_close": 56.74
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 56.18,
+      "change": 0.11,
+      "change_pct": 0.2,
+      "prev_close": 56.07
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 50.64,
+      "change": 0.06,
+      "change_pct": 0.12,
+      "prev_close": 50.58
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 180.45,
+      "change": 0.08,
+      "change_pct": 0.04,
+      "prev_close": 180.37
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 45.69,
+      "change": -0.03,
+      "change_pct": -0.07,
+      "prev_close": 45.72
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 115.9,
+      "change": -0.14,
+      "change_pct": -0.12,
+      "prev_close": 116.04
+    },
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 44.48,
+      "change": -0.22,
+      "change_pct": -0.49,
+      "prev_close": 44.7
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 83.42,
+      "change": -1.17,
+      "change_pct": -1.38,
+      "prev_close": 84.59
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 158.29,
+      "change": -3.12,
+      "change_pct": -1.93,
+      "prev_close": 161.41
+    }
+  ],
+  "news": {
+    "yahoo": [
+      {
+        "title": "Target's problems aren't what you think they are",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/targets-problems-arent-think-201058966.html",
+        "source": "TheStreet",
+        "published": "2026-07-13T20:10:58Z",
+        "has_description": false
+      },
+      {
+        "title": "Nvidia, Micron, and other chip players are poised to become cash-producing machines",
+        "url": "https://finance.yahoo.com/markets/article/nvidia-micron-and-other-chip-players-are-poised-to-become-cash-producing-machines-150232841.html",
+        "source": "Yahoo Finance",
+        "published": "2026-07-13T15:02:32Z",
+        "has_description": false
+      },
+      {
+        "title": "$750K vs. $2M vs. $5M net worth: Here’s what changes at each level for US boomers looking to retire",
+        "url": "https://finance.yahoo.com/markets/articles/750k-vs-2m-vs-5m-150000384.html",
+        "source": "Moneywise",
+        "published": "2026-07-13T15:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Axon Enterprise's Quarterly Earnings Preview: What You Need to Know",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/axon-enterprises-quarterly-earnings-preview-150321003.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:03:21Z",
+        "has_description": false
+      },
+      {
+        "title": "SK Hynix tumbles more than 6% Monday, following successful US debut last week",
+        "url": "https://finance.yahoo.com/technology/article/sk-hynix-tumbles-more-than-6-monday-following-successful-us-debut-last-week-193700352.html",
+        "source": "Yahoo Finance",
+        "published": "2026-07-08T19:37:00Z",
+        "has_description": false
+      },
+      {
+        "title": "BMW's U.S. business is delivering when it matters most",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/bmws-u-business-delivering-matters-033300819.html",
+        "source": "TheStreet",
+        "published": "2026-07-14T03:33:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Seagate Stock Has Already Staged a Massive Rally, But Wells Fargo Analysts Say STX Can Still Go Higher",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/seagate-stock-already-staged-massive-151109281.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:11:09Z",
+        "has_description": false
+      },
+      {
+        "title": "What Makes HCA Healthcare (HCA) a Compelling Investment Bet?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/makes-hca-healthcare-hca-compelling-145617464.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T14:56:17Z",
+        "has_description": false
+      },
+      {
+        "title": "Upcoming Q2 Earnings for GOOG Stock: Here’s Why Bulls Are Optimistic",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/upcoming-q2-earnings-goog-stock-145603732.html",
+        "source": "Barchart",
+        "published": "2026-07-13T14:56:03Z",
+        "has_description": false
+      },
+      {
+        "title": "A New Report Says Meta Platforms Could Overtake Google AI. How to Play META Stock Here.",
+        "url": "https://finance.yahoo.com/technology/ai/articles/report-says-meta-platforms-could-151421325.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:14:21Z",
+        "has_description": false
+      },
+      {
+        "title": "EBAY Showered Owners With Cash. The Stock Did Not Cooperate",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/ebay-showered-owners-cash-stock-150259407.html",
+        "source": "Trefis",
+        "published": "2026-07-13T15:02:59Z",
+        "has_description": false
+      },
+      {
+        "title": "Bernstein Cuts AT&T, Verizon, T-Mobile Price Targets Amid Starlink Threat",
+        "url": "https://www.investors.com/news/technology/spacex-stock-bernstein-cuts-price-targets-stock-att-stock-verizon-stock-tmobile-stock/?src=A00220&yptr=yahoo",
+        "source": "Investor's Business Daily",
+        "published": "2026-07-13T14:54:41Z",
+        "has_description": false
+      },
+      {
+        "title": "Stocks Retreat on Chipmaker Weakness and US-Iran Standoff",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-retreat-chipmaker-weakness-us-151607011.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:16:07Z",
+        "has_description": false
+      },
+      {
+        "title": "COIN Stock Alert: 3 Reasons Why Coinbase Shares Are In Focus",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/coin-stock-alert-3-reasons-152211413.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:22:11Z",
+        "has_description": false
+      },
+      {
+        "title": "The Magnum Ice Cream Company N.V. (MICC) Climbed Due to Market Recognition",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/magnum-ice-cream-company-n-144825332.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T14:48:25Z",
+        "has_description": false
+      },
+      {
+        "title": "Aave Launch Stablecoin Vaults as DeFi Prepares For USD Boom",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/aave-launch-stablecoin-vaults-defi-150120019.html",
+        "source": "99bitcoins",
+        "published": "2026-07-13T15:01:20Z",
+        "has_description": false
+      },
+      {
+        "title": "Why Analysts Are Betting Western Digital Stock Can Gain Another 30% from Here",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/why-analysts-betting-western-digital-152438097.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:24:38Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains Why He Thinks Google Can Defeat Competitors in AI",
+        "url": "https://finance.yahoo.com/technology/ai/articles/jim-cramer-explains-why-thinks-152549697.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:49Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer on Carpenter Technology: “I Would Buy Some Here and Buy Some If It Comes Down”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-carpenter-technology-buy-152609522.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:09Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer on Meta: “Zuckerberg’s Not a Bozo, You Can Quote Me on That”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-meta-zuckerberg-not-152547716.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:47Z",
+        "has_description": false
+      },
+      {
+        "title": "Marc Andreessen Says AI Is 'Already a Better Doctor Than 99.99% of Human Doctors'",
+        "url": "https://finance.yahoo.com/healthcare/articles/marc-andreessen-says-ai-already-150113834.html",
+        "source": "Benzinga",
+        "published": "2026-07-13T15:01:13Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer on IBM: “It’s Inexpensive and Arvind Krishna’s Doing a Fantastic Job”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-ibm-inexpensive-arvind-152555444.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:55Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains Why NVIDIA Is the Most Proprietary Chip Company in History",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-explains-why-nvidia-152552574.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:52Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains “Why Preformed Line Products Keeps Winning”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-explains-why-preformed-152602170.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Says “Don’t Sell Apple”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-don-t-152554910.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:54Z",
+        "has_description": false
+      },
+      {
+        "title": "RedCloud Unveils CORE Trade Execution Engine to Expand Its RedAI Infrastructure",
+        "url": "https://finance.yahoo.com/technology/ai/articles/redcloud-unveils-core-trade-execution-145951094.html",
+        "source": "InvestorsHub",
+        "published": "2026-07-13T14:59:51Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains Why PepsiCo Has Turned From a Market Darling Into an Ugly Duckling",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-explains-why-pepsico-152557216.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:57Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer on Lemonade: “It Would Change My View on It if They Started Making Money”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-lemonade-change-view-152605854.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:05Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains Why Sterling Infrastructure Is Up Over 200%",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-explains-why-sterling-152604874.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:04Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Explains the Repeating Chart Pattern for National HealthCare Corporation",
+        "url": "https://finance.yahoo.com/healthcare/articles/jim-cramer-explains-repeating-chart-152614804.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:14Z",
+        "has_description": false
+      },
+      {
+        "title": "Volkswagen Warns It May Need to Cut 50,000 More Jobs",
+        "url": "https://www.wsj.com/business/autos/volkswagen-layoffs-job-cuts-f1689b6c?siteid=yhoof2&yptr=yahoo",
+        "source": "The Wall Street Journal",
+        "published": "2026-07-13T15:01:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Believes Marriott Vacations “Is a Long-Term Winner” But Prefers Marriott Hotels",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-believes-marriott-vacations-152600938.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Outlines Why Pennant Group Stock Can Sail to $55",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-outlines-why-pennant-152612396.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:12Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Says “Buy the Stock of CVS, I Sure Wish I’d Done It for My Trust”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-buy-stock-152559283.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:59Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Highlights the Strong Institutional Support for Welltower Stock",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-highlights-strong-institutional-152610408.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:10Z",
+        "has_description": false
+      },
+      {
+        "title": "VivoPower earns Outperform rating as Noble bets on \"power-first\" AI strategy",
+        "url": "https://finance.yahoo.com/technology/ai/articles/vivopower-earns-outperform-rating-noble-150000921.html",
+        "source": "Proactive",
+        "published": "2026-07-13T15:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer Highlights Analyst Rating as the Reason for Sandisk Rally",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-highlights-analyst-rating-152551521.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:25:51Z",
+        "has_description": false
+      },
+      {
+        "title": "Jim Cramer on Weyerhaeuser: “I’m More Bullish on It Than the Rest of Wall Street”",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-weyerhaeuser-m-more-152607539.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-13T15:26:07Z",
+        "has_description": false
+      },
+      {
+        "title": "Why Delta Air Lines Could Be a Top Stock to Buy for the Rest of 2026",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/why-delta-air-lines-could-152949381.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:29:49Z",
+        "has_description": false
+      },
+      {
+        "title": "Bosch begins sample production at its first US semiconductor plant",
+        "url": "https://finance.yahoo.com/technology/articles/bosch-begins-sample-production-first-153203233.html",
+        "source": "Reuters",
+        "published": "2026-07-13T15:32:03Z",
+        "has_description": false
+      },
+      {
+        "title": "The 1 Reason Jim Cramer Won’t Stop Buying Nvidia",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/1-reason-jim-cramer-won-150029062.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-13T15:00:29Z",
+        "has_description": false
+      },
+      {
+        "title": "Crude Oil Prices Surge as US Reinstates Blockade of Iran",
+        "url": "https://finance.yahoo.com/energy/articles/crude-oil-prices-surge-us-153246700.html",
+        "source": "Barchart",
+        "published": "2026-07-13T15:32:46Z",
+        "has_description": false
+      }
+    ],
+    "cnbc": [
+      {
+        "title": "Oil rises as U.S. continues to strike Tehran, reinstates blockade of Iranian ports",
+        "url": "https://www.cnbc.com/2026/07/15/oil-prices-today-brent-wti-hormuz-blockade.html",
+        "description": "Oil prices rose Wednesday after U.S. forces struck Tehran and Washington reinstated its naval blockade of Iranian ports near the Strait of Hormuz.",
+        "source": "CNBC",
+        "published": "Wed, 15 Jul 2026 02:58:47 GMT",
+        "has_description": true
+      },
+      {
+        "title": "China posts slowest quarterly growth since 2022 as investment slumps, fanning stimulus calls",
+        "url": "https://www.cnbc.com/2026/07/15/china-gdp-retail-sales-investment-june-.html",
+        "description": "That second-quarter growth came below Beijing's full-year growth target range of 4.5% to 5%, the least ambitious goal in decades.",
+        "source": "CNBC",
+        "published": "Wed, 15 Jul 2026 02:47:52 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The AI boom just found two new winners: Goldman Sachs and JPMorgan Chase",
+        "url": "https://www.cnbc.com/2026/07/14/goldman-sachs-and-jpmorgan-chase-are-emerging-as-ai-winners.html",
+        "description": "Goldman Sachs and JPMorgan showed that Wall Street is a major beneficiary of the AI boom, with record revenue driven by surging trading and investment banking.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:50:48 GMT",
+        "has_description": true
+      },
+      {
+        "title": "SK Hynix South Korean shares jump 11% as Asia tech stocks rally",
+        "url": "https://www.cnbc.com/2026/07/15/sk-hynix-asia-tech-stocks-rally-.html",
+        "description": "SK Hynix led a broad rally in Asian technology shares on Wednesday, tracking a rebound in U.S. semiconductor shares after a sharp selloff earlier this week.",
+        "source": "CNBC",
+        "published": "Wed, 15 Jul 2026 01:22:34 GMT",
+        "has_description": true
+      },
+      {
+        "title": "IBM stock craters 25%, the worst day on record, after company issues second-quarter earnings warning",
+        "url": "https://www.cnbc.com/2026/07/14/ibm-warns-second-quarter-earnings-fell-short-of-expectations.html",
+        "description": "The CEO blamed the shortfall on weakness in the software and infrastructure business because clients shifted money toward hardware purchases.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:01:06 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Here’s the inflation breakdown for June 2026 — in one chart",
+        "url": "https://www.cnbc.com/2026/07/14/inflation-cpi-june-2026-in-one-chart.html",
+        "description": "The consumer price index rose 3.5% in June from a year earlier, a deceleration after several months of upward moves.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:02:45 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Warsh pledges Fed policy 'regime change' to rid inflation 'tax' on American people",
+        "url": "https://www.cnbc.com/2026/07/14/warsh-promises-inflation-will-be-a-thing-of-the-past-cites-benefits-of-ai-investment-boom.html",
+        "description": "Warsh pledged Tuesday to \"get monetary policy right\" and defeat the inflation that has bedeviled the central bank for the past five years.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 17:29:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Current and former employees sue Meta, alleging discrimination in using AI to conduct layoffs",
+        "url": "https://www.cnbc.com/2026/07/14/meta-lawsuit-layoffs-ai.html",
+        "description": "The lawsuit filed by current and former Meta employees underscores rising concerns about AI's impact on jobs and people with disabilities in the workforce.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:12:44 GMT",
+        "has_description": true
+      },
+      {
+        "title": "United Airlines' new upsell: Keeping other travelers out of the middle seat",
+        "url": "https://www.cnbc.com/2026/07/14/united-airlines-for-empty-middle-seat-is-new-upsell.html",
+        "description": "United Airlines will allow customers to pay more to keep the middle seat open on its Airbus A321XLRs",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 15:18:55 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Social Security cost-of-living adjustment estimate for 2027 falls as inflation cools",
+        "url": "https://www.cnbc.com/2026/07/14/social-security-cola-in-2027-cooling-inflation-lowers-estimate.html",
+        "description": "New estimates show Social Security's annual cost-of-living adjustment for 2027 may be between 3.7% and 3.8%. Here's what to know.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 18:44:36 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jim Cramer says concerns about AI market froth are overblown. Here's why",
+        "url": "https://www.cnbc.com/2026/07/14/jim-cramer-concerns-ai-market-froth-overblown.html",
+        "description": "CNBC's Jim Cramer said today's stock market is far less concerning than it was during the dot-com bubble.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 22:20:46 GMT",
+        "has_description": true
+      },
+      {
+        "title": "SK Hynix options begin trading. But another group of stocks is stealing its thunder",
+        "url": "https://www.cnbc.com/2026/07/14/sk-hynix-options-begin-trading-but-another-group-of-stocks-is-stealing-its-thunder.html",
+        "description": "One explanation for the lack of notable call-buying is that the surge in single-stock ETFs and leveraged funds stole a big chunk of the speculative limelight.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:18:57 GMT",
+        "has_description": true
+      },
+      {
+        "title": "New York becomes first U.S. state to impose AI data center ban",
+        "url": "https://www.cnbc.com/2026/07/14/new-york-ai-data-center-ban.html",
+        "description": "New York became the first state to ban construction of 'hyperscale' AI data centers, for one year, after Gov. Kathy Hochul signed an executive order Tuesday.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 18:49:14 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Bipartisan group of senators propose Social Security reform process ahead of funding shortfall",
+        "url": "https://www.cnbc.com/2026/07/14/social-security-reform.html",
+        "description": "Social Security's trust fund that helps pay retirement benefits may run out in about six years. A bipartisan group of senators is calling for earlier reform.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:30:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Johnson & Johnson has a chance to show it's more than just a rotation winner",
+        "url": "https://www.cnbc.com/2026/07/14/johnson-johnson-has-a-chance-to-show-its-more-than-just-a-rotation-winner.html",
+        "description": "The healthcare giant's second-quarter earnings will shine the spotlight on its exciting new products and pipeline.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:43:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Lucid dismisses report that it is weighing filing for bankruptcy or going private after shares plunge",
+        "url": "https://www.cnbc.com/2026/07/14/lucid-stock-lcid-bankruptcy-report.html",
+        "description": "The report said Lucid was considering options that could include going private or filing for bankruptcy protection.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 20:04:23 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Zipline adds ex-Tesla, Uber, Waymo execs to make drone delivery mainstream across U.S.",
+        "url": "https://www.cnbc.com/2026/07/14/zipline-drone-delivery-tesla-uber-waymo-executives.html",
+        "description": "Zipline is growing its drone delivery business in the U.S., and has hired former Tesla, Uber Eats and Waymo executives to help it scale up in new markets.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:08:03 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Oil prices rise as U.S. launches new Iran airstrikes, while Trump abandons Strait of Hormuz fee",
+        "url": "https://www.cnbc.com/2026/07/14/oil-prices-today-brent-wti-hormuz-trump-toll-iran.html",
+        "description": "Oil prices rose on Tuesday after U.S. President Donald Trump announced plans to impose shipping fees in the Strait of Hormuz.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 20:16:57 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cybersecurity stocks rally on AI spending change comments from IBM's Krishna",
+        "url": "https://www.cnbc.com/2026/07/14/cybersecurity-stocks-ai-spending-mythos.html",
+        "description": "IBM CEO Arvind Krishna told CNBC's Sara Eisen that some major deals were put on hold toward the end of the quarter as businesses rethink spending.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:13:39 GMT",
+        "has_description": true
+      },
+      {
+        "title": "U.S. trade official says 'very few' Nvidia H200 AI chips have been shipped to China",
+        "url": "https://www.cnbc.com/2026/07/14/nvidia-h200-ai-chips-china.html",
+        "description": "The remark is a sign that H200 shipments to China have restarted, potentially boosting Nvidia's sales even higher.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 16:50:28 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Supreme Court Justice Barrett says the threat level against judges 'is really high'",
+        "url": "https://www.cnbc.com/2026/07/14/supreme-court-budget-congress-kagan-barrett.html",
+        "description": "Supreme Court Justices Amy Coney Barrett and Elena Kagan are testifying about the high court's budget request, which includes higher spending for security.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:42:40 GMT",
+        "has_description": true
+      },
+      {
+        "title": "T. rex sells for $50 million, becoming the most expensive dinosaur fossil ever auctioned",
+        "url": "https://www.cnbc.com/2026/07/14/trex-fossil-auction-sothebys.html",
+        "description": "It passes a stegosaurus skeleton that billionaire hedge funder Ken Griffin bought for $44.6 million in 2024.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 17:12:15 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Warren Buffett is accelerating his charitable donations with aim to give away Berkshire wealth by 2034",
+        "url": "https://www.cnbc.com/2026/07/14/warren-buffett-is-accelerating-his-charitable-donations-with-aim-to-give-away-berkshire-wealth-by-2034.html",
+        "description": "Warren Buffett is speeding up the pace of his annual donations of Berkshire Hathaway shares to four family foundations, giving them a total of almost $6 billion now.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 18:34:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Apple in talks with startup that shrinks AI models to run on an iPhone",
+        "url": "https://www.cnbc.com/2026/07/14/apple-prismml-ai-compression-iphone.html",
+        "description": "PrismML says its compressed version of Alibaba’s Qwen model uses up to 15 times less memory, potentially advancing Apple’s AI push.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 18:31:08 GMT",
+        "has_description": true
+      },
+      {
+        "title": "E. Jean Carroll receives $5.6M from Trump in sex abuse, defamation case",
+        "url": "https://www.cnbc.com/2026/07/14/trump-e-jean-carroll-sex-abuse-case.html",
+        "description": "A federal judge recently ordered Trump to pay Carroll, rejecting his last-ditch efforts while noting that he \"has been stalling this case for years.\"",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 19:23:46 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Chamath Palihapitiya says soaring AI token spend will hit companies' earnings",
+        "url": "https://www.cnbc.com/2026/07/14/chamath-palihapitiya-ai-tokenmaxxing.html",
+        "description": "Palihapitiya is part of a growing chorus of investors and tech executives who are cautioning that the tokenmaxxing era is coming to an end.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 14:47:31 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Paramount still plans to close WBD merger by end of September despite lawsuit",
+        "url": "https://www.cnbc.com/2026/07/14/paramount-wbd-merger-lawsuit.html",
+        "description": "Paramount is still planning for its acquisition of Warner Bros. Discovery to close by late September despite lawsuit challenge from state attorneys general.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 15:36:24 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Consumer prices rose 3.5% annually in June, less than expected as energy prices eased",
+        "url": "https://www.cnbc.com/2026/07/14/consumer-price-index-inflation-report-june-2026.html",
+        "description": "The consumer price index in June was expected to increase 3.8% from a year ago.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 21:05:13 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Sen. Tim Scott wants to hear from Warsh on data centers and artificial intelligence",
+        "url": "https://www.cnbc.com/2026/07/14/tim-scott-kevin-warsh-data-centers-artificial-intelligence.html",
+        "description": "Sen. Tim Scott, R-S.C., will host Kevin Warsh before the Senate Banking Committee on Wednesday for his first time testifying as Fed chairman.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 13:36:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Google DeepMind chief Demis Hassabis calls for U.S. to spearhead AI standards body",
+        "url": "https://www.cnbc.com/2026/07/14/google-deepmind-demis-hassabis-us-led-ai-standards-body.html",
+        "description": "Tech giant's AI boss said \"urgent action\" was needed as AI capabilities advanced.",
+        "source": "CNBC",
+        "published": "Tue, 14 Jul 2026 14:01:03 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [
+      {
+        "title": "Brace for $4 gas again: How U.S.-Iran tensions are threatening to end the price break at the pump",
+        "url": "https://www.marketwatch.com/story/brace-for-4-gas-again-how-u-s-iran-tensions-are-threatening-to-end-the-price-break-at-the-pump-343a76e1?mod=mw_rss_topstories",
+        "description": "Americans got some relief at the gas pump in recent weeks, enough to slow down inflation. That might not last long as the U.S. and Iran continue to vie for control of the Strait of Hormuz.",
+        "source": "MarketWatch",
+        "published": "Wed, 15 Jul 2026 00:28:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "This overlooked index is a better investment than the S&P 500",
+        "url": "https://www.marketwatch.com/story/this-overlooked-index-is-a-better-investment-than-the-s-p-500-74c7e698?mod=mw_rss_topstories",
+        "description": "We did the math over a 30-year period, and it’s not even close.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 23:32:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘It’s heartbreaking’: My brother claimed Social Security at 70. He died from cancer after one payment. Why wait to claim?",
+        "url": "https://www.marketwatch.com/story/its-heartbreaking-my-brother-claimed-social-security-at-70-he-died-from-cancer-after-one-payment-why-wait-to-claim-491669b6?mod=mw_rss_topstories",
+        "description": "“I’ve always been a little skeptical of the government’s encouragement to delay claiming benefits.”",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 22:15:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Your monthly Netflix bill is up 29% in just over a year. Critics say Washington needs to fix it.",
+        "url": "https://www.marketwatch.com/story/your-monthly-netflix-bill-is-up-29-in-just-over-a-year-critics-say-washington-needs-to-fix-it-bcab6e5b?mod=mw_rss_topstories",
+        "description": "Netflix is still a Wall Street favorite — and a target for government regulators",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 22:11:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Three powerful forces are draining family wealth — and your estate plan is completely unprepared",
+        "url": "https://www.marketwatch.com/story/the-great-wealth-transfer-is-real-but-the-irs-or-a-nursing-home-might-get-your-money-first-d0c46676?mod=mw_rss_topstories",
+        "description": "From Medicaid cuts to an IRA tax trap, here are the real threats to your family’s inheritance and what to do about them.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 21:38:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "What IBM’s profit warning means: Hardware is ‘eating everyone’s lunch’",
+        "url": "https://www.marketwatch.com/story/what-ibms-profit-warning-means-hardware-is-eating-everyones-lunch-c6878824?mod=mw_rss_topstories",
+        "description": "The company said the shortfall in its software and infrastructure business was tied to clients spending on memory ahead of price hikes.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 21:10:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Taco Bell reportedly being investigated by health officials, as cyclosporiasis outbreak spreads",
+        "url": "https://www.marketwatch.com/story/officials-are-reportedly-looking-into-taco-bell-as-source-of-parasite-outbreak-remains-elusive-3ead0a1f?mod=mw_rss_topstories",
+        "description": "Shares of Taco Bell parent Yum Brands were down nearly 4% on Tuesday.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 21:09:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Wall Street has set a sky-high bar for companies to clear this earnings season. They just might pull it off.",
+        "url": "https://www.marketwatch.com/story/wall-street-has-set-a-sky-high-bar-for-companies-to-clear-this-earnings-season-they-just-might-pull-it-off-45731862?mod=mw_rss_topstories",
+        "description": "Analysts have set a sky-high bar for second-quarter earnings. However, Piper Sandler thinks corporate America can still clear it.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 21:03:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Your stock portfolio is tied to the Japanese yen — and a looming intervention is flashing a major warning sign",
+        "url": "https://www.marketwatch.com/story/another-warning-sign-is-flashing-for-tech-stocks-and-this-one-comes-from-outside-the-u-s-d51d6bfd?mod=mw_rss_topstories",
+        "description": "What the link between the yen and U.S. stocks means for your portfolio.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 20:56:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Skip the lettuce, cook your other greens and more advice on avoiding cyclosporiasis",
+        "url": "https://www.marketwatch.com/story/skip-the-lettuce-cook-your-other-greens-and-more-advice-on-avoiding-cyclosporiasis-ec2aed46?mod=mw_rss_topstories",
+        "description": "The outbreak of cyclosporiasis, which causes diarrhea, has sickened about 6,700 people since May.",
+        "source": "MarketWatch",
+        "published": "Tue, 14 Jul 2026 20:22:00 GMT",
+        "has_description": true
+      }
+    ],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "Trump’s return to war with Iran offers no clear path to victory",
+        "url": "https://www.ft.com/content/7a993639-28aa-442a-8ea6-2abaa695b698",
+        "description": "Gamble on resuming hostilities raises prospect that conflict will overshadow president’s second term",
+        "source": "Financial Times",
+        "published": "Wed, 15 Jul 2026 02:32:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump says US to abandon proposed Strait of Hormuz cargo fee",
+        "url": "https://www.ft.com/content/359bc137-c375-4812-87a9-07fbba8e347f",
+        "description": "US military launches seventh wave of strikes after the president said he would ‘replace’ fees plan with Gulf investment",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 20:19:08 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Washington and Tehran send warnings by missile",
+        "url": "https://www.ft.com/content/42a27e37-9868-4465-9bde-8b5261088608",
+        "description": "The foes are in their most dangerous period of fighting since a fragile April truce. Many of their strikes are designed to send signals",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 12:24:20 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Wall Street banks smash records on stock trading boom",
+        "url": "https://www.ft.com/content/137efc01-087f-4b1d-b2a4-e18ea61197f2",
+        "description": "Earnings at JPMorgan, Goldman Sachs, Citigroup and BofA benefit from AI frenzy and SpaceX IPO",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 16:23:20 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Democrats are not in great shape",
+        "url": "https://www.ft.com/content/bd5f3950-3c80-41af-852e-fe736da603ac",
+        "description": "A fractious opposition is doing everything it can to spurn an open goal",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 10:55:23 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Ukraine targets Russian shipping in ‘unprecedented’ drone assault",
+        "url": "https://www.ft.com/content/6d5e952f-eb03-4277-a8b4-caae478a02d9",
+        "description": "Over the past week, Kyiv has struck vessels in the Sea of Azov at a faster pace than during the 1980s Iran-Iraq tanker wars",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 14:43:45 GMT",
+        "has_description": true
+      },
+      {
+        "title": "China reports lowest GDP growth in more than 3 years",
+        "url": "https://www.ft.com/content/5b12e491-dcd0-4e0c-a464-96ec37b737ab",
+        "description": "Second-quarter figure falls at low end of annual target range as monthly indicators have highlighted economic pressures",
+        "source": "Financial Times",
+        "published": "Wed, 15 Jul 2026 02:34:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "US to fund Trump-aligned Europeans building ‘civilisational bonds’",
+        "url": "https://www.ft.com/content/e2addd88-4361-43f1-94e2-9f0a808dd6a9",
+        "description": "State department grants of up to $3mn are designed to boost groups pushing Maga-style policies",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 19:47:42 GMT",
+        "has_description": true
+      },
+      {
+        "title": "IBM shares plunge 25% as customers shift spending to AI",
+        "url": "https://www.ft.com/content/da478c37-7a32-415d-9f30-3b2981149f95",
+        "description": "Chief executive Arvind Krishna says company ‘faltered’ as clients raced to buy servers and storage",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 20:11:17 GMT",
+        "has_description": true
+      },
+      {
+        "title": "New York becomes first US state to suspend data centre development",
+        "url": "https://www.ft.com/content/1c390476-9d93-4df5-9b41-7381db43b4ea",
+        "description": "Governor Kathy Hochul signs one-year moratorium on new construction amid backlash over infrastructure needs",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 16:19:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Buffett drops Gates Foundation from $6bn Berkshire donation",
+        "url": "https://www.ft.com/content/ebc72869-a233-4710-a9a4-e398f567a5b2",
+        "description": "Billionaire chair of conglomerate shifts personal charity plans after revelations about Microsoft co-founder’s Epstein ties",
+        "source": "Financial Times",
+        "published": "Tue, 14 Jul 2026 19:03:42 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "6.9",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "2.85",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "MS",
+      "name": "Morgan Stanley",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "2.93",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BLK",
+      "name": "BlackRock, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "12.67",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "PGR",
+      "name": "The Progressive Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "4.72",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BNY",
+      "name": "The Bank of New York Mellon Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "2.22",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "PNC",
+      "name": "The PNC Financial Services Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "4.45",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BK",
+      "name": "Bank of New York Mellon Corp",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "2.22",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ELV",
+      "name": "Elevance Health, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "6.21",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CTAS",
+      "name": "Cintas Corporation",
+      "event": "Q4 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "1.23",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "KMI",
+      "name": "Kinder Morgan, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.31",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "UAL",
+      "name": "United Airlines Holdings, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.84",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "MTB",
+      "name": "M&T Bank Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "4.66",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "JBHT",
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.73",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "FHN",
+      "name": "First Horizon Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.52",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BMNR",
+      "name": "Bitmine Immersion Technologies, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.18",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CAG",
+      "name": "Conagra Brands, Inc.",
+      "event": "Q4 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.46",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "HOMB",
+      "name": "Home BancShares, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.61",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "KARO",
+      "name": "Karooooo Ltd.",
+      "event": "Q1 2027 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "8.71",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "WINA",
+      "name": "Winmark Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TAS",
+      "eps_estimate": "3.14",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7605.0,
+      "change": 42.0,
+      "change_pct": 0.56,
+      "prev_close": 7563.0
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 29969.5,
+      "change": 493.75,
+      "change_pct": 1.68,
+      "prev_close": 29475.75
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 52833.0,
+      "change": 69.0,
+      "change_pct": 0.13,
+      "prev_close": 52764.0
+    }
+  ]
+}
