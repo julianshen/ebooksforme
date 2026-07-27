@@ -1,0 +1,1282 @@
+{
+  "date_info": {
+    "date_str": "2026-07-27",
+    "prev_date_str": "2026-07-24",
+    "display": "2026年07月27日",
+    "weekday": "星期一",
+    "prev_display": "2026年07月24日"
+  },
+  "generated_at": "2026-07-27T11:00:30.394068",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7411.98,
+      "change": 3.68,
+      "change_pct": 0.05,
+      "prev_close": 7408.3
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 51947.25,
+      "change": 235.6,
+      "change_pct": 0.46,
+      "prev_close": 51711.65
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 24975.82,
+      "change": -161.87,
+      "change_pct": -0.64,
+      "prev_close": 25137.69
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 18.58,
+      "change": -0.12,
+      "change_pct": -0.64,
+      "prev_close": 18.7
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 4.68,
+      "change": -0.02,
+      "change_pct": -0.51,
+      "prev_close": 4.7
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 2930.0,
+      "change": -10.16,
+      "change_pct": -0.35,
+      "prev_close": 2940.16
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 920.95,
+      "change": -69.26,
+      "change_pct": -6.99,
+      "prev_close": 990.21
+    },
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 8.56,
+      "change": -0.33,
+      "change_pct": -3.71,
+      "prev_close": 8.89
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 333.02,
+      "change": 11.36,
+      "change_pct": 3.53,
+      "prev_close": 321.66
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 521.95,
+      "change": -17.74,
+      "change_pct": -3.29,
+      "prev_close": 539.69
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 381.92,
+      "change": -10.55,
+      "change_pct": -2.69,
+      "prev_close": 392.47
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 313.03,
+      "change": -6.66,
+      "change_pct": -2.08,
+      "prev_close": 319.69
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 595.19,
+      "change": -10.91,
+      "change_pct": -1.8,
+      "prev_close": 606.1
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 206.84,
+      "change": -1.92,
+      "change_pct": -0.92,
+      "prev_close": 208.76
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 232.11,
+      "change": -1.55,
+      "change_pct": -0.66,
+      "prev_close": 233.66
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 319.74,
+      "change": 2.05,
+      "change_pct": 0.65,
+      "prev_close": 317.69
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 122.92,
+      "change": -0.45,
+      "change_pct": -0.36,
+      "prev_close": 123.37
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 381.7,
+      "change": 0.12,
+      "change_pct": 0.03,
+      "prev_close": 381.58
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 45.95,
+      "change": 1.0,
+      "change_pct": 2.22,
+      "prev_close": 44.95
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 51.26,
+      "change": 0.97,
+      "change_pct": 1.93,
+      "prev_close": 50.29
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 84.13,
+      "change": 0.92,
+      "change_pct": 1.11,
+      "prev_close": 83.21
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 56.31,
+      "change": 0.48,
+      "change_pct": 0.86,
+      "prev_close": 55.83
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 162.57,
+      "change": 1.13,
+      "change_pct": 0.7,
+      "prev_close": 161.44
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 109.41,
+      "change": 0.65,
+      "change_pct": 0.6,
+      "prev_close": 108.76
+    },
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 59.62,
+      "change": 0.24,
+      "change_pct": 0.4,
+      "prev_close": 59.38
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 182.66,
+      "change": 0.72,
+      "change_pct": 0.4,
+      "prev_close": 181.94
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 46.29,
+      "change": 0.1,
+      "change_pct": 0.22,
+      "prev_close": 46.19
+    },
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 175.88,
+      "change": -2.57,
+      "change_pct": -1.44,
+      "prev_close": 178.45
+    }
+  ],
+  "news": {
+    "yahoo": [
+      {
+        "title": "After 80 stores close, 63-year-old chain gives Chapter 11 warning",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/80-stores-close-63-old-150700367.html",
+        "source": "TheStreet",
+        "published": "2026-07-26T15:07:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Cathie Wood Just Poured $18 Million Into Meta Stock. Here’s Why.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/cathie-wood-just-poured-18-153002939.html",
+        "source": "Barchart",
+        "published": "2026-07-25T15:30:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Alphabet Is Getting ‘Ambitious’ With AI. Don’t Get Ambitious With GOOGL Stock.",
+        "url": "https://finance.yahoo.com/technology/ai/articles/alphabet-getting-ambitious-ai-don-173002940.html",
+        "source": "Barchart",
+        "published": "2026-07-25T17:30:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Is NVIDIA Corporation (NVDA) A Good Stock To Buy Now?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-corporation-nvda-good-stock-190442460.html",
+        "source": "Insider Monkey",
+        "published": "2026-07-25T19:04:42Z",
+        "has_description": false
+      },
+      {
+        "title": "No Matter Who Wins the Smartphone and AI Chip Races, ARM Stock Still Benefits",
+        "url": "https://finance.yahoo.com/technology/ai/articles/no-matter-wins-smartphone-ai-193002317.html",
+        "source": "Barchart",
+        "published": "2026-07-25T19:30:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Trust Stamp joins EU semiconductor initiative to advance digital identity",
+        "url": "https://finance.yahoo.com/technology/articles/trust-stamp-joins-eu-semiconductor-160000139.html",
+        "source": "Proactive",
+        "published": "2026-07-25T16:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Mortgage and refinance interest rates today, Saturday, July 25, 2026: Highest rates this year",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-saturday-july-25-2026-highest-rates-this-year-100000185.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-25T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Best CD rates today, Saturday, July 25, 2026: Best account provides 4.20% APY",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-saturday-july-25-2026-best-account-provides-420-apy-100000276.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-25T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Do I need a business bank account if I'm self-employed?",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/bank-account-for-self-employed-183046944.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2024-08-07T18:30:46Z",
+        "has_description": false
+      },
+      {
+        "title": "What is an add-on CD?",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/add-on-cd-161023475.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2024-08-08T16:10:23Z",
+        "has_description": false
+      },
+      {
+        "title": "The Average U.S. Household Is Worth $1.37M — If Everyone Is So Rich, Then Why Do People Feel So Broke?",
+        "url": "https://finance.yahoo.com/economy/articles/average-u-household-worth-1-160013737.html",
+        "source": "Benzinga",
+        "published": "2026-07-25T16:00:13Z",
+        "has_description": false
+      },
+      {
+        "title": "Happen Bank review (2026): A top-rated online bank with high yields and low fees",
+        "url": "https://finance.yahoo.com/personal-finance/banking/review/happen-bank-review-230320224.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2024-09-06T23:03:20Z",
+        "has_description": false
+      },
+      {
+        "title": "HELOC and home equity loan rates today, Friday, July 24, 2026: Have they improved?",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/heloc-and-home-equity-loan-rates-today-friday-july-24-2026-have-they-improved-100000883.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-20T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "When is the Fed's next meeting? See the full schedule for 2026.",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/when-is-the-next-fed-meeting-full-schedule-150709698.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2024-06-06T15:07:09Z",
+        "has_description": false
+      },
+      {
+        "title": "Gold prices today, Friday, July 24, 2026: Gold price remains below $4,100 ahead of next week’s rate decision",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/gold-prices-today-friday-july-24-2026-gold-price-remains-below-4100-ahead-of-next-weeks-rate-decision-152726975.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T15:27:26Z",
+        "has_description": false
+      },
+      {
+        "title": "70% of Teradyne’s Revenue Is Tied to AI. Should You Buy Before July 29 Q2 Earnings?",
+        "url": "https://finance.yahoo.com/technology/ai/articles/70-teradyne-revenue-tied-ai-155237835.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:52:37Z",
+        "has_description": false
+      },
+      {
+        "title": "Silver prices today, Friday, July 24, 2026: Silver returns above $58 as markets price in higher rate risks",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/silver-prices-today-friday-july-24-2026-silver-returns-above-58-as-markets-price-in-higher-rate-risks-152408436.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T15:24:08Z",
+        "has_description": false
+      },
+      {
+        "title": "Bitcoin and ethereum prices today, Friday, July 24, 2026: Crypto prices retreat on higher U.S. Treasury yields",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-friday-july-24-2026-crypto-prices-retreat-on-higher-us-treasury-yields-152200068.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T15:22:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Mortgage and refinance interest rates today, Sunday, July 26, 2026: Rates up since last week",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-sunday-july-26-2026-rates-up-since-last-week-100000833.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-26T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Best CD rates today, Sunday, July 26, 2026: Lock in up to 4.20% APY",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-sunday-july-26-2026-lock-in-up-to-420-apy-100000233.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-26T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Inside DGRW: How a 32% Payout Ratio Keeps Distributions Safe While Markets Shift",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/inside-dgrw-32-payout-ratio-155227926.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:52:27Z",
+        "has_description": false
+      },
+      {
+        "title": "Best high-yield savings interest rates today, Friday, July 24, 2026: Earn up to 4.15% APY",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-friday-july-24-2026-earn-up-to-415-apy-100000162.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-20T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "How Trump Accounts could impact your child's student aid",
+        "url": "https://finance.yahoo.com/personal-finance/student-loans/article/how-trump-accounts-could-impact-student-aid-103800775.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T12:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Best CD rates today, Friday, July 24, 2026: Up to 4.20% APY return",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-friday-july-24-2026-up-to-420-apy-return-100000599.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Mortgage and refinance interest rates today, Friday, July 24, 2026: Dropping below 6.5%",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-friday-july-24-2026-dropping-below-65-100000803.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-07-24T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "This ETF Is Down 7% From Its High. History Says Now Is a Smart Time to Invest.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/etf-down-7-high-history-155000264.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T15:50:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Down 50% From 2026 Highs, Should You Buy Sofi Before July 29 Earnings?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/down-50-2026-highs-buy-160242266.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:02:42Z",
+        "has_description": false
+      },
+      {
+        "title": "Trillionaire No More. SpaceX Collapse Loses Elon Musk $600 Billion in One Month",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/trillionaire-no-more-spacex-collapse-160354848.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:03:54Z",
+        "has_description": false
+      },
+      {
+        "title": "Microsoft Stock Is Near a 1-Year Low. That Could Change on July 29.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/microsoft-stock-near-1-low-160500186.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T16:05:00Z",
+        "has_description": false
+      },
+      {
+        "title": "3 Energy Stocks Yielding Over 4.5% to Cash in on the AI Power Boom",
+        "url": "https://finance.yahoo.com/energy/articles/3-energy-stocks-yielding-over-153500728.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T15:35:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Billionaire Investor Seth Klarman’s Top 5 Stocks: Would He Buy More Today?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/billionaire-investor-seth-klarman-top-153051514.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:30:51Z",
+        "has_description": false
+      },
+      {
+        "title": "Lockheed Isn't Waiting For Pentagon Orders Anymore",
+        "url": "https://finance.yahoo.com/economy/articles/lockheed-isnt-waiting-pentagon-orders-153038655.html",
+        "source": "Benzinga",
+        "published": "2026-07-25T15:30:38Z",
+        "has_description": false
+      },
+      {
+        "title": "Citi Warns U.S. Equity Positioning May Face Further Pressure",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/citi-warns-u-equity-positioning-153000651.html",
+        "source": "InvestorsHub",
+        "published": "2026-07-25T15:30:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Prediction: Is Salesforce a Millionaire-Maker Stock?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/prediction-salesforce-millionaire-maker-stock-153018161.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:30:18Z",
+        "has_description": false
+      },
+      {
+        "title": "Bank of America revamps AMD stock price target for 2026",
+        "url": "https://finance.yahoo.com/technology/ai/articles/bank-america-revamps-amd-stock-161700284.html",
+        "source": "TheStreet",
+        "published": "2026-07-25T16:17:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Ethereum Traders are Giving Up Again. The Last Two Times ETH Rallied",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/ethereum-traders-giving-again-last-152134528.html",
+        "source": "BeInCrypto",
+        "published": "2026-07-25T15:21:34Z",
+        "has_description": false
+      },
+      {
+        "title": "3 Reasons Seagate Technology Could Be Worth a Closer Look Ahead of July 28 Earnings",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/3-reasons-seagate-technology-could-152028489.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:20:28Z",
+        "has_description": false
+      },
+      {
+        "title": "I Want Exposure to the AI Boom Without Buying Nvidia. Here's Why Bloom Energy Is My Pick.",
+        "url": "https://finance.yahoo.com/technology/ai/articles/want-exposure-ai-boom-without-152000636.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T15:20:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Why Retirees With Pension Income Still Need a Dividend Portfolio",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/why-retirees-pension-income-still-161920819.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:19:20Z",
+        "has_description": false
+      },
+      {
+        "title": "3 Reasons Ford Looks Overlooked Ahead of Its July 28 Q2 Earnings",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/3-reasons-ford-looks-overlooked-161916601.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:19:16Z",
+        "has_description": false
+      },
+      {
+        "title": "Big Tech’s Trillion-Dollar Bet Is Starting to Crack, Investors Are Looking Elsewhere for Profits",
+        "url": "https://finance.yahoo.com/technology/ai/articles/big-tech-trillion-dollar-bet-151825804.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T15:18:25Z",
+        "has_description": false
+      },
+      {
+        "title": "BYD Already Surpassed Ford, and It's Only Now Revving Up Ambitions. Here's How It Can Win.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/byd-already-surpassed-ford-only-162000469.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T16:20:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Mark Cuban sees a problem with the AI spending spree",
+        "url": "https://finance.yahoo.com/technology/ai/articles/mark-cuban-sees-problem-ai-151700372.html",
+        "source": "TheStreet",
+        "published": "2026-07-25T15:17:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Is an Oil & Gas ETF or a Solar Stock Fund  the Better Buy in 2026?",
+        "url": "https://finance.yahoo.com/energy/articles/oil-gas-etf-solar-stock-162309487.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T16:23:09Z",
+        "has_description": false
+      },
+      {
+        "title": "The Widow’s Penalty: Same House, Same Savings, One Check Gone, and a Higher Tax Bracket",
+        "url": "https://finance.yahoo.com/economy/policy/articles/widow-penalty-same-house-same-162414613.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:24:14Z",
+        "has_description": false
+      },
+      {
+        "title": "The 3.4% Income Play That Beats the Dogs of the Dow Strategy",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/3-4-income-play-beats-162438414.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:24:38Z",
+        "has_description": false
+      },
+      {
+        "title": "3 Major Reasons to Buy Vertiv Before July 29 Q2 Earnings",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/3-major-reasons-buy-vertiv-162459543.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-07-25T16:24:59Z",
+        "has_description": false
+      },
+      {
+        "title": "13% Below Its IPO Price, Is SpaceX Stock a Buy?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/13-below-ipo-price-spacex-150500912.html",
+        "source": "Motley Fool",
+        "published": "2026-07-25T15:05:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Elon Musk's Starship Tries Again Today After Engine Abort, Weather Scrub: What Prediction Markets Say About Flight 13",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/elon-musks-starship-tries-again-163024910.html",
+        "source": "Benzinga",
+        "published": "2026-07-25T16:30:24Z",
+        "has_description": false
+      }
+    ],
+    "cnbc": [
+      {
+        "title": "Oil slides 5% as Iran reportedly signals halt to attacks if U.S. pause holds",
+        "url": "https://www.cnbc.com/2026/07/27/oil-price-wti-brent-slide-as-iran-reportedly-may-halt-attacks.html",
+        "description": "Oil prices fell after Iran reportedly said it would suspend attacks as long as a U.S. pause in hostilities remains in place.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 23:58:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "China memory chipmaker CXMT skyrockets 470% in blockbuster Shanghai debut",
+        "url": "https://www.cnbc.com/2026/07/27/cxmt-china-market-debut-chipmaker-ipo.html",
+        "description": "The Hefei-based company raised 57.92 billion yuan ($8.6 billion) after pricing its IPO at 8.66 yuan per share.",
+        "source": "CNBC",
+        "published": "Mon, 27 Jul 2026 02:22:32 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Ukraine strikes Iranian vessels in Caspian Sea, Tehran accuses Kyiv of 'hostile and criminal act'",
+        "url": "https://www.cnbc.com/2026/07/26/ukraine-strikes-iranian-vessels-tehran-accuses-kyiv-of-hostile-act.html",
+        "description": "The latest attacks by Ukraine, combined with Saudi military strikes on Iran-backed Houthi targets in Yemen, represent a widening of the Middle East conflict.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 17:11:36 GMT",
+        "has_description": true
+      },
+      {
+        "title": "China industrial profit growth slows again in June as retreating oil prices sap earnings lift",
+        "url": "https://www.cnbc.com/2026/07/27/china-industrial-profit-growth-exports-oil-drops.html",
+        "description": "Corporate earnings have staged one of the strongest turnarounds in the economy this year, swinging from barely positive growth in 2025 to double-digit gains.",
+        "source": "CNBC",
+        "published": "Mon, 27 Jul 2026 02:02:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "How AI wealth could be distributed to all Americans",
+        "url": "https://www.cnbc.com/2026/07/26/how-can-ai-wealth-be-shared-with-all-americans.html",
+        "description": "AI riches are already concentrated among a handful of powerful companies, but there are plenty of new, some radical, ideas about how to spread the wealth.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 14:06:53 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Here's the tech stock to buy in a market losing patience with tech",
+        "url": "https://www.cnbc.com/2026/07/26/jim-cramer-heres-the-tech-stock-to-buy-in-a-market-losing-patience-with-tech.html",
+        "description": "It's not the spend, it's the return.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 23:39:46 GMT",
+        "has_description": true
+      },
+      {
+        "title": "100 days until midterm election: DCCC Chair DelBene says Democrats have the momentum",
+        "url": "https://www.cnbc.com/2026/07/26/election-midterms-dccc-chair-delbene-democrats.html",
+        "description": "Democrats see a path back to the U.S. House majority this November as President Donald Trump's approval dips.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 12:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Top Wall Street analysts back these 3 stocks for their long-term growth potential",
+        "url": "https://www.cnbc.com/2026/07/26/top-analysts-back-these-3-stocks-for-their-long-term-growth-potential.html",
+        "description": "Investors with a long-term horizon should look beyond the ongoing noise and focus on stocks that are well-positioned to generate strong returns.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 11:33:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Singapore tightens monetary policy as rising oil prices rekindle inflation risk",
+        "url": "https://www.cnbc.com/2026/07/27/singapore-mas-july-monetary-policy-middle-east-oil-prices-inflation-.html",
+        "description": "Unlike most central banks, the MAS manages medium-term price stability by managing the Singapore dollar exchange rate against a trade-weighted basket of currencies.",
+        "source": "CNBC",
+        "published": "Mon, 27 Jul 2026 00:34:22 GMT",
+        "has_description": true
+      },
+      {
+        "title": "For Gen X investors, dotcom bubble haunts stock market portfolios closing in on retirement",
+        "url": "https://www.cnbc.com/2026/07/26/gen-x-investors-dotcom-bubble-retirement-portfolio.html",
+        "description": "Many Americans in the 50-55 age range have 10 to 15 work years left, extending 401(k), IRA growth investing, but they can't afford an ill-timed market crash.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 14:44:29 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Some high-earning investors will soon owe taxes on years of deferred capital gains",
+        "url": "https://www.cnbc.com/2026/07/26/opportunity-zone-investors-face-deferred-capital-gains-tax-bill.html",
+        "description": "A key incentive in place for current Opportunity Zone investors — deferring taxation of reinvested capital gains — will end on Dec. 31.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 13:30:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cocoa prices are easing. So why is chocolate still so expensive?",
+        "url": "https://www.cnbc.com/2026/07/26/cocoa-prices-chocolate-lindt-barry-callebaut-nestle.html",
+        "description": "Chocolate firms look to win shoppers back with premium products and social media trends after poor weather conditions, tariffs, and the Iran war hit sales.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 05:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Analysis: A powerful new coalition of AI skeptics is coalescing right in Trump's blind spot",
+        "url": "https://www.cnbc.com/2026/07/25/trump-ai-data-center-backlash.html",
+        "description": "Evangelicals, labor unions and anti-AI-data-center activists are part of a groundswell worrying about how fast technology is changing.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 12:00:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Logistics giants are racing to keep up with healthcare boom as GLP-1s highlight need for cold storage",
+        "url": "https://www.cnbc.com/2026/07/25/ups-fedex-dhl-healthare-logistics-glp.html",
+        "description": "Shipping and logistics companies are tapping into the growing market of healthcare as cold chain and temperature-controlled facilities become more crucial.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 12:00:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Buffett favors an estate tax, but like virtually all billionaires, he won't be paying it",
+        "url": "https://www.cnbc.com/2026/07/25/buffett-favors-an-estate-tax-but-like-virtually-all-billionaires-he-wont-be-paying-it.html",
+        "description": "Warren Buffett believes he and other very wealthy Americans are under-taxed but by giving his fortune to charity, he won't be paying billions in potential levies to the government.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 12:28:33 GMT",
+        "has_description": true
+      },
+      {
+        "title": "New UK Prime Minister Burnham says he would be prepared to call out Trump",
+        "url": "https://www.cnbc.com/2026/07/26/new-uk-prime-minister-burnham-says-he-would-be-prepared-to-call-out-trump.html",
+        "description": "Burnham said he had a phone conversation with Trump on Monday when he officially took on the role, describing it as \"a good exchange\".",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 12:17:14 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Here are the 3 big things we're watching in the stock market in the week ahead",
+        "url": "https://www.cnbc.com/2026/07/26/here-are-the-3-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html",
+        "description": "It's a busy week filled with Big Tech earnings, a Fed meeting and inflation data.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 20:50:54 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Does crypto make your portfolio less risky? Only if you do it right, experts say",
+        "url": "https://www.cnbc.com/2026/07/25/crypto-diversified-investment-portfolio.html",
+        "description": "There's a right way and a wrong way to use cryptocurrencies such as bitcoin for portfolio diversification, financial advisors and market analysts said.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 13:30:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "From Silicon Valley to DC, the tech world is suddenly obsessed with one concept in AI: Distillation",
+        "url": "https://www.cnbc.com/2026/07/25/hat-is-distillation-and-why-is-everyone-so-obsessed-with-it-this-week.html",
+        "description": "Distillation has long been a topic for AI wonks, but it's become a hot-button issue of late as techies and lawmakers debate how it should be regulated.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 14:03:03 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump sued hours after new tariffs take effect, as experts say they may not hold up",
+        "url": "https://www.cnbc.com/2026/07/24/trump-tariffs-lawsuit-301-ieepa.html",
+        "description": "President Donald Trump has renewed a flurry of tariffs, including slapping 25% duties on Brazilian imports and vowing 50% tariffs on goods from Canada.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 14:23:53 GMT",
+        "has_description": true
+      },
+      {
+        "title": "4 generations, 6 different visions of the American Dream: 'I'm optimistic because of our resilience'",
+        "url": "https://www.cnbc.com/2026/07/26/how-different-generations-are-rewriting-the-american-dream-today.html",
+        "description": "CNBC Make It asked notable voices in politics, finance and relationships on what it takes to achieve happiness and success in America today.",
+        "source": "CNBC",
+        "published": "Sun, 26 Jul 2026 13:30:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Imax 70 mm screenings become the biggest star for Christopher Nolan’s ‘The Odyssey’",
+        "url": "https://www.cnbc.com/2026/07/25/the-odyssey-imax-70mm-screenings.html",
+        "description": "Moviegoers are traveling, lining up and paying premiums to see Christopher Nolan’s ‘The Odyssey’ in scarce Imax 70 mm screenings.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 16:26:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia locks down memory supply from SK Hynix as part of $500 billion AI deal",
+        "url": "https://www.cnbc.com/2026/07/25/nvidia-locks-down-memory-from-sk-hynix-as-part-of-500-billion-ai-deal.html",
+        "description": "Nvidia is aggressively securing supply of high-bandwidth memory, an essential component for its GPUs and systems.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 08:49:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "JPMorgan report finds dramatic jump in AI-themed ETFs — despite rough quarter",
+        "url": "https://www.cnbc.com/2026/07/23/jpmorgan-dramatic-jump-in-ai-etfs-despite-rough-quarter.html",
+        "description": "Wall Street is banking heavily on exchange-traded funds that give investors artificial intelligence exposure, according to JPMorgan Asset Management.",
+        "source": "CNBC",
+        "published": "Thu, 23 Jul 2026 17:10:06 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump threatens EU with 'substantial TARIFF' for 'ROBBING' U.S. tech giants",
+        "url": "https://www.cnbc.com/2026/07/24/trump-tariffs-eu-trade-google-apple-tech.html",
+        "description": "Trump on Truth Social railed against the European Union's new fine on Google and prior penalties against U.S. tech giants Apple, Meta and Amazon.",
+        "source": "CNBC",
+        "published": "Fri, 24 Jul 2026 19:39:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "SpaceX launches massive Starship rocket in first test flight since IPO",
+        "url": "https://www.cnbc.com/2026/07/24/spacex-launches-massive-starship-rocket-in-first-test-flight-since-ipo.html",
+        "description": "Elon Musk's rocket maker is conducting the first test fight for its massive Starship rocket since the company's IPO last month.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 02:17:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Boom in tech wealth is fueling record prices for dinosaur bones, art and watches, auction houses say",
+        "url": "https://www.cnbc.com/2026/07/24/wealth-auctions-art-watches.html",
+        "description": "The major auction houses racked up nearly $10 billion in sales in the first half, marking one of the strongest-ever starts to the year.",
+        "source": "CNBC",
+        "published": "Fri, 24 Jul 2026 11:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Why bond investors are pushing up some of your interest rates",
+        "url": "https://www.cnbc.com/2026/07/24/treasury-yields-fed-mortgage-rates.html",
+        "description": "Many types of consumer loans such as mortgages peg their interest rate to the yield on 10-year Treasury bonds, which has been moving higher.",
+        "source": "CNBC",
+        "published": "Fri, 24 Jul 2026 21:09:24 GMT",
+        "has_description": true
+      },
+      {
+        "title": "How a 70-year-old beekeeper is keeping his family honey farm afloat: 'It's a legacy that I feel responsible for'",
+        "url": "https://www.cnbc.com/2026/07/25/how-this-70-year-old-honey-bee-farmer-is-keeping-his-family-farm-alive.html",
+        "description": "Being a beekeeper is harder than ever, but David Bradshaw is determined to protect his hives.",
+        "source": "CNBC",
+        "published": "Sat, 25 Jul 2026 14:48:15 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CDC says massive cyclospora outbreak is now in nine states",
+        "url": "https://www.cnbc.com/2026/07/24/cyclospora-cdc-says-outbreak-is-in-nine-states.html",
+        "description": "The four newly linked states — Illinois, Kansas, Oklahoma and Pennsylvania — join Indiana, Kentucky, Ohio, West Virginia and hard-hit Michigan.",
+        "source": "CNBC",
+        "published": "Fri, 24 Jul 2026 19:53:01 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "Oil prices fall as Iran and US pause strikes over Strait of Hormuz tensions",
+        "url": "https://www.ft.com/content/403625cc-8371-43ee-997a-f6908a97f52e?syn-25a6b1a6=1",
+        "description": "Brent opens lower after two weeks of escalating violence pushed crude to more than $100 a barrel",
+        "source": "Financial Times",
+        "published": "Mon, 27 Jul 2026 01:44:59 GMT",
+        "has_description": true
+      },
+      {
+        "title": "US pauses Iran strikes as Oman pursues Hormuz transit deal",
+        "url": "https://www.ft.com/content/ffdeacf0-91b8-48fd-9ff8-d8d134ef5f11?syn-25a6b1a6=1",
+        "description": "Neither side launches attacks for second consecutive night as mediators seek to avert return to full-blown war",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 19:33:42 GMT",
+        "has_description": true
+      },
+      {
+        "title": "India’s Gen Z protesters puncture Modi’s aura of invincibility",
+        "url": "https://www.ft.com/content/71bbe9fd-e1cb-4e28-8edb-f319032139c4?syn-25a6b1a6=1",
+        "description": "Long-serving premier the target of demonstrators’ anger",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 10:43:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Why wages and productivity look set to diverge further",
+        "url": "https://www.ft.com/content/9741206d-b53f-4149-8cab-5203dd4b70fb?syn-25a6b1a6=1",
+        "description": "AI and a falling labour share of GDP risk accelerating decoupling trends across the rich world",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 11:00:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Chinese chipmaker CXMT soars almost 500% in market debut",
+        "url": "https://www.ft.com/content/8e82e939-908b-42bf-a314-0bb02a3f1b07",
+        "description": "IPO is biggest in mainland since 2010 and reflects booming demand for AI memory chips",
+        "source": "Financial Times",
+        "published": "Mon, 27 Jul 2026 01:54:34 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Investors use crypto exchanges to avoid Chinese controls on AI stocks",
+        "url": "https://www.ft.com/content/af333b9c-d59d-4e7c-b814-12cef578895d?syn-25a6b1a6=1",
+        "description": "Perpetual futures let investors circumvent restrictions on foreign access to China’s equity market",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 04:00:15 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Asian private credit fundraising sinks to 12-year low amid bankruptcy fears",
+        "url": "https://www.ft.com/content/b52ce5ba-6493-4c0c-9395-c227b9937a71?syn-25a6b1a6=1",
+        "description": "Just five Asia-based funds closed in first half as investors favour large US managers",
+        "source": "Financial Times",
+        "published": "Mon, 27 Jul 2026 01:23:40 GMT",
+        "has_description": true
+      },
+      {
+        "title": "China pours funding into green energy deals as Iran war hits oil demand",
+        "url": "https://www.ft.com/content/221aac60-807e-4bdd-b76d-dd451255e685?syn-25a6b1a6=1",
+        "description": "Beijing’s Belt and Road Initiative takes advantage of rise in appetite for renewables as Middle East conflict drags on",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 04:00:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘Violent’ wildfires rage close to French and Spanish cities",
+        "url": "https://www.ft.com/content/e5bf56e2-9ad1-4778-a25b-9fbe7a3f9eb8?syn-25a6b1a6=1",
+        "description": "The two countries evacuate about 335,000 people as minister calls blazes ‘the most aggressive’ Spain has ever suffered",
+        "source": "Financial Times",
+        "published": "Sun, 26 Jul 2026 21:38:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Indonesia central bank chief resigns",
+        "url": "https://www.ft.com/content/f9abab6b-964c-4dae-ba41-4c20fa71c2e0?syn-25a6b1a6=1",
+        "description": "Perry Warjiyo had led Bank Indonesia since 2018",
+        "source": "Financial Times",
+        "published": "Mon, 27 Jul 2026 02:00:59 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "AZN",
+      "name": "AstraZeneca PLC",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "1.27",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "WELL",
+      "name": "Welltower Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.65",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CDNS",
+      "name": "Cadence Design Systems, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2.06",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "NUE",
+      "name": "Nucor Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "4.53",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CLS",
+      "name": "Celestica Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2.31",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CINF",
+      "name": "Cincinnati Financial Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.82",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "PFG",
+      "name": "Principal Financial Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2.33",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BRO",
+      "name": "Brown & Brown, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.07",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "VIV",
+      "name": "Telefônica Brasil S.A.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.14",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "FFIV",
+      "name": "F5, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "4",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "KOF",
+      "name": "Coca-Cola FEMSA, S.A.B. de C.V.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "1.54",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "AMKR",
+      "name": "Amkor Technology, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.48",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SUI",
+      "name": "Sun Communities, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.48",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "UDR",
+      "name": "UDR, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.13",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "TFII",
+      "name": "TFI International Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.59",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SANM",
+      "name": "Sanmina Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2.79",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "RMBS",
+      "name": "Rambus Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.72",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "TIMB",
+      "name": "TIM S.A.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "0.47",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ENSG",
+      "name": "The Ensign Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.85",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.24",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7498.75,
+      "change": 51.25,
+      "change_pct": 0.69,
+      "prev_close": 7447.5
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 28617.0,
+      "change": 334.75,
+      "change_pct": 1.18,
+      "prev_close": 28282.25
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 52402.0,
+      "change": 278.0,
+      "change_pct": 0.53,
+      "prev_close": 52124.0
+    }
+  ]
+}
