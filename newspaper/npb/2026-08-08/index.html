@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日職每日報 - 2026年08月08日</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --paper: #1e293b;
+            --ink: #f1f5f9;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --gold: #fbbf24;
+            --central: #60a5fa;
+            --pacific: #f87171;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .newspaper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+            min-height: 100vh;
+        }
+        .cover-banner {
+            width: 100%;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: 0 0 40px rgba(56,189,248,0.15);
+        }
+        .cover-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .masthead {
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+        }
+        .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-shadow: 3px 3px 0 rgba(56,189,248,0.3);
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+        }
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .content { padding: 2rem; }
+        .section { margin-bottom: 2.5rem; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            flex: 1;
+            color: var(--ink);
+        }
+        .auto-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #0f172a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 900;
+        }
+        .news-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            border-left: 4px solid var(--accent);
+            margin-bottom: 1rem;
+        }
+        .focus-news {
+            border-left-color: var(--gold);
+        }
+        .focus-news .card-title a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .focus-news .card-title a:hover {
+            color: #f59e0b;
+            text-decoration: underline;
+        }
+        .card-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .tag-game { background: rgba(56,189,248,0.15); color: var(--accent); }
+        .tag-news { background: rgba(251,191,36,0.15); color: var(--gold); }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+        }
+        .card-body { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .news-date { font-size: 0.8rem; color: var(--muted); }
+        .read-more {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .read-more:hover { text-decoration: underline; }
+        /* ── 賽程卡片 ── */
+        .game-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        .game-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .team-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 1;
+        }
+        .team-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        .team-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--ink);
+        }
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            min-width: 4rem;
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .game-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .game-extra {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            flex-wrap: wrap;
+        }
+        .pitcher-info, .attendance-info, .duration-info {
+            background: rgba(56,189,248,0.1);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+        }
+        .game-status {
+            display: inline-block;
+            background: rgba(251,191,36,0.15);
+            color: var(--gold);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .game-time {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        /* ── 戰績表 ── */
+        .league-subtitle {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+            color: var(--ink);
+        }
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .standings-table th {
+            background: #1e293b;
+            padding: 0.5rem 0.4rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            color: var(--muted);
+        }
+        .standings-table td {
+            padding: 0.4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--ink);
+        }
+        .standings-table .team-cell {
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .standings-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+        .rank-cell {
+            font-weight: 700;
+            color: var(--muted);
+        }
+        /* ── 交流戰 ── */
+        .interleague-card {
+            background: linear-gradient(135deg, #1e3a5f 0%, #3d1e1e 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .interleague-header {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .interleague-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .central-score { color: var(--central); }
+        .pacific-score { color: var(--pacific); }
+        .vs-divider { color: var(--muted); font-size: 1rem; }
+        .interleague-leader {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        /* ── 排行榜 ── */
+        .leader-group {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            margin-bottom: 0.5rem;
+        }
+        .leader-group:nth-child(odd) {
+            margin-right: 2%;
+        }
+        .leader-subtitle {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0.75rem 0 0.3rem;
+        }
+        .leaders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .leaders-table th {
+            background: #1e293b;
+            padding: 0.3rem 0.3rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            color: var(--muted);
+        }
+        .leaders-table td {
+            padding: 0.3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--ink);
+        }
+        .leaders-table .team-cell {
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+        }
+        .leaders-logo {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+        .player-cell {
+            text-align: left !important;
+            font-weight: 700;
+        }
+        .value-cell {
+            font-weight: 900;
+            color: var(--accent);
+        }
+        /* ── 球隊新聞 ── */
+        .news-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .team-news-block {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            flex: 1 1 280px;
+            min-width: 0;
+        }
+        .team-news-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .news-team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+        .team-news-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--ink);
+        }
+        .team-news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .news-item {
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border);
+            line-height: 1.5;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        .news-link {
+            color: var(--ink);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .news-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .news-title {
+            color: var(--ink);
+        }
+        .news-source {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+        .footer {
+            background: #020617;
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--accent);
+        }
+        .footer p { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 900;
+        }
+        .back-link:hover { background: #7dd3fc; }
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .content { padding: 1rem; }
+            .issue-info { flex-direction: column; gap: 0.5rem; }
+            .game-teams { flex-wrap: wrap; }
+            .leader-group { width: 100%; }
+            .interleague-score { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <div class="cover-banner"><img src="images/cover-2.png" alt="日職每日報封面"></div>
+        <header class="masthead">
+            <div class="tagline">Nippon Professional Baseball Daily</div>
+            <h1 class="title">日職每日報</h1>
+            <p class="subtitle">日本職棒每日新聞 · 中文摘要 · 自動生成</p>
+            <div class="issue-info">
+                <span>📅 2026年08月08日 星期六</span>
+                <span>🤖 自動生成版</span>
+                <span>⚾ 日本職棒</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📰 焦點新聞</h2>
+                    <span class="auto-badge">LLM翻譯</span>
+                </div>
+                
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260807_02.html" target="_blank" rel="noopener noreferrer">【記録員コラム】サヨナラヒット？サヨナラセンターゴロ？</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260807_02.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260807_01.html" target="_blank" rel="noopener noreferrer">ファーム・リーグ試合日程変更のお知らせ</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260807_01.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260805_02.html" target="_blank" rel="noopener noreferrer">JERA セントラル・リーグ試合日程追加のお知らせ</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260805_02.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260804_05.html" target="_blank" rel="noopener noreferrer">令和8年熊本地震 義援金について</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260804_05.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260804_04.html" target="_blank" rel="noopener noreferrer">Ｃ．マッカスカー選手（東北楽天）に対する制裁のお知らせ</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260804_04.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260804_03.html" target="_blank" rel="noopener noreferrer">先週の記録回顧と主な記録達成候補者（8/3現在）</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260804_03.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">NPB官方</span>
+                <h3 class="card-title"><a href="https://npb.jp/news/detail/20260804_02.html" target="_blank" rel="noopener noreferrer">【コラム】「歩」のように一歩ずつコツコツと前へ、巨人・松本剛が積み重ねる勝利への仕事</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://npb.jp/news/detail/20260804_02.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202608080000199.html" target="_blank" rel="noopener noreferrer">１イニングに３つも…死球目立つプロ野球　日本ハム新庄監督も苦言「考えてもらいたい」[11:09]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202608080000199.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📋 昨日戰報 (08月07日)</h2>
+                </div>
+                
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="team-logo">
+                        <span class="team-name">東京養樂多燕子</span>
+                    </div>
+                    <div class="score-display">1 - 0</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="team-logo">
+                        <span class="team-name">讀賣巨人</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 東京ドーム</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 42384人</span><span class="duration-info">時間: 2時間36分</span></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="team-logo">
+                        <span class="team-name">廣島東洋鯉魚</span>
+                    </div>
+                    <div class="score-display">1 - 2</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="team-logo">
+                        <span class="team-name">橫濱DeNA灣星</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 横　浜</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 31077人</span><span class="duration-info">時間: 2時間43分</span></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="team-logo">
+                        <span class="team-name">中日龍</span>
+                    </div>
+                    <div class="score-display">3 - 2</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="team-logo">
+                        <span class="team-name">阪神虎</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 京セラD大阪</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 36191人</span><span class="duration-info">時間: 3時間</span></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="team-logo">
+                        <span class="team-name">東北樂天金鷲</span>
+                    </div>
+                    <div class="score-display">2 - 3</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="team-logo">
+                        <span class="team-name">北海道日本火腿鬥士</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 エスコンＦ</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 29910人</span><span class="duration-info">時間: 2時間53分</span></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="team-logo">
+                        <span class="team-name">福岡軟銀鷹</span>
+                    </div>
+                    <div class="score-display">5 - 2</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="team-logo">
+                        <span class="team-name">埼玉西武獅</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ベルーナドーム</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 27219人</span><span class="duration-info">時間: 2時間55分</span></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="team-logo">
+                        <span class="team-name">歐力士猛牛</span>
+                    </div>
+                    <div class="score-display">6 - 2</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="team-logo">
+                        <span class="team-name">千葉羅德海洋</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ZOZOマリン</span>
+                    <span class="game-status">試合終了</span>
+                </div>
+                <div class="game-extra"><span class="attendance-info">入場: 27616人</span><span class="duration-info">時間: 3時間20分</span></div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📅 今日賽程 (2026年08月08日)</h2>
+                </div>
+                
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="team-logo">
+                        <span class="team-name">東京養樂多燕子</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="team-logo">
+                        <span class="team-name">讀賣巨人</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 東京ドーム</span>
+                    
+                    <span class="game-status">15:00</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="team-logo">
+                        <span class="team-name">廣島東洋鯉魚</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="team-logo">
+                        <span class="team-name">橫濱DeNA灣星</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 横　浜</span>
+                    
+                    <span class="game-status">18:00</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="team-logo">
+                        <span class="team-name">中日龍</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="team-logo">
+                        <span class="team-name">阪神虎</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 京セラD大阪</span>
+                    
+                    <span class="game-status">18:00</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="team-logo">
+                        <span class="team-name">東北樂天金鷲</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="team-logo">
+                        <span class="team-name">北海道日本火腿鬥士</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 エスコンＦ</span>
+                    
+                    <span class="game-status">15:00</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="team-logo">
+                        <span class="team-name">福岡軟銀鷹</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="team-logo">
+                        <span class="team-name">埼玉西武獅</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ベルーナ</span>
+                    
+                    <span class="game-status">18:00</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="team-logo">
+                        <span class="team-name">歐力士猛牛</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="team-logo">
+                        <span class="team-name">千葉羅德海洋</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ZOZOマリン</span>
+                    
+                    <span class="game-status">18:00</span>
+                </div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🔮 明日預告 (08月09日)</h2>
+                </div>
+                
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="team-logo">
+                        <span class="team-name">東京養樂多燕子</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="team-logo">
+                        <span class="team-name">讀賣巨人</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 東京ドーム</span>
+                    <span class="game-time">⏰ 14:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="team-logo">
+                        <span class="team-name">廣島東洋鯉魚</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="team-logo">
+                        <span class="team-name">橫濱DeNA灣星</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 横　浜</span>
+                    <span class="game-time">⏰ 18:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="team-logo">
+                        <span class="team-name">中日龍</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="team-logo">
+                        <span class="team-name">阪神虎</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 京セラD大阪</span>
+                    <span class="game-time">⏰ 18:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="team-logo">
+                        <span class="team-name">東北樂天金鷲</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="team-logo">
+                        <span class="team-name">北海道日本火腿鬥士</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 エスコンＦ</span>
+                    <span class="game-time">⏰ 14:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="team-logo">
+                        <span class="team-name">福岡軟銀鷹</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="team-logo">
+                        <span class="team-name">埼玉西武獅</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ベルーナドーム</span>
+                    <span class="game-time">⏰ 17:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            <div class="game-card">
+                <div class="game-teams">
+                    <div class="team-block away-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="team-logo">
+                        <span class="team-name">歐力士猛牛</span>
+                    </div>
+                    <div class="score-display">vs</div>
+                    <div class="team-block home-block">
+                        <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="team-logo">
+                        <span class="team-name">千葉羅德海洋</span>
+                    </div>
+                </div>
+                <div class="game-meta">
+                    <span>🏟 ZOZOマリン</span>
+                    <span class="game-time">⏰ 17:00</span>
+                </div>
+                <div class="game-extra"></div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📊 聯盟戰績</h2>
+                </div>
+                
+            <h3 class="league-subtitle" style="color:var(--central);">◇ 中央聯盟</h3>
+            <table class="standings-table">
+                <thead><tr><th>順位</th><th>球隊</th><th>試合</th><th>勝</th><th>敗</th><th>分</th><th>率</th><th>差</th></tr></thead>
+                <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="standings-logo"> 阪神虎</td>
+                    <td>98</td>
+                    <td>54</td>
+                    <td>43</td>
+                    <td>1</td>
+                    <td>.557</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="" class="standings-logo"> 讀賣巨人</td>
+                    <td>99</td>
+                    <td>53</td>
+                    <td>44</td>
+                    <td>2</td>
+                    <td>.546</td>
+                    <td>1.0</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="" class="standings-logo"> 東京養樂多燕子</td>
+                    <td>99</td>
+                    <td>45</td>
+                    <td>53</td>
+                    <td>1</td>
+                    <td>.459</td>
+                    <td>9.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="" class="standings-logo"> 橫濱DeNA灣星</td>
+                    <td>99</td>
+                    <td>44</td>
+                    <td>52</td>
+                    <td>3</td>
+                    <td>.458</td>
+                    <td>9.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="" class="standings-logo"> 中日龍</td>
+                    <td>101</td>
+                    <td>43</td>
+                    <td>57</td>
+                    <td>1</td>
+                    <td>.430</td>
+                    <td>12.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">6</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="" class="standings-logo"> 廣島東洋鯉魚</td>
+                    <td>96</td>
+                    <td>38</td>
+                    <td>54</td>
+                    <td>4</td>
+                    <td>.413</td>
+                    <td>13.5</td>
+                </tr></tbody>
+            </table>
+            <h3 class="league-subtitle" style="color:var(--pacific);">◇ 太平洋聯盟</h3>
+            <table class="standings-table">
+                <thead><tr><th>順位</th><th>球隊</th><th>試合</th><th>勝</th><th>敗</th><th>分</th><th>率</th><th>差</th></tr></thead>
+                <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="standings-logo"> 福岡軟銀鷹</td>
+                    <td>99</td>
+                    <td>63</td>
+                    <td>35</td>
+                    <td>1</td>
+                    <td>.643</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="" class="standings-logo"> 北海道日本火腿鬥士</td>
+                    <td>103</td>
+                    <td>58</td>
+                    <td>45</td>
+                    <td>0</td>
+                    <td>.563</td>
+                    <td>7.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="standings-logo"> 埼玉西武獅</td>
+                    <td>102</td>
+                    <td>55</td>
+                    <td>44</td>
+                    <td>3</td>
+                    <td>.556</td>
+                    <td>8.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="" class="standings-logo"> 歐力士猛牛</td>
+                    <td>101</td>
+                    <td>50</td>
+                    <td>49</td>
+                    <td>2</td>
+                    <td>.505</td>
+                    <td>13.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="" class="standings-logo"> 千葉羅德海洋</td>
+                    <td>96</td>
+                    <td>44</td>
+                    <td>49</td>
+                    <td>3</td>
+                    <td>.473</td>
+                    <td>16.5</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">6</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="" class="standings-logo"> 東北樂天金鷲</td>
+                    <td>97</td>
+                    <td>37</td>
+                    <td>59</td>
+                    <td>1</td>
+                    <td>.385</td>
+                    <td>25.0</td>
+                </tr></tbody>
+            </table>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">⚔️ 交流戰</h2>
+                </div>
+                
+        <div class="interleague-card">
+            <div class="interleague-header">⚔️ 交流戰戰績</div>
+            <div class="interleague-score">
+                <span class="central-score">中央聯盟 39 勝</span>
+                <span class="vs-divider">vs</span>
+                <span class="pacific-score">太平洋聯盟 65 勝</span>
+            </div>
+            <div class="interleague-leader">太平洋聯盟領先（65 - 39）</div>
+        </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🏆 個人排行榜</h2>
+                </div>
+                
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--central);">中央聯盟 打擊率</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">佐藤　輝明</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">.316</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">中野　拓夢</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">.297</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">森下　翔太</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">.286</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">大山　悠輔</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">.278</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">度会　隆輝</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="" class="leaders-logo"> 橫濱DeNA灣星</td>
+                    <td class="value-cell">.276</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--pacific);">太平洋聯盟 打擊率</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">レイエス</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="" class="leaders-logo"> 北海道日本火腿鬥士</td>
+                    <td class="value-cell">.331</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">近藤　健介</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">.314</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">西川　史礁</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="" class="leaders-logo"> 千葉羅德海洋</td>
+                    <td class="value-cell">.296</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">牧原　大成</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">.294</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">滝澤　夏央</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">.291</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--central);">中央聯盟 全壘打</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">佐藤　輝明</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">23</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">森下　翔太</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">25</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">大山　悠輔</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">13</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">度会　隆輝</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="" class="leaders-logo"> 橫濱DeNA灣星</td>
+                    <td class="value-cell">6</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">7</td>
+                    <td class="player-cell">ダルベック</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="" class="leaders-logo"> 讀賣巨人</td>
+                    <td class="value-cell">18</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--pacific);">太平洋聯盟 全壘打</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">レイエス</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="" class="leaders-logo"> 北海道日本火腿鬥士</td>
+                    <td class="value-cell">24</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">近藤　健介</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">23</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">西川　史礁</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="" class="leaders-logo"> 千葉羅德海洋</td>
+                    <td class="value-cell">7</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">牧原　大成</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">2</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">滝澤　夏央</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">1</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--central);">中央聯盟 防禦率</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">村上　頌樹</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">1.86</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">髙橋　遥人</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">1.95</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">井上　温大</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="" class="leaders-logo"> 讀賣巨人</td>
+                    <td class="value-cell">1.96</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">大野　雄大</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="" class="leaders-logo"> 中日龍</td>
+                    <td class="value-cell">1.96</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">山野　太一</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="" class="leaders-logo"> 東京養樂多燕子</td>
+                    <td class="value-cell">2.43</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--pacific);">太平洋聯盟 防禦率</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">エスピノーザ</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="" class="leaders-logo"> 歐力士猛牛</td>
+                    <td class="value-cell">2.25</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">北山　亘基</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="" class="leaders-logo"> 北海道日本火腿鬥士</td>
+                    <td class="value-cell">2.33</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">髙橋　光成</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">2.45</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">大津　亮介</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">2.56</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">隅田　知一郎</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">2.63</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--central);">中央聯盟 勝投</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">村上　頌樹</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">8</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">髙橋　遥人</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="" class="leaders-logo"> 阪神虎</td>
+                    <td class="value-cell">11</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">井上　温大</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="" class="leaders-logo"> 讀賣巨人</td>
+                    <td class="value-cell">10</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">大野　雄大</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="" class="leaders-logo"> 中日龍</td>
+                    <td class="value-cell">7</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">山野　太一</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="" class="leaders-logo"> 東京養樂多燕子</td>
+                    <td class="value-cell">8</td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div class="leader-group">
+                <h4 class="leader-subtitle" style="color:var(--pacific);">太平洋聯盟 勝投</h4>
+                <table class="leaders-table">
+                    <thead><tr><th>#</th><th>選手</th><th>球隊</th><th>成績</th></tr></thead>
+                    <tbody>
+                <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="player-cell">エスピノーザ</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="" class="leaders-logo"> 歐力士猛牛</td>
+                    <td class="value-cell">10</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="player-cell">北山　亘基</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="" class="leaders-logo"> 北海道日本火腿鬥士</td>
+                    <td class="value-cell">9</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="player-cell">髙橋　光成</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">8</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="player-cell">大津　亮介</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="" class="leaders-logo"> 福岡軟銀鷹</td>
+                    <td class="value-cell">9</td>
+                </tr>
+                <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="player-cell">隅田　知一郎</td>
+                    <td class="team-cell"><img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="" class="leaders-logo"> 埼玉西武獅</td>
+                    <td class="value-cell">7</td>
+                </tr></tbody>
+                </table>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📰 球隊新聞摘要</h2>
+                </div>
+                
+                <h3 class="league-subtitle" style="color:var(--central);">◇ 中央聯盟</h3>
+                <div class="news-grid">
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="news-team-logo">
+                            <span class="team-news-name">讀賣巨人</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE1pSGFNSGVkTmFYU1FkaFNzUU5CelpTczNhUEZsX2MyNU8ySEdaSUk5d3lEV2tRVGZVa0VhZEtSWVRIQUoxQ0ZMTXNkUFJRN0tQYUdibUx5T28?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「今年ダメだったらクビだ」 ドラ1入団から7年…巨人・堀田賢慎が遅咲き覚醒、大勢に覆された意識と内海コーチへの一言</a><span class="news-source">— full-count.jp</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE8zXzdtQU9HRW1BX28yeEkyVDRzVFp5dVpoMGJQa29qMXBwVGNqQW1yLThZSlk0MHkxMVFHek13SUhCM2ptVVRxdG0tM3RuQi1fSlJvYlMzcklhTTRZekdSd1A1bS0xRWJCUHZNcHpINWFkZzZCTUdWbUxfczRKTTA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">わずか1試合登板で降格…巨人、大卒6年目の“ドラ1右腕”を登録抹消（ベースボールチャンネル）</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5Db2lQMnZlaGZoS2RfUUV5R05sNkwxS21FamFJMzBnSU5Ba3lCVEdTVjJOQ3RZS1Jid3hpXzlFRWVxV0F6ZXNBRGIteGpteU1Cazc3OVpVS2VZa2E2RWlRT2dicmppWXY4?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">TOKYOシリーズ</a><span class="news-source">— giants.jp</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="news-team-logo">
+                            <span class="team-news-name">阪神虎</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE5rU2U1QmVGSVdhWmV2Q1RmcWhkY3VBRnUtT1diUlY0Vk5fclVCTFl6Si1sdk1zRkpqY21ZNkQ5aUl2REk0MmpPc2tWbW5KWW1rZWVNNUNMclR5alltTjlrVjB0NEowcGV2bEdWQW9lN0RoUzR6U2g3UTVXSjB4Mms?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【阪神】佐藤輝明の2ランで先制するも、9回に逆転負け｜プロ野球結果（DAZN News）</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxNZXZ5Z08wZWFqbnF6VGRzZkx6REdFYlpBSXM5eHBCbUQwX2ZhOHBsd2F5bVNTS2EwemFqTG5IX1MtR0FSd2R5eWF3cTdHU0YyUzl1dXNSaTNvcGtiblN2NVh5NVlzcV8tYlg5dlRWOFJtbV9kY0NPWGF1eFhiU2VNX2VFWGJaVkdpd0c5eTJPSzJzTWlIS1HSAYoBQVVfeXFMUF9wMm5lcTVReVVKWjdrRm8zZE0wWUxlcG4yem4xV1VienBRV0F6aDhPR3Vfb1MxeGxLYS1NRVpRaWNPcGQ5QnV2b0pqWHlDR0tYZXFNVzAxZTVvX3g1bzY1RnV0LXlSbVp3Z0l6SVdnQXNXRURhdGhCUkhZeGlTa0lleHBsMkxtSExn?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">阪神・才木浩人、ドリスから謝罪受ける「めっちゃ『すみません』と言ってました」</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxOcDF3dWlnNFZhdXhMNzIyMExUWE9QVU04SlNmeXpnWTJPRFczVDZsTFd1andLSkt6aHJ1ZUdfOHhYUEY5aGxTMzhzaWJyaWhoSUJrcFd0N3ZYTXA2aUd0R1FnUnhoUW1sTF9VU1IxQnJmY0RERTd1SFRqVnVPQXE3bW5RUjhSc0VaZTVfSGNkd1M3LUZONWk2NzJsVUxTTnFUcVpFa0dqTTloSWU2aFhHVWNnTDUycU9MZ291Tg?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【8月8日】阪神タイガースvs中日ドラゴンズのテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026</a><span class="news-source">— Goal.com</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="news-team-logo">
+                            <span class="team-news-name">廣島東洋鯉魚</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBvSlR3Skt2c29DUGFFazcxcGk2b2FCdHM5enJIYjJObzlYNE1QalNsekJ0cXNzWnZjcDBkdUZFaV91amhfX2g3TlgtWVhZa0F3Q1BtMVBRb2QzdUpSR2JjZU03NmMyV2RBd2REb1R1OGVVbUVHblRFWFFsS0JLcTQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">まさかの”今季絶望”も！？ 長期離脱が確定した選手（4）広島で1番抜擢も…？（ベースボールチャンネル）</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOa3hrQXlNUEU0NUJEUDNFMGM2eHF0ZTNGUkExd3ozRnFUTWIyS09aNE1CZW5XeS16RUp2MUtNQWd0NzlzOXRwWVFmSTNiRUNPOGNubFRiWW5fOV81UGZhNjRiOFg4Q3FsWEx5a01nSUpoeThRUHc2bHptOFpucDlHYXFEaHdlMDh0OVJmMER1RzZoaDdXWUd3VVluS3JSZWZldE9Mc2d3d18tZFR2WlRzbm1zZ0VZUWUtbWg0?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【8月8日】DeNAvs広島のテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026</a><span class="news-source">— Goal.com</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE9RSmdDbTZZRXpjOU5WeHNqVmstd3BZMlZMU0pMOTBGXzlVbmx6S0tfellpci1FdzdqbXJ3QzRmQkt2MnhJcWIxN1luYjMtcGJLY01uSDA1WDJORUtzRTYyVGZBRQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「平和あってこその野球」 きのこ雲目撃、復興語り継ぐ―元カープ捕手の長谷部さん</a><span class="news-source">— 時事ドットコム</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="news-team-logo">
+                            <span class="team-news-name">橫濱DeNA灣星</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE9yU3M4U09xYW1LcFNlWkRSSDNad0xya2NWNGxYLUNYdGJheUdsYV9jQ21PeWdwT3JPZU8yVlhybHZlU3hudkd6MmNLbHJMazdTVUtfVTV3SC0?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">2回8点差も…DeNA指揮官が見た"光明" 新助っ人の驚愕弾を称賛「芯に当たれば」</a><span class="news-source">— full-count.jp</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9aSTlqQlVacHNzVS1KeGJTaEFkMU5lTjEtYVFBQ2p6NFU3SnBIdDItbjhUZ2g2b3EzSFJXVmlJY2Jvc2lVVXpQU3V1R21aeVlaWm5IYlBaVXoxWmpQdXV6ZERIMjFmQlJTYm95NjByYVVxbFlvVUdRZG9GS2Nodkk?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">横浜DeNAベイスターズの選手が募金活動 伊勢投手も故郷に思い寄せ（tvkニュース（テレビ神奈川））</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxPbFVJQXNPTHNyWnJqa2hMOG1ySEt4WTRwVnhWaGJpdEJBOVk5eWxOa0RxRFgxeHdGYjkyZVMzdWdHMHljcmltd3BtNG5QbFdYRmN4R1JxQW9tMDN1WWFXc3BiTEN6aWRNQW5qVDN2QkJkMFNQeUhVcjY4SVZDVnRBLThYMUFvQzc2MEp5NFFGRVlWSnlhN0NncdIBigFBVV95cUxPU3lQTUhWcWpvemNFSDBmNGduUFdTTFUwczd4NU9IS2FwZV81WFFvZkdyeENPc2doQ0wyeDJBMFNxb21EU1c5REFJaFJDUFNkcE5OdWsyZTNJd0huRWFxTVZZSjRXbXFOeDZIR0tQZGlFVldjNGdDSmp3NFZSdlhpd0ppN05DbTRwVHc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">DeNA・度会隆輝が決勝二塁打「初心を忘れてはいけない」　甲子園シーズンに『栄冠は君に輝く』で自らを鼓舞</a><span class="news-source">— 日刊體育</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="news-team-logo">
+                            <span class="team-news-name">東京養樂多燕子</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxPdjBEU29zQ01reWRSMnZQSF9MQXdyUG1yeDAtYzRqMWhVTFh6cjZJSS1SSzJIVWV2eVd2aUduNkVyZWFYbkZNZXBaWWRmY2luMk9qS1MwYmwtSWhpRGtMTkI2cVA1MG01S05NWEtfU01oMDlGVW5jcUdWMEpGSVozdDJwdi1rVGZQUldvNTFvVlNEa0liYXFMV9IBigFBVV95cUxOekNCN0ZRUEtoN0g1TTgyWGpYN3p5SGw0cHcteDREOVo5bmswZTk4YlFfZUh3czhmVjVhZEdxRG5IeHpRdnd6Y3RIb3MxeGptUmRrTU14X3hDSWVDLU9ja0h4QjIzMnd4RDhjOTE2Sm1La3ZyWVJ4eGtUdWQxSV9Ob0pobUI0V0J1SEE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ヤクルト、今季ワーストに並ぶ3度目の7連敗</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBPeV9NNW13T3pMS3Y4ZmlZMTNMSVZLcUFsQlY2Wjd0WDd3TDhwdlZjbGoxYWhxYmJJUGV2bjhkX2JkZEY1NTBzY25YS2lqdkVKOFZDM2ptdy14Y0NKYXZYQnUzbXV2NERUYWtRUEs0enFYZnk5bVlHeHc1aHdYaG8?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">東京ヤクルトスワローズ高橋奎二投手に作った愛妻料理が話題・板野友美「食べながらダイエット」罪悪感ない“友飯”を紹介</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5Db2lQMnZlaGZoS2RfUUV5R05sNkwxS21FamFJMzBnSU5Ba3lCVEdTVjJOQ3RZS1Jid3hpXzlFRWVxV0F6ZXNBRGIteGpteU1Cazc3OVpVS2VZa2E2RWlRT2dicmppWXY4?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">TOKYOシリーズ</a><span class="news-source">— giants.jp</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="news-team-logo">
+                            <span class="team-news-name">中日龍</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE13QlUxaGdieEoxMDdrMFREdmNRZXNlZ0pCSy1GN08xV0pSVXp6RTlmX3pWdWFIOVVsdTl1Vk5pV1R2NDRWRVJBQk80aHdxWF9xeFlyUHYyMEd3UQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【公示】8月6日(木)のプロ野球公示 中日ドラゴンズが外野手入れ替え</a><span class="news-source">— ドラ要素＠のもとけ</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE10RGZBNnY3YW0tTGdvMDVDSWktNmtxZ2xoMUJnenluSWlIdjRicUJwWTh4V241Tko1N01oZTM3LVFCYmF1LUV5T3FSWk9VQ2dQZElyaVNNTE9zTVVXOGt4M3lKV2ZSWjN2N0FmMk4zejV2bW9aMldV?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">2026.08.07 18:00 京セラドーム大阪 中日 vs 阪神 一球速報：プロ野球</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE80OVd6ODRwR0c3aWt5Z25ZWVFjejFDNDNzaFdDRTJlcDh5TnZyUnhfckVROUlVdXpWZ0Itb25aWHVmWmpIUU9zdzRNelR5dUo5Mlp2cU9nekVISllpUGE1bk5oaWllbEdYN184TkhMYmFUck0?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【中日ドラゴンズ】野球ガチャ8/14～ 巨人戦より発売</a><span class="news-source">— SportNavi</span></li></ul>
+                    </div></div>
+                <h3 class="league-subtitle" style="color:var(--pacific);">◇ 太平洋聯盟</h3>
+                <div class="news-grid">
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="news-team-logo">
+                            <span class="team-news-name">福岡軟銀鷹</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE9oenEza0RDT1Z3d0tWVWRoYXAzdlc2bGRxT1NMUmNtMVVmam9oVV9wVDNxajA0TS1oSFlybmt0Z0lmRldLUGx1MjdhbFN6Zm0yTnFRS0Zn?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">＜プレゼント＞福岡ソフトバンクホークス「若鷹夏祭り」 8月14～16日 タマスタ筑後、企画多彩 「ひな丸Tシャツ」を5人に 8月12日、応募締め切り</a><span class="news-source">— 佐賀新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTFBDcEZleXcyaWFKMXdRRWUzUlpVV2VPLWpzQzlUdU1vbk9ZN2JzZk9GNlZ6ZjF3NmlJQkZYNGFYeEp0RnJJNmlDQk02cXVaNmdnS3dubEV30gFSQVVfeXFMTjZsUG9qdVpxVHlvR2E4MEVabEw0LU1PMC1ESlRtc09EeXc2S2ZBNWVyLUQ1NTQ0M0FVaGJmV1IxZHRBWF9mZ0ZYQWstQXVkcFItQQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">柳町達が勝ち越しタイムリー　福岡ソフトバンクがカード初戦を制す</a><span class="news-source">— 太平洋聯盟官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPQ1Axd1ZTWndPQlpueGpWbnhsejh0WURnZk9GSElaYWVod29lNWE0RHVFWmYxUy1FX3pMc1J4dW5nczB2cU1vQVEzb2hfWFo2MHd2Y1M0bEp3R2x5SVczclg5STdhNk14a2RZMHhLNGhUdjZUUjQzZFRCZkg4bEtRNXFOR0NOYkdPel94Ug?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">小林 樹斗 - 福岡ソフトバンクホークス：プロ野球</a><span class="news-source">— 日刊體育</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="news-team-logo">
+                            <span class="team-news-name">北海道日本火腿鬥士</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiTEFVX3lxTE9SR2ZsNi1EWHA3bGtFb19PdHlUUHp1VmhfVEk3SnA3bW83TUZwamhsUEVFQ1JoNEdOLTJKNWMzWGRtRTdCZXNJcEJsWUE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">8月7日 北海道日本ハムファイターズ 対 東北楽天ゴールデンイーグルス ハイライト</a><span class="news-source">— 太平洋聯盟官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiSkFVX3lxTE8zRmJQRXl1WFpTR1B5Z25XcWMxX2VBVnZKLTVkekxnLVVkQlJDVWU0djAxLXpTSmFPU1VxY1BTQ1N1SG5LZ3FTeG9n?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">日本ハム、最終回の大チャンスで代打攻勢も連続三振 辻氏がソフトバンクと比較して苦言「近藤健介はそういう打撃をしない」「勝つチームはしっかりできる」</a><span class="news-source">— BASEBALL KING</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1GSFNWMmtUWU5UVnJaMUNzZS1pMVJtVmZIZ3Y3NFAwbFFwQXpBZklyTWVPeG5WaTJaZWR6bnVyRklxcllrQ0Y4TE1jTVB3YTg0UzZKYUI1Z0FqYVV0aW5CdE1hZ1M0djg?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">8/29(土)野球いっかん！コラボトークショー開催！</a><span class="news-source">— 北海道日本火腿鬥士</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="news-team-logo">
+                            <span class="team-news-name">東北樂天金鷲</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiTEFVX3lxTE9SR2ZsNi1EWHA3bGtFb19PdHlUUHp1VmhfVEk3SnA3bW83TUZwamhsUEVFQ1JoNEdOLTJKNWMzWGRtRTdCZXNJcEJsWUE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">8月7日 北海道日本ハムファイターズ 対 東北楽天ゴールデンイーグルス ハイライト</a><span class="news-source">— 太平洋聯盟官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9UVlBFVU1jcWhYQ0dYa0xqbzloelFhSzREVzJEUk5OWWxINngwb3dFcFFVRUZOcEVWY0h5UlJVTEtlZmk1Y01CN2hHQlNIakNSUnEzTWpZYU85Q2JWSGExZTY0VlMtZEhzdUQxc2phTTFYNWpUenFONmY0MTZkSWs?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【プレビュー】日本ハムは有薗直輝のバットに注目、同期のドラ1・達孝太を援護できるか、楽天はマッカスカーが打撃好調！元日本ハム・白村明弘氏が解説｜日本ハム×楽天｜プロ野球（DAZN News）</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE1CZGJiY0lxQk9ISjVfNHhLYWg2U2J3VGxGb2dWZjFyX3Q5MkhtSk1mSkNPQnlhY1hBaGlidEJrTnhyZnRaMEJyRk9RWER3ZzNtdVdjVmh2ZkptMEpmdUMyanM2OEtCZENRQmwzRHkzN1JOYTFZUGY0UFdqbw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【楽天】11日のオリックス戦に『ほしぞらピカチュウ』が登場 今年30周年を迎えた「ポケモン」がプロ野球と続々コラボ</a><span class="news-source">— 日テレNEWS NNN</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="news-team-logo">
+                            <span class="team-news-name">埼玉西武獅</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxORTRGcEY2NXpGc1NQbHVZc3kySlpFMU1jcmxET2dkYlpEemFQS0owOTRRZktnUmhwcUN0Q0dBNmh1UVpnWGJac253TzZzSkZzdFhHeTdaXzR4NFg4VWw0TmdEMWp3RG44MFdVSGFrcUtjVlVHeTNTMDFnemtIMTFQa2I0Z1VpNExyZHFKM2xtVW9XN1Bh0gGKAUFVX3lxTFBQenFKZmpSanBvckIzMVNMQ1RaenVsSVVqQ2dxdGNmcXlKX2lIRndWSkt4dER2YTRQODM0cmk5TEpLWk9hODFGNmgyejQyNjExS0lCaExXMTBWWGI1RDdJcW9LX0xWNTNFd3pRZjBvYXFCRnVIMURsQ0NVUTNvaDNJbXp5TjlxRFRWUQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">西武・柘植世那、4年ぶり一発に西口監督「いい1本を出してくれた」</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE5TVk53cHlGTXowa1NCQWdkX3o3QjA5UldON1I0UFh2OTZhQVgyNGZEMENJTnBLQkRydDNJMkZBVkxKVFVldUVHanRpRDlJWUdQU0lzbXI4REZaWTZObEZV?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「僕だろうな、と覚悟はしていました」現役ドラフトでロッテ→西武へ…平沢大河が移籍2年目で“覚醒”の理由「目的が明確に」大きく変わった意識（市川忍）</a><span class="news-source">— Number Web</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTFBTRUluUHY5bGpPMURHR1NPTjFMeVhBOGlZSV9jUXJOWVRWTDhiSVBaRmhYU3JzWF9XaWhlRm5mTXR2T1V2UGJTUXZGVQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">埼玉西武 vs. 福岡ソフトバンク 8月7日 ベルーナドーム</a><span class="news-source">— TVer</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="news-team-logo">
+                            <span class="team-news-name">歐力士猛牛</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE1ZQ25BWjRzdXRmYy1UUUw4WVU2Mk90RUw2eVNOS19xeWxSb2VkRGJwNm5CSDBOeVpyVG5HVXpGbjNXemJRbW5hNU5LUkkxTURmeDE1WUl5VEc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">屈辱の「189.00」からの再出発 オリ齋藤響介の現在地…降板後に岸田監督が伝えた"全力投球"の意味</a><span class="news-source">— full-count.jp</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxOd1U3aVVreGFMRURwNzJNZHpoZmxMUklGcEFvMHZaS0FyU25pS0tZcFFla2VvOE1yXzgyOWJBM01Mb0I1b1NBWERVbkpaU05PeWxzMUVDSUZRS0RTSjBpZ182cVZLTnFSTUhhTGtGRkZnWjI2UHpqVW1zMjlHZlR6LUNwN3N4dWwtZXpJcXFhRFNBdTNlSXFacHphX3JBc2xzbzlLeGdPel92SzhGNVluV1VhLTVxb0U?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【8月8日】千葉ロッテマリーンズvsオリックス・バファローズのテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026</a><span class="news-source">— Goal.com</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxPRFVndURySHMweWVVUXlnZ3ppOHZvam9UV0o0MU9zeUtfTTB1RTBjQVNKTzBNc1NfTWpnZ25oOXpjRFpqUGpHYjVjVUtNUmlIQ2s3YjlNUHItdnh3ek9XVy0wYnBXdkU5UFNQeXdPUENFZTAzS0laTTdqSV8xQnJQN05BVmdtNDU5YmN2emhZc21RLXRnMGlWWUhn0gGKAUFVX3lxTE04SWtpZFVOa1VzZDJYSjdLbUxKcDJYN1ZYZVdCQ2FNZ2c3TktTbDh6MTR5THNUYnBpcE5jMndfQU5yMlh1RmZyVEg3MnpRUWtsSHBBRWlWcTRxbGlRWktBOFBWX3ZVTDI1eDRORlR3TVoyTlg4SlBRQkpfT2VGMWdtYkRhNS1kaEMxdw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">オリックスが一発攻勢で快勝　五回に西川の2ラン＆来田ソロで勝ち越し　寺西が3カ月ぶりの4勝目</a><span class="news-source">— 日刊體育</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="news-team-logo">
+                            <span class="team-news-name">千葉羅德海洋</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE5QYU54ZFhSNzdJdHhBWXhSVC1QZWpIcWhBQmRsQkRkQkhySHFLWTRmaVZZcU9abGFkRE1kbVF1ejdqT25Qb3l4T290RnY3V1hFRkhHcVRMNA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">まさかの”今季絶望”も！？ プロ野球、長期離脱が確定した選手6人（2ページ目）</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE10RGZBNnY3YW0tTGdvMDVDSWktNmtxZ2xoMUJnenluSWlIdjRicUJwWTh4V241Tko1N01oZTM3LVFCYmF1LUV5T3FSWk9VQ2dQZElyaVNNTE9zTVVXOGt4M3lKV2ZSWjN2N0FmMk4zejV2bW9aMldV?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">2026.08.07 18:00 京セラドーム大阪 中日 vs 阪神 一球速報：プロ野球</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTE9SQVkwUm44TDItcl9RcDJQUTRUOGxUbTk3OTZlTkpnY1loTzVaYm5ySlY0Q25HbWVZOWRUQTZnREZuTjZuMXhucENVbw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">千葉ロッテ vs. オリックス 8月7日 ZOZOマリン</a><span class="news-source">— TVer</span></li></ul>
+                    </div></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>📰 《日職每日報》自動生成版 · 2026年08月08日</p>
+            <p>資料來源：NPB日本野球機構 / 日刊スポーツ / スポニチ / スポーツ報知 / Sports Bull / Baseball King / Full-Count</p>
+            <p>⚾ 本報僅留存最近兩週版本 · 自動生成時間：2026-08-08 12:02:28</p>
+            <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
+        </footer>
+    </div>
+</body>
+</html>
