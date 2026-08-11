@@ -1,0 +1,1330 @@
+{
+  "date_info": {
+    "date_str": "2026-08-11",
+    "prev_date_str": "2026-08-10",
+    "display": "2026年08月11日",
+    "weekday": "星期二",
+    "prev_display": "2026年08月10日"
+  },
+  "generated_at": "2026-08-11T11:00:45.145785",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7753.11,
+      "change": -4.53,
+      "change_pct": -0.06,
+      "prev_close": 7757.64
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 53975.98,
+      "change": -60.95,
+      "change_pct": -0.11,
+      "prev_close": 54036.93
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 26605.36,
+      "change": -85.26,
+      "change_pct": -0.32,
+      "prev_close": 26690.62
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 15.46,
+      "change": 0.56,
+      "change_pct": 3.76,
+      "prev_close": 14.9
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 4.7,
+      "change": 0.04,
+      "change_pct": 0.84,
+      "prev_close": 4.66
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 3017.4,
+      "change": -17.09,
+      "change_pct": -0.56,
+      "prev_close": 3034.49
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 9.39,
+      "change": -0.82,
+      "change_pct": -8.03,
+      "prev_close": 10.21
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 217.55,
+      "change": -6.41,
+      "change_pct": -2.86,
+      "prev_close": 223.96
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 469.56,
+      "change": -13.8,
+      "change_pct": -2.86,
+      "prev_close": 483.36
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 861.0,
+      "change": -16.57,
+      "change_pct": -1.89,
+      "prev_close": 877.57
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 175.23,
+      "change": 3.22,
+      "change_pct": 1.87,
+      "prev_close": 172.01
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 308.26,
+      "change": -5.07,
+      "change_pct": -1.62,
+      "prev_close": 313.33
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 278.09,
+      "change": 3.61,
+      "change_pct": 1.32,
+      "prev_close": 274.48
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 422.4,
+      "change": -5.36,
+      "change_pct": -1.25,
+      "prev_close": 427.76
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 506.06,
+      "change": 6.07,
+      "change_pct": 1.21,
+      "prev_close": 499.99
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 357.52,
+      "change": 3.22,
+      "change_pct": 0.91,
+      "prev_close": 354.3
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 330.88,
+      "change": 2.3,
+      "change_pct": 0.7,
+      "prev_close": 328.58
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 594.92,
+      "change": 2.82,
+      "change_pct": 0.48,
+      "prev_close": 592.1
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 60.18,
+      "change": 2.68,
+      "change_pct": 4.66,
+      "prev_close": 57.5
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 168.44,
+      "change": 2.76,
+      "change_pct": 1.67,
+      "prev_close": 165.68
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 53.18,
+      "change": 0.32,
+      "change_pct": 0.61,
+      "prev_close": 52.86
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 57.81,
+      "change": 0.21,
+      "change_pct": 0.36,
+      "prev_close": 57.6
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 119.67,
+      "change": -0.19,
+      "change_pct": -0.16,
+      "prev_close": 119.86
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 84.95,
+      "change": -0.17,
+      "change_pct": -0.2,
+      "prev_close": 85.12
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 184.6,
+      "change": -0.58,
+      "change_pct": -0.31,
+      "prev_close": 185.18
+    },
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 186.32,
+      "change": -1.65,
+      "change_pct": -0.88,
+      "prev_close": 187.97
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 43.13,
+      "change": -0.48,
+      "change_pct": -1.1,
+      "prev_close": 43.61
+    },
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 44.4,
+      "change": -0.58,
+      "change_pct": -1.29,
+      "prev_close": 44.98
+    }
+  ],
+  "news": {
+    "yahoo": [
+      {
+        "title": "Dividend King Coca-Cola is suddenly acting like a growth stock",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/dividend-king-coca-cola-suddenly-160300397.html",
+        "source": "TheStreet",
+        "published": "2026-08-09T16:03:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Billionaire Larry Fink Warns Keeping Your Savings in a Bank Account Is 'One Of The Worst Financial Decisions Of A Lifetime' — But Mark Cuban Told People To Do the Opposite",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/billionaire-larry-fink-warns-keeping-153002541.html",
+        "source": "Barchart",
+        "published": "2026-08-09T15:30:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Don’t Assume Micron Will Share SanDisk’s Fate. Here's Why.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/don-t-assume-micron-share-150002220.html",
+        "source": "Barchart",
+        "published": "2026-08-09T15:00:02Z",
+        "has_description": false
+      },
+      {
+        "title": "A SpaceX investor thought he had $300,000 in shares — then discovered his firm sold them without notice",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/spacex-investor-thought-had-300-150000689.html",
+        "source": "Moneywise",
+        "published": "2026-08-09T15:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "A $72 Billion Reason to Buy Caterpillar Stock Now",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/72-billion-reason-buy-caterpillar-160002878.html",
+        "source": "Barchart",
+        "published": "2026-08-09T16:00:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Nvidia and Micron Have Driven the S&P 500’s 2026 Rally to Record Highs. History Says It’s Not Over",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-micron-driven-p-500-153328467.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-08-09T15:33:28Z",
+        "has_description": false
+      },
+      {
+        "title": "Seek more context when you hear these popular words and phrases about markets",
+        "url": "https://finance.yahoo.com/economy/article/seek-more-context-when-you-hear-these-popular-words-and-phrases-about-markets-163746764.html",
+        "source": "Yahoo Finance",
+        "published": "2026-08-09T16:37:46Z",
+        "has_description": false
+      },
+      {
+        "title": "How caregiving can blow a hole in retirement savings",
+        "url": "https://finance.yahoo.com/economy/article/how-caregiving-can-blow-a-hole-in-retirement-savings-164639249.html",
+        "source": "Yahoo Finance",
+        "published": "2026-08-09T16:46:39Z",
+        "has_description": false
+      },
+      {
+        "title": "Inflation Date, Earnings Momentum and Other Key Things to Watch this Week",
+        "url": "https://finance.yahoo.com/economy/articles/inflation-date-earnings-momentum-other-170002840.html",
+        "source": "Barchart",
+        "published": "2026-08-09T17:00:02Z",
+        "has_description": false
+      },
+      {
+        "title": "The Nvidia-SpaceX Deal Is Sending a Clear Signal on AI Dominance",
+        "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-spacex-deal-sending-clear-173002617.html",
+        "source": "Barchart",
+        "published": "2026-08-09T17:30:02Z",
+        "has_description": false
+      },
+      {
+        "title": "Crypto Made a $9.6 Billion Record, But It’s Hiding a Crucial Truth",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/crypto-made-9-6-billion-151729991.html",
+        "source": "BeInCrypto",
+        "published": "2026-08-09T15:17:29Z",
+        "has_description": false
+      },
+      {
+        "title": "Ford’s (F) $28,350 Electric Pickup Bet Meets A Cheap Stock",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/ford-f-28-350-electric-174959508.html",
+        "source": "Insider Monkey",
+        "published": "2026-08-09T17:49:59Z",
+        "has_description": false
+      },
+      {
+        "title": "HELOC and home equity loan rates today, Monday, August 10, 2026: A 19-basis-point differential",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/heloc-and-home-equity-loan-rates-today-monday-august-10-2026-a-19-basis-point-differential-100000351.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Best CD rates today, Monday, August 10, 2026: Lock in up to 4.35% APY",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-monday-august-10-2026-lock-in-up-to-435-apy-100000181.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Best high-yield savings interest rates today, Monday, August 10, 2026: Earn up to 4.15% APY with an HYSA",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-monday-august-10-2026-earn-up-to-415-apy-with-an-hysa-100000399.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Rocket Lab Is Down 57% From Its Peak While Analysts See 49% Upside. Who Has It Right?",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/rocket-lab-down-57-peak-152500671.html",
+        "source": "Motley Fool",
+        "published": "2026-08-09T15:25:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Mortgage and refinance rates today, Monday, August 10, 2026: Rates lower than last week",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-rates-today-monday-august-10-2026-rates-lower-than-last-week-100000884.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T10:00:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Gold prices today, Monday, August 10, 2026: Highest opening price since early June",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/gold-prices-today-monday-august-10-2026-highest-opening-price-since-early-june-123242269.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T12:32:42Z",
+        "has_description": false
+      },
+      {
+        "title": "Silver prices today, Monday, August 10, 2026: Silver prices keep rising this morning",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/silver-prices-today-monday-august-10-2026-silver-prices-keep-rising-this-morning-124241793.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T12:42:41Z",
+        "has_description": false
+      },
+      {
+        "title": "Bitcoin and ethereum prices today, Monday, August 10, 2026: BTC breaking past $65,000 yet again",
+        "url": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-monday-august-10-2026-btc-breaking-past-65000-yet-again-125722282.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T12:57:22Z",
+        "has_description": false
+      },
+      {
+        "title": "Here's How Many Shares of PepsiCo You'd Need for $20,000 in Yearly Dividends",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/heres-many-shares-pepsico-youd-153700970.html",
+        "source": "Motley Fool",
+        "published": "2026-08-09T15:37:00Z",
+        "has_description": false
+      },
+      {
+        "title": "Powerball jackpot climbs to $905 million. What you’d pocket after taxes, and what to do with the rest.",
+        "url": "https://finance.yahoo.com/personal-finance/banking/article/powerball-jackpot-climbs-to-905-million-what-youd-pocket-after-taxes-and-what-to-do-with-the-rest-154401967.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T15:44:01Z",
+        "has_description": false
+      },
+      {
+        "title": "Weekly survey of mortgage lenders with the lowest rates: Lower rates and stiff fees",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/weekly-survey-mortgage-lenders-with-the-best-lowest-rates-august-10-170834159.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2025-11-03T17:08:34Z",
+        "has_description": false
+      },
+      {
+        "title": "Does renters insurance cover fire?",
+        "url": "https://finance.yahoo.com/personal-finance/insurance/article/does-renters-insurance-cover-fire-172417697.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T17:24:17Z",
+        "has_description": false
+      },
+      {
+        "title": "Does renters insurance cover theft?",
+        "url": "https://finance.yahoo.com/personal-finance/insurance/article/does-renters-insurance-cover-theft-180353254.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-08-10T18:03:53Z",
+        "has_description": false
+      },
+      {
+        "title": "Vanguard's VNQ vs. VNQI: Which Real Estate ETF Is the Better Buy?",
+        "url": "https://finance.yahoo.com/real-estate/articles/vanguards-vnq-vs-vnqi-real-153718147.html",
+        "source": "Motley Fool",
+        "published": "2026-08-09T15:37:18Z",
+        "has_description": false
+      },
+      {
+        "title": "How much income is needed to afford a $500,000 mortgage (including the down payment)?",
+        "url": "https://finance.yahoo.com/personal-finance/mortgages/article/income-needed-for-500k-mortgage-and-down-payment-162215694.html",
+        "source": "Yahoo Personal Finance",
+        "published": "2026-01-14T16:22:15Z",
+        "has_description": false
+      },
+      {
+        "title": "Raoul Pal Says Most People Think Crypto Is About Tokens Going Up and Down, but Today It Is About 'Owning' the Operating System of the Next Economy",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/raoul-pal-says-most-people-151640892.html",
+        "source": "Benzinga",
+        "published": "2026-08-09T15:16:40Z",
+        "has_description": false
+      },
+      {
+        "title": "After a $130 Million Hack of Coldcard, Money Is Flowing Into Bitcoin ETFs. Here's the Best Bitcoin ETF to Buy Right Now.",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/130-million-hack-coldcard-money-151200491.html",
+        "source": "Motley Fool",
+        "published": "2026-08-09T15:12:00Z",
+        "has_description": false
+      },
+      {
+        "title": "A Retired Couple Can Pull About $47,500 From Their IRAs This Year and Pay $0 Federal Tax. Most Leave the Free Space Unused.",
+        "url": "https://finance.yahoo.com/markets/currencies/articles/retired-couple-pull-47-500-150506863.html",
+        "source": "24/7 Wall St.",
+        "published": "2026-08-09T15:05:06Z",
+        "has_description": false
+      },
+      {
+        "title": "How To Earn $500 A Month From H&R Block Stock Ahead Of Q4 Earnings",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/earn-500-month-h-r-154615321.html",
+        "source": "Benzinga",
+        "published": "2026-08-09T15:46:15Z",
+        "has_description": false
+      },
+      {
+        "title": "Why White House Sees Gasoline Prices Falling More",
+        "url": "https://www.barrons.com/livecoverage/sunday0809/card/why-white-house-sees-gasoline-prices-falling-more-OlAkneP7WzkKlkwd2VMs?siteid=yhoof2&yptr=yahoo",
+        "source": "Barrons.com",
+        "published": "2026-08-09T15:06:22Z",
+        "has_description": false
+      },
+      {
+        "title": "Valvoline Q3 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/valvoline-q3-earnings-call-highlights-150419010.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:19Z",
+        "has_description": false
+      },
+      {
+        "title": "Bristow Group Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/bristow-group-q2-earnings-call-150419823.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:19Z",
+        "has_description": false
+      },
+      {
+        "title": "Vitesse Energy Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/energy/articles/vitesse-energy-q2-earnings-call-150419006.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:19Z",
+        "has_description": false
+      },
+      {
+        "title": "VTEX Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/vtex-q2-earnings-call-highlights-150419863.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:19Z",
+        "has_description": false
+      },
+      {
+        "title": "Vistra Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/vistra-q2-earnings-call-highlights-150418961.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:18Z",
+        "has_description": false
+      },
+      {
+        "title": "Vishay Precision Group Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/vishay-precision-group-q2-earnings-150418815.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:18Z",
+        "has_description": false
+      },
+      {
+        "title": "Vishay Intertechnology Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/vishay-intertechnology-q2-earnings-call-150418631.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:18Z",
+        "has_description": false
+      },
+      {
+        "title": "NCR Voyix Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/ncr-voyix-q2-earnings-call-150420374.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:20Z",
+        "has_description": false
+      },
+      {
+        "title": "Wayfair Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/wayfair-q2-earnings-call-highlights-150420448.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:20Z",
+        "has_description": false
+      },
+      {
+        "title": "Waters Q2 Earnings Call Highlights",
+        "url": "https://finance.yahoo.com/healthcare/articles/waters-q2-earnings-call-highlights-150420647.html",
+        "source": "MarketBeat",
+        "published": "2026-08-09T15:04:20Z",
+        "has_description": false
+      }
+    ],
+    "cnbc": [
+      {
+        "title": "Singapore revises its annual growth forecast sharply higher on AI-related boost",
+        "url": "https://www.cnbc.com/2026/08/11/singapore-gdp-forecast-ai-boost-oil.html",
+        "description": "GDP growth for 2026 is now expected to come in at 4.5% to 5.5%, more than double the low end of its previous forecast of 2%-4%",
+        "source": "CNBC",
+        "published": "Tue, 11 Aug 2026 02:58:27 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump claims total control of Hormuz, demands Iran pay reparations as standoff deepens",
+        "url": "https://www.cnbc.com/2026/08/11/us-iran-war-trump-hormuz-control-reparation-talks-.html",
+        "description": "The dueling positions Washington and Tehran staked out showed how far apart the two sides remain even as both talked of winding down regional hostilities.",
+        "source": "CNBC",
+        "published": "Tue, 11 Aug 2026 01:52:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia lines up $500 billion in financing as CEO Jensen Huang tells CNBC his chips are ‘investable asset’",
+        "url": "https://www.cnbc.com/2026/08/10/nvidia-wall-street-asset-managers-500-billion-ai-push.html",
+        "description": "Nvidia CEO Jensen Huang argued that because its hardware is broadly adopted, flexible and transferable, lenders can underwrite compute as revenue-generating.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 22:09:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump signs executive order calling for fewer childhood vaccines, falsely linking shots to autism",
+        "url": "https://www.cnbc.com/2026/08/10/trump-vaccine-executive-order-autism.html",
+        "description": "The order builds on the Trump administration's efforts to reshape the childhood shot schedule under HHS Secretary RFK Jr., a longtime vaccine skeptic.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 20:51:17 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CNBC's The China Connection newsletter: 'Spider-Man' and 'The Odyssey' come courting the massive filmgoer market",
+        "url": "https://www.cnbc.com/2026/08/11/hollywood-returns-to-china-as-chinese-rivals-push-abroad.html",
+        "description": "More American movie stars have appeared in China this year, reflecting Hollywood's market interests amid political tensions.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 23:00:14 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump Media posts $238 million second-quarter loss as crypto declines",
+        "url": "https://www.cnbc.com/2026/08/10/trump-media-djt-tmtg-earnings-truth-social-crypto.html",
+        "description": "TMTG said it has signed more than 10 customer agreements for Truth API, the service offering faster access to President Donald Trump's posts.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 22:33:55 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump signals shift to economic pressure as Iran hardens stance over Strait of Hormuz",
+        "url": "https://www.cnbc.com/2026/08/10/us-iran-war-trump-hormuz-oman-ships-blockade-shipping.html",
+        "description": "The escalating tally underscores how far the two sides remain from resolving a crisis that has choked the Strait of Hormuz for more than five months.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 14:27:15 GMT",
+        "has_description": true
+      },
+      {
+        "title": "OpenAI expands Daybreak cybersecurity initiative as AI agent threats evolve",
+        "url": "https://www.cnbc.com/2026/08/10/open-ai-daybreak-cybersecurity.html",
+        "description": "The company introduced Daybreak in May as a way for its ecosystem partners to use its most advanced AI models to adapt to a rapidly changing threat landscape.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 18:43:17 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump says he spoke recently to Fed Chairman Warsh, denies regular calls",
+        "url": "https://www.cnbc.com/2026/08/10/trump-spoke-to-fed-chair-kevin-warsh-denies-regular-calls.html",
+        "description": "The president said he had recently been in touch with the Fed chairman, but denied regular contact amid concerns about central bank independence.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 21:23:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Oil in U.S. Strategic Petroleum Reserve falls below 300 million barrels, lowest since 1983",
+        "url": "https://www.cnbc.com/2026/08/10/oil-in-strategic-petroleum-reserve-falls-below-300-million-barrels-lowest-since-1983.html",
+        "description": "U.S. presidents have increasingly ordered massive releases from the SPR in recent years.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 18:43:06 GMT",
+        "has_description": true
+      },
+      {
+        "title": "U.S. oil rises back above $82 as doubt grows Washington and Tehran will reach Hormuz deal",
+        "url": "https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html",
+        "description": "Oil rose as traders assess mixed signals from the U.S. and Iran amid worries that a deal to open the Strait of Hormuz may not come anytime soon.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 19:26:30 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Three reasons Goldman's co-head of global banking and markets says to stay invested",
+        "url": "https://www.cnbc.com/2026/08/10/three-reasons-goldmans-co-head-of-global-banking-and-markets-says-to-stay-invested.html",
+        "description": "Goldman Sachs' Ashok Varadhan pointed to three reasons for his constructive outlook.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 18:36:26 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CrowdStrike, Palo Alto hit records after Black Hat cyber conference illuminates rising AI threat",
+        "url": "https://www.cnbc.com/2026/08/10/crowdstrike-palo-alto-stock-black-hat.html",
+        "description": "The industry's annual Black Hat conference renewed demand for AI-powered cybersecurity tools.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 21:43:37 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump’s foreign licensing business booms to $59.5 million as Gulf developers pay",
+        "url": "https://www.cnbc.com/2026/08/10/trump-foreign-real-estate-licensing-income-gulf-deals.html",
+        "description": "Nearly two-thirds of Trump’s foreign licensing fees came from two Gulf developers, in the UAE and Qatar, including one pursuing a $20 billion U.S. expansion.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 15:06:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Meta's latest model advances Zuckerberg's vision for personal AI assistants",
+        "url": "https://www.cnbc.com/2026/08/10/metas-latest-model-advances-zuckerbergs-vision-for-personal-ai-assistants.html",
+        "description": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 19:09:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "HHS moves to tighten oversight of food ingredients as safety concerns mount",
+        "url": "https://www.cnbc.com/2026/08/10/hhs-makes-announcements-on-gras-ultraprocessed-food.html",
+        "description": "HHS moves to tighten oversight of food ingredients and define ultra-processed foods as food safety concerns raise questions about FDA visibility.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 18:46:43 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Gold just had its best week in 7 months. Here’s why Mike Khouw is buying more",
+        "url": "https://www.cnbc.com/2026/08/10/gold-just-had-its-best-week-in-7-months-heres-why-mike-khouw-is-buying-more.html",
+        "description": "Gold logged its best weekly gain in seven months driven by several forces.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 16:09:32 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Wednesday’s crucial CPI report will show tamer inflation, according to prediction markets",
+        "url": "https://www.cnbc.com/2026/08/10/crucial-cpi-report-will-show-tame-inflation-prediction-markets-show.html",
+        "description": "Monday's odds on prediction market platform Kalshi show tamer inflation and little chance of exceeding economists' consensus for July.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 16:42:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Boeing sells eVTOL subsidiaries, takes stake in Archer",
+        "url": "https://www.cnbc.com/2026/08/10/boeing-evtol-archer-stake.html",
+        "description": "Boeing is selling three of its subsidiaries to Archer Aviation in exchange for a stake in the eVTOL startup.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 20:11:09 GMT",
+        "has_description": true
+      },
+      {
+        "title": "SpaceX stock rebounds, closing above $135 IPO price for first time in weeks",
+        "url": "https://www.cnbc.com/2026/08/10/spacex-spcx-stock-ipo-price.html",
+        "description": "SpaceX reported better-than-expected revenue in its second-quarter earnings report last week.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 20:08:55 GMT",
+        "has_description": true
+      },
+      {
+        "title": "OpenAI tightens controls on its new model over cybersecurity risks, as AI security debate intensifies",
+        "url": "https://www.cnbc.com/2026/08/10/openai-astra-cybersecurity-risks.html",
+        "description": "The AI lab said it could not rule out a new model had reached \"Critical\" capability, meaning it could launch cyberattacks against sophisticated cyber defenses.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 11:04:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Santoli: Stocks return to winning ways. Why the market gods may not be satisfied with July's brief pain",
+        "url": "https://www.cnbc.com/2026/08/10/santoli-stocks-return-to-their-winning-ways-but-was-julys-brief-pain-enough-to-satisfy-the-market-gods.html",
+        "description": "The stock market's winning history – a hit rate of 100% over any past 20-year span - is well understood. But investors recognize – or need to – the genuine hazard in equities.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 11:45:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Meta to open source its most powerful AI model as it takes swipe at OpenAI, Anthropic",
+        "url": "https://www.cnbc.com/2026/08/10/meta-muse-glimmer-open-weight-ai.html",
+        "description": "Meta launched Muse Glimmer and plans to release Muse Spark 1.2 weights as Zuckerberg pushes for U.S. leadership in open AI.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 12:40:36 GMT",
+        "has_description": true
+      },
+      {
+        "title": "World's biggest chipmaker TSMC's sales surge 45% amid buoyant AI demand",
+        "url": "https://www.cnbc.com/2026/08/10/tsmc-revenue-surge-ai-chip-big-tech.html",
+        "description": "TSMC makes chips for Big Tech customers like Nvidia and Google, so the firm's financial figures are closely watched as a sign of AI semiconductor demand.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 13:39:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Student loan borrowers face steeper 'marriage penalty' under new repayment plan",
+        "url": "https://www.cnbc.com/2026/08/10/student-loan-marriage-penalty-rap.html",
+        "description": "Recent changes to the federal student loan system could impact married couples. Here's what borrowers should consider.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 12:15:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Interest rates may stay higher for longer. What that means for consumers",
+        "url": "https://www.cnbc.com/2026/08/10/fed-rate-hike-prospects-higher-interest-rates.html",
+        "description": "Any move toward higher rates would increase borrowing costs for consumers at a time when affordability pressures are already mounting.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 16:10:05 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Shein faces existential threat as tariffs hit low-price model, putting new focus on services",
+        "url": "https://www.cnbc.com/2026/08/10/shein-ipo-tariffs.html",
+        "description": "Shein has won over consumers with its low prices but is now seeing shoppers flee after new tariffs and changing regulations forced it to raise prices.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 11:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Australian rare earth miner surges after U.S. Department of Defense investment",
+        "url": "https://www.cnbc.com/2026/08/10/rare-earths-sunrise-energy-metals-trump-cina.html",
+        "description": "The Trump administration has backed plans to build an Australian scandium mine as part of a push to challenge China’s critical minerals dominance.",
+        "source": "CNBC",
+        "published": "Mon, 10 Aug 2026 11:44:14 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Max Miller stays in Ohio House race as GOP ballot deadline passes",
+        "url": "https://www.cnbc.com/2026/08/09/max-miller-ohio-house-race-gop-replacement-deadline.html",
+        "description": "Rep. Max Miller is set to remain the Republican nominee in Ohio’s 7th District after the window for the GOP to replace him on the November ballot closed.",
+        "source": "CNBC",
+        "published": "Sun, 09 Aug 2026 18:38:23 GMT",
+        "has_description": true
+      },
+      {
+        "title": "'Moneymaxxing' isn't a trend, it's a 'cultural shift,' financial advisor says — here's how to get started",
+        "url": "https://www.cnbc.com/2026/08/08/moneymaxxing-trend-save-budget-build-wealth.html",
+        "description": "In an affordability crunch, social media's viral \"maxxing\" trend could lead to long-term financial security.",
+        "source": "CNBC",
+        "published": "Sat, 08 Aug 2026 13:30:01 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [
+      {
+        "title": "Nvidia teams with Wall Street firms to help finance $500 billion for AI infrastructure",
+        "url": "https://www.marketwatch.com/story/nvidia-teams-with-wall-street-firms-to-help-finance-500-billion-for-ai-infrastructure-2c4805a5?mod=mw_rss_topstories",
+        "description": "Nvidia late Monday announced a partnership with seven Wall Street financial institutions designed to raise more than $500 billion of third-party capital to fund the buildout of AI infrastructure.",
+        "source": "MarketWatch",
+        "published": "Tue, 11 Aug 2026 02:28:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘Her bank accounts were stripped bare by Medicaid’: My late friend had $20,000 in credit-card debt. Will her life insurance pay for it?",
+        "url": "https://www.marketwatch.com/story/her-bank-accounts-were-stripped-bare-by-medicaid-my-late-friend-had-20-000-in-credit-card-debt-will-her-life-insurance-pay-for-it-17ee9792?mod=mw_rss_topstories",
+        "description": "“She left behind a 30-year-old son and 32-year-old daughter.”",
+        "source": "MarketWatch",
+        "published": "Tue, 11 Aug 2026 02:15:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Rocket Lab reveals some big plans, but its stock is dropping on mixed earnings",
+        "url": "https://www.marketwatch.com/story/rocket-lab-reveals-some-big-plans-but-its-stock-is-dropping-on-mixed-earnings-4012ba2b?mod=mw_rss_topstories",
+        "description": "The company is looking to expand its reach in Europe and building up its backlog.",
+        "source": "MarketWatch",
+        "published": "Tue, 11 Aug 2026 01:03:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "This is the ZIP code with the hottest housing market in the country right now",
+        "url": "https://www.marketwatch.com/story/this-is-the-hottest-zip-code-where-homes-are-selling-fast-2c642716?mod=mw_rss_topstories",
+        "description": "Today’s residential real-estate market is not for the weak, observes one buyer in what Realtor.com is calling America’s hottest ZIP code.",
+        "source": "MarketWatch",
+        "published": "Tue, 11 Aug 2026 00:15:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "EBay may dodge a GameStop takeover — but there’s a new twist in the Ryan Cohen saga",
+        "url": "https://www.marketwatch.com/story/ebay-may-dodge-a-gamestop-takeover-but-theres-a-new-twist-in-the-ryan-cohen-saga-d779b753?mod=mw_rss_topstories",
+        "description": "Bloomberg says GameStop could propose collaborating with eBay in some way other than a merger. Some analysts doubt whether eBay would benefit much from that sort of deal.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:54:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Archer strikes deal with Boeing in latest bid to transform aviation through AI",
+        "url": "https://www.marketwatch.com/story/archer-strikes-deal-with-boeing-in-latest-bid-to-transform-aviation-through-ai-dac15322?mod=mw_rss_topstories",
+        "description": "Archer Aviation’s stock is flying higher after the company agreed to buy three business units from Boeing.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:52:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Apple’s stock could underperform, especially without an ‘all-glass’ iPhone, this analyst warns",
+        "url": "https://www.marketwatch.com/story/apples-stock-could-underperform-especially-without-an-all-glass-iphone-this-analyst-warns-fc9a750c?mod=mw_rss_topstories",
+        "description": "A Jefferies analyst says that it may be harder than it looks for Apple to roll out dramatically more expensive devices in a bid to boost profitability.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:49:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Intel plans to sell $15 billion worth of stock after it has risen 400% in a year",
+        "url": "https://www.marketwatch.com/story/intel-plans-to-sell-15-billion-worth-of-stock-after-it-has-risen-400-in-a-year-395effce?mod=mw_rss_topstories",
+        "description": "The company said it sees growth opportunities in physical AI, custom chips and advanced packaging.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:46:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "This Nvidia change could spell good news for Micron",
+        "url": "https://www.marketwatch.com/story/this-nvidia-change-could-spell-good-news-for-micron-80449e59?mod=mw_rss_topstories",
+        "description": "An analyst says that Nvidia’s move to downgrade some chip capabilities could end up boosting consumption of high-bandwidth memory.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:42:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "SpaceX’s stock moves above its IPO price for the first time in almost a month",
+        "url": "https://www.marketwatch.com/story/spacexs-stock-moves-above-its-ipo-price-for-the-first-time-in-almost-a-month-fc3f91b7?mod=mw_rss_topstories",
+        "description": "SpaceX shares have been clawing their way back in recent days but remain well off their highs.",
+        "source": "MarketWatch",
+        "published": "Mon, 10 Aug 2026 22:39:00 GMT",
+        "has_description": true
+      }
+    ],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "Wall Street giants partner with Nvidia on $500bn AI financing deal",
+        "url": "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348?syn-25a6b1a6=1",
+        "description": "Apollo, Blackstone and Goldman Sachs are among groups working with chipmaker to raise capital for data centre boom",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 21:42:54 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Just how big is the hidden leverage of AI hyperscalers?",
+        "url": "https://www.ft.com/content/a0a07cce-6d19-4b1e-a73b-9855a06ba7b3",
+        "description": "Very",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 12:27:47 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Mark Zuckerberg attacks ‘closed’ AI rivals as Meta returns to open models",
+        "url": "https://www.ft.com/content/4e3957f8-ea7c-4c46-a3de-cdce8e526878?syn-25a6b1a6=1",
+        "description": "Meta’s founder casts OpenAI and Anthropic as foils in his pitch for powerful AI to become more freely available",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 10:00:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Iran’s supreme leader tightens grip with top appointments",
+        "url": "https://www.ft.com/content/34299f83-9c49-4332-9d0f-d4f369d7a233?syn-25a6b1a6=1",
+        "description": "A raft of senior military and regime moves come as Tehran hardens its rhetoric over deal with US",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 21:30:27 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Communist Vietnam bets on Korean-style ‘chaebols’ to boost growth",
+        "url": "https://www.ft.com/content/35a093ea-9df0-4dbe-abe2-3d2341b85e4f?syn-25a6b1a6=1",
+        "description": "Hanoi prioritises homegrown conglomerates after relying on trade and foreign investment",
+        "source": "Financial Times",
+        "published": "Tue, 11 Aug 2026 00:53:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump and the failure of the Fafo doctrine",
+        "url": "https://www.ft.com/content/1a7a6919-b056-4155-9520-1088564f7119?syn-25a6b1a6=1",
+        "description": "The president’s flawed decision-making is finally catching up with him",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 11:51:43 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Shein IPO pitched to investors at sub-$30bn valuation",
+        "url": "https://www.ft.com/content/62d3a32d-8a38-4136-b32c-36f25099b91f?syn-25a6b1a6=1",
+        "description": "Fast-fashion retailer has suffered a roughly 70% drop in valuation over past four years",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 14:15:24 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Yen sinks as effect of US-Japan intervention fades",
+        "url": "https://www.ft.com/content/47d2ab3c-0423-49ed-89ca-68683761ed98?syn-25a6b1a6=1",
+        "description": "Currency gives up roughly half its gains from joint action with investors citing lack of ‘unified voice’ among central banks",
+        "source": "Financial Times",
+        "published": "Tue, 11 Aug 2026 01:38:21 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Your move, BoJ",
+        "url": "https://www.ft.com/content/8ca25b96-f8eb-49b1-a259-b7314ef4741a?syn-25a6b1a6=1",
+        "description": "Plus, the weak jobs report",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 05:30:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump media group racks up losses and pushes into nuclear fusion",
+        "url": "https://www.ft.com/content/039049ee-bd0b-4e16-8a1c-77704933d56a?syn-25a6b1a6=1",
+        "description": "TMTG also recently announced plans to charge bumper fees for access to president’s social media posts",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 22:10:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "OpenAI’s head of ethics leaves start-up less than one year after joining",
+        "url": "https://www.ft.com/content/e49dfb75-f841-4466-a577-f7aaff8779a0?syn-25a6b1a6=1",
+        "description": "Chloé Bakalar’s departure is one of several high-profile exits at the group in recent weeks as safety concerns mount",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 22:35:18 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI will boost oil and gas production more than green energy, report finds",
+        "url": "https://www.ft.com/content/8f16a902-3e80-462c-add8-b841494d1808?syn-25a6b1a6=1",
+        "description": "Debate over tech impact on greenhouse gas emissions stoked by latest study",
+        "source": "Financial Times",
+        "published": "Mon, 10 Aug 2026 17:38:07 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "SPG",
+      "name": "Simon Property Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.57",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "B",
+      "name": "Barrick Mining Corporation",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "0.84",
+      "reported_eps": "0.82",
+      "surprise_pct": "-2.14"
+    },
+    {
+      "symbol": "FERG",
+      "name": "Ferguson Enterprises Inc.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "3.3",
+      "reported_eps": "3.39",
+      "surprise_pct": "+2.84"
+    },
+    {
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.08",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "VST",
+      "name": "Vistra Corp.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "1.63",
+      "reported_eps": "0.76",
+      "surprise_pct": "-53.4"
+    },
+    {
+      "symbol": "JBS",
+      "name": "JBS N.V.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "1.71",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ALC",
+      "name": "Alcon Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "0.76",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CIB",
+      "name": "Grupo Cibest S.A.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "2.3",
+      "reported_eps": "3.32",
+      "surprise_pct": "+44.16"
+    },
+    {
+      "symbol": "CIB",
+      "name": "Grupo Cibest S.A.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2.3",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ASTS",
+      "name": "AST SpaceMobile, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.29",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "YPF",
+      "name": "YPF Sociedad Anónima",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "2",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BBIO",
+      "name": "BridgeBio Pharma, Inc.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "-0.58",
+      "reported_eps": "-0.75",
+      "surprise_pct": "-29.47"
+    },
+    {
+      "symbol": "BBIO",
+      "name": "BridgeBio Pharma, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.58",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "EMBJ",
+      "name": "Embraer S.A.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "0.71",
+      "reported_eps": "0.31",
+      "surprise_pct": "-56.73"
+    },
+    {
+      "symbol": "AXSM",
+      "name": "Axsome Therapeutics, Inc.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "-0.84",
+      "reported_eps": "-0.99",
+      "surprise_pct": "-17.16"
+    },
+    {
+      "symbol": "APGE",
+      "name": "Apogee Therapeutics, Inc.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "-0.96",
+      "reported_eps": "-1.08",
+      "surprise_pct": "-12.39"
+    },
+    {
+      "symbol": "ACM",
+      "name": "AECOM",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.46",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CAMT",
+      "name": "Camtek Ltd.",
+      "event": "-",
+      "call_time": "TAS",
+      "eps_estimate": "0.76",
+      "reported_eps": "0.78",
+      "surprise_pct": "+2.68"
+    },
+    {
+      "symbol": "HIMS",
+      "name": "Hims & Hers Health, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.05",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.32",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7785.25,
+      "change": 8.5,
+      "change_pct": 0.11,
+      "prev_close": 7776.75
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 29832.5,
+      "change": 95.5,
+      "change_pct": 0.32,
+      "prev_close": 29737.0
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 54044.0,
+      "change": -19.0,
+      "change_pct": -0.04,
+      "prev_close": 54063.0
+    }
+  ]
+}
