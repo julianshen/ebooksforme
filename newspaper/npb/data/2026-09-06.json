@@ -1,0 +1,2206 @@
+{
+  "date_info": {
+    "today": "2026-09-06",
+    "today_display": "2026年09月06日",
+    "today_weekday": "星期日",
+    "yesterday": "2026-09-05",
+    "yesterday_display": "09月05日",
+    "tomorrow": "2026-09-07",
+    "tomorrow_display": "09月07日",
+    "year": 2026,
+    "month": 9,
+    "day": 6
+  },
+  "teams": {
+    "giants": {
+      "name": "讀賣巨人",
+      "name_jp": "読売ジャイアンツ",
+      "short": "巨人",
+      "official_url": "https://www.giants.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_g_l.gif",
+      "stadium": "東京巨蛋",
+      "league": "central",
+      "code": "g"
+    },
+    "tigers": {
+      "name": "阪神虎",
+      "name_jp": "阪神タイガース",
+      "short": "阪神",
+      "official_url": "https://hanshintigers.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_t_l.gif",
+      "stadium": "甲子園",
+      "league": "central",
+      "code": "t"
+    },
+    "carp": {
+      "name": "廣島東洋鯉魚",
+      "name_jp": "広島東洋カープ",
+      "short": "広島",
+      "official_url": "https://www.carp.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_c_l.gif",
+      "stadium": "馬自達球場",
+      "league": "central",
+      "code": "c"
+    },
+    "baystars": {
+      "name": "橫濱DeNA灣星",
+      "name_jp": "横浜DeNAベイスターズ",
+      "short": "DeNA",
+      "official_url": "https://www.baystars.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_db_l.gif",
+      "stadium": "橫濱球場",
+      "league": "central",
+      "code": "db"
+    },
+    "swallows": {
+      "name": "東京養樂多燕子",
+      "name_jp": "東京ヤクルトスワローズ",
+      "short": "ヤクルト",
+      "official_url": "https://www.yakult-swallows.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_s_l.gif",
+      "stadium": "神宮球場",
+      "league": "central",
+      "code": "s"
+    },
+    "dragons": {
+      "name": "中日龍",
+      "name_jp": "中日ドラゴンズ",
+      "short": "中日",
+      "official_url": "https://www.dragons.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_d_l.gif",
+      "stadium": "萬特力巨蛋",
+      "league": "central",
+      "code": "d"
+    },
+    "hawks": {
+      "name": "福岡軟銀鷹",
+      "name_jp": "福岡ソフトバンクホークス",
+      "short": "ソフトバンク",
+      "official_url": "https://www.softbankhawks.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_h_l.gif",
+      "stadium": "雅虎巨蛋",
+      "league": "pacific",
+      "code": "h"
+    },
+    "fighters": {
+      "name": "北海道日本火腿鬥士",
+      "name_jp": "北海道日本ハムファイターズ",
+      "short": "日本ハム",
+      "official_url": "https://www.fighters.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_f_l.gif",
+      "stadium": "札幌巨蛋",
+      "league": "pacific",
+      "code": "f"
+    },
+    "eagles": {
+      "name": "東北樂天金鷲",
+      "name_jp": "東北楽天ゴールデンイーグルス",
+      "short": "楽天",
+      "official_url": "https://www.rakuteneagles.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_e_l.gif",
+      "stadium": "宮城球場",
+      "league": "pacific",
+      "code": "e"
+    },
+    "lions": {
+      "name": "埼玉西武獅",
+      "name_jp": "埼玉西武ライオンズ",
+      "short": "西武",
+      "official_url": "https://www.seibulions.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_l_l.gif",
+      "stadium": "西武巨蛋",
+      "league": "pacific",
+      "code": "l"
+    },
+    "buffaloes": {
+      "name": "歐力士猛牛",
+      "name_jp": "オリックス・バファローズ",
+      "short": "オリックス",
+      "official_url": "https://www.buffaloes.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_b_l.gif",
+      "stadium": "京瓷巨蛋",
+      "league": "pacific",
+      "code": "b"
+    },
+    "marines": {
+      "name": "千葉羅德海洋",
+      "name_jp": "千葉ロッテマリーンズ",
+      "short": "ロッテ",
+      "official_url": "https://www.marines.co.jp/",
+      "logo": "https://p.npb.jp/img/common/logo/2026/logo_m_l.gif",
+      "stadium": "ZOZO海洋球場",
+      "league": "pacific",
+      "code": "m"
+    }
+  },
+  "yesterday_games": [
+    {
+      "home_team": "東京養樂多燕子",
+      "away_team": "中日龍",
+      "home_team_key": "swallows",
+      "away_team_key": "dragons",
+      "home_score": "4",
+      "away_score": "8",
+      "stadium": "神　宮",
+      "time": "18:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/s-d-21/",
+      "home_pitcher": "敗：廣澤",
+      "away_pitcher": "勝：マラー",
+      "start_time": "18:00",
+      "end_time": "】",
+      "duration": "3時間3分",
+      "attendance": "29328",
+      "home_runs": [
+        {
+          "team": "【中日】",
+          "detail": "福永8号（1回ソロ高橋）、サノー21号（6回2ラン高橋）、石川昂10号（6回ソロ高橋）"
+        },
+        {
+          "team": "【ヤクルト】",
+          "detail": "オスナ6号（6回3ランマラー）"
+        }
+      ]
+    },
+    {
+      "home_team": "阪神虎",
+      "away_team": "橫濱DeNA灣星",
+      "home_team_key": "tigers",
+      "away_team_key": "baystars",
+      "home_score": "2",
+      "away_score": "3",
+      "stadium": "甲子園",
+      "time": "18:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/t-db-19/",
+      "home_pitcher": "敗：村上",
+      "away_pitcher": "勝：尾形",
+      "start_time": "18:00",
+      "end_time": "】",
+      "duration": "3時間20分",
+      "attendance": "42646",
+      "home_runs": [
+        {
+          "team": "【DeNA】",
+          "detail": "筒香16号（3回ソロ村上）"
+        },
+        {
+          "team": "【阪神】",
+          "detail": "森下32号（4回ソロ尾形）"
+        }
+      ]
+    },
+    {
+      "home_team": "廣島東洋鯉魚",
+      "away_team": "讀賣巨人",
+      "home_team_key": "carp",
+      "away_team_key": "giants",
+      "home_score": "5",
+      "away_score": "10",
+      "stadium": "マツダスタジアム",
+      "time": "18:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/c-g-19/",
+      "home_pitcher": "敗：岡本",
+      "away_pitcher": "勝：則本",
+      "start_time": "18:00",
+      "end_time": "】",
+      "duration": "4時間37分",
+      "attendance": "32317",
+      "home_runs": [
+        {
+          "team": "【巨人】",
+          "detail": "大城9号（4回ソロ玉村）、増田陸4号（5回ソロ大瀬良）、甲斐2号（11回ソロ岡本）"
+        },
+        {
+          "team": "【広島】",
+          "detail": "佐藤啓3号（1回ソロ田中将）、佐々木5号（8回2ラン中川）"
+        }
+      ]
+    },
+    {
+      "home_team": "東北樂天金鷲",
+      "away_team": "北海道日本火腿鬥士",
+      "home_team_key": "eagles",
+      "away_team_key": "fighters",
+      "home_score": "2",
+      "away_score": "5",
+      "stadium": "楽天モバイル",
+      "time": "18:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/e-f-21/",
+      "home_pitcher": "敗：早川",
+      "away_pitcher": "勝：伊藤",
+      "start_time": "18:00",
+      "end_time": "】",
+      "duration": "3時間21分",
+      "attendance": "25960",
+      "home_runs": [
+        {
+          "team": "【日本ハム】",
+          "detail": "レイエス31号（3回3ラン早川）、郡司6号（5回ソロ早川）"
+        }
+      ]
+    },
+    {
+      "home_team": "歐力士猛牛",
+      "away_team": "千葉羅德海洋",
+      "home_team_key": "buffaloes",
+      "away_team_key": "marines",
+      "home_score": "7",
+      "away_score": "6",
+      "stadium": "京セラD大阪",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/b-m-22/",
+      "home_pitcher": "敗：小野",
+      "away_pitcher": "勝：マチャド",
+      "start_time": "14:01",
+      "end_time": "】",
+      "duration": "3時間50分",
+      "attendance": "33986",
+      "home_runs": [
+        {
+          "team": "【ロッテ】",
+          "detail": "佐藤15号（4回ソロエスピノーザ）"
+        },
+        {
+          "team": "【オリックス】",
+          "detail": "紅林15号（7回ソロ中森）"
+        }
+      ]
+    },
+    {
+      "home_team": "福岡軟銀鷹",
+      "away_team": "埼玉西武獅",
+      "home_team_key": "hawks",
+      "away_team_key": "lions",
+      "home_score": "2",
+      "away_score": "0",
+      "stadium": "みずほPayPay",
+      "time": "14:00",
+      "status": "試合終了",
+      "detail_url": "https://npb.jp/scores/2026/0905/h-l-22/",
+      "home_pitcher": "敗：隅田",
+      "away_pitcher": "勝：大津",
+      "start_time": "14:01",
+      "end_time": "】",
+      "duration": "2時間51分",
+      "attendance": "39894",
+      "home_runs": []
+    }
+  ],
+  "today_games": [
+    {
+      "home_team": "東京養樂多燕子",
+      "away_team": "中日龍",
+      "home_team_key": "swallows",
+      "away_team_key": "dragons",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "神　宮",
+      "status": "17:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/s-d-22/"
+    },
+    {
+      "home_team": "阪神虎",
+      "away_team": "橫濱DeNA灣星",
+      "home_team_key": "tigers",
+      "away_team_key": "baystars",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "甲子園",
+      "status": "18:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/t-db-20/"
+    },
+    {
+      "home_team": "廣島東洋鯉魚",
+      "away_team": "讀賣巨人",
+      "home_team_key": "carp",
+      "away_team_key": "giants",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "マツダ",
+      "status": "18:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/c-g-20/"
+    },
+    {
+      "home_team": "東北樂天金鷲",
+      "away_team": "北海道日本火腿鬥士",
+      "home_team_key": "eagles",
+      "away_team_key": "fighters",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "楽天モバイル",
+      "status": "16:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/e-f-22/"
+    },
+    {
+      "home_team": "歐力士猛牛",
+      "away_team": "千葉羅德海洋",
+      "home_team_key": "buffaloes",
+      "away_team_key": "marines",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "京セラD大阪",
+      "status": "13:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/b-m-23/"
+    },
+    {
+      "home_team": "福岡軟銀鷹",
+      "away_team": "埼玉西武獅",
+      "home_team_key": "hawks",
+      "away_team_key": "lions",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "みずほPayPay",
+      "status": "13:00",
+      "detail_url": "https://npb.jp/scores/2026/0906/h-l-23/"
+    }
+  ],
+  "tomorrow_games": [
+    {
+      "home_team": "",
+      "away_team": "",
+      "home_team_key": "",
+      "away_team_key": "",
+      "home_score": "",
+      "away_score": "",
+      "stadium": "",
+      "time": "",
+      "status": "",
+      "detail_url": "",
+      "home_pitcher": "",
+      "away_pitcher": ""
+    }
+  ],
+  "standings": {
+    "central": [
+      {
+        "rank": 1,
+        "team": "阪神虎",
+        "team_jp": "阪神タイガース",
+        "team_key": "tigers",
+        "games": "121",
+        "wins": "69",
+        "losses": "51",
+        "draws": "1",
+        "pct": ".575",
+        "gb": "-"
+      },
+      {
+        "rank": 2,
+        "team": "讀賣巨人",
+        "team_jp": "読売ジャイアンツ",
+        "team_key": "giants",
+        "games": "123",
+        "wins": "66",
+        "losses": "55",
+        "draws": "2",
+        "pct": ".545",
+        "gb": "3.5"
+      },
+      {
+        "rank": 3,
+        "team": "橫濱DeNA灣星",
+        "team_jp": "横浜DeNAベイスターズ",
+        "team_key": "baystars",
+        "games": "121",
+        "wins": "56",
+        "losses": "62",
+        "draws": "3",
+        "pct": ".475",
+        "gb": "12.0"
+      },
+      {
+        "rank": 4,
+        "team": "東京養樂多燕子",
+        "team_jp": "東京ヤクルトスワローズ",
+        "team_key": "swallows",
+        "games": "122",
+        "wins": "53",
+        "losses": "67",
+        "draws": "2",
+        "pct": ".442",
+        "gb": "16.0"
+      },
+      {
+        "rank": 5,
+        "team": "中日龍",
+        "team_jp": "中日ドラゴンズ",
+        "team_key": "dragons",
+        "games": "126",
+        "wins": "53",
+        "losses": "71",
+        "draws": "2",
+        "pct": ".427",
+        "gb": "18.0"
+      },
+      {
+        "rank": 6,
+        "team": "廣島東洋鯉魚",
+        "team_jp": "広島東洋カープ",
+        "team_key": "carp",
+        "games": "119",
+        "wins": "49",
+        "losses": "66",
+        "draws": "4",
+        "pct": ".426",
+        "gb": "17.5"
+      }
+    ],
+    "pacific": [
+      {
+        "rank": 1,
+        "team": "福岡軟銀鷹",
+        "team_jp": "福岡ソフトバンクホークス",
+        "team_key": "hawks",
+        "games": "122",
+        "wins": "75",
+        "losses": "44",
+        "draws": "3",
+        "pct": ".630",
+        "gb": "-"
+      },
+      {
+        "rank": 2,
+        "team": "埼玉西武獅",
+        "team_jp": "埼玉西武ライオンズ",
+        "team_key": "lions",
+        "games": "124",
+        "wins": "69",
+        "losses": "52",
+        "draws": "3",
+        "pct": ".570",
+        "gb": "7.0"
+      },
+      {
+        "rank": 3,
+        "team": "北海道日本火腿鬥士",
+        "team_jp": "北海道日本ハムファイターズ",
+        "team_key": "fighters",
+        "games": "125",
+        "wins": "70",
+        "losses": "53",
+        "draws": "2",
+        "pct": ".569",
+        "gb": "7.0"
+      },
+      {
+        "rank": 4,
+        "team": "歐力士猛牛",
+        "team_jp": "オリックス・バファローズ",
+        "team_key": "buffaloes",
+        "games": "124",
+        "wins": "59",
+        "losses": "63",
+        "draws": "2",
+        "pct": ".484",
+        "gb": "17.5"
+      },
+      {
+        "rank": 5,
+        "team": "千葉羅德海洋",
+        "team_jp": "千葉ロッテマリーンズ",
+        "team_key": "marines",
+        "games": "118",
+        "wins": "53",
+        "losses": "62",
+        "draws": "3",
+        "pct": ".461",
+        "gb": "20.0"
+      },
+      {
+        "rank": 6,
+        "team": "東北樂天金鷲",
+        "team_jp": "東北楽天ゴールデンイーグルス",
+        "team_key": "eagles",
+        "games": "121",
+        "wins": "47",
+        "losses": "73",
+        "draws": "1",
+        "pct": ".392",
+        "gb": "28.5"
+      }
+    ]
+  },
+  "leaders": {
+    "batting_avg_central": [
+      {
+        "rank": 1,
+        "player": "佐藤　輝明",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".321"
+      },
+      {
+        "rank": 2,
+        "player": "森下　翔太",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".301"
+      },
+      {
+        "rank": 3,
+        "player": "牧　秀悟",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".284"
+      },
+      {
+        "rank": 4,
+        "player": "中野　拓夢",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".284"
+      },
+      {
+        "rank": 5,
+        "player": "大山　悠輔",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": ".280"
+      },
+      {
+        "rank": 6,
+        "player": "浦田　俊輔",
+        "team": "讀賣巨人",
+        "team_key": "giants",
+        "value": ".278"
+      },
+      {
+        "rank": 7,
+        "player": "度会　隆輝",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".276"
+      },
+      {
+        "rank": 8,
+        "player": "佐野　恵太",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": ".263"
+      },
+      {
+        "rank": 9,
+        "player": "村松　開人",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": ".262"
+      },
+      {
+        "rank": 10,
+        "player": "小園　海斗",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": ".257"
+      }
+    ],
+    "batting_avg_pacific": [
+      {
+        "rank": 1,
+        "player": "レイエス",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": ".321"
+      },
+      {
+        "rank": 2,
+        "player": "近藤　健介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".303"
+      },
+      {
+        "rank": 3,
+        "player": "太田　椋",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": ".293"
+      },
+      {
+        "rank": 4,
+        "player": "西川　史礁",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": ".290"
+      },
+      {
+        "rank": 5,
+        "player": "柳田　悠岐",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".286"
+      },
+      {
+        "rank": 6,
+        "player": "滝澤　夏央",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": ".284"
+      },
+      {
+        "rank": 7,
+        "player": "西川　龍馬",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": ".282"
+      },
+      {
+        "rank": 8,
+        "player": "牧原　大成",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".280"
+      },
+      {
+        "rank": 9,
+        "player": "正木　智也",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": ".276"
+      },
+      {
+        "rank": 10,
+        "player": "水野　達稀",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": ".276"
+      }
+    ],
+    "home_runs_central": [
+      {
+        "rank": 1,
+        "player": "佐藤　輝明",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "34"
+      },
+      {
+        "rank": 2,
+        "player": "森下　翔太",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "32"
+      },
+      {
+        "rank": 3,
+        "player": "牧　秀悟",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "22"
+      },
+      {
+        "rank": 5,
+        "player": "大山　悠輔",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "15"
+      },
+      {
+        "rank": 7,
+        "player": "度会　隆輝",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "8"
+      },
+      {
+        "rank": 8,
+        "player": "佐野　恵太",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "6"
+      },
+      {
+        "rank": 9,
+        "player": "村松　開人",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "5"
+      },
+      {
+        "rank": 10,
+        "player": "小園　海斗",
+        "team": "廣島東洋鯉魚",
+        "team_key": "carp",
+        "value": "1"
+      }
+    ],
+    "home_runs_pacific": [
+      {
+        "rank": 1,
+        "player": "レイエス",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "31"
+      },
+      {
+        "rank": 2,
+        "player": "近藤　健介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "25"
+      },
+      {
+        "rank": 3,
+        "player": "太田　椋",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "8"
+      },
+      {
+        "rank": 4,
+        "player": "西川　史礁",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "7"
+      },
+      {
+        "rank": 5,
+        "player": "柳田　悠岐",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "13"
+      },
+      {
+        "rank": 6,
+        "player": "滝澤　夏央",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "1"
+      },
+      {
+        "rank": 7,
+        "player": "西川　龍馬",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "10"
+      },
+      {
+        "rank": 8,
+        "player": "牧原　大成",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "4"
+      },
+      {
+        "rank": 9,
+        "player": "正木　智也",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "23"
+      },
+      {
+        "rank": 10,
+        "player": "水野　達稀",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "11"
+      }
+    ],
+    "era_central": [
+      {
+        "rank": 1,
+        "player": "髙橋　遥人",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "1.90"
+      },
+      {
+        "rank": 2,
+        "player": "村上　頌樹",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "1.93"
+      },
+      {
+        "rank": 3,
+        "player": "山野　太一",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "2.13"
+      },
+      {
+        "rank": 4,
+        "player": "東　克樹",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "2.30"
+      },
+      {
+        "rank": 5,
+        "player": "柳　裕也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "2.50"
+      },
+      {
+        "rank": 6,
+        "player": "才木　浩人",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "2.63"
+      },
+      {
+        "rank": 7,
+        "player": "金丸　夢斗",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "2.67"
+      },
+      {
+        "rank": 8,
+        "player": "奥川　恭伸",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "2.93"
+      },
+      {
+        "rank": 1,
+        "player": "マルティネス",
+        "team": "讀賣巨人",
+        "team_key": "giants",
+        "value": "1.37"
+      },
+      {
+        "rank": 2,
+        "player": "松山　晋也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "1.69"
+      }
+    ],
+    "era_pacific": [
+      {
+        "rank": 1,
+        "player": "平良　海馬",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "1.45"
+      },
+      {
+        "rank": 2,
+        "player": "隅田　知一郎",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "2.21"
+      },
+      {
+        "rank": 3,
+        "player": "大津　亮介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "2.36"
+      },
+      {
+        "rank": 4,
+        "player": "北山　亘基",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "2.39"
+      },
+      {
+        "rank": 5,
+        "player": "エスピノーザ",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "2.65"
+      },
+      {
+        "rank": 6,
+        "player": "髙橋　光成",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "2.69"
+      },
+      {
+        "rank": 7,
+        "player": "早川　隆久",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": "2.74"
+      },
+      {
+        "rank": 8,
+        "player": "伊藤　大海",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "3.11"
+      },
+      {
+        "rank": 9,
+        "player": "九里　亜蓮",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "3.20"
+      },
+      {
+        "rank": 10,
+        "player": "ジャクソン",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "3.43"
+      }
+    ],
+    "wins_central": [
+      {
+        "rank": 1,
+        "player": "髙橋　遥人",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "13"
+      },
+      {
+        "rank": 2,
+        "player": "村上　頌樹",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "10"
+      },
+      {
+        "rank": 3,
+        "player": "山野　太一",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "10"
+      },
+      {
+        "rank": 4,
+        "player": "東　克樹",
+        "team": "橫濱DeNA灣星",
+        "team_key": "baystars",
+        "value": "10"
+      },
+      {
+        "rank": 5,
+        "player": "柳　裕也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "5"
+      },
+      {
+        "rank": 6,
+        "player": "才木　浩人",
+        "team": "阪神虎",
+        "team_key": "tigers",
+        "value": "8"
+      },
+      {
+        "rank": 7,
+        "player": "金丸　夢斗",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "5"
+      },
+      {
+        "rank": 8,
+        "player": "奥川　恭伸",
+        "team": "東京養樂多燕子",
+        "team_key": "swallows",
+        "value": "7"
+      },
+      {
+        "rank": 1,
+        "player": "マルティネス",
+        "team": "讀賣巨人",
+        "team_key": "giants",
+        "value": "4"
+      },
+      {
+        "rank": 2,
+        "player": "松山　晋也",
+        "team": "中日龍",
+        "team_key": "dragons",
+        "value": "1"
+      }
+    ],
+    "wins_pacific": [
+      {
+        "rank": 1,
+        "player": "平良　海馬",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "10"
+      },
+      {
+        "rank": 2,
+        "player": "隅田　知一郎",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "9"
+      },
+      {
+        "rank": 3,
+        "player": "大津　亮介",
+        "team": "福岡軟銀鷹",
+        "team_key": "hawks",
+        "value": "11"
+      },
+      {
+        "rank": 4,
+        "player": "北山　亘基",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "11"
+      },
+      {
+        "rank": 5,
+        "player": "エスピノーザ",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "11"
+      },
+      {
+        "rank": 6,
+        "player": "髙橋　光成",
+        "team": "埼玉西武獅",
+        "team_key": "lions",
+        "value": "9"
+      },
+      {
+        "rank": 7,
+        "player": "早川　隆久",
+        "team": "東北樂天金鷲",
+        "team_key": "eagles",
+        "value": "6"
+      },
+      {
+        "rank": 8,
+        "player": "伊藤　大海",
+        "team": "北海道日本火腿鬥士",
+        "team_key": "fighters",
+        "value": "9"
+      },
+      {
+        "rank": 9,
+        "player": "九里　亜蓮",
+        "team": "歐力士猛牛",
+        "team_key": "buffaloes",
+        "value": "8"
+      },
+      {
+        "rank": 10,
+        "player": "ジャクソン",
+        "team": "千葉羅德海洋",
+        "team_key": "marines",
+        "value": "9"
+      }
+    ]
+  },
+  "interleague": {
+    "central_wins": 39,
+    "pacific_wins": 65,
+    "leader": "pacific",
+    "standings": [
+      {
+        "team": "埼玉西武獅",
+        "team_jp": "埼玉西武ライオンズ",
+        "team_key": "lions",
+        "games": "18",
+        "wins": "14",
+        "losses": "3",
+        "draws": "1",
+        "pct": ".824",
+        "gb": "-"
+      },
+      {
+        "team": "福岡軟銀鷹",
+        "team_jp": "福岡ソフトバンクホークス",
+        "team_key": "hawks",
+        "games": "18",
+        "wins": "14",
+        "losses": "4",
+        "draws": "0",
+        "pct": ".778",
+        "gb": "0.5"
+      },
+      {
+        "team": "北海道日本火腿鬥士",
+        "team_jp": "北海道日本ハムファイターズ",
+        "team_key": "fighters",
+        "games": "18",
+        "wins": "14",
+        "losses": "4",
+        "draws": "0",
+        "pct": ".778",
+        "gb": "0.5"
+      },
+      {
+        "team": "讀賣巨人",
+        "team_jp": "読売ジャイアンツ",
+        "team_key": "giants",
+        "games": "18",
+        "wins": "10",
+        "losses": "6",
+        "draws": "2",
+        "pct": ".625",
+        "gb": "3.5"
+      },
+      {
+        "team": "千葉羅德海洋",
+        "team_jp": "千葉ロッテマリーンズ",
+        "team_key": "marines",
+        "games": "18",
+        "wins": "10",
+        "losses": "6",
+        "draws": "2",
+        "pct": ".625",
+        "gb": "3.5"
+      },
+      {
+        "team": "歐力士猛牛",
+        "team_jp": "オリックス・バファローズ",
+        "team_key": "buffaloes",
+        "games": "18",
+        "wins": "9",
+        "losses": "8",
+        "draws": "1",
+        "pct": ".529",
+        "gb": "5.0"
+      },
+      {
+        "team": "中日龍",
+        "team_jp": "中日ドラゴンズ",
+        "team_key": "dragons",
+        "games": "18",
+        "wins": "7",
+        "losses": "11",
+        "draws": "0",
+        "pct": ".389",
+        "gb": "7.5"
+      },
+      {
+        "team": "東京養樂多燕子",
+        "team_jp": "東京ヤクルトスワローズ",
+        "team_key": "swallows",
+        "games": "18",
+        "wins": "6",
+        "losses": "11",
+        "draws": "1",
+        "pct": ".353",
+        "gb": "8.0"
+      },
+      {
+        "team": "阪神虎",
+        "team_jp": "阪神タイガース",
+        "team_key": "tigers",
+        "games": "18",
+        "wins": "6",
+        "losses": "12",
+        "draws": "0",
+        "pct": ".333",
+        "gb": "8.5"
+      },
+      {
+        "team": "廣島東洋鯉魚",
+        "team_jp": "広島東洋カープ",
+        "team_key": "carp",
+        "games": "18",
+        "wins": "5",
+        "losses": "12",
+        "draws": "1",
+        "pct": ".294",
+        "gb": "9.0"
+      },
+      {
+        "team": "橫濱DeNA灣星",
+        "team_jp": "横浜DeNAベイスターズ",
+        "team_key": "baystars",
+        "games": "18",
+        "wins": "5",
+        "losses": "13",
+        "draws": "0",
+        "pct": ".278",
+        "gb": "9.5"
+      },
+      {
+        "team": "東北樂天金鷲",
+        "team_jp": "東北楽天ゴールデンイーグルス",
+        "team_key": "eagles",
+        "games": "18",
+        "wins": "4",
+        "losses": "14",
+        "draws": "0",
+        "pct": ".222",
+        "gb": "10.5"
+      }
+    ]
+  },
+  "focus_news": {
+    "by_source": {
+      "npb": [
+        {
+          "title": "JERA セントラル・リーグ試合日程追加のお知らせ",
+          "url": "https://npb.jp/news/detail/20260904_03.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "8月31日（月）侍ジャパンU-18代表選手による「キッズ ファースト アクション」を開催",
+          "url": "https://npb.jp/news/detail/20260904_02.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "8月31日（月）「第10回 日本野球障害予防懇話会」を開催",
+          "url": "https://npb.jp/news/detail/20260904_01.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "JERA セントラル・リーグ試合日程追加のお知らせ",
+          "url": "https://npb.jp/news/detail/20260902_01.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "先週の記録回顧と主な記録達成候補者（8/31現在）",
+          "url": "https://npb.jp/news/detail/20260901_02.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【コラム】西武・栗山巧が25年の野球人生に幕、最後まで貫いた「誰かに力を与える」使命",
+          "url": "https://npb.jp/news/detail/20260901_01.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "「キッズ ファースト アクションin甲子園」開催のお知らせ",
+          "url": "https://npb.jp/news/detail/20260831_01.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【球跡巡り・第101回】名物スカウトは見た！ 大物レスラーのKOシーン 大牟田延命球場（旧）",
+          "url": "https://npb.jp/news/detail/20260828_01.html",
+          "source": "NPB官方",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "nikkansports": [
+        {
+          "title": "【DeNA】竹田祐が６日阪神戦に先発「自分を信じて出せる力を全て」３カ月半ぶり１軍マウンド[12:00]",
+          "url": "https://www.nikkansports.com/baseball/news/202609060000003.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【阪神】これぞ鬼に金棒　ミスターゼロ石井大智の復帰で「チームの心臓」がさらに多彩に[11:48]",
+          "url": "https://www.nikkansports.com/baseball/news/202609060000282.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【阪神】元山飛優に挽回チャンスはある「成長の糧にして」藤川監督　いぶし銀の活躍は間違いない[11:45]",
+          "url": "https://www.nikkansports.com/baseball/news/202609060000267.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "ロッテ・ルケーシーを登録／６日公示[11:17]",
+          "url": "https://www.nikkansports.com/baseball/news/202609060000180.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【阪神】心配な天気予報　夜にかけて雨脚強まるか…甲子園中止なら２カ月ぶり　先発は大竹耕太郎[11:08]",
+          "url": "https://www.nikkansports.com/baseball/news/202609060000238.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】球団史上初10投手継投の舞台裏　橋上監督代行が明かすマルティネス投入の条件[11:00]",
+          "url": "https://www.nikkansports.com/baseball/news/202609050002251.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】1点ビハインドの9回2死、浦田俊輔が強気の二盗成功「ホームランも打てないですし…」[11:00]",
+          "url": "https://www.nikkansports.com/baseball/news/202609050002254.html",
+          "source": "日刊スポーツ",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "sponichi": [
+        {
+          "title": "村上宗隆お待たせ！17試合＆75打席ぶり30号は日本人ルーキー初の偉業　逆方向へ49度の先制2ラン",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260905s00001007074000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "ニュース一覧を見る",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【野球記者コラム】中日・高橋宏斗は確実に「引き出し」を増やしながらエース道を進んでいる［ 2026年9月6日 13:00 ］",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/annexz/20260905s00001173265000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "田口壮氏　エドマンの届かないダイビングを絶賛「全部やってダメなら諦められる」　直後に6号逆転3ラン［ 2026年9月6日 12:23 ］ 野球",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007115000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "“代役1番”がチーム救うビッグプレー　エドマンがフェンス激突しながら好捕、球場に大興奮呼ぶ［ 2026年9月6日 11:43 ］ 野球",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007112000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "村上宗隆　17試合ぶり30号は「率直にうれしい」49度は“自身最高”「もうちょっと角度抑えられれば」［ 2026年9月6日 11:36 ］ 野球",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007111000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "1試合4安打の岡本和真「しっかりとらえられた」メジャー1年目でポストシーズン争い「毎日刺激がある」［ 2026年9月6日 11:13 ］ 野球",
+          "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007105000c.html",
+          "source": "スポニチ",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "hochi": [
+        {
+          "title": "【巨人】２軍中日戦が雨天中止　現在貯金２５で首位・ＤｅＮＡと２ゲーム差2026年09月06日 12:41",
+          "url": "https://hochi.news/articles/20260906-OHT1T51091.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】球団通算１万１５７３試合目で初の１０人継投　歴史的一戦でリリーフ５投手が連投　マツダ広島戦３連勝へ３連投も視野に2026年09月06日 12:11",
+          "url": "https://hochi.news/articles/20260906-OHT1T51081.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【動画】ＶＥＮＵＳの素顔引き出します！両手にウリウリ！？運動神経抜群なルーキー・小林由依が超本格的なフラダンス披露！【報知プロ野球チャンネル】2026年09月06日 12:00",
+          "url": "https://hochi.news/articles/20260905-OHT1T51252.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】９年目で初タイトルへ　田中瑛斗キャリアハイ更新「全員で投げる展開」「何とか良かった」１２球団ダントツの“貢献度”2026年09月06日 10:10",
+          "url": "https://hochi.news/articles/20260906-OHT1T51052.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】西武との３軍戦は雨天中止　次戦は８日に日本ハムと練習試合2026年09月06日 09:35",
+          "url": "https://hochi.news/articles/20260906-OHT1T51044.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "巨人・三塚琉生が絶好調「恵まれた体形」で４試合連続打点「浮いたボールをしっかり捉えられた」2026年09月06日 06:30",
+          "url": "https://hochi.news/articles/20260905-OHT1T51366.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "「勝つだけです」巨人・小笠原慎之介が４勝目目指し先発　今季初のマツダで「粘り強い」広島打線警戒2026年09月06日 06:15",
+          "url": "https://hochi.news/articles/20260905-OHT1T51265.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "【巨人】鈴木大和、２度目のスタメンで２安打１打点も「悔しいしかない」守備のミスに「将大さんに本当に申し訳ないです」2026年09月06日 05:55",
+          "url": "https://hochi.news/articles/20260905-OHT1T51395.html",
+          "source": "スポーツ報知",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "sportsbull": [
+        {
+          "title": "プロ初本塁打のヤクルト・西村瑠伊斗の活躍はまだ序章！一軍で覚醒し始めた「京都No.1打者」のポテンシャル【主筆・河嶋宗一コラム『グラカンvol.135』】",
+          "url": "https://sportsbull.jp/p/2412015/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "ドジャース　エドマンが起死回生の逆転３ラン！大谷翔平もベンチで満面笑み　守備ではスーパープレー　本拠地が大歓声に",
+          "url": "https://sportsbull.jp/p/2412012/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "織田翔希と並ぶ、最速157キロのユン・イェソン投手ら韓国代表18人が練習　地元メディア報道",
+          "url": "https://sportsbull.jp/p/2412010/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "岡本和真メジャー初４安打で勝利の立役者に「良い戦いの中で出られている」／一問一答",
+          "url": "https://sportsbull.jp/p/2412009/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "ボブルヘッドデーで山本由伸が捕手役「不動産を、越えてゆけ。」の広告サムティ社執行役員が始球式",
+          "url": "https://sportsbull.jp/p/2412008/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "中日25歳の逆方向弾は「理解不能」　3年ぶり“到達”より目立った弾道「普通はフェン直」",
+          "url": "https://sportsbull.jp/p/2412006/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "巨人20歳が“逃した”プロ初「まじかぁぁ」　まさかの強奪…阻んだ美技にファン悲鳴「よりによって」",
+          "url": "https://sportsbull.jp/p/2412005/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "ドジャース　エドマンが中堅でスーパープレー！フェンスに激突しながら左中間の大飛球キャッチ　本職は二塁　グラスノーが驚き本拠地は大歓声",
+          "url": "https://sportsbull.jp/p/2411994/",
+          "source": "Sports Bull",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "baseballking": [
+        {
+          "title": "パ・リーグ2026.09.05ロッテ・唐川侑己「プライドを持って」18年の夏場以降投球を支えたカットボール",
+          "url": "https://baseballking.jp/ns/706160/",
+          "source": "Baseball King",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "パ・リーグ2026.08.31ロッテ・種市篤暉「元に戻ったじゃ意味がない」、「エグくなったと思われるピッチャーになりたい」4月末に『左アキレス腱断裂の縫合術』。変わらぬ向上心で“進化中”",
+          "url": "https://baseballking.jp/ns/705725/",
+          "source": "Baseball King",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "パ・リーグ4時間前ロッテ・小川龍成「今までできなかったことができるようになってきて少しずつ成長」長打、早いカウントで高打率、打撃面で成長の跡",
+          "url": "https://baseballking.jp/ns/706270/",
+          "source": "Baseball King",
+          "date": "4時間前",
+          "summary": ""
+        },
+        {
+          "title": "セ・リーグ4時間前中日・福永、球団史上初の2試合連続先頭打者弾！佐伯氏「試合に出続けないといけない選手」",
+          "url": "https://baseballking.jp/ns/706246/",
+          "source": "Baseball King",
+          "date": "4時間前",
+          "summary": ""
+        },
+        {
+          "title": "セ・リーグ5時間前DeNA・尾形、6回途中2失点で4勝目！齊藤明雄氏「Aクラスに入る一番のキーマンになるピッチャー」",
+          "url": "https://baseballking.jp/ns/706237/",
+          "source": "Baseball King",
+          "date": "5時間前",
+          "summary": ""
+        },
+        {
+          "title": "プロ野球・NPB2026.03.23プロ野球（NPB）をネット中継するサブスク・配信サービス｜無料で見る方法は？",
+          "url": "https://baseballking.jp/ns/409424/",
+          "source": "Baseball King",
+          "date": "2026.03.23",
+          "summary": ""
+        },
+        {
+          "title": "中日・田中幹也、レフト前安打で二塁からホームを狙うも…谷繁氏「タイミング的にはどう見てもアウト」と苦言",
+          "url": "https://baseballking.jp/ns/706184/",
+          "source": "Baseball King",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "谷繁元信氏が「走る意味はあまりない」とバッサリ　ヤクルト・モンテル、盗塁成功も送球が逸れる間に本塁狙うもタッチアウト",
+          "url": "https://baseballking.jp/ns/706182/",
+          "source": "Baseball King",
+          "date": "",
+          "summary": ""
+        }
+      ],
+      "fullcount": [
+        {
+          "title": "広島東洋カープ2026.02.23山本由伸に“できない報告”　人的補償で広島移籍から2年…“瓜二つ”日高暖己の悩める今",
+          "url": "https://full-count.jp/2026/02/23/post1912034/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW異例の現役選手がオーナー　直面した少子化問題…赤星憲広氏が20年続ける“草の根活動”あの頃の“決断”が、今も生きている。阪神で活躍した赤星憲広氏がオーナーを務める「レッドスターベースボールクラブ」は、2005年の設立から20年以上の歴史を誇る。プロ野球2026.09.06",
+          "url": "https://full-count.jp/2026/09/06/post2012718/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW1軍出場ゼロ→阪神・代打の神様に　投げれず走れず…新指揮官に見出された“職場”元阪神の八木裕氏（野球評論家）は、プロ11年目の1997年シーズンから代打でも活躍するようになった。「吉田（義男）監督がうまく使ってくれたんです」。スタメンもあれば、代打も…連載2026.09.06",
+          "url": "https://full-count.jp/2026/09/06/post2012707/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW「今年37になるとは」　圧倒的ビジュ炸裂…“勝利の女神”が「今日も美しい」5日にみずほPayPayドームで行われたソフトバンク-西武戦のセレモニアルピッチに、人気声優の内田真礼さんが登場した。自身7度目の登板となったマウンドでは、“コロコロ投球”…福岡ソフトバンクホークス2026.09.06",
+          "url": "https://full-count.jp/2026/09/06/post2012903/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW37歳で引退も「違和感すげぇ」　ドラ1入団から19年…イケメン右腕の「顔全然変わらん」ロッテは4日、唐川侑己投手が今季限りで現役を引退することを発表した。2007年の高校生ドラフト1巡目で入団してからロッテ一筋で19年間プレーしてきた右腕。地元・千葉のドラ1…千葉ロッテマリーンズ2026.09.06",
+          "url": "https://full-count.jp/2026/09/06/post2012839/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW「顔小さすぎてビビる」　骨格も完璧…透明感溢れる31歳美女に感動「めちゃかわ」4日に楽天モバイル 最強パーク宮城で行われた楽天-日本ハム戦の始球式に、人気女優の森川葵さんが登板した。何でも器用にこなすことで知られる森川さんだが、人生初の始球式はまさか…東北楽天ゴールデンイーグルス2026.09.06",
+          "url": "https://full-count.jp/2026/09/06/post2012768/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "NEW中日戦7連敗…ヤクルト池山監督「流れが非常に悪いですね」　同点直後の4失点を悔やむヤクルトは5日、神宮球場で行われた中日戦に4-8で敗れた。中日戦は1分けを挟んで7連敗。池山隆寛監督は「止めたいところでしたけど、昨日もそうですし今日も、流れが非常に悪い…東京ヤクルトスワローズ2026.09.05",
+          "url": "https://full-count.jp/2026/09/05/post2012788/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        },
+        {
+          "title": "「竜の希望」2軍に眠る“金の卵”　爆速弾丸アーチに漂う覚醒の気配「3年後の3冠王」中日の森駿太内野手が4日、ジャイアンツタウンで行われたファーム・リーグの巨人戦に「5番・三塁」でスタメン出場し、9回に8号ソロを放つなど2安打1打点と活躍した。小雨が降る中…中日ドラゴンズ2026.09.05",
+          "url": "https://full-count.jp/2026/09/05/post2012760/",
+          "source": "Full-Count",
+          "date": "",
+          "summary": ""
+        }
+      ]
+    },
+    "all": [
+      {
+        "title": "JERA セントラル・リーグ試合日程追加のお知らせ",
+        "url": "https://npb.jp/news/detail/20260904_03.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "8月31日（月）侍ジャパンU-18代表選手による「キッズ ファースト アクション」を開催",
+        "url": "https://npb.jp/news/detail/20260904_02.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "8月31日（月）「第10回 日本野球障害予防懇話会」を開催",
+        "url": "https://npb.jp/news/detail/20260904_01.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "先週の記録回顧と主な記録達成候補者（8/31現在）",
+        "url": "https://npb.jp/news/detail/20260901_02.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【コラム】西武・栗山巧が25年の野球人生に幕、最後まで貫いた「誰かに力を与える」使命",
+        "url": "https://npb.jp/news/detail/20260901_01.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "「キッズ ファースト アクションin甲子園」開催のお知らせ",
+        "url": "https://npb.jp/news/detail/20260831_01.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【球跡巡り・第101回】名物スカウトは見た！ 大物レスラーのKOシーン 大牟田延命球場（旧）",
+        "url": "https://npb.jp/news/detail/20260828_01.html",
+        "source": "NPB官方",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【DeNA】竹田祐が６日阪神戦に先発「自分を信じて出せる力を全て」３カ月半ぶり１軍マウンド[12:00]",
+        "url": "https://www.nikkansports.com/baseball/news/202609060000003.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【阪神】これぞ鬼に金棒　ミスターゼロ石井大智の復帰で「チームの心臓」がさらに多彩に[11:48]",
+        "url": "https://www.nikkansports.com/baseball/news/202609060000282.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【阪神】元山飛優に挽回チャンスはある「成長の糧にして」藤川監督　いぶし銀の活躍は間違いない[11:45]",
+        "url": "https://www.nikkansports.com/baseball/news/202609060000267.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "ロッテ・ルケーシーを登録／６日公示[11:17]",
+        "url": "https://www.nikkansports.com/baseball/news/202609060000180.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【阪神】心配な天気予報　夜にかけて雨脚強まるか…甲子園中止なら２カ月ぶり　先発は大竹耕太郎[11:08]",
+        "url": "https://www.nikkansports.com/baseball/news/202609060000238.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】球団史上初10投手継投の舞台裏　橋上監督代行が明かすマルティネス投入の条件[11:00]",
+        "url": "https://www.nikkansports.com/baseball/news/202609050002251.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】1点ビハインドの9回2死、浦田俊輔が強気の二盗成功「ホームランも打てないですし…」[11:00]",
+        "url": "https://www.nikkansports.com/baseball/news/202609050002254.html",
+        "source": "日刊スポーツ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "村上宗隆お待たせ！17試合＆75打席ぶり30号は日本人ルーキー初の偉業　逆方向へ49度の先制2ラン",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260905s00001007074000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "ニュース一覧を見る",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【野球記者コラム】中日・高橋宏斗は確実に「引き出し」を増やしながらエース道を進んでいる［ 2026年9月6日 13:00 ］",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/annexz/20260905s00001173265000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "田口壮氏　エドマンの届かないダイビングを絶賛「全部やってダメなら諦められる」　直後に6号逆転3ラン［ 2026年9月6日 12:23 ］ 野球",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007115000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "“代役1番”がチーム救うビッグプレー　エドマンがフェンス激突しながら好捕、球場に大興奮呼ぶ［ 2026年9月6日 11:43 ］ 野球",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007112000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "村上宗隆　17試合ぶり30号は「率直にうれしい」49度は“自身最高”「もうちょっと角度抑えられれば」［ 2026年9月6日 11:36 ］ 野球",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007111000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "1試合4安打の岡本和真「しっかりとらえられた」メジャー1年目でポストシーズン争い「毎日刺激がある」［ 2026年9月6日 11:13 ］ 野球",
+        "url": "https://www.sponichi.co.jp/baseball/news/2026/09/06/kiji/20260906s00001007105000c.html",
+        "source": "スポニチ",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】２軍中日戦が雨天中止　現在貯金２５で首位・ＤｅＮＡと２ゲーム差2026年09月06日 12:41",
+        "url": "https://hochi.news/articles/20260906-OHT1T51091.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】球団通算１万１５７３試合目で初の１０人継投　歴史的一戦でリリーフ５投手が連投　マツダ広島戦３連勝へ３連投も視野に2026年09月06日 12:11",
+        "url": "https://hochi.news/articles/20260906-OHT1T51081.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【動画】ＶＥＮＵＳの素顔引き出します！両手にウリウリ！？運動神経抜群なルーキー・小林由依が超本格的なフラダンス披露！【報知プロ野球チャンネル】2026年09月06日 12:00",
+        "url": "https://hochi.news/articles/20260905-OHT1T51252.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】９年目で初タイトルへ　田中瑛斗キャリアハイ更新「全員で投げる展開」「何とか良かった」１２球団ダントツの“貢献度”2026年09月06日 10:10",
+        "url": "https://hochi.news/articles/20260906-OHT1T51052.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】西武との３軍戦は雨天中止　次戦は８日に日本ハムと練習試合2026年09月06日 09:35",
+        "url": "https://hochi.news/articles/20260906-OHT1T51044.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "巨人・三塚琉生が絶好調「恵まれた体形」で４試合連続打点「浮いたボールをしっかり捉えられた」2026年09月06日 06:30",
+        "url": "https://hochi.news/articles/20260905-OHT1T51366.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "「勝つだけです」巨人・小笠原慎之介が４勝目目指し先発　今季初のマツダで「粘り強い」広島打線警戒2026年09月06日 06:15",
+        "url": "https://hochi.news/articles/20260905-OHT1T51265.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "【巨人】鈴木大和、２度目のスタメンで２安打１打点も「悔しいしかない」守備のミスに「将大さんに本当に申し訳ないです」2026年09月06日 05:55",
+        "url": "https://hochi.news/articles/20260905-OHT1T51395.html",
+        "source": "スポーツ報知",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "プロ初本塁打のヤクルト・西村瑠伊斗の活躍はまだ序章！一軍で覚醒し始めた「京都No.1打者」のポテンシャル【主筆・河嶋宗一コラム『グラカンvol.135』】",
+        "url": "https://sportsbull.jp/p/2412015/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "ドジャース　エドマンが起死回生の逆転３ラン！大谷翔平もベンチで満面笑み　守備ではスーパープレー　本拠地が大歓声に",
+        "url": "https://sportsbull.jp/p/2412012/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "織田翔希と並ぶ、最速157キロのユン・イェソン投手ら韓国代表18人が練習　地元メディア報道",
+        "url": "https://sportsbull.jp/p/2412010/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "岡本和真メジャー初４安打で勝利の立役者に「良い戦いの中で出られている」／一問一答",
+        "url": "https://sportsbull.jp/p/2412009/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "ボブルヘッドデーで山本由伸が捕手役「不動産を、越えてゆけ。」の広告サムティ社執行役員が始球式",
+        "url": "https://sportsbull.jp/p/2412008/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "中日25歳の逆方向弾は「理解不能」　3年ぶり“到達”より目立った弾道「普通はフェン直」",
+        "url": "https://sportsbull.jp/p/2412006/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "巨人20歳が“逃した”プロ初「まじかぁぁ」　まさかの強奪…阻んだ美技にファン悲鳴「よりによって」",
+        "url": "https://sportsbull.jp/p/2412005/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "ドジャース　エドマンが中堅でスーパープレー！フェンスに激突しながら左中間の大飛球キャッチ　本職は二塁　グラスノーが驚き本拠地は大歓声",
+        "url": "https://sportsbull.jp/p/2411994/",
+        "source": "Sports Bull",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "パ・リーグ2026.09.05ロッテ・唐川侑己「プライドを持って」18年の夏場以降投球を支えたカットボール",
+        "url": "https://baseballking.jp/ns/706160/",
+        "source": "Baseball King",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "パ・リーグ2026.08.31ロッテ・種市篤暉「元に戻ったじゃ意味がない」、「エグくなったと思われるピッチャーになりたい」4月末に『左アキレス腱断裂の縫合術』。変わらぬ向上心で“進化中”",
+        "url": "https://baseballking.jp/ns/705725/",
+        "source": "Baseball King",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "パ・リーグ4時間前ロッテ・小川龍成「今までできなかったことができるようになってきて少しずつ成長」長打、早いカウントで高打率、打撃面で成長の跡",
+        "url": "https://baseballking.jp/ns/706270/",
+        "source": "Baseball King",
+        "date": "4時間前",
+        "summary": ""
+      },
+      {
+        "title": "セ・リーグ4時間前中日・福永、球団史上初の2試合連続先頭打者弾！佐伯氏「試合に出続けないといけない選手」",
+        "url": "https://baseballking.jp/ns/706246/",
+        "source": "Baseball King",
+        "date": "4時間前",
+        "summary": ""
+      },
+      {
+        "title": "セ・リーグ5時間前DeNA・尾形、6回途中2失点で4勝目！齊藤明雄氏「Aクラスに入る一番のキーマンになるピッチャー」",
+        "url": "https://baseballking.jp/ns/706237/",
+        "source": "Baseball King",
+        "date": "5時間前",
+        "summary": ""
+      },
+      {
+        "title": "プロ野球・NPB2026.03.23プロ野球（NPB）をネット中継するサブスク・配信サービス｜無料で見る方法は？",
+        "url": "https://baseballking.jp/ns/409424/",
+        "source": "Baseball King",
+        "date": "2026.03.23",
+        "summary": ""
+      },
+      {
+        "title": "中日・田中幹也、レフト前安打で二塁からホームを狙うも…谷繁氏「タイミング的にはどう見てもアウト」と苦言",
+        "url": "https://baseballking.jp/ns/706184/",
+        "source": "Baseball King",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "谷繁元信氏が「走る意味はあまりない」とバッサリ　ヤクルト・モンテル、盗塁成功も送球が逸れる間に本塁狙うもタッチアウト",
+        "url": "https://baseballking.jp/ns/706182/",
+        "source": "Baseball King",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "広島東洋カープ2026.02.23山本由伸に“できない報告”　人的補償で広島移籍から2年…“瓜二つ”日高暖己の悩める今",
+        "url": "https://full-count.jp/2026/02/23/post1912034/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW異例の現役選手がオーナー　直面した少子化問題…赤星憲広氏が20年続ける“草の根活動”あの頃の“決断”が、今も生きている。阪神で活躍した赤星憲広氏がオーナーを務める「レッドスターベースボールクラブ」は、2005年の設立から20年以上の歴史を誇る。プロ野球2026.09.06",
+        "url": "https://full-count.jp/2026/09/06/post2012718/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW1軍出場ゼロ→阪神・代打の神様に　投げれず走れず…新指揮官に見出された“職場”元阪神の八木裕氏（野球評論家）は、プロ11年目の1997年シーズンから代打でも活躍するようになった。「吉田（義男）監督がうまく使ってくれたんです」。スタメンもあれば、代打も…連載2026.09.06",
+        "url": "https://full-count.jp/2026/09/06/post2012707/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW「今年37になるとは」　圧倒的ビジュ炸裂…“勝利の女神”が「今日も美しい」5日にみずほPayPayドームで行われたソフトバンク-西武戦のセレモニアルピッチに、人気声優の内田真礼さんが登場した。自身7度目の登板となったマウンドでは、“コロコロ投球”…福岡ソフトバンクホークス2026.09.06",
+        "url": "https://full-count.jp/2026/09/06/post2012903/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW37歳で引退も「違和感すげぇ」　ドラ1入団から19年…イケメン右腕の「顔全然変わらん」ロッテは4日、唐川侑己投手が今季限りで現役を引退することを発表した。2007年の高校生ドラフト1巡目で入団してからロッテ一筋で19年間プレーしてきた右腕。地元・千葉のドラ1…千葉ロッテマリーンズ2026.09.06",
+        "url": "https://full-count.jp/2026/09/06/post2012839/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW「顔小さすぎてビビる」　骨格も完璧…透明感溢れる31歳美女に感動「めちゃかわ」4日に楽天モバイル 最強パーク宮城で行われた楽天-日本ハム戦の始球式に、人気女優の森川葵さんが登板した。何でも器用にこなすことで知られる森川さんだが、人生初の始球式はまさか…東北楽天ゴールデンイーグルス2026.09.06",
+        "url": "https://full-count.jp/2026/09/06/post2012768/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "NEW中日戦7連敗…ヤクルト池山監督「流れが非常に悪いですね」　同点直後の4失点を悔やむヤクルトは5日、神宮球場で行われた中日戦に4-8で敗れた。中日戦は1分けを挟んで7連敗。池山隆寛監督は「止めたいところでしたけど、昨日もそうですし今日も、流れが非常に悪い…東京ヤクルトスワローズ2026.09.05",
+        "url": "https://full-count.jp/2026/09/05/post2012788/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      },
+      {
+        "title": "「竜の希望」2軍に眠る“金の卵”　爆速弾丸アーチに漂う覚醒の気配「3年後の3冠王」中日の森駿太内野手が4日、ジャイアンツタウンで行われたファーム・リーグの巨人戦に「5番・三塁」でスタメン出場し、9回に8号ソロを放つなど2安打1打点と活躍した。小雨が降る中…中日ドラゴンズ2026.09.05",
+        "url": "https://full-count.jp/2026/09/05/post2012760/",
+        "source": "Full-Count",
+        "date": "",
+        "summary": ""
+      }
+    ]
+  },
+  "team_news": {
+    "giants": [
+      {
+        "title": "巨人・甲斐拓也、今季2安打…ともに決勝アーチ「最高の結果」　プロ野球記録タイ、球団初の1試合10人登板実った - サンスポ",
+        "source": "サンスポ",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQU3htbzB1bER6NjF6SFFSTTVFblhkVHZlN3lVZkMzalU4Um8xWlBGbXhGMm1xZDN3U1c0Q1dWTDV6LU8wWFk2czVFb28wcnNxd3JneTBmWS1qYVZ2NlJ1NXBaSmZWckhWbHZYUUwtSm5RNllPWDFUUjVKNVR2RTdsMGhYcGNTM0c1OUdMRVVPbkZQdXRfblHSAYoBQVVfeXFMTWFBSm5lVzhpTWtmUjV3TlJhMmt3Q2RmSHpYQnB5dE8wWk5sNk1HX2JoVFA2dmVxN0pyQ2xHZnkzaGVBSENTemtESS1GTGl0TnZHVEpyRDkwTzlKRjVtRzhaSjVBcmdmMGlkT3hrOXNkcVI0a2N0NUdmTy1XcWlzTEN1eVFhWkpFR2Zn?oc=5"
+      },
+      {
+        "title": "来季はどうなる…？巨人、去就が不透明な外国人選手（4）他球団流出もあり得る！？ジャイアンツ打線の”中心“ - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5UWDhEWVAtRXhVc1VCT0RWS21UVlk3LVpzZURGLUdaWVFrZkZaYzJsZHJRSF82eXZfN3RQaE4xNDhSQ1UwYkp1YWhIT25CdkZlMFZzZTBCR0tMMFJyengwSlZwTDRSeVVPQ2pfQVNfalF4SmN2UWlDbUJqYjRtWTQ?oc=5"
+      },
+      {
+        "title": "【9月4日】広島vs巨人のテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026 - Goal.com",
+        "source": "Goal.com",
+        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTmxZVXhTRnZkWW8xNTRINmduY3hqUDdtWV9BdEdXSTFkZ2NBanNOVEM1RUtWcGt2V3daUG5sS3BZSHF5ZWpVRFZka0pQWUtYYlpwT2xzRnlSazlwcDJ3b1AzcmkzLVJkeHZXWllHdmNPdURvbHRUQndRSVRHdFNoVmFDTEFGejdfRWx5eUF3eGkzNzJzQzhjRDd4X3VCR09wMnpjamFlbDRIdVlVTUpVSmEtMjNCeTZpR3lUVA?oc=5"
+      }
+    ],
+    "tigers": [
+      {
+        "title": "阪神石井大智がアキレス腱断裂からはい上がるまで 妻が語った家族の半年間 - 日刊スポーツ",
+        "source": "日刊スポーツ",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9lYl9za3lkeEZDc2JWOWd1VjBfLXRhNUItQ1gzUF9fQjBMVWpETThXc2gwQlFqcWl6VS1rdldPclV3WDhMX3dBWTY2LWtjR19jMzFSMGgxdUlZdVBWSHZtYXkxQ1VBOFRXWFJBOUxoODk0Skg5bkJLR3lNMA?oc=5"
+      },
+      {
+        "title": "タイガースの“余剰戦力”に…？阪神、1軍では出番がなさそうな選手（6）ライバルが多すぎる…2年前にブレイクも - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0zd19mQ2ZkaDhrZi16SnF4ZDN3cG1TaVNVbWw5NlVFekFIZXB5T1JCMktwOHlEV2NxRFlJbk93enQ1YjFneWluMmV2ckMxTTBCcnNIYmRmSWhVQjJEd192b0QxTGVBRWc1SzIzT1lpeVBjcnQ5NVd0T0s3cmNuX0E?oc=5"
+      },
+      {
+        "title": "阪神・二神広報の不起訴処分を発表 - デイリースポーツ",
+        "source": "デイリースポーツ",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5YQ0hGa1FLUzU2S085NW1MMVdpOFd5T3VnZTVseURfdDdNTTZ4T2ZrZktvUm95cldSRmUxX21Pck5lWkRTZ3A2c2c1Sk5ROFBoSzRELVdrQndGVWVSbk1tYUtvZjdlZ0R6Q0E?oc=5"
+      }
+    ],
+    "carp": [
+      {
+        "title": "19試合出場もわずか7打席…広島の\"俊足外野手\"が登録抹消 通算打率.111と打撃に課題（ベースボールチャンネル） - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9XcnJVcXNhVmp2NWtHSi1HS0RDeFFHejA2SjhkR1BRenoxaXJuMW9TbXBrRFlIaGo0OFlzdFhIX25VM2JmTXR3dEJjZWRBRFZNN1ZVR3UtMjNWaGlvaFc4WTF5SWR4U3o3azdFMkxYQlhfcnhaMTkyaGNMZk9HODg?oc=5"
+      },
+      {
+        "title": "【9月4日】広島vs巨人のテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026 - Goal.com",
+        "source": "Goal.com",
+        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTmxZVXhTRnZkWW8xNTRINmduY3hqUDdtWV9BdEdXSTFkZ2NBanNOVEM1RUtWcGt2V3daUG5sS3BZSHF5ZWpVRFZka0pQWUtYYlpwT2xzRnlSazlwcDJ3b1AzcmkzLVJkeHZXWllHdmNPdURvbHRUQndRSVRHdFNoVmFDTEFGejdfRWx5eUF3eGkzNzJzQzhjRDd4X3VCR09wMnpjamFlbDRIdVlVTUpVSmEtMjNCeTZpR3lUVA?oc=5"
+      },
+      {
+        "title": "【ファーム交流戦】広島東洋カープのスタメン情報・放送予定等（2026年9月5日・由宇）［vs.北海道日本ハムファイターズ］ - 安芸の者がゆく",
+        "source": "安芸の者がゆく",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1INzdRQjEtMkJlLUVTRzVSNG5JOXVrVDZhMEQ2ckRqNk1KbG5DZzhmaUxwcFZ4Mkw0UV9Vc1ZwYVFkeEljZkJpN2xsaUk4NVhDNm1YcHIzQThRVktRUWhZbXA4NW9xTlZDT0E1SHVaQ19tRVpXZmo4Qjg3ZUc4RDA?oc=5"
+      }
+    ],
+    "baystars": [
+      {
+        "title": "【データBOX】DeNA、14年連続シーズン100本塁打 - サンスポ",
+        "source": "サンスポ",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbTZiNE9wdXdJaERNR3ZEUk10dWVUdnFQWlpJbmhwV2tURTRuLVdJaUVpd3FFVTRHbnpWTmNMNC1NUlNJVUtoeEJ5VV9vZ25QZnJ2clY5YUozVkhYWUZBUnk4VkdTanNPN0tnZUZKZHp1MXlPUENiR0ZvTkw3N2FxTE1jOEVtWG5pSWRSeVY3T3AwVjI3d3ZsYdIBigFBVV95cUxOZVE1NFcyUHdydFFoc3k5cS1WMVM3WE5OSjhSVVBMdjZUNHBPUHBHNlk1Zm1iLURfeWNvMFJYRk9Wb0gyYW9OX2hBdGpJRDZqNDlkTzNPMTFqSWNTeWZ2NTJ5NzZ4VGJpNkR0RUE1SE5zdWhBUUZ1dWdIemhhX0Rmcno2dFpCQ3kzTXc?oc=5"
+      },
+      {
+        "title": "【DeNA】「これぞアーチスト!!」 筒香嘉智、“放物線が綺麗すぎる”一撃に反響 「ライトの阪神ファンも見惚れてるわ」 - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1aR1l4SjZtUmtVekY3aEUxOTNnakU2c1NEOU12TVNPT3A4R1g2UE9tVEt6VVNjbVA2Y2FYZ0p2WWtGU1hDMDVyQVVkM0J6S296Y0dmdXgyOVRSOE5WTUlOYUVGSmdLT1lmSXFOczBvYXozTlNjMURLMXlQc1FrMnM?oc=5"
+      },
+      {
+        "title": "【9月5日】阪神vsDeNAのテレビ放送/ネット配信予定・視聴方法｜プロ野球公式戦2026 - Goal.com",
+        "source": "Goal.com",
+        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPZmdLbFd1ZkNwa2c3Si1mNmE5WHdSRF9yQjlmVHFzLXh5OV9NeGZ5d1FqRTh3WngtOElXRllrZnZhdk9ZSlF2VlA0RF9KajZVTHN3SXpoY3V5dnpFZWFYRkZNVXZUem4zcFNxZkNIUEFabTBZY2w4M0VVcHpTZzYzTTZpOXFLWmhGQmZobTdPUHYwdlVrdVNUZG9NOW1FYVJqSUtrV0d1aU1PMlpzYVp1NkUyS0tmLVpyNWs5dV9DTlVJZw?oc=5"
+      }
+    ],
+    "swallows": [
+      {
+        "title": "ヤクルト－中日、延長十回終了後突然の幕切れ　グラウンドコンディション不良で引き分け　4時間57分間の死闘 - サンスポ",
+        "source": "サンスポ",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOSGVLM2V0WW9UdGtXMFBMOGdKU1lyZmUzWUFzZm9yeE10bjlOQUtyVGYwdV9xYktaM3dWam1rZEczdS1jSjVyU28wdWVudVB6cVRnTnZUTEpGLTA0b1d5dFlKa2NBeTdlQXo4X3dYek5mbFRWOE5tRVRvSFlYR3JRTkFLMUZHWTJOS3JPUmpVYWJ2aXh5VFZsStIBigFBVV95cUxQb1RLemIydjItLU5ERC1FT0FnM3NRazNoRHZWZ0ZCRVdyem9sdlJUSjZVemRpVEllMC1acTczWXdpWGplY0dMektZeFV4Z0dDOVdqVUNQVTNHRF9ncUFVTW9JTzlma0hwSTNOaFNGN3V5S2tWU3FzT1pwNnotczJPVWl0YWdUQk5EOFE?oc=5"
+      },
+      {
+        "title": "【京成杯AH】ピコローズの〝ローズ〟は東京ヤクルトスワ〝ローズ〟が由来？！ 尻尾にはつば九郎も！！ 燕党の伊藤大師が裏話を明かす（サンケイスポーツ） - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBQU29CajduT3ltZ285TXZLbHBJaURsVUtuUUN4a3RJRkxUUmpyc01VSmRMNmNXYmJlZXZlRkhXRUZoMUpwWTVSdm9MV3lrR3ZkYlVpZUVNejB2OXVCNE96TFRjaVVMNjQ0NDcyRVRkaGhJQUIwTEtUYkJlbG1CaGM?oc=5"
+      },
+      {
+        "title": "【9月5日】ヤクルトvs中日のライブ中継・テレビ放送・ネット配信｜プロ野球2026 - sportingnews.com",
+        "source": "sportingnews.com",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPOEdyamZ1bXJla2p3b042QlJJR3Z0MXBuVFlMYWVkbDFiV3FobVp1RWVYWEtsT2lIaE9BY3h1MWpSMUpOSjdrcU1JSFdlRnE2TC1oZTM2V19vTTVtbGpBU0xiUk1KSFlOY0FUcGFLQ1pUekl5ZEpyanM2cmFnLWtnbWxyR1dkUDk0cExORGNRYmpDeFhFbkF4eHpDYnY2dDM3UXo0QlZHNUJBRy1u?oc=5"
+      }
+    ],
+    "dragons": [
+      {
+        "title": "なぜ中日ドラゴンズは〝愛される〟のか？日中問題専門家の富坂聰×元中日育成選手の松田亘哲さんの白熱対談！プロ野球の変化と不変の本質（Wedge（ウェッジ）） - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5qM1V0ekVKWi1OSUdabEt4ZDZfazJnczhocFc4UVFGNVU2OTcwTWhIMU5aN0hPbkdqc18yc1lNemt4WlhvWGxjbnhDb2h4TkZwWDhKc1RvVjVDSnpMbE1fbld1SzFsdW1zakRFSktJSGlpRzc5M1Jlb0hxcXZGRm8?oc=5"
+      },
+      {
+        "title": "中日ドラゴンズの試合を見た清原和博さんは…？ - ドラ要素＠のもとけ",
+        "source": "ドラ要素＠のもとけ",
+        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1Cb2hNTjZoSUNROXBzeGZmZlN6bmhuS0kzbnQ5dlFoWlpRTnE3dHJ2WDZFa3dQaHhmbjVnQ1o3dmFPOUt5bnVBVUJ0SXJuR1FDbUZOcVFvTFZJZw?oc=5"
+      },
+      {
+        "title": "【9月5日】ヤクルトvs中日のライブ中継・テレビ放送・ネット配信｜プロ野球2026 - sportingnews.com",
+        "source": "sportingnews.com",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPOEdyamZ1bXJla2p3b042QlJJR3Z0MXBuVFlMYWVkbDFiV3FobVp1RWVYWEtsT2lIaE9BY3h1MWpSMUpOSjdrcU1JSFdlRnE2TC1oZTM2V19vTTVtbGpBU0xiUk1KSFlOY0FUcGFLQ1pUekl5ZEpyanM2cmFnLWtnbWxyR1dkUDk0cExORGNRYmpDeFhFbkF4eHpDYnY2dDM3UXo0QlZHNUJBRy1u?oc=5"
+      }
+    ],
+    "hawks": [
+      {
+        "title": "【九州エリア限定】『食べて、集めて、勝ち進め！セブン‐イレブン 福岡ソフトバンクホークス 全新キャンペーン』9月8日（火）より九州エリアのセブン‐イレブンで開催！ - PR TIMES",
+        "source": "PR TIMES",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9GU0QxUE95WmI3eS01TEZmTW90Q0ZCN0hIR3plNENTSUdvNnB3eUFqNzR2VkNwUVBsMUZqMVJZektQTTRrQ2N3ZGhBdndHN0tfWDRXSjFvTHRqOVZFQkk1Y3hNdmdTd2p3VHc?oc=5"
+      },
+      {
+        "title": "鷹は上茶谷大河で同一カード3連勝を狙う　武内夏暉は8月防御率1.61と好調 - パ・リーグ.com",
+        "source": "パ・リーグ.com",
+        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE53V0o1YURlYy1vN1lFQUxrU2JYS2xqQkdhTkZtbFRHNjJOaHNfNFlwcGFQSzBpbDBOQTlYX19xQlp2UUdzelRNQlY2dDMtN3ZVdmNuMUdB0gFSQVVfeXFMT0NqRm5KU1d2eFpXWWZTY1pWRXNadDZlRVo4eFo5ZDE0RkNCMXAtNXFxbVRXNlpLOURfelZLVFI2OExSV284cUVYenpLLUIxN3JrUQ?oc=5"
+      },
+      {
+        "title": "プロ野球、今季に評価を爆上げしている選手（5）プロ5年目で“衝撃”…球界屈指のリードオフマンに（ベースボールチャンネル） - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1rMkVBRmF6ZjRxU1FQdUt3TDkzVGNtOFZOYW83ekNqa2x2UExCWDNSTXIwam5Bek9MU3pPYy02S0dHbzBrMFYwcGdDelYwZVlrbjRVUkpYaW5kelJfUU55V3RBMTdHVEI3Rlg4aWVtUkx6ckZIbDU4M3FhZVhEVmc?oc=5"
+      }
+    ],
+    "fighters": [
+      {
+        "title": "東北楽天 vs. 北海道日本ハム 9月5日 楽天モバイル - TVer",
+        "source": "TVer",
+        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5QcWxOa3JCQzVyQndncmNveHkxUXgzc3pSeUhMRHlFaTRQSUtJUUpyeldQWmI0Wi1CWVdVSkhOQ2pLR1BNNl8ySmlQZw?oc=5"
+      },
+      {
+        "title": "日本ハム7連勝、伊藤9勝目　レイエス31号 - サンスポ",
+        "source": "サンスポ",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPSzcxRTY5Q2Y1UzJGVTZnVjFpYjhINmNLYUI5TWZrWEQ2OHRzdWxtRWIwSDIyWHB6TkVCakJGRWlmbFdKRVVHRE5tR3BzRENXdnNsUmVFQnpFSEp3MENkZDB5NXduQThuTVFtRHhpLVNDMV9UYkJ6Q0dqMDNTU0swd0RRQXliUHZaVjhRbzB5WFp1VDl3SHhiQ9IBigFBVV95cUxPNk9YVS03RGtlUEh1SEttaTlCcVIwQ3E3UUxhR0hKUlpGYURQWm9id0tGbUU3aXNtT2hodXNHQWpSbTZEYWtVZFE1RHNkdWwtMWhoUkJqZjhfSzJ6YkZSMEVyRExCQ0VuaUt5ZnNWbTNITWhIOWdjYmY2enBQZHJIZHJ4Z2lKS3BBX0E?oc=5"
+      },
+      {
+        "title": "【日本ハム】ダブルスチールで先制点 細川凌平の二盗の間に奈良間大己が本塁突入で鮮やかオールセーフ - 日テレNEWS NNN",
+        "source": "日テレNEWS NNN",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9YTi1Nb192XzRjTWo5cVJ6YzF5SV8yeFVOeGtEWUZncURQU0MzZGVrUzdfMXIwMXRHUnZMZ2tYbUJabXFnS0FldTB6MWxLUFU1RVlPemN6SkY5VFJaenhHcDl6aVltdFNmOE9LeFlGUVNLdEdfajZIOXZZQQ?oc=5"
+      }
+    ],
+    "eagles": [
+      {
+        "title": "9月4日 東北楽天ゴールデンイーグルス 対 北海道日本ハムファイターズ ハイライト - パ・リーグ.com",
+        "source": "パ・リーグ.com",
+        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5oUFpYckxja0h1bHMzUGJwZ1BLdlpBU1lyOEZ1N1FBbjFteTlZXy1mb0NubHFFenA3b19FMUpIUDd2R1RZY1ZPUTBpMUo?oc=5"
+      },
+      {
+        "title": "新日本プロレス 棚橋弘至社長が東北楽天戦でセレモニアルピッチ！筋肉が邪魔をせず渾身のノーバウンド投球を披露 - スポーツナビ",
+        "source": "スポーツナビ",
+        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1oNzJyTWxveTFqdW96OVM1S1JiVTBKNmR5MjBSMjdZUEhGOF8xa01UU3JOUV9nNDRqZjBMdGFsV1lHaU9lX1VJWThLUjNDc0lvRlVuaHAzZU5yYWphZlh0Wk53clFXR3BJQ3hkZHRlZ2dEZlU?oc=5"
+      },
+      {
+        "title": "2026.09.05 18:00 楽天モバイル最強パーク宮城 日本ハム vs 楽天 一球速報：プロ野球 - サンスポ",
+        "source": "サンスポ",
+        "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE93aWxrOFE0bkl3S2hWV1VRZ2ViT1p6VTVsMklQQWl3RFBVbXg3VHhORVV6NHVKc2xONGxJcWhULWUyWS1WV1lxMDRma2VaQ0J0UGp6TmxxMzZzbHdaZ0t5OEplTl9XQW9uczFlRVkwRGlxeDN6bThv?oc=5"
+      }
+    ],
+    "lions": [
+      {
+        "title": "9月4日 福岡ソフトバンクホークス 対 埼玉西武ライオンズ ハイライト - パ・リーグ.com",
+        "source": "パ・リーグ.com",
+        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5DUjN5LXNmdkNsd3JWWWVVWWdHOU1xN2dIc3lpS2dlSUNsbGRCTUVadm5VNDNtTkhmb0YxMDNMa2xNckxCZGNyLUo0Wkw?oc=5"
+      },
+      {
+        "title": "長期契約もまさか…期待外れの大物選手（4）西武が誇る韋駄天…”減額制限超え”ダウンに（ベースボールチャンネル） - Yahoo!ニュース",
+        "source": "Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1rbkFaZ3NsOFdlNWgtV3dleV85ZVRULTBHTnVRT1VmLWZraG91aDRxRGZTQU1TSHctVmdxWTllaWcybnRFRWF3V1E1anh4V2taajB5M1JZcV9ZTVM3cHFCeWl5WWJnZ1Q1cTdPNllhbmFoaDFNSmRsUkNKQXVJc00?oc=5"
+      },
+      {
+        "title": "福岡ソフトバンク vs. 埼玉西武 9月5日 みずほPayPay - TVer",
+        "source": "TVer",
+        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4wdVA3TzBPQzV5ZUh0eGZibnpkRS1fTXV2WUpxQ0RqZE9tdF9aRC1pcVduTENuTno1NFFxX1l6MlhnNk1ocTROZDdWdw?oc=5"
+      }
+    ],
+    "buffaloes": [
+      {
+        "title": "9月5日 オリックス・バファローズ 対 千葉ロッテマリーンズ ハイライト - パ・リーグ.com",
+        "source": "パ・リーグ.com",
+        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5CQTZCaGpzYnNXZ0tnNmV4V25RS0lNSkRhNzM5cml5dzViNnlmb3hvYWVoZzB3Y3BNcnRkcGd1V05WRjBhd190VE1iTmY?oc=5"
+      },
+      {
+        "title": "【9/15まで！】「オリチケ eギフトカード」好評販売中！ - オリックス・バファローズ",
+        "source": "オリックス・バファローズ",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE95aEtzanoyRk82UjVub1FDYjMyNU16dWs4cllhdFcycWMzQnJxeTVlcVNZTXFZM1BTbWFOOHR6TGNraW5POUs4MTBKM3VZM3ZYdDVhWkdIX0VfWmYzVmVhcVJlR2k5V1B1?oc=5"
+      },
+      {
+        "title": "ヤクルト×オリックス 2026/9/6(日) の試合速報・結果 - 週刊ベースボールONLINE",
+        "source": "週刊ベースボールONLINE",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9VLUU5SXBOaUQ0RVVneG4wanhGZEluXy1tQ1Z5UkFqdXA3YTNfUDZLd3U2cVVRUy0yVmFleVVFNWpNTG9zejdOYTZraFhZOUZsWW85V3hQQldCSXZjN3RhOHV1WGJZS3hBM1FLR2stT1F0WURnT3RDbi1QZGI4S00?oc=5"
+      }
+    ],
+    "marines": [
+      {
+        "title": "オリックス vs. 千葉ロッテ 9月5日 京セラD大阪 - TVer",
+        "source": "TVer",
+        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9oZy1BcmVWbXYzNU4zOGxDajhyb3B1bXNGZlBtZ2xnM29YbU5QZmZGOC1YT0x4RFhCZUNHc0RMYkZ5MjJlTkpJREktWQ?oc=5"
+      },
+      {
+        "title": "【ロッテ担当がつづる〈10〉】八木の感情コントロール、西川がチームため選んだ四球 - 日刊スポーツ",
+        "source": "日刊スポーツ",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE91WDJoZGxyNFRWYWtZQVAzamIyZ3pPYmRZWHhoVzM4R2NFbnhCMEJ5NlVPeUMzRlRSQTdFTXVUMEdxa0NNbXp5amFxbFFLT0oyZDFad1hpaUdNTUpoYV9ZX3o5ZkxkbkhkeVZQQl9YWEdFTnVoWWd5X3pFZw?oc=5"
+      },
+      {
+        "title": "9月5日 オリックス・バファローズ 対 千葉ロッテマリーンズ ハイライト - パ・リーグ.com",
+        "source": "パ・リーグ.com",
+        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5CQTZCaGpzYnNXZ0tnNmV4V25RS0lNSkRhNzM5cml5dzViNnlmb3hvYWVoZzB3Y3BNcnRkcGd1V05WRjBhd190VE1iTmY?oc=5"
+      }
+    ]
+  },
+  "collected_at": "2026-09-06 12:01:09"
+}
