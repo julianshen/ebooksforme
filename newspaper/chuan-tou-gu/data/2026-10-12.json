@@ -1,0 +1,882 @@
+{
+  "date_info": {
+    "date_str": "2026-10-12",
+    "prev_date_str": "2026-10-09",
+    "display": "2026年10月12日",
+    "weekday": "星期一",
+    "prev_display": "2026年10月09日"
+  },
+  "generated_at": "2026-10-12T11:00:20.145595",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7811.54,
+      "change": 46.18,
+      "change_pct": 0.59,
+      "prev_close": 7765.36
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 51654.95,
+      "change": 423.31,
+      "change_pct": 0.83,
+      "prev_close": 51231.64
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 27366.17,
+      "change": 172.83,
+      "change_pct": 0.64,
+      "prev_close": 27193.34
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 14.84,
+      "change": -0.57,
+      "change_pct": -3.7,
+      "prev_close": 15.41
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 5.24,
+      "change": 0.01,
+      "change_pct": 0.25,
+      "prev_close": 5.23
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 2806.98,
+      "change": 12.85,
+      "change_pct": 0.46,
+      "prev_close": 2794.13
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 209.05,
+      "change": 10.27,
+      "change_pct": 5.17,
+      "prev_close": 198.78
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 262.43,
+      "change": 8.37,
+      "change_pct": 3.29,
+      "prev_close": 254.06
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 535.07,
+      "change": 12.46,
+      "change_pct": 2.38,
+      "prev_close": 522.61
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 382.7,
+      "change": 7.7,
+      "change_pct": 2.05,
+      "prev_close": 375.0
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 608.1,
+      "change": -12.58,
+      "change_pct": -2.03,
+      "prev_close": 620.68
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 336.64,
+      "change": -3.78,
+      "change_pct": -1.11,
+      "prev_close": 340.42
+    },
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 8.11,
+      "change": -0.09,
+      "change_pct": -1.1,
+      "prev_close": 8.2
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 351.66,
+      "change": 3.37,
+      "change_pct": 0.97,
+      "prev_close": 348.29
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 1029.0,
+      "change": -6.84,
+      "change_pct": -0.66,
+      "prev_close": 1035.84
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 229.28,
+      "change": -1.2,
+      "change_pct": -0.52,
+      "prev_close": 230.48
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 361.54,
+      "change": 1.4,
+      "change_pct": 0.39,
+      "prev_close": 360.14
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 718.67,
+      "change": -2.22,
+      "change_pct": -0.31,
+      "prev_close": 720.89
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 41.61,
+      "change": 0.76,
+      "change_pct": 1.86,
+      "prev_close": 40.85
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 170.81,
+      "change": 2.65,
+      "change_pct": 1.58,
+      "prev_close": 168.16
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 112.85,
+      "change": 1.14,
+      "change_pct": 1.02,
+      "prev_close": 111.71
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 54.73,
+      "change": 0.5,
+      "change_pct": 0.92,
+      "prev_close": 54.23
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 41.41,
+      "change": 0.34,
+      "change_pct": 0.83,
+      "prev_close": 41.07
+    },
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 198.78,
+      "change": 1.0,
+      "change_pct": 0.51,
+      "prev_close": 197.78
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 169.25,
+      "change": 0.85,
+      "change_pct": 0.5,
+      "prev_close": 168.4
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 49.43,
+      "change": 0.16,
+      "change_pct": 0.32,
+      "prev_close": 49.27
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 83.43,
+      "change": 0.01,
+      "change_pct": 0.01,
+      "prev_close": 83.42
+    },
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 65.08,
+      "change": -0.16,
+      "change_pct": -0.25,
+      "prev_close": 65.24
+    }
+  ],
+  "news": {
+    "yahoo": [],
+    "cnbc": [
+      {
+        "title": "Oil falls after Trump declares 'energy ceasefire' between Russia and Ukraine",
+        "url": "https://www.cnbc.com/2026/10/12/oil-prics-today-iran-us-saudi-arabia-crude-.html",
+        "description": "News of Iran reportedly offered to mediate between Yemen's Houthis and Saudi Arabia helped to bring oil prices lower.",
+        "source": "CNBC",
+        "published": "Mon, 12 Oct 2026 02:27:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Judge orders Trump administration to immediately stop taxpayer-funded TV ads",
+        "url": "https://www.cnbc.com/2026/10/11/trump-ads-dhs-judge-order.html",
+        "description": "The ads featuring President Trump have been criticized as government propaganda and as aimed at influencing the outcome of the midterm election.",
+        "source": "CNBC",
+        "published": "Mon, 12 Oct 2026 02:28:54 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Why China is importing a record amount of gold — and what it means for prices",
+        "url": "https://www.cnbc.com/2026/10/12/china-gold-buying-interest-rate-.html",
+        "description": "Beijing’s push to diversify away from the dollar and Chinese households’ search for a safe place to put their savings has fueled China’s record gold buying.",
+        "source": "CNBC",
+        "published": "Mon, 12 Oct 2026 00:51:10 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Vance says Microsoft replaced laid-off workers with foreign hires. Here’s what the visa data shows",
+        "url": "https://www.cnbc.com/2026/10/10/vance-microsoft-h1b-layoffs-visa-data.html",
+        "description": "The administration barred Microsoft and seven other firms from sponsoring green cards over claims they favor foreign workers. Here's what the visa data shows.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 14:22:23 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump says he is 'going to look at' joining Saudi Arabia in the fight against Iran-backed Houthis after deadly airport strike",
+        "url": "https://www.cnbc.com/2026/10/11/trump-saudi-arabia-iran-houthis.html",
+        "description": "U.S. military involvement in the fight against the Houthis would stretch resources in the Middle East already committed to fighting Iran, analysts said.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 21:30:45 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump declares 'energy ceasefire' between Russia and Ukraine; Zelenskyy is waiting for details",
+        "url": "https://www.cnbc.com/2026/10/11/trump-energy-ceasefire-russia-ukraine-zelenskyy.html",
+        "description": "Ukrainian President Volodymyr Zelenskyy said he is waiting on details from Washington.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 19:33:51 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Justice Department investigates TV networks as White House press-access fight escalates",
+        "url": "https://www.cnbc.com/2026/10/11/trump-doj-white-house-tv-press-pool-antitrust.html",
+        "description": "The Justice Department said in a statement that it is examining whether the White House TV press pool violated the Sherman Act.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 20:18:38 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Plenty is working against this market. Here's why I'm staying invested anyway",
+        "url": "https://www.cnbc.com/investingclub/2026/10/11/plenty-is-working-against-this-market-why-im-staying-invested-anyway.html",
+        "description": "The fact is, I don't have a strong case for owning stocks at the moment.",
+        "source": "CNBC",
+        "published": "Mon, 12 Oct 2026 00:23:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Living with Mom and trading on margin. The regular investor gets in on Wall Street's record stock borrowing binge",
+        "url": "https://www.cnbc.com/2026/10/09/margin-debt-stock-market-risk.html",
+        "description": "Margin debt has surged to record levels as investors like 29-year-old Hy Luu borrow more against their portfolios. Here’s how leverage can amplify stock losses.",
+        "source": "CNBC",
+        "published": "Fri, 09 Oct 2026 13:03:19 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Pokémon card values are soaring. What collectors should know before buying or selling",
+        "url": "https://www.cnbc.com/2026/10/10/pokemon-card-values-grading-guide.html",
+        "description": "Pokémon card values are surging. Learn how grading, scarcity, recent sales and counterfeits can affect what collectors pay.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 13:30:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "JPMorgan makes bullish call in fixed income space, suggests it's a once in a generation opportunity",
+        "url": "https://www.cnbc.com/2026/10/10/jpmorgan-sees-once-in-a-generation-opportunity-in-fixed-income-space.html",
+        "description": "Why Priya Misra, a portfolio manager at the firm, is looking to take credit risk in high-quality companies.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 15:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "From BJ’s to Lululemon, retailers are trimming assortments to boost business",
+        "url": "https://www.cnbc.com/2026/10/10/from-bjs-to-lululemon-retailers-are-trimming-assortments.html",
+        "description": "Retail brands are shrinking assortments to get back to healthy growth, while box stores are culling products to better curate offerings and stabilize business.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 17:08:30 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI’s quiet safety gatekeepers are stepping into the spotlight",
+        "url": "https://www.cnbc.com/2026/10/11/ais-quiet-safety-gatekeepers-are-stepping-into-the-spotlight.html",
+        "description": "The intensifying AI safety debate is bringing a small group of third-party evaluators into the center of a multitrillion-dollar industry.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 14:08:44 GMT",
+        "has_description": true
+      },
+      {
+        "title": "NBA commissioner Adam Silver says league could introduce ‘smart ball’ technology as soon as next year",
+        "url": "https://www.cnbc.com/2026/10/11/commissioner-adam-silver-nba-could-launch-smart-ball-tech-next-year.html",
+        "description": "Commissioner Adam Silver says the NBA could begin using a new \"smart ball\" in games as soon as next year, potentially transforming how officials make calls.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 12:54:04 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Hollywood takes on Zuckerberg, Musk and Altman amid widespread anxiety over AI",
+        "url": "https://www.cnbc.com/2026/10/10/ai-movies-tech-ceos-hollywood.html",
+        "description": "New films about Zuckerberg, Musk, Altman and AI arrive as public concern about the technology and its leaders rises.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 12:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI is automating coding. So why are software developer job postings on the rise?",
+        "url": "https://www.cnbc.com/2026/10/11/ai-software-developer-jobs.html",
+        "description": "Software developer job postings are rebounding, led by senior and AI-focused roles, even as AI automates more coding and entry-level hiring weakens.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 13:30:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump Media advisor Katie Zacharia named White House press secretary",
+        "url": "https://www.cnbc.com/2026/10/11/trump-katie-zacharia-white-house-press-secretary.html",
+        "description": "Trump named Katie Zacharia to take over as the next press secretary.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 22:16:40 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Why Japan's 7-Eleven store closures in India don’t signal an exit",
+        "url": "https://www.cnbc.com/2026/10/10/7-eleven-india-japan-reliance.html",
+        "description": "7-Eleven store closures point to a reset of its operations in India, not to an exit.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 11:21:05 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI may change the price of your Big Mac and groceries — what this means for shoppers",
+        "url": "https://www.cnbc.com/2026/10/11/ai-dynamic-pricing-shoppers-groceries.html",
+        "description": "As retailers turn to AI tools to streamline operations, experts warn that collecting more detailed consumer data increases the risk of personalized pricing.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 05:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Tokenization could unleash tens of billions of dollars in trapped capital, Nasdaq CEO says",
+        "url": "https://www.cnbc.com/2026/10/09/nasdaq-ceo-tokenization-could-unleash-billions-in-trapped-capital-.html",
+        "description": "Nasdaq CEO Adena Friedman said tokenization could free up tens of billions of dollars in trapped capital.",
+        "source": "CNBC",
+        "published": "Fri, 09 Oct 2026 06:30:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "I’m a psychologist who studies couples: The No. 1 way to end a fight before it escalates—it works ‘almost immediately’",
+        "url": "https://www.cnbc.com/make-it/2026/10/11/psychologist-couples-end-fight-before-escalates-partial-yield.html",
+        "description": "\"In my experience, nothing de-escalates a conflict faster,\" says psychologist Mark Travers. Why a \"partial yield\" works, and how to use it.",
+        "source": "CNBC",
+        "published": "Sun, 11 Oct 2026 12:48:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "How Supreme Court justices are leaning in major 401(k) case over private funds and underperformance",
+        "url": "https://www.cnbc.com/2026/10/10/supreme-court-case-401k-private-funds-intel.html",
+        "description": "The Supreme Court is weighing an Intel 401(k) case as employers await new Labor Department rules on private investments in retirement plans.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 13:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Buffett's 'trips down YouTube rabbit hole' revealed",
+        "url": "https://www.cnbc.com/2026/10/10/buffetts-trips-down-youtube-rabbit-hole-revealed.html",
+        "description": "Warren Buffett watches CNBC in the morning, but nearly every evening he \"can't get enough\" of watching YouTube clips while sitting on a recliner in front of an \"enormous\" television in his Omaha home, reports The Wall Street Journal.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 12:01:16 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia GPUs are everywhere. Here are the ways companies are accessing them",
+        "url": "https://www.cnbc.com/2026/10/10/nvidia-gpus-are-everywhere-heres-how-companies-access-them.html",
+        "description": "One industry researcher identified over 300 neoclouds that can provide GPU capacity, up about 55% in less than a year.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 11:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Putin relayed Iran war proposal to Trump, Kremlin says",
+        "url": "https://www.cnbc.com/2026/10/10/putin-trump-iran-war-russia-diesel.html",
+        "description": "Putin's reported call with Trump regarding the Iran war comes on the heels of a deal for the U.S. to buy Russian diesel amid a surge in fuel prices.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 13:42:36 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump created a committee to dig into the Fed's Lisa Cook. What is it and what comes next?",
+        "url": "https://www.cnbc.com/2026/10/09/trump-lisa-cook-fed-firing-committee-explained.html",
+        "description": "Trump’s bid to fire the Fed's Lisa Cook follows a Supreme Court ruling and could affect Jerome Powell, central bank independence and interest rates.",
+        "source": "CNBC",
+        "published": "Fri, 09 Oct 2026 19:19:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "How de-extincting dire wolves and woolly mammoths may extend human life",
+        "url": "https://www.cnbc.com/2026/10/10/de-extincting-dire-wolves-woolly-mammoths-help-humans.html",
+        "description": "Colossal Biosciences CEO Ben Lamm says bringing extinct species back can contribute to conservation, healthcare and developmental biology.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 14:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI is changing how lawyers work — and putting the billable hour under pressure",
+        "url": "https://www.cnbc.com/2026/10/10/ai-lawyers-billable-hour-legal-careers.html",
+        "description": "AI adoption is forcing the legal profession to rethink the billable hour and how lawyers build expertise.",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 05:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The world needs Ukraine’s grain. Its farmers are running out of reasons to plant",
+        "url": "https://www.cnbc.com/2026/10/10/ukraine-grain-exports-russia-harvest.html",
+        "description": "Cash-strapped farmers have no incentive to sow for 2027 with exports remaining trapped, as analysts say commodity markets could \"flip fast.\"",
+        "source": "CNBC",
+        "published": "Sat, 10 Oct 2026 05:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump Media advisor Katie Zacharia offered White House press secretary role",
+        "url": "https://www.cnbc.com/2026/10/09/katie-zacharia-white-house-press-secretary.html",
+        "description": "The White House has tapped Katie Zacharia to be its next press secretary, a White House official confirmed to CNBC.",
+        "source": "CNBC",
+        "published": "Fri, 09 Oct 2026 19:25:28 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [
+      {
+        "title": "‘I have no children’: My aunt gave me $50,000 for a down payment. Now she wants me to leave my home to her two children.",
+        "url": "https://www.marketwatch.com/story/i-have-no-children-my-aunt-gave-me-50-000-for-a-down-payment-she-wants-me-to-leave-my-home-to-her-two-children-24fad94c?mod=mw_rss_topstories",
+        "description": "“The house cost $385,000. With my savings, her $50,000 and a small mortgage, I was able to close.”",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 20:15:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘I feel like a loser’: My stock portfolio is swinging wildly. Is it finally time to worry?",
+        "url": "https://www.marketwatch.com/story/i-feel-like-a-loser-my-etfs-go-up-one-day-and-crash-the-next-is-this-a-bad-sign-0c9848b2?mod=mw_rss_topstories",
+        "description": "“I presume these are sophisticated investors taking a profit.”",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 20:00:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "My brother-in-law convinced his parents to sign over their home and life savings to buy a $3 million compound. Do I intervene?",
+        "url": "https://www.marketwatch.com/story/my-brother-in-law-convinced-his-parents-to-sign-over-their-home-and-savings-to-buy-a-3-million-compound-do-i-intervene-03fb96b7?mod=mw_rss_topstories",
+        "description": "“Both properties will be solely in his name.”",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 19:32:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "I’m a 68-year-old widow and give money to my two adult children. Am I putting my retirement at risk?",
+        "url": "https://www.marketwatch.com/story/im-a-68-year-old-widow-my-two-adult-children-keep-asking-me-for-money-are-they-taking-advantage-of-me-f725374e?mod=mw_rss_topstories",
+        "description": "“I also have $310,000 in an IRA and $46,000 in savings. My house is paid off.”",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 19:32:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Millions of Americans will have fewer options during Medicare open enrollment this year",
+        "url": "https://www.marketwatch.com/story/millions-of-americans-will-have-fewer-options-during-medicare-open-enrollment-this-year-6b56698b?mod=mw_rss_topstories",
+        "description": "There will be no Medicare Advantage plans in 181 counties in 2027, up from 67 in 2026.",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 16:35:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "We’re about to get a huge read on whether earnings can keep propping up the stock market",
+        "url": "https://www.marketwatch.com/story/were-about-to-get-a-huge-read-on-whether-earnings-can-keep-propping-up-the-stock-market-459b565b?mod=mw_rss_topstories",
+        "description": "High hopes for third-quarter earnings are outweighing concerns around interest rates and oil prices — but one expert warns markets have gotten “extremely complacent.”",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 14:00:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The bull market is turning 4 years old — but yields could crash the party",
+        "url": "https://www.marketwatch.com/story/the-bull-market-is-turning-4-years-old-but-yields-could-crash-the-party-1305fe6c?mod=mw_rss_topstories",
+        "description": "For four years, tech has been the answer to almost every question about this bull market.",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 13:00:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Bank earnings to shed the first light on how higher yields are affecting the economy",
+        "url": "https://www.marketwatch.com/story/bank-earnings-to-shed-the-first-light-on-how-higher-yields-are-affecting-the-economy-cf3763ef?mod=mw_rss_topstories",
+        "description": "The big banks kick off earnings season on Tuesday, to provide a first read on the health of the economy in a rising-yield environment.",
+        "source": "MarketWatch",
+        "published": "Sun, 11 Oct 2026 12:00:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Should I put my nest egg in a 30-year Treasury bond?",
+        "url": "https://www.marketwatch.com/story/should-i-put-my-nest-egg-in-a-30-year-treasury-bond-89db6e09?mod=mw_rss_topstories",
+        "description": "Risk comes in many forms, even with “safe” investments.",
+        "source": "MarketWatch",
+        "published": "Sat, 10 Oct 2026 19:44:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Worse than taking away your parents’ car keys? Taking away their cell phone. How to protect your aging parents.",
+        "url": "https://www.marketwatch.com/story/worse-than-taking-away-your-parents-car-keys-taking-away-their-cellphone-how-to-protect-your-aging-parents-f01be6e6?mod=mw_rss_topstories",
+        "description": "Parental controls aren’t just for kids anymore",
+        "source": "MarketWatch",
+        "published": "Sat, 10 Oct 2026 19:44:00 GMT",
+        "has_description": true
+      }
+    ],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "US threatens to block arms for Ukraine over attacks on Russian refineries",
+        "url": "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031?syn-25a6b1a6=1",
+        "description": "Officials lobby European capitals and Kyiv following Trump’s diesel deal with Putin",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 18:40:51 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump faces Republican opposition to his diesel deal with Russia’s Putin",
+        "url": "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff?syn-25a6b1a6=1",
+        "description": "Lawmakers from both parties say the agreement would finance Putin’s war machine in Ukraine and violate US law",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 21:17:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Can Russia meet Trump’s diesel demands?",
+        "url": "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21?syn-25a6b1a6=1",
+        "description": "Ukrainian strikes have triggered the worst petrol shortages since the collapse of the Soviet Union but diesel is not in short supply",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 17:13:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Houthis show military reach with deadly missile strikes on Riyadh",
+        "url": "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e?syn-25a6b1a6=1",
+        "description": "Yemen’s Iran-backed militants demonstrate that they are not just ‘guys in flip-flops’",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 13:04:47 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Russia steps up bid to kill European defence chiefs, spy agencies warn",
+        "url": "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4?syn-25a6b1a6=1",
+        "description": "Companies increase personal security for top executives as Kremlin orders expansion of sabotage and ‘hybrid’ operations",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 04:00:06 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Democrats need a foreign policy",
+        "url": "https://www.ft.com/content/dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f?syn-25a6b1a6=1",
+        "description": "Trump’s approach to the world has left Republicans floundering as the midterms approach. Liberals should plan their own strategy now",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 15:13:30 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
+        "url": "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe?syn-25a6b1a6=1",
+        "description": "BP and others skip World Petroleum Council meeting after 12 killed in Houthi attack",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 16:56:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "US hits commercial tanker in Gulf of Oman as tensions flare",
+        "url": "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9?syn-25a6b1a6=1",
+        "description": "Ship tried to break through American naval blockade of Iranian ports, Central Command says of its first attack in a month",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 19:53:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "India’s ‘Cockroach’ movement plans more protests after release of leaders",
+        "url": "https://www.ft.com/content/9b30ee59-b542-48b8-85f6-d60dce897342?syn-25a6b1a6=1",
+        "description": "Abhijeet Dipke of the youth-led Cockroach Janta Party was freed by a court order as police tightened security in New Delhi",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 13:07:40 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump is failing to arrest decline in popularity, FT poll shows",
+        "url": "https://www.ft.com/content/f6d29414-412d-4422-a5f4-cb3338f73d3a",
+        "description": "Voters increasingly doubt the president’s ability to steer the economy with weeks to go until elections",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 04:00:06 GMT",
+        "has_description": true
+      },
+      {
+        "title": "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
+        "url": "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a?syn-25a6b1a6=1",
+        "description": "Auto sector welcomes ‘understanding’ reached with Beijing but other industries warn China’s huge trade surplus will persist without further action",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 20:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "VW chief calls for France and Germany to co-operate on China car fightback",
+        "url": "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837?syn-25a6b1a6=1",
+        "description": "‘When it matters, we have found solutions together’, Oliver Blume says ahead of Paris Motor Show",
+        "source": "Financial Times",
+        "published": "Sun, 11 Oct 2026 18:09:24 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "FDX",
+      "name": "FedEx Corporation",
+      "event": "Q1 2027 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "3.83",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "NRIX",
+      "name": "Nurix Therapeutics, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "5.11",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "GLDG",
+      "name": "GoldMining Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.03",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7883.0,
+      "change": 23.25,
+      "change_pct": 0.3,
+      "prev_close": 7859.75
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 31232.75,
+      "change": 124.0,
+      "change_pct": 0.4,
+      "prev_close": 31108.75
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 52099.0,
+      "change": 173.0,
+      "change_pct": 0.33,
+      "prev_close": 51926.0
+    }
+  ]
+}
