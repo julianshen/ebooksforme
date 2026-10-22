@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日職每日報 - 2026年10月22日</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --paper: #1e293b;
+            --ink: #f1f5f9;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --gold: #fbbf24;
+            --central: #60a5fa;
+            --pacific: #f87171;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .newspaper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+            min-height: 100vh;
+        }
+        .cover-banner {
+            width: 100%;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: 0 0 40px rgba(56,189,248,0.15);
+        }
+        .cover-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .masthead {
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+        }
+        .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-shadow: 3px 3px 0 rgba(56,189,248,0.3);
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+        }
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .content { padding: 2rem; }
+        .section { margin-bottom: 2.5rem; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            flex: 1;
+            color: var(--ink);
+        }
+        .auto-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #0f172a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 900;
+        }
+        .news-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            border-left: 4px solid var(--accent);
+            margin-bottom: 1rem;
+        }
+        .focus-news {
+            border-left-color: var(--gold);
+        }
+        .focus-news .card-title a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .focus-news .card-title a:hover {
+            color: #f59e0b;
+            text-decoration: underline;
+        }
+        .card-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .tag-game { background: rgba(56,189,248,0.15); color: var(--accent); }
+        .tag-news { background: rgba(251,191,36,0.15); color: var(--gold); }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+        }
+        .card-body { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .news-date { font-size: 0.8rem; color: var(--muted); }
+        .read-more {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .read-more:hover { text-decoration: underline; }
+        /* ── 賽程卡片 ── */
+        .game-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        .game-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .team-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 1;
+        }
+        .team-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        .team-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--ink);
+        }
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            min-width: 4rem;
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .game-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .game-extra {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            flex-wrap: wrap;
+        }
+        .pitcher-info, .attendance-info, .duration-info {
+            background: rgba(56,189,248,0.1);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+        }
+        .game-status {
+            display: inline-block;
+            background: rgba(251,191,36,0.15);
+            color: var(--gold);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .game-time {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        /* ── 戰績表 ── */
+        .league-subtitle {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+            color: var(--ink);
+        }
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .standings-table th {
+            background: #1e293b;
+            padding: 0.5rem 0.4rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            color: var(--muted);
+        }
+        .standings-table td {
+            padding: 0.4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--ink);
+        }
+        .standings-table .team-cell {
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .standings-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+        .rank-cell {
+            font-weight: 700;
+            color: var(--muted);
+        }
+        /* ── 交流戰 ── */
+        .interleague-card {
+            background: linear-gradient(135deg, #1e3a5f 0%, #3d1e1e 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .interleague-header {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .interleague-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .central-score { color: var(--central); }
+        .pacific-score { color: var(--pacific); }
+        .vs-divider { color: var(--muted); font-size: 1rem; }
+        .interleague-leader {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        /* ── 排行榜 ── */
+        .leader-group {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            margin-bottom: 0.5rem;
+        }
+        .leader-group:nth-child(odd) {
+            margin-right: 2%;
+        }
+        .leader-subtitle {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0.75rem 0 0.3rem;
+        }
+        .leaders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .leaders-table th {
+            background: #1e293b;
+            padding: 0.3rem 0.3rem;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            color: var(--muted);
+        }
+        .leaders-table td {
+            padding: 0.3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--ink);
+        }
+        .leaders-table .team-cell {
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+        }
+        .leaders-logo {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+        .player-cell {
+            text-align: left !important;
+            font-weight: 700;
+        }
+        .value-cell {
+            font-weight: 900;
+            color: var(--accent);
+        }
+        /* ── 球隊新聞 ── */
+        .news-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .team-news-block {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            flex: 1 1 280px;
+            min-width: 0;
+        }
+        .team-news-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .news-team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+        .team-news-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--ink);
+        }
+        .team-news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .news-item {
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border);
+            line-height: 1.5;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        .news-link {
+            color: var(--ink);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .news-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .news-title {
+            color: var(--ink);
+        }
+        .news-source {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+        .footer {
+            background: #020617;
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--accent);
+        }
+        .footer p { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 900;
+        }
+        .back-link:hover { background: #7dd3fc; }
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .content { padding: 1rem; }
+            .issue-info { flex-direction: column; gap: 0.5rem; }
+            .game-teams { flex-wrap: wrap; }
+            .leader-group { width: 100%; }
+            .interleague-score { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <div class="cover-banner"><img src="images/cover-3.png" alt="日職每日報封面"></div>
+        <header class="masthead">
+            <div class="tagline">Nippon Professional Baseball Daily</div>
+            <h1 class="title">日職每日報</h1>
+            <p class="subtitle">日本職棒每日新聞 · 中文摘要 · 自動生成</p>
+            <div class="issue-info">
+                <span>📅 2026年10月22日 星期四</span>
+                <span>🤖 自動生成版</span>
+                <span>⚾ 日本職棒</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📰 焦點新聞</h2>
+                    <span class="auto-badge">LLM翻譯</span>
+                </div>
+                
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000304.html" target="_blank" rel="noopener noreferrer">球界にもPHP問題　12球団HPが続々メンテナンス　パ６球団は一時すべてが見られぬ状態に[12:48]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000304.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000430.html" target="_blank" rel="noopener noreferrer">【西武】忘れられない「これ、ドラ１の球っす」の言葉　高卒５位でも２年後１軍で大活躍の未来が[12:47]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000430.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000381.html" target="_blank" rel="noopener noreferrer">【阪神】藤川監督、横浜・織田翔希の米挑戦に思い「魅力のあるNPBにしなければ」危機感も示す[12:45]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000381.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610210001575.html" target="_blank" rel="noopener noreferrer">【阪神】藤川監督、残りくじで立石当ててガッツポーズ　新庄監督悔しがる／25年ドラフトVTR[12:30]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610210001575.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000396.html" target="_blank" rel="noopener noreferrer">【ドラフト展望】密室の駆け引き続く　織田翔希の米挑戦で各球団１位練り直し　強行指名はあるか[12:30]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000396.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000415.html" target="_blank" rel="noopener noreferrer">【ドラフト】Ｘで「織田翔希」「菰田くん」など候補選手が次々とトレンド入り　予想合戦も過熱[12:21]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000415.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">日刊體育</span>
+                <h3 class="card-title"><a href="https://www.nikkansports.com/baseball/news/202610220000407.html" target="_blank" rel="noopener noreferrer">【日本ハム】郡司裕也が秋季練習開始「来年に向けて今は、練習するしかない」[12:16]</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.nikkansports.com/baseball/news/202610220000407.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            <div class="news-card focus-news">
+                <span class="card-tag tag-news">體育日本</span>
+                <h3 class="card-title"><a href="https://www.sponichi.co.jp/baseball/news/2026/10/22/kiji/20261022s00001728060000c.html" target="_blank" rel="noopener noreferrer">山梨学院・菰田陽生　3球団以上競合も　運命のドラフト…二刀流戦士「日本一の男」の誓い</a></h3>
+                <p class="card-body"></p>
+                <div class="news-meta">
+                    <span class="news-date"></span>
+                    <a href="https://www.sponichi.co.jp/baseball/news/2026/10/22/kiji/20261022s00001728060000c.html" target="_blank" rel="noopener noreferrer" class="read-more">閱讀原文 →</a>
+                </div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📋 昨日戰報 (10月21日)</h2>
+                </div>
+                <div class="news-card"><span class="card-tag tag-game">昨日戰報</span><p class="card-body">昨日無比賽資料。</p></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📅 今日賽程 (2026年10月22日)</h2>
+                </div>
+                <div class="news-card"><span class="card-tag tag-game">今日賽程</span><p class="card-body">今日無安排比賽。</p></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🔮 明日預告 (10月23日)</h2>
+                </div>
+                <div class="news-card"><span class="card-tag tag-game">明日預告</span><p class="card-body">明日無安排比賽。</p></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📊 聯盟戰績</h2>
+                </div>
+                
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">⚔️ 交流戰</h2>
+                </div>
+                <div class="news-card"><span class="card-tag tag-game">交流戰</span><p class="card-body">交流戰資料暫時無法取得。</p></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🏆 個人排行榜</h2>
+                </div>
+                
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📰 球隊新聞摘要</h2>
+                </div>
+                
+                <h3 class="league-subtitle" style="color:var(--central);">◇ 中央聯盟</h3>
+                <div class="news-grid">
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_g_l.gif" alt="讀賣巨人" class="news-team-logo">
+                            <span class="team-news-name">讀賣巨人</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiSEFVX3lxTFAxMkZLenduM0paelZtS3VWNTJvR3dVUFgwUnB6b1AxSGNBblEwU2RSdFByV1k5TUNxOFozS2N2VTJ2SWdnQ1EwbA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「ジャイアンツ・ファンフェスタ 2026 Presented by Fanatics 」 概要決定 イベント参加者を募集 - 読売巨人軍公式サイト</a><span class="news-source">— 読売巨人軍官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE1HenJFQmRZNnZMeU5SdmJDSk1pbG82X2JBWUFfU0RKclZ0UDN1aHpvVDdXLVkzWDBrSEIybUhWTmN0LWczVTltUGJ5UlBKeFNXVTdvSHZYTTU1dkR5alUzOVhkbl92VGxiY19CVXpsRk1OeVFlTDg3ZE04MXhRenc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ジャイアンツが”獲得”する…？巨人のドラフト指名候補（5）ジャイアンツの“補強ポイント”に合致か（ベースボールチャンネル） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTFBfM0xTNVhqWGd6YXNOZkRMQ1Ryd2dDRHdWSWR2ZGJ1RklYcFM0d1dUQ0c2UTJTbnFEWGxTS05fS3V0NEY4aFF0bXIzV1RoSU9CbDRRVQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">巨人にまた退団者…！ 元人気外野手の”巡回打撃コーチ”が退任 コーチ陣3人目の離脱 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_t_l.gif" alt="阪神虎" class="news-team-logo">
+                            <span class="team-news-name">阪神虎</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiYkFVX3lxTE51RWhZYmdidjV0NENaS2I2aThEbmQwNEhMNVRhR1RHQmxrMUhPaEh1S19BWnpPNENScTJyLTNMQm5ZUWlyQ2VQUW9ibGV2b25HMDVwd3AteXFKdEJMRVVkakF3?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ニュース - その他 - 10/22(木)「プロ野球ドラフト会議」速報実施！ - 阪神タイガース 公式サイト</a><span class="news-source">— 阪神虎官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE1zaWEwQmIwV25semlxM3I1TU1zOS1kSzBIUUt5a01NRDlPVERsRGZuMGpWcDJWR010ZkNTLW9XMjN5N09CNWhIQzNJeDgtTmlIQ2dHQ2FSd0dwNTRwQS1mTWZHRUZBOUVtaFlrdkJPUnlDRkplWWJ1ZmZkT3Nmb1U?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">恐るべし阪神の“再生工場”！タイガース移籍で飛躍した投手（5）絶対的守護神…メジャーの“重要戦力”に - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE03MWYwYmMxREhNd3BLc1NDenpBOGt1NkJiNjB5Wm1kZk9tMThnLThrbzV4dE9BVmExd0RLYTFFOGFqSHFEOWZaamZOV2NjVHZQeTFVc0ZMaFg?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">リーグ連覇なのに「誰も資格を有していない」 リストに“不在”…阪神ファン嘆き「悲しみ」 - Full-Count</a><span class="news-source">— Full-Count</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_c_l.gif" alt="廣島東洋鯉魚" class="news-team-logo">
+                            <span class="team-news-name">廣島東洋鯉魚</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTFA3d19JeDdTemZXNnptZ2dWdnl4U2NqejZXYXRpQ2xNMFB4T1dDT2d6dHo0WDFfbmFHSFZncjdnbE9CcGQ5My00d0FoSm9XZjlnOGxLNjI1T0JwaHc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【J:COM】「プロ野球愛宣言！」広島東洋カープ・坂倉将吾選手が語る「広島とともに歩んだ愛と感謝の10年」 - 共同通信PRワイヤー</a><span class="news-source">— 共同通信PRワイヤー</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9HMXhQTi1GSHpKNF83eUpyMHY0VjhVbmc2SEZIVmlMTUw2QzB1dFBMZUc4S2gtVS1yZ0ZZeE4zQ2ZlTDVjcDJ5YzdKbmFLd3Y0MFlTSi1Nd1dYRWpkcVJxS2F6Q1RaMG5PT2hVQ1ItSkVEUHF6VlNZa1pxdjM3YU0?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「言う必要あるんですか？」元広島カープ選手が2度目の逮捕、“ついて回る球団名”にファンの複雑胸中（週刊女性PRIME） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTFBFVVB3LXl4MDZRMXd6MGNEenhmS3BfOGNwYUViQ1BuNF9CY1RQd290cVRORmc2dXNCNE56ZjgyendnaF9xLXhpV1pEa2FZbmlQZ08tbFZXN2lIMk0?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【速報】広島カープ 2026年ドラフト指名選手一覧｜プロ野球ドラフト会議 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_db_l.gif" alt="橫濱DeNA灣星" class="news-team-logo">
+                            <span class="team-news-name">橫濱DeNA灣星</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE5HYm5kNF9RQVFEMHg4bEJVQzFXazNqLXBhd2hOQmk1NC1fdDJkTzdSYzA3UEpuTmk4T1l0RUJZazdWdkNrRVBKMjZtYlZESlRLMTVkSA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">DeNAの2026年ドラフト指名予想選手【横浜ベイスターズ】 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQRmd6MFRoeks2YWhucWtvdnoxdGZhS0djZlZ2TG5aOGlSaDZnVDRkb3Z2RWlyUXFaV2o3ckdPUnU4MS1XOXZFeFBjSXpXYXhmdmpzSXhCX0NiNEVXWW9ZYWZuVXlrWm5rWm9aT3p4X08tdHlrVzlTd1V3Uk9qeWpMZlE5SjZkUy1xZzM3dkpSTGlHYzRkci1lcE9HZVJGdWdiZENTamlPUndwRV9aeHZvaERObGNlRFJqZno2UGx4TQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">DeNA対ソフトバンクはいつ？日本シリーズ試合日程 - Goal.com</a><span class="news-source">— Goal.com</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9KNmJibUcxS1BoZlA2bXhSVU9yQ2ppVFR4ZWJqRDRJdFY0b1B5eFhBdlBUNUEzd3BEUVVtWjhxYldKLXpmVldaRWd4UWd2czY5NHlpU1F5MHlvQjBvM1JuWXJPZGs3NTAwSXJ4R3NDUkJtSXotWF85TFY4S05ySUU?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">DeNAが”獲得”する…？ベイスターズのドラフト指名候補（5）ベイスターズの“補強ポイント”に合致か（ベースボールチャンネル） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_s_l.gif" alt="東京養樂多燕子" class="news-team-logo">
+                            <span class="team-news-name">東京養樂多燕子</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNWDFDVXEyNW5GcVNieGZUakg1YXJocV96RE16WXE3X0ZJX1FmR0tsQXhzNFFwOVNtTUJjU3RnODVlMkpjQ08zaE9rOUp3Mm9BMk52LTRXWGxicllHOFE5QmFDSDA2TlNscC1jMENWQ0ZaTTk2c2xESFh5SzhHSVZrQ2VKZjdsLTRRTVJOaDhDQWhQU3lFTWVEadIBigFBVV95cUxNVmZlUGdaQVNOSkdadTdQRGpvMGpIZnJ0VnJtZVI1SF9OR1dxcXdaQzVEczdqUXEta0hPYU1fQXNrTzl4bXFEZC12YjMxOVY1dXY1MEdaanI2LVdRYUJlOUg2NHZpcml2ZjFPd2dOWGtmbDFMNkx3MkQ0SHdzVmdKQVZUQXJ6SFhIWXc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">全12球団ドラフト1位指名公表ゼロの異例事態　池山ヤクルト、藤沢涼介ら1位指名候補 - サンスポ</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTFAxYzQ4QnMwVi1iLVBBTGtHOTBRVUs1Z2xqMjhpYnh3UDIycHpnaHJCZTg3X2FCa3A4S0hHODJwMm1KbWY3Z2lhOHNTZktkMFFsbXVCYg?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ヤクルトの2026年ドラフト指名予想選手【東京ヤクルトスワローズ】 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE12Q292YTRxbkVPOWQ5LTRnbzFHZ2s4WGZSUnR6T001Y1RrQjhaVVRQYllUTk5sNnFwQlREWTdkMnBnTkR0REZJWTh4YXo4Y2pLUFAzQVg0UzBCVDVrbEJqSmdKcXlSVklGeGh3aE1KQWwxWnZMRjVIdDdUWnFLbkU?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ヤクルトが”獲得”する…？スワローズのドラフト指名候補（4）ヤクルトのドラ1指名は“有力”か（ベースボールチャンネル） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_d_l.gif" alt="中日龍" class="news-team-logo">
+                            <span class="team-news-name">中日龍</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE5nZS1LcmJuQmd3ZGpqSEpnOU83aUNMYXhyLTh3a2lacGNVVWZybUFFa3ctMTBaSlZTalFuZHpTcTYyOFhyQlA4S2pYZmk5TUc4eVhjLXdMRnlOUWc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">中日vs巨人OB戦は超豪華メンバー 第3弾追加選手発表…“黄金コンビ”も参戦、計67人 - full-count.jp</a><span class="news-source">— full-count.jp</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE1XenJSc3VNZ1ZxbUZDWjVLOVAyeFJiWURSWjkybzJXZjFFZVRuRzktWkNfSVp6UkROT3pQYVZOb1lsZlhwRHFQdkU2QS15ckpBb0tneUNMbi1PRmN0N0RuOTZuSEpjaVhVQnBodkh2VDVvcjdMQXppc2xxSE1zNEU?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ドラゴンズが“獲得”する…？中日のドラフト指名候補（5）ドラゴンズに欲しい“高卒野手”だが（ベースボールチャンネル） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTFBDUDVBREMxa2VIUEdLVXBucmZIbFZWYW5XRXh3b0t6bVBwcHdfN0JvNDczLV9BNHVNSDBzNjBFZXFROXRoZWk4ekg5T04yYl9jWnN6SHVFcU1uV3JlQ3BV?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【速報】中日ドラゴンズ 2026年ドラフト指名選手一覧｜プロ野球ドラフト会議 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li></ul>
+                    </div></div>
+                <h3 class="league-subtitle" style="color:var(--pacific);">◇ 太平洋聯盟</h3>
+                <div class="news-grid">
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.gif" alt="福岡軟銀鷹" class="news-team-logo">
+                            <span class="team-news-name">福岡軟銀鷹</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBjcXRfeWJoeDJOTkZWY1NWSlpYdHA0V3ZJU0NCakJFcXVFeFNJckpuaVBKVmVma2ZyOGNNd3lDY0w5M0taMjBnTUpvYkdid1FQQ0JZTXhrVQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ソフトバンクの2026年ドラフト指名予想選手【福岡ソフトバンクホークス】（2ページ目） - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBjTW55MUFKRnR5dWpiQV83Wkc0aFBQdjUyOEt0eUlocnJIX0Y5VHA4QThWSXFvNFRkVVRBMWF5WkwwcWhOZkFYQWN2TURMam5nakZ2dEQ4Y0F6STh6dHhHU1lZN3Q4ekJKdjBNOHo1VDVNYzBpSDl6Y0p6ZTdoSEk?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ホークスが“獲得”する…？ソフトバンクのドラフト指名候補（6）強肩自慢の“打てる捕手”…リーグ首位打者の実績も - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE1QZ29DUVF1VE9rRUYzRU15NHVuMkRBVFJHRFlvR3VQaDhJbGg4R0NveDB1eVViTEJHZUhWb1hRNDFhMGdpTEdGYmVyTTJMSEhKaEE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">プロ野球 SMBC日本シリーズ2026｜スポーツ｜TBSチャンネル - TBS - TBSテレビ</a><span class="news-source">— TBSテレビ</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_f_l.gif" alt="北海道日本火腿鬥士" class="news-team-logo">
+                            <span class="team-news-name">北海道日本火腿鬥士</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBRYWcwVWdBNmF1elZPMTNiWFFCWS05TkRFdGNvb2U4ckhSekZuaVNxU2c3LUhJdE5yQnNDTGVDOU5nNVN3ZkJJcFZuMi1GWldKZC0xb25GZXFLem1IdGxzUjdXb1NudzA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">YouTubeとファイターズMIRUでプロ野球ドラフト会議を実況生配信 - 北海道日本ハムファイターズ</a><span class="news-source">— 北海道日本火腿鬥士</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBYVUNDYXlkUnFWUVlEUmFMT0tLa2l6Njd6Unl6cFYzZDdQcTMtcDRoenZFc0ExZmRnamRFcTZoTExhdDhrTWxFYl9ueXJrRWNINWNQX1RIOA?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">日本ハムの2026年ドラフト指名予想選手【北海道日本ハムファイターズ】（5ページ目） - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE11UGR4dTlhLW93bTlFYlB2d3lvTE9VQjBHMUpoS0xUTFdST1lkTmxEYXFUVHNaZzM4emRSZU9Sc3FZYWNtVk9pQWk0VEZfR3VBN01hRnRwX2JreXFacEZFVXhFN1lOS1h2UHdQR2tmV19sczEtUVNwQlpjajJfV1E?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">ファイターズが“獲得”する…？日本ハムのドラフト指名候補（2）控え投手からエース候補へ…故障乗り越え急成長 - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_e_l.gif" alt="東北樂天金鷲" class="news-team-logo">
+                            <span class="team-news-name">東北樂天金鷲</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPVXlvNllRcHZpS1Q3RDFlencxSjVlTFVBRHJGdXJZbDdHUUhpd3l1RTZwN01UVzFGazZHbHFUVHJDbzlmRFhhU3VKNTRVa3BKUEFYYWdDWFVLUlI5NWk4MmFBRU1jdnpOS01La3hPc0oyS0FJcjdzX2p4UTdDdHJybGFYRXZCRnhLZEZDMTYweERWdkxEMzdjNy1VRHJOd9IBigFBVV95cUxNT3NxaWdITjFoazlpczQ0cml3cmZDZmIzQ2tkbUUzYjJ0NldMZ1gyNlF0eEw4QnJnUW9PZnB4ZThlQ0pKQTJOdEtYODBUNlVTOEZSM0NPUnNPNUNIdGt1SkMxbE5pTmFkVEJYYVloZlJ0c3BGU25pN29zbk0yWHJsbGV2VTRyakFza2c?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">楽天・石井GM「ぶれない指名をすることが大事」ドラフト1位指名は当日に決定 - サンスポ</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE5Pc3NaVUFSVXFSdE1ieDBlTThxa01BSUU3RDdhOHZVcE04RHlnYkpXX3BGTHJnV1FTRFNVSGlPVGF1RG1USjludTJUemp5bjF2VEVYTHhIQkdSOHRBVnNXWHl5aE5Ob1VMQ1NuTG9GSTBQX1FwbWpDVXNock16VXM?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">プロ野球、きょう（10月20日）発表された戦力外通告・現役引退・退団選手一覧は？（ベースボールチャンネル） - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTFBzUkprSUgxbzM1QlRfcHJjWlBxX1BqR1NJWk1uUlpvWFVzQ2RRSE1HUEVoWjdOdU95a0dfaExvQWRUUWtsRzJtUzVWamp6T0paalZtZ1EzQVhlZjRwYUE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【速報】楽天イーグルス 2026年ドラフト指名選手一覧｜プロ野球ドラフト会議 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_l_l.gif" alt="埼玉西武獅" class="news-team-logo">
+                            <span class="team-news-name">埼玉西武獅</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTFBSeHhERzUxX2NDT2pfRXlKUlAtVDRiNEVqQUM0Sk5ldmhhc1ZaT3pNZmVsS0hXekczbG9YUkJsYkVLSjFHeUNiTjEya3dtd0pBc0Rtdg?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">西武の2026年ドラフト指名予想選手【埼玉西武ライオンズ】 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFA5WHNYRGFITWJQWWlpNWhJNHRoRUVma2FGeU00YXQ1RDdlb1drcmlpck9PT2F2MTY0RXJMdWZGSUZSRExzcHMteWJ0THVNR0VUQ2xXTGNCSdIBUkFVX3lxTE5vWnRBc3oyandmRUtOREp2elo5TDBXNkVPOGZKc0hOM0RoeXo4eWZxaVhadzZQVHIxaG9ZX3NqM0lGaEZzbXR1YmZDQlprbVhzd2c?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">小島大河が9HR＆一軍完走、岩城颯空はNPB史上7人目の快挙も【2026ルーキーの活躍・埼玉西武】 - パ・リーグ.com</a><span class="news-source">— 太平洋聯盟官網</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE0wMHlpcnNLMS1wbU5jNWgzZ09HSjlLQy0xeXVLUlVkM29jQzVHbXdyWi1tanJTWGo0aFBpQU1kd29rTERNNFcwSkNMVGVhMzhIWVE?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【12球団ドラフト予想】2位躍進の西武は“左腕王国化”でSTOPソフトバンクへ！下位で“ネクスト横田”を掘り出せるか？ - 高校野球ドットコム</a><span class="news-source">— 高校野球ドットコム</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_b_l.gif" alt="歐力士猛牛" class="news-team-logo">
+                            <span class="team-news-name">歐力士猛牛</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBkRlc1RlpQVXNJTUcwcHdxZTFFTmsxbV9iSGNVRG9RS0dRVF9IcnZvOU5wZ3BEaE5xR2xFRmVGVmI5ZDNUYlk3TjU4MWdnNVJHeFpFdTlBVQ?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">オリックスの2026年ドラフト指名予想選手【オリックス・バファローズ】（4ページ目） - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE5ULTZ1OEtXRjM0WkhVbXM3cjc3TDVPTmlHOG5sdWxOaDFtWW5sZncwdGFyeUF2WXM1VVNVdUJaVmJDdHgyZzh0TnJjMTdKS0NzQS1DVWp0UG8zN3BHSkJLQ0FtSVc1NTN4N1gzcmx4bGl1T3FaTExtd3JORXpCZXc?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">バファローズが“獲得”する…？オリックスのドラフト指名候補（6）軟式出身から最速152キロへ…異色の大型右腕 - Yahoo!ニュース</a><span class="news-source">— Yahoo!新聞</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiYkFVX3lxTE9HYlJ4WVRpUG1Ca25vbUJuOGtSY3ZLSk1JR1BXOGduMmtsY19obGxnMjZJdDVmT2daamVtSlY2VGVBZXJEajk3SnM1aGhMaWpnZ2dfWTEwQWYtbEN4RF9BOXVB?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【速報】オリックスバファローズ 2026年ドラフト指名選手一覧｜プロ野球ドラフト会議 - ベースボールチャンネル</a><span class="news-source">— 棒球頻道</span></li></ul>
+                    </div>
+                    <div class="team-news-block">
+                        <div class="team-news-header">
+                            <img src="https://p.npb.jp/img/common/logo/2026/logo_m_l.gif" alt="千葉羅德海洋" class="news-team-logo">
+                            <span class="team-news-name">千葉羅德海洋</span>
+                        </div>
+                        <ul class="team-news-list"><li class="news-item"><a href="https://news.google.com/rss/articles/CBMiZkFVX3lxTE5adHpvSkZ0ZWRpMGl0RHVCeGlTX1VSb0ZFS0lIOFljT3ZyT2tNb2hiRV9zejlYZ1lxOWtMRFBTQXg2REp0YU1lbkJibnRfX3BoRzBSRm8xUFI0NUJ4cFNHZlFTcm96dw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">「2026年ドラフト会議」ページを公開 - 千葉ロッテマリーンズ</a><span class="news-source">— 千葉羅德海洋</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE1jZ2J1eWk5MTdWc1VMb3lPS2owcjhfOEJ0Sm9CNExGRTkzcXBjQzZENFhuUkJicE1yR3BjZEVKSW5fUWg0aUZBd0FPS0E2MEZOdm9tQmphSy1kR1ctSno4UnpyUWUyZTBkWXFLbTh3SHgtc1hCNGZtYjBadw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【ロッテ担当がつづる〈13〉】ドラフトその瞬間、なにを思ったか ５人に聞きました - 日刊スポーツ</a><span class="news-source">— 日刊體育</span></li><li class="news-item"><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxPNlhVU1Z6bXFzVFp3RUxEZW5pdXBPZ19sd0ZZbDJJa2h4OVZKaTk2amdnYzd0RmNya1Z1QWdUXzA4WUhna3ZWdHFIMnJ4T1hLaXpYdGV4aExVb0tYOURMbU4zMHJsZVJOUnA5ZmhPOXdJZkNiVnF0MTFnTkNxazhKNFRQZnVfMGtIN0E0NUlLOEFZYV9VNkVz0gGKAUFVX3lxTE5jS2ZXQlJUX0VpUkc5TFY2b2M0UkFlU3VTU1ZrTTRZVU5kdGhxWU9VS0taOVNLNHk2YXdYb2d0ckhGNEktQUpTeDRIeF9CbVRUS3k5SHFFWG1Tak5GQ2RZUDBNWmlFbWVBWjJ3N3p4ejRSdnRXUFRvcEg4azVMUlFmMjAtNjNSVlp0dw?oc=5" target="_blank" rel="noopener noreferrer" class="news-link">【球界ここだけの話（4301）】幕張からタイトルを…今季38本塁打のロッテ・山口航輝「もっと伸び代がある」 - サンスポ</a><span class="news-source">— 日刊體育</span></li></ul>
+                    </div></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>📰 《日職每日報》自動生成版 · 2026年10月22日</p>
+            <p>資料來源：NPB日本野球機構 / 日刊スポーツ / スポニチ / スポーツ報知 / Sports Bull / Baseball King / Full-Count</p>
+            <p>⚾ 本報僅留存最近兩週版本 · 自動生成時間：2026-10-22 12:17:53</p>
+            <a href="/ebooksforme/" class="back-link">← 返回圖書館報架</a>
+        </footer>
+    </div>
+</body>
+</html>
