@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>川投顧日報 - 2026年11月09日</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252540;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6a6a7a;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f0d878;
+            --accent-red: #ff4444;
+            --accent-green: #00c853;
+            --border: #2a2a3a;
+            --border-hover: #3a3a50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* 封面 */
+        .cover {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 50%, #1a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/cover-1.png') center/cover;
+            opacity: 0.4;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .cover .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .cover .date {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .cover .tagline {
+            margin-top: 1.5rem;
+            padding: 0.5rem 2rem;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            color: var(--accent-gold-light);
+            font-size: 0.95rem;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* 區塊標題 */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-title .icon {
+            font-size: 1.8rem;
+        }
+
+        /* 大盤指數卡片 */
+        .indices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .index-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .index-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+
+        .index-card .name {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .index-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .index-card .change {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .positive { color: var(--accent-green); }
+        .negative { color: var(--accent-red); }
+
+        /* 期貨區塊 */
+        .futures-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .future-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* 板塊表格 */
+        .sector-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sector-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .sector-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sector-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+
+        /* 熱門股票 */
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .stock-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .stock-card:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .stock-info .symbol {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .stock-info .name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stock-price {
+            text-align: right;
+        }
+
+        .stock-price .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* 新聞 */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .news-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .news-item .source {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-item .title-zh {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .news-item .title-zh a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .news-item .title-zh a:hover {
+            color: var(--accent-gold);
+        }
+
+        .news-item .summary-zh {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .news-item .title-en {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* 財報 */
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .earnings-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .earnings-item .symbol {
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+
+        .earnings-item .name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0.25rem 0;
+        }
+
+        .earnings-item .eps {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .earnings-item .reported {
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-top: 0.25rem;
+        }
+
+        /* 川普分析區塊 */
+        .trump-analysis {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(139, 69, 19, 0.1));
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .trump-analysis h2 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trump-analysis .content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .trump-analysis .content p {
+            margin-bottom: 1rem;
+        }
+
+        /* 頁尾 */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer .disclaimer {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 2.5rem; }
+            .container { padding: 1rem; }
+            .indices-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 封面 -->
+    <div class="cover">
+        <div class="cover-content">
+            <h1>🦅 川投顧日報</h1>
+            <div class="subtitle">TRUMP FINANCIAL ADVISORY</div>
+            <div class="date">2026年11月09日 星期一</div>
+            <div class="tagline">"讓美國再次偉大，讓你的投資組合也偉大！"</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 川普分析 -->
+        <div class="trump-analysis">
+            <h2>🎯 川投顧每日金句</h2>
+            <div class="content">
+                <p>今日市場波動較大，投資人應保持冷靜，關注基本面良好的優質股票。記住：低買高賣是永恆的真理。</p>
+            </div>
+        </div>
+
+        <!-- 期貨 -->
+        <section class="section">
+<h2 class="section-title"><span class="icon">📉</span> 美股期貨</h2>
+<div class="futures-bar">
+<div class="future-pill positive">S&P 500 期貨: 7444.75 (+0.58%)</div>
+<div class="future-pill positive">納斯達克期貨: 27258.5 (+0.64%)</div>
+<div class="future-pill positive">道瓊期貨: 51727.0 (+0.67%)</div>
+</div>
+</section>
+
+
+        <!-- 大盤指數 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📊</span> 美股大盤</h2>
+            <div class="indices-grid">
+
+                <div class="index-card">
+                    <div class="name">S&P 500 (SPX)</div>
+                    <div class="price">7376.86</div>
+                    <div class="change positive">🟢 +23.13 (+0.31%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">道瓊工業 (DJI)</div>
+                    <div class="price">51285.73</div>
+                    <div class="change negative">🔴 -237.33 (-0.46%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">納斯達克 (IXIC)</div>
+                    <div class="price">24579.43</div>
+                    <div class="change positive">📈 +264.43 (+1.09%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">VIX 恐慌指數 (VIX)</div>
+                    <div class="price">25.64</div>
+                    <div class="change negative">💥 -2.54 (-9.01%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">10年期公債殖利率 (TNX)</div>
+                    <div class="price">4.86</div>
+                    <div class="change positive">🟢 +0.02 (+0.45%)</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">羅素2000 (RUT)</div>
+                    <div class="price">2754.11</div>
+                    <div class="change positive">🟢 +24.22 (+0.89%)</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 板塊表現 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">🏭</span> 板塊表現</h2>
+            <table class="sector-table">
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>板塊</th>
+                        <th>漲跌幅</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>科技 (XLK)</td>
+                        <td class="positive">+1.45%</td>
+                        <td>$164.74</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>工業 (XLI)</td>
+                        <td class="positive">+0.12%</td>
+                        <td>$162.67</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>能源 (XLE)</td>
+                        <td class="negative">-0.02%</td>
+                        <td>$61.62</td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>非必需消費 (XLY)</td>
+                        <td class="negative">-0.05%</td>
+                        <td>$117.58</td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>醫療保健 (XLV)</td>
+                        <td class="negative">-0.06%</td>
+                        <td>$184.80</td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td>公用事業 (XLU)</td>
+                        <td class="negative">-0.39%</td>
+                        <td>$43.13</td>
+                    </tr>
+
+                    <tr>
+                        <td>7</td>
+                        <td>金融 (XLF)</td>
+                        <td class="negative">-0.59%</td>
+                        <td>$57.16</td>
+                    </tr>
+
+                    <tr>
+                        <td>8</td>
+                        <td>房地產 (XLRE)</td>
+                        <td class="negative">-0.68%</td>
+                        <td>$44.00</td>
+                    </tr>
+
+                    <tr>
+                        <td>9</td>
+                        <td>原物料 (XLB)</td>
+                        <td class="negative">-0.73%</td>
+                        <td>$51.95</td>
+                    </tr>
+
+                    <tr>
+                        <td>10</td>
+                        <td>必需消費 (XLP)</td>
+                        <td class="negative">-1.28%</td>
+                        <td>$90.08</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 熱門股票 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">🔥</span> 熱門股票</h2>
+            <div class="stocks-grid">
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">AMD</div>
+                        <div class="name">AMD</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$449.04</div>
+                        <div class="change positive">+11.04%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">MU</div>
+                        <div class="name">Micron</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$690.00</div>
+                        <div class="change positive">+5.12%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">TSLA</div>
+                        <div class="name">Tesla</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$358.22</div>
+                        <div class="change positive">+4.23%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">PLTR</div>
+                        <div class="name">Palantir</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$160.38</div>
+                        <div class="change positive">+3.48%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">NVDA</div>
+                        <div class="name">NVIDIA</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$186.64</div>
+                        <div class="change positive">+2.78%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">MSFT</div>
+                        <div class="name">Microsoft</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$530.61</div>
+                        <div class="change negative">-0.99%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">META</div>
+                        <div class="name">Meta Platforms</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$610.15</div>
+                        <div class="change positive">+0.84%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">GOOGL</div>
+                        <div class="name">Alphabet</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$284.78</div>
+                        <div class="change positive">+0.78%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">DJT</div>
+                        <div class="name">Trump Media & Technology</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$3.99</div>
+                        <div class="change negative">-0.75%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">AVGO</div>
+                        <div class="name">Broadcom</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$293.69</div>
+                        <div class="change positive">+0.74%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">AAPL</div>
+                        <div class="name">Apple</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$342.37</div>
+                        <div class="change negative">-0.52%</div>
+                    </div>
+                </div>
+
+                <div class="stock-card">
+                    <div class="stock-info">
+                        <div class="symbol">AMZN</div>
+                        <div class="name">Amazon</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$259.30</div>
+                        <div class="change negative">-0.35%</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 財經新聞 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📰</span> 財經新聞</h2>
+            <div class="news-list">
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-investigation-china-spy.html" target="_blank">Nvidia investigates CEO Jensen Huang's relationship with alleged Chinese spy</a></div>
+                    <div class="summary-zh">Huang told Nvidia staff in an email that he had an affair and that the company's board has opened an investigation into allegations the woman is a Chinese spy.</div>
+                    <div class="title-en">Nvidia investigates CEO Jensen Huang's relationship with alleged Chinese spy</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/trump-iran-strikes-unlikely-talks-hormuz.html" target="_blank">Trump says renewed Iran strikes ‘highly unlikely’ if talks progress but warns he could still strike</a></div>
+                    <div class="summary-zh">Trump tied avoiding renewed U.S. strikes to progress in talks over Iran’s nuclear program and the Strait of Hormuz.</div>
+                    <div class="title-en">Trump says renewed Iran strikes ‘highly unlikely’ if talks progress but warns he could still strike</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/09/china-wholesale-inflation-rises-consumer.html" target="_blank">China wholesale inflation hits highest in more than four years as consumer measure slows</a></div>
+                    <div class="summary-zh">The PPI for October came in at 5.7%, compared to the 5.3% expected by economists polled by Reuters.</div>
+                    <div class="title-en">China wholesale inflation hits highest in more than four years as consumer measure slows</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/democrats-trump-oversight-blanche-doj-investigations.html" target="_blank">Democrats amp up Trump investigation threats, Blanche counters he may probe lawmakers</a></div>
+                    <div class="summary-zh">Democrats have vowed to investigate both President Donald Trump's White House and businesses that have worked with the administration.</div>
+                    <div class="title-en">Democrats amp up Trump investigation threats, Blanche counters he may probe lawmakers</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/trump-tariffs-democrats-congress-canada.html" target="_blank">How Democrats will try to end Trump's tariffs</a></div>
+                    <div class="summary-zh">Rep. Hakeem Jeffries, D-N.Y., who is likely the next House speaker, has made clear that ending President Trump's tariffs is one of Democrats' top priorities.</div>
+                    <div class="title-en">How Democrats will try to end Trump's tariffs</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/frequent-flyer-miles-points-thanksgiving.html" target="_blank">Using miles to fly for Thanksgiving? These are the most expensive and cheapest routes</a></div>
+                    <div class="summary-zh">Thanksgiving airfare will cost more than last year as fares rise and strong demand continues.</div>
+                    <div class="title-en">Using miles to fly for Thanksgiving? These are the most expensive and cheapest routes</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/08/cathie-wood-ai-selloff.html" target="_blank">Cathie Wood 'always feels better when the market is worried' — here's why</a></div>
+                    <div class="summary-zh">The Ark Invest CEO said there was a "wall of worry" gripping markets right now.</div>
+                    <div class="title-en">Cathie Wood 'always feels better when the market is worried' — here's why</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/make-it/2026/11/07/mark-cuban-net-worth-money-mindset.html" target="_blank">Mark Cuban says he doesn’t ‘give a f---' about growing his net worth—a healthy mindset for non-billionaires too, a financial therapist says</a></div>
+                    <div class="summary-zh">The billionaire serial entrepreneur says he cares more about the impact he can have by spending and investing, rather than worrying about amassing more wealth.</div>
+                    <div class="title-en">Mark Cuban says he doesn’t ‘give a f---' about growing his net worth—a healthy mindset for non-billionaires too, a financial therapist says</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/make-it/2026/11/07/dumpster-diver-resale-business.html" target="_blank">31-year-old dumpster diver brought in $140,000 in 12 months: I 'did much more than I thought was possible'</a></div>
+                    <div class="summary-zh">Carter Stevens started reselling discarded items from dumpsters around Nashville, Tennessee, in March 2024. Months earlier, he'd been living in his car.</div>
+                    <div class="title-en">31-year-old dumpster diver brought in $140,000 in 12 months: I 'did much more than I thought was possible'</div>
+                </div>
+
+                <div class="news-item">
+                    <span class="source">CNBC</span>
+                    <div class="title-zh"><a href="https://www.cnbc.com/2026/11/07/worlds-50-best-restaurants-2026-asador-etxebarri.html" target="_blank">World’s No. 1 restaurant crowned as contest comes under increasing scrutiny</a></div>
+                    <div class="summary-zh">Asador Etxebarri in Atxondo, Spain, is the world's top restaurant, according to the 50 Best Restaurants, which announced its 2026 list.</div>
+                    <div class="title-en">World’s No. 1 restaurant crowned as contest comes under increasing scrutiny</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 今日財報 -->
+        <section class="section">
+            <h2 class="section-title"><span class="icon">📈</span> 今日財報焦點</h2>
+            <div class="earnings-grid">
+
+                <div class="earnings-item">
+                    <div class="symbol">CEG</div>
+                    <div class="name">Constellation Energy Corporation</div>
+                    <div class="eps">EPS 預估: 3.89</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">KKR</div>
+                    <div class="name">KKR & Co. Inc.</div>
+                    <div class="eps">EPS 預估: 1.58</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">B</div>
+                    <div class="name">Barrick Mining Corporation</div>
+                    <div class="eps">EPS 預估: 0.8</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">OXY</div>
+                    <div class="name">Occidental Petroleum Corporation</div>
+                    <div class="eps">EPS 預估: 1.47</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">FERG</div>
+                    <div class="name">Ferguson Enterprises Inc.</div>
+                    <div class="eps">EPS 預估: 3.29</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">JBS</div>
+                    <div class="name">JBS N.V.</div>
+                    <div class="eps">EPS 預估: 1.11</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">SKYD</div>
+                    <div class="name">Skydance Corporation</div>
+                    <div class="eps">EPS 預估: 0.2</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">TTWO</div>
+                    <div class="name">Take-Two Interactive Software, Inc.</div>
+                    <div class="eps">EPS 預估: -0.86</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">RKLB</div>
+                    <div class="name">Rocket Lab Corporation</div>
+                    <div class="eps">EPS 預估: -0.07</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">ROIV</div>
+                    <div class="name">Roivant Sciences Ltd.</div>
+                    <div class="eps">EPS 預估: -0.3</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">BAP</div>
+                    <div class="name">Credicorp Ltd.</div>
+                    <div class="eps">EPS 預估: 7.38</div>
+                    
+                </div>
+
+                <div class="earnings-item">
+                    <div class="symbol">CIB</div>
+                    <div class="name">Grupo Cibest S.A.</div>
+                    <div class="eps">EPS 預估: 2.77</div>
+                    
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>川投顧日報 | 自動生成於 2026-11-09 11:00</p>
+        <p class="disclaimer">⚠️ 本報僅供參考，不構成投資建議。投資有風險，決策需謹慎。</p>
+    </footer>
+</body>
+</html>
