@@ -1,0 +1,994 @@
+{
+  "date_info": {
+    "date_str": "2026-11-12",
+    "prev_date_str": "2026-11-11",
+    "display": "2026年11月12日",
+    "weekday": "星期四",
+    "prev_display": "2026年11月11日"
+  },
+  "generated_at": "2026-11-12T11:00:56.931436",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7619.38,
+      "change": 98.45,
+      "change_pct": 1.31,
+      "prev_close": 7520.93
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 52486.49,
+      "change": 254.6,
+      "change_pct": 0.49,
+      "prev_close": 52231.89
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 25466.19,
+      "change": 400.32,
+      "change_pct": 1.6,
+      "prev_close": 25065.87
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 17.49,
+      "change": -1.97,
+      "change_pct": -10.12,
+      "prev_close": 19.46
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 5.0,
+      "change": 0.02,
+      "change_pct": 0.3,
+      "prev_close": 4.98
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 2846.26,
+      "change": 24.88,
+      "change_pct": 0.88,
+      "prev_close": 2821.38
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 5.19,
+      "change": 0.91,
+      "change_pct": 21.26,
+      "prev_close": 4.28
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 811.3,
+      "change": 86.19,
+      "change_pct": 11.89,
+      "prev_close": 725.11
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 552.9,
+      "change": 37.69,
+      "change_pct": 7.32,
+      "prev_close": 515.21
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 345.22,
+      "change": 13.24,
+      "change_pct": 3.99,
+      "prev_close": 331.98
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 390.84,
+      "change": 11.06,
+      "change_pct": 2.91,
+      "prev_close": 379.78
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 173.73,
+      "change": 4.84,
+      "change_pct": 2.87,
+      "prev_close": 168.89
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 521.13,
+      "change": -12.03,
+      "change_pct": -2.26,
+      "prev_close": 533.16
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 172.4,
+      "change": 3.58,
+      "change_pct": 2.12,
+      "prev_close": 168.82
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 293.45,
+      "change": 6.07,
+      "change_pct": 2.11,
+      "prev_close": 287.38
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 355.63,
+      "change": 7.12,
+      "change_pct": 2.04,
+      "prev_close": 348.51
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 628.77,
+      "change": -12.62,
+      "change_pct": -1.97,
+      "prev_close": 641.39
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 266.17,
+      "change": -4.7,
+      "change_pct": -1.74,
+      "prev_close": 270.87
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 174.36,
+      "change": 5.45,
+      "change_pct": 3.23,
+      "prev_close": 168.91
+    },
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 63.37,
+      "change": 1.16,
+      "change_pct": 1.86,
+      "prev_close": 62.21
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 170.97,
+      "change": 2.24,
+      "change_pct": 1.33,
+      "prev_close": 168.73
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 58.63,
+      "change": 0.34,
+      "change_pct": 0.58,
+      "prev_close": 58.29
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 91.45,
+      "change": 0.42,
+      "change_pct": 0.46,
+      "prev_close": 91.03
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 53.02,
+      "change": 0.17,
+      "change_pct": 0.32,
+      "prev_close": 52.85
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 43.82,
+      "change": 0.09,
+      "change_pct": 0.21,
+      "prev_close": 43.73
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 188.95,
+      "change": 0.07,
+      "change_pct": 0.04,
+      "prev_close": 188.88
+    },
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 44.59,
+      "change": 0.01,
+      "change_pct": 0.02,
+      "prev_close": 44.58
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 120.99,
+      "change": -0.06,
+      "change_pct": -0.05,
+      "prev_close": 121.05
+    }
+  ],
+  "news": {
+    "yahoo": [],
+    "cnbc": [
+      {
+        "title": "Nvidia prepares to oust Jensen Huang, WSJ reports — stock sinks",
+        "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html",
+        "description": "The report comes days after Huang admitted to an affair with a woman who is believed by U.S. intelligence of being a Chinese spy.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 00:21:27 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jensen Huang affair in D.C.: Resignation calls and moves to tighten Nvidia China exports",
+        "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-congress-resign-ai-chips.html",
+        "description": "Huang was notably opposed to strict export controls on AI chips to China, which ruffled feathers with congressional China hawks.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 22:46:29 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cramer's stance on Nvidia's stock amid reports that CEO Jensen Huang may be ousted",
+        "url": "https://www.cnbc.com/investingclub/2026/11/11/jim-cramer-jensen-huang-nvidia-stock-advice.html",
+        "description": "Jim Cramer said Wednesday night that he was saddened by a news report that indicated Nvidia's board of directors is preparing to fire Huang.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 01:14:21 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Feds arrest top official of healthcare company, alleging illegal drug importation",
+        "url": "https://www.cnbc.com/2026/11/11/canarx-official-arrested-drug-importation.html",
+        "description": "U.S. officials are accusing two top officials of a Canadian company of operating a scheme to illegally import prescription drugs, court records show.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 22:58:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Scott Colom wins Mississippi Senate election over incumbent Republican Hyde-Smith",
+        "url": "https://www.cnbc.com/2026/11/11/democrat-scott-colom-projected-to-win-mississippi-senate-election-over-incumbent-hyde-smith.html",
+        "description": "Scott Colom will be the first Democrat elected to the Senate from the state since 1982, and Mississippi's first Black senator since Reconstruction.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 23:31:37 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Canada’s ambassador warns Trump tariffs are driving up costs, threatening U.S. investment",
+        "url": "https://www.cnbc.com/2026/11/11/canada-ambassador-trump-tariffs-investments.html",
+        "description": "U.S.-Canada trade tensions persist as Trump's tariffs drive up costs, threaten investment and complicate negotiations between the two countries.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 22:30:57 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Mississippi Senate: Scott Colom lead over Hyde-Smith pops to more than 4,400 votes",
+        "url": "https://www.cnbc.com/2026/11/10/mississippi-senate-scott-colom-hyde-smith.html",
+        "description": "Tuesday was the deadline for provisional ballots to be resolved in Mississippi, and the deadline for the receipt of mail-in absentee ballots.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 19:55:39 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CoreWeave soars more than 24% for best day since April 2025 after strong Q3 report",
+        "url": "https://www.cnbc.com/2026/11/11/coreweave-crwv-outlook-earnings-ai.html",
+        "description": "Neoclouds such as CoreWeave, Nebius and IREN have come under scrutiny this month as investors assessed the sustainability of the AI trade.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 21:11:26 GMT",
+        "has_description": true
+      },
+      {
+        "title": "American Airlines brings fresh food back to NY-Chicago first class for first time since 2019",
+        "url": "https://www.cnbc.com/2026/11/11/american-airlines-first-class-chicago-new-york.html",
+        "description": "American Airlines' first-class food options include sandwiches, fruit and chia bowls",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 22:20:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Prediction markets tied to clinical trials and drug approvals draw lawmakers' ire",
+        "url": "https://www.cnbc.com/2026/11/11/kalsi-polymarket-prediction-market-senators-hhs-drug-approval.html",
+        "description": "Sens. Angela Alsobrooks and Ron Wyden are asking what steps the Department of Health and Human Services has taken to mitigate risks from the markets.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 19:16:23 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Social Security could pay full benefits until 2059 if taxable payroll kept pace with GDP: AARP report",
+        "url": "https://www.cnbc.com/2026/11/11/social-security-benefits-taxable-payroll-gdp.html",
+        "description": "An aging work force is not the only reason Social Security's trust funds now have a looming shortfall, according to AARP Public Policy Institute research.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 19:54:27 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Measles is surging in the U.S. — and outbreaks can cost millions",
+        "url": "https://www.cnbc.com/2026/11/11/measles-outbreak-us-economic-cost.html",
+        "description": "A new tool developed by Johns Hopkins researchers estimates that the 2025 measles outbreak in the U.S. carried an economic cost of more than $37 million.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 15:14:53 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Bouncing Wynn Shares might be primed for the 'wheel strategy'",
+        "url": "https://www.cnbc.com/2026/11/11/bouncing-wynn-shares-might-be-primed-for-the-wheel-strategy.html",
+        "description": "From a valuation standpoint, WYNN is trading very close to its five-year historical averages across key metrics. So how should traders play this setup?",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 18:24:53 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Inside India newsletter: Trump's poll setback fuels hope for U.S.-India trade deal by year end",
+        "url": "https://www.cnbc.com/2026/11/12/us-india-trade-tariffs-trump-modi.html",
+        "description": "While American voters are more affected by import duties on Canadian goods, experts said that a trade deal with India could blunt criticism against tariffs.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 23:57:38 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Meta head of infrastructure will leave and be succeeded by former AWS cloud exec",
+        "url": "https://www.cnbc.com/2026/11/11/meta-infrastructure-departure-aws-cloud.html",
+        "description": "Meta's head of infrastructure and co-head of engineering Santosh Janardhan will leave in 2027, with former AWS senior vice president David Brown taking over.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 00:46:08 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Costco is giving shareholders a big, early holiday gift. How to make sure you get it",
+        "url": "https://www.cnbc.com/investingclub/2026/11/11/costco-is-giving-shareholders-a-big-early-holiday-gift-how-to-make-sure-you-get-it.html",
+        "description": "Costco announced a special dividend, and it's not too late to get in on the action.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 20:59:32 GMT",
+        "has_description": true
+      },
+      {
+        "title": "JetBlue unveils new first-class seats to bring back profits",
+        "url": "https://www.cnbc.com/2026/11/11/jetblue-ceo-premium.html",
+        "description": "JetBlue gave reporters a look at its new first-class seats on Wednesday.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 22:10:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "How Democrats could snarl Trump administration stakes in private sector companies",
+        "url": "https://www.cnbc.com/2026/11/11/trump-company-equity-takes.html",
+        "description": "The Trump administration had established some form of equity position in 41 companies as of November, according to the CATO Institute's tally.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 18:55:39 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CFTC investigates if Kalshi improperly self-certified event contracts",
+        "url": "https://www.cnbc.com/2026/11/11/cftc-investigates-if-kalshi-improperly-self-certified-event-contracts.html",
+        "description": "News of the probe comes after the CFTC ordered Kalshi to take down a sports-related \"mention markets\" back in August.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 02:43:09 GMT",
+        "has_description": true
+      },
+      {
+        "title": "WNBA Finals MVP Gabby Williams: 'Our existence is political'",
+        "url": "https://www.cnbc.com/2026/11/11/gabby-williams-embraces-role-in-wnbas-political-and-cultural-debates-.html",
+        "description": "Golden State Valkyries star Gabby Williams speaks about winning the WNBA championship, being named Finals MVP, and the culture war over women's sports.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 15:20:59 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Zelenskyy warns Ukraine is 'not real estate' as experts say a Russia peace deal remains elusive",
+        "url": "https://www.cnbc.com/2026/11/11/ukraine-russia-peace-talks-zelenskyy-putin.html",
+        "description": "President Zelenskyy warned Tuesday that his country \"was not real estate,\" as a second and final day of U.S.-brokered peace talks got underway.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 14:13:40 GMT",
+        "has_description": true
+      },
+      {
+        "title": "American soldier arrested on suspicion of spying for Russia",
+        "url": "https://www.cnbc.com/2026/11/11/us-army-soldier-russia-espionage-arrest.html",
+        "description": "The 41-year-old man is being detained in London under the U.K.'s National Security Act.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 10:06:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Tired of spending time fixing other people's AI slop at work? How to talk to them about it",
+        "url": "https://www.cnbc.com/make-it/2026/11/11/push-back-coworker-boss-extra-work-ai.html",
+        "description": "Executive coach Melody Wilding shares four ways to address the extra work landing on your plate without the conversation becoming confrontational.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 16:05:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "General strikes to paralyze Spain as protestors clash with police ahead of election campaign",
+        "url": "https://www.cnbc.com/2026/11/11/spain-protests-general-strikes-election.html",
+        "description": "Spanish workers are expected to turn out in their millions on Wednesday for the country's first general strike in 14 years.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 18:02:32 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nissan cuts sales forecast again on China woes as CEO outlines plan to fight back",
+        "url": "https://www.cnbc.com/2026/11/11/nissan-sales-forecast-earnings-china.html",
+        "description": "Intensifying competition in the world's largest auto market forced Nissan to cut its annual sales forecast for a second time in months.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 13:18:48 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Rep. Jim Jordan, Sen. John Thune elected GOP leaders in Congress",
+        "url": "https://www.cnbc.com/2026/11/10/jim-jordan-congress-republicans-midterm.html",
+        "description": "House Speaker Mike Johnson, R-La., announced the day after Election Day he would not run for minority leader in the 120th Congress.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 12:42:09 GMT",
+        "has_description": true
+      },
+      {
+        "title": "White House vows to press ahead with tariffs despite midterm backlash over rising prices",
+        "url": "https://www.cnbc.com/2026/11/10/trump-tariffs-midterms-gary-cohn-inflation.html",
+        "description": "Business executives warned at a Washington summit of rising costs and shifting supply chains as polls showed growing opposition to Trump's tariffs.",
+        "source": "CNBC",
+        "published": "Tue, 10 Nov 2026 21:45:46 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Investors pivot to defensive stocks as markets enter a ‘state of alert’",
+        "url": "https://www.cnbc.com/2026/11/11/tech-selloff-defensive-pivot.html",
+        "description": "Technology stocks have lost momentum while defensive sectors gain ground, as investors reassess risks.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 06:00:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Hundreds of schools in Italy, UK evacuated over 'hoax' bomb threats",
+        "url": "https://www.cnbc.com/2026/11/11/hoax-bomb-threats-schools-italy-uk.html",
+        "description": "Hundreds of schools across Europe were evacuated on Wednesday after receiving bomb threats, police forces say, amid growing worries of hybrid threats.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 12:57:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Hegseth impeachment effort torpedoed in House",
+        "url": "https://www.cnbc.com/2026/11/10/pete-hegseth-impeachment-massie-iran.html",
+        "description": "GOP Rep. Thomas Massie, who has clashed with President Donald Trump, kicked off the Hegseth impeachment fight days after a blue wave midterm election.",
+        "source": "CNBC",
+        "published": "Tue, 10 Nov 2026 23:46:41 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [
+      {
+        "title": "Nvidia’s stock drops as the board reportedly prepares to remove CEO Jensen Huang",
+        "url": "https://www.marketwatch.com/story/nvidias-stock-drops-as-the-board-reportedly-prepares-to-remove-ceo-jensen-huang-9edee58d?mod=mw_rss_topstories",
+        "description": "Nvidia’s board of directors reportedly could meet as soon as today to determine the CEO’s fate.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 02:52:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘I’m sick of flying’: I paid for priority boarding, but the overhead bins were full. Was I duped?",
+        "url": "https://www.marketwatch.com/story/im-sick-of-flying-i-paid-for-priority-boarding-but-the-overhead-bins-were-full-was-i-duped-0badcc80?mod=mw_rss_topstories",
+        "description": "“Maybe next time I’ll try the other approach: I’ll board whenever I feel like it and drop my suitcase in the first open slot I see.”",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 02:45:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "I’m 63 and spending $95,000 on a roof deck for my $500,000 home. Am I being extravagant?",
+        "url": "https://www.marketwatch.com/story/im-63-and-want-to-spend-95-000-on-a-roof-deck-for-my-500-000-home-is-that-a-good-investment-f1a59c27?mod=mw_rss_topstories",
+        "description": "“I have a net worth of $2.3 million and my only debt is a 15-year mortgage.”",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 02:31:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nasdaq futures fall as Nvidia sinks 8% after hours on report board may oust Huang",
+        "url": "https://www.marketwatch.com/story/nasdaq-futures-fall-as-nvidia-sinks-8-after-hours-on-report-board-may-oust-huang-e99b898d?mod=mw_rss_topstories",
+        "description": "Stock futures were sliding Wednesday evening as a selloff in shares of Nvidia after the closing bell weighed on the Nasdaq-100 and dragged down shares of other chip makers.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 01:12:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Your holiday credit-card bills are going up. What you can do to ease the pain.",
+        "url": "https://www.marketwatch.com/story/your-holiday-credit-card-bills-are-going-up-what-you-can-do-to-ease-the-pain-5ddeb446?mod=mw_rss_topstories",
+        "description": "The government may have lost a month of inflation data, but don’t expect your credit card’s annual percentage rate to decline because of it.",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 23:30:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "CoreWeave just gave a shot in the arm to Micron, Lumentum and the rest of the AI trade",
+        "url": "https://www.marketwatch.com/story/micron-and-other-ai-stocks-surge-as-coreweave-calms-wall-streets-worst-fears-0a18152a?mod=mw_rss_topstories",
+        "description": "CoreWeave’s improved AI economics and its vow to show some discipline around debt are sparking a broad rally across the chip sector.",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 22:05:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Opening trading-card packs has become a $2 billion market. New apps are trying to cash in.",
+        "url": "https://www.marketwatch.com/story/opening-trading-card-packs-has-become-a-2-billion-market-new-apps-are-trying-to-cash-in-b7ba11f5?mod=mw_rss_topstories",
+        "description": "Pack-ripping apps are changing the way people buy and sell cards. But analysts say their “slot-like payoff” raises risks.",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 21:55:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Falling oil prices are no longer enough to bring down borrowing costs in the world’s most important bond market",
+        "url": "https://www.marketwatch.com/story/falling-oil-prices-are-no-longer-enough-to-bring-down-borrowing-costs-in-the-worlds-most-important-bond-market-3176d25a?mod=mw_rss_topstories",
+        "description": "The tight trading relationship between oil prices and Treasury yields has broken down. It’s a sign that inflation concerns are extending beyond the energy shock.",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 21:42:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Sandisk’s stock just staged a big gain. Here’s how it could march even higher.",
+        "url": "https://www.marketwatch.com/story/sandisks-stock-is-soaring-and-these-three-trends-could-send-it-even-higher-b0d7d5ec?mod=mw_rss_topstories",
+        "description": "Various “structural changes” afoot in the memory industry could help Sandisk shares more than double from here, according to an Evercore analyst.",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 21:40:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Why this ‘big idea’ to fix Social Security relies on a massive stock-market gamble",
+        "url": "https://www.marketwatch.com/story/why-this-big-idea-to-fix-social-security-relies-on-a-massive-stock-market-gamble-5423f50f?mod=mw_rss_topstories",
+        "description": "From a long-term perspective, the past 50 years of strong market gains are the exception rather than the rule",
+        "source": "MarketWatch",
+        "published": "Wed, 11 Nov 2026 21:21:00 GMT",
+        "has_description": true
+      }
+    ],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "Nvidia board to decide Jensen Huang’s fate after revelation of affair with subordinate",
+        "url": "https://www.ft.com/content/d3838274-a055-4d5d-a1ff-48f2979a08f0?syn-25a6b1a6=1",
+        "description": "Head of US chip giant comes under mounting pressure days after claims he had affair with alleged Chinese spy",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 01:13:24 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Inside Ken Griffin’s $5bn Miami takeover",
+        "url": "https://www.ft.com/content/592a8b23-6095-42ba-bff6-2ec3b61ede65?syn-25a6b1a6=1",
+        "description": "The billionaire wanted to mould his ideal city — and found his clout went further in Florida",
+        "source": "Financial Times",
+        "published": "Wed, 11 Nov 2026 05:00:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Can India clean up Delhi’s deadly smog?",
+        "url": "https://www.ft.com/content/e58eec04-845b-4330-8d01-69b0313a60c1?syn-25a6b1a6=1",
+        "description": "Residents ask why a country that can land a spacecraft on the Moon cannot prevent citizens in its capital choking on bad air",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 00:08:12 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Three cheers for an independent American judiciary",
+        "url": "https://www.ft.com/content/f368fe65-1a9e-425a-a4ac-2ab000e85249?syn-25a6b1a6=1",
+        "description": "Strong rulings to protect electoral integrity helped pave the way for a peaceful and decisive midterm vote",
+        "source": "Financial Times",
+        "published": "Wed, 11 Nov 2026 05:00:12 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Scott Colom wins historic Senate race in Mississippi",
+        "url": "https://www.ft.com/content/ed93bd25-3ae4-4845-ac2e-ccb6e9c741e6?syn-25a6b1a6=1",
+        "description": "Democrat becomes the first Black person to represent the state since Reconstruction era",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 00:24:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Thousands of schools in Italy, Scotland and Ireland receive bomb threats",
+        "url": "https://www.ft.com/content/7bbc0a5e-b7e2-4a3f-874f-a63de94e922d?syn-25a6b1a6=1",
+        "description": "Incidents appear to be latest co-ordinated attack aimed at disrupting life in Europe",
+        "source": "Financial Times",
+        "published": "Wed, 11 Nov 2026 15:39:44 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Democrats pledge to expose ‘absolute avalanche of corruption’ under Trump",
+        "url": "https://www.ft.com/content/3d3fcb94-143d-446c-8b09-b1f830ca97e9?syn-25a6b1a6=1",
+        "description": "Congress member Jamie Raskin says he will launch sweeping probe of president and allies but warns party to avoid impeachment ‘distraction’",
+        "source": "Financial Times",
+        "published": "Wed, 11 Nov 2026 21:01:55 GMT",
+        "has_description": true
+      },
+      {
+        "title": "ExxonMobil launches legal challenge to EU carbon capture rules",
+        "url": "https://www.ft.com/content/377d2ae5-112f-411f-bfc1-5e498948cb7b?syn-25a6b1a6=1",
+        "description": "US oil company invokes investment treaty to challenge Brussels’ green regulations and seek suspension of timing requirements",
+        "source": "Financial Times",
+        "published": "Wed, 11 Nov 2026 21:26:48 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems, Inc.",
+      "event": "Q1 2027 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.33",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Materials, Inc.",
+      "event": "Q4 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "4.05",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BN",
+      "name": "Brookfield Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.33",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.22",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "NBIS",
+      "name": "Nebius Group N.V.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "-1.24",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "EC",
+      "name": "Ecopetrol S.A.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.59",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "CBRS",
+      "name": "Cerebras Systems Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.14",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "KEP",
+      "name": "Korea Electric Power Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "1.43",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "QXO",
+      "name": "QXO, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.14",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "HBM",
+      "name": "Hudbay Minerals Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.34",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "6.2",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "STN",
+      "name": "Stantec Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "1.78",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ELPC",
+      "name": "Companhia Paranaense de Energia - COPEL",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.15",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "TWST",
+      "name": "Twist Bioscience Corporation",
+      "event": "Q4 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "-0.2",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ARWR",
+      "name": "Arrowhead Pharmaceuticals, Inc.",
+      "event": "Q4 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-1.5",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "KOD",
+      "name": "Kodiak Sciences Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-1.01",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "event": "Q1 2027 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.2",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "NIQ",
+      "name": "NIQ Global Intelligence plc",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.23",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "MBGL",
+      "name": "Mobility Global, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.38",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7618.25,
+      "change": 74.0,
+      "change_pct": 0.98,
+      "prev_close": 7544.25
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 28300.0,
+      "change": 464.75,
+      "change_pct": 1.67,
+      "prev_close": 27835.25
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 52648.0,
+      "change": 333.0,
+      "change_pct": 0.64,
+      "prev_close": 52315.0
+    }
+  ]
+}
