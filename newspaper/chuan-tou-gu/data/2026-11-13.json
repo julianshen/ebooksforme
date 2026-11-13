@@ -1,0 +1,991 @@
+{
+  "date_info": {
+    "date_str": "2026-11-13",
+    "prev_date_str": "2026-11-12",
+    "display": "2026年11月13日",
+    "weekday": "星期五",
+    "prev_display": "2026年11月12日"
+  },
+  "generated_at": "2026-11-13T11:00:05.603665",
+  "market_indices": [
+    {
+      "name": "S&P 500",
+      "symbol": "SPX",
+      "price": 7592.4,
+      "change": -26.98,
+      "change_pct": -0.35,
+      "prev_close": 7619.38
+    },
+    {
+      "name": "道瓊工業",
+      "symbol": "DJI",
+      "price": 52297.09,
+      "change": -189.4,
+      "change_pct": -0.36,
+      "prev_close": 52486.49
+    },
+    {
+      "name": "納斯達克",
+      "symbol": "IXIC",
+      "price": 25366.09,
+      "change": -100.1,
+      "change_pct": -0.39,
+      "prev_close": 25466.19
+    },
+    {
+      "name": "VIX 恐慌指數",
+      "symbol": "VIX",
+      "price": 18.7,
+      "change": 1.21,
+      "change_pct": 6.92,
+      "prev_close": 17.49
+    },
+    {
+      "name": "10年期公債殖利率",
+      "symbol": "TNX",
+      "price": 5.1,
+      "change": 0.1,
+      "change_pct": 2.1,
+      "prev_close": 5.0
+    },
+    {
+      "name": "羅素2000",
+      "symbol": "RUT",
+      "price": 2799.06,
+      "change": -47.2,
+      "change_pct": -1.66,
+      "prev_close": 2846.26
+    }
+  ],
+  "hot_stocks": [
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 585.3,
+      "change": 32.4,
+      "change_pct": 5.86,
+      "prev_close": 552.9
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "price": 364.36,
+      "change": 19.14,
+      "change_pct": 5.54,
+      "prev_close": 345.22
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "price": 166.19,
+      "change": -7.54,
+      "change_pct": -4.34,
+      "prev_close": 173.73
+    },
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology",
+      "price": 4.97,
+      "change": -0.22,
+      "change_pct": -4.24,
+      "prev_close": 5.19
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 298.7,
+      "change": 5.25,
+      "change_pct": 1.79,
+      "prev_close": 293.45
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 397.45,
+      "change": 6.61,
+      "change_pct": 1.69,
+      "prev_close": 390.84
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "price": 798.44,
+      "change": -12.86,
+      "change_pct": -1.59,
+      "prev_close": 811.3
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": 623.61,
+      "change": -5.16,
+      "change_pct": -0.82,
+      "prev_close": 628.77
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 267.44,
+      "change": 1.27,
+      "change_pct": 0.48,
+      "prev_close": 266.17
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "price": 171.58,
+      "change": -0.82,
+      "change_pct": -0.48,
+      "prev_close": 172.4
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 523.0,
+      "change": 1.87,
+      "change_pct": 0.36,
+      "prev_close": 521.13
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 354.88,
+      "change": -0.75,
+      "change_pct": -0.21,
+      "prev_close": 355.63
+    }
+  ],
+  "sector_performance": [
+    {
+      "symbol": "XLE",
+      "name": "能源",
+      "price": 64.33,
+      "change": 0.96,
+      "change_pct": 1.51,
+      "prev_close": 63.37
+    },
+    {
+      "symbol": "XLU",
+      "name": "公用事業",
+      "price": 43.81,
+      "change": -0.01,
+      "change_pct": -0.02,
+      "prev_close": 43.82
+    },
+    {
+      "symbol": "XLK",
+      "name": "科技",
+      "price": 173.77,
+      "change": -0.59,
+      "change_pct": -0.34,
+      "prev_close": 174.36
+    },
+    {
+      "symbol": "XLP",
+      "name": "必需消費",
+      "price": 91.06,
+      "change": -0.39,
+      "change_pct": -0.43,
+      "prev_close": 91.45
+    },
+    {
+      "symbol": "XLY",
+      "name": "非必需消費",
+      "price": 120.46,
+      "change": -0.53,
+      "change_pct": -0.44,
+      "prev_close": 120.99
+    },
+    {
+      "symbol": "XLRE",
+      "name": "房地產",
+      "price": 44.36,
+      "change": -0.23,
+      "change_pct": -0.52,
+      "prev_close": 44.59
+    },
+    {
+      "symbol": "XLV",
+      "name": "醫療保健",
+      "price": 187.83,
+      "change": -1.12,
+      "change_pct": -0.59,
+      "prev_close": 188.95
+    },
+    {
+      "symbol": "XLF",
+      "name": "金融",
+      "price": 58.21,
+      "change": -0.42,
+      "change_pct": -0.72,
+      "prev_close": 58.63
+    },
+    {
+      "symbol": "XLI",
+      "name": "工業",
+      "price": 169.44,
+      "change": -1.53,
+      "change_pct": -0.89,
+      "prev_close": 170.97
+    },
+    {
+      "symbol": "XLB",
+      "name": "原物料",
+      "price": 52.34,
+      "change": -0.68,
+      "change_pct": -1.28,
+      "prev_close": 53.02
+    }
+  ],
+  "news": {
+    "yahoo": [],
+    "cnbc": [
+      {
+        "title": "Alice Huang tied to Nvidia’s biggest Chinese competitor",
+        "url": "https://www.cnbc.com/2026/11/12/alice-huang-jensen-huang-nvidia-huawei.html",
+        "description": "The woman with whom Jensen Huang reportedly had a relationship also owned stakes in companies that provided computing power to Huawei, a key Nvidia competitor.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 22:47:28 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Widespread Microsoft outage takes down Outlook and other 365 services",
+        "url": "https://www.cnbc.com/2026/11/12/microsoft-outage-outlook-aws-google.html",
+        "description": "A Microsoft outage on Thursday affected users of services like Outlook, Teams and 365.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 22:24:12 GMT",
+        "has_description": true
+      },
+      {
+        "title": "IRS announces 2027 401(k) contribution limits, raises savings cap: What it means for your money",
+        "url": "https://www.cnbc.com/2026/11/12/401k-contribution-limits-2027.html",
+        "description": "The IRS has announced higher 401(k) contribution limits for 2027. Here’s what retirement savers need to know.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 17:23:14 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump says ‘we don’t need a deal with Iran’",
+        "url": "https://www.cnbc.com/2026/11/12/trump-iran-deal-hormuz-strait.html",
+        "description": "Trump directed Vice President JD Vance to instead focus his attention on corruption and crime in Democratic cities and states.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:34:31 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cerebras surges 17% after beating on quarterly revenue and announcing Microsoft deal",
+        "url": "https://www.cnbc.com/2026/11/12/cerebras-systems-cbrs-q3-earnings-report-2026.html",
+        "description": "Cerebras announced a new deal with Microsoft after partnering with major cloud providers Amazon and Oracle.",
+        "source": "CNBC",
+        "published": "Fri, 13 Nov 2026 02:43:26 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jensen Huang is out and Nvidia stock is down—what market pros say about buying dips",
+        "url": "https://www.cnbc.com/make-it/2026/11/12/nvidia-what-market-pros-say-about-buying-dips.html",
+        "description": "Nvidia stock fell 5% on Thursday following the departure of CEO Jensen Huang. Some see it as a signal to sell, others an opportunity to buy.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:01:29 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The world's super-rich are piling into alternative investments. Here's why",
+        "url": "https://www.cnbc.com/2026/11/12/rich-wealth-alternative-assets-.html",
+        "description": "Alternative investments now account for 60% of single-family office portfolios, surpassing traditional assets for the first time, according to BNY Wealth.",
+        "source": "CNBC",
+        "published": "Fri, 13 Nov 2026 02:25:02 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia: Ex-prosecutor Joon Kim and Wachtell, Lipton bring big track record to investigation",
+        "url": "https://www.cnbc.com/2026/11/12/nvidia-jensen-huang-joon-kim-wachtell-china-spy.html",
+        "description": "The retention of Wachtell, Lipton for the Nvidia probe comes on the heels of the law firm's investigation for the NBA into the Los Angeles Clippers.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:58:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Here's what Nvidia interim CEO Colette Kress and board chair Harvey Jones wrote to Nvidia employees",
+        "url": "https://www.cnbc.com/2026/11/12/nvidia-kress-jones-employee-emails.html",
+        "description": "Interim CEO Colette Kress and board chair Harvey Jones emailed Nvidia employees, expressing gratitude for \"resilience, professionalism and continued dedication",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:42:41 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cisco beats on earnings, says AI infrastructure revenue will double this fiscal year",
+        "url": "https://www.cnbc.com/2026/11/12/cisco-csco-q1-2027-earnings.html",
+        "description": "Cisco is trying to become a bigger player in AI after missing out on the early years of the boom.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 21:20:35 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Cramer says Jensen Huang betrayed Nvidia shareholders. How to pick up the pieces",
+        "url": "https://www.cnbc.com/2026/11/12/nvidia-jensen-huang-exit-cramer.html",
+        "description": "Without Huang, Cramer said Thursday, \"There won't be a better Nvidia, just a different one.\"",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 23:14:56 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Without Jensen Huang, Nvidia's organizational structure isn't 'built to last,' management expert says",
+        "url": "https://www.cnbc.com/make-it/2026/11/12/nvidia-jensen-huang-management-structure.html",
+        "description": "Nvidia's flat management structure could pose challenges for Huang's successor, according to experts.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 22:06:08 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Scout Motors has 212,000 vehicle reservations as $2 billion South Carolina plant nears completion",
+        "url": "https://www.cnbc.com/2026/11/12/scout-motors-reservations-south-carolina-plant.html",
+        "description": "Scout Motors has roughly 212,000 reservations for its Terra pickup and Traveler SUV, CEO Scott Keogh told CNBC.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 22:17:05 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Inside India newsletter: Trump's poll setback fuels hope for U.S.-India trade deal by year end",
+        "url": "https://www.cnbc.com/2026/11/12/us-india-trade-tariffs-trump-modi.html",
+        "description": "While American voters are more affected by import duties on Canadian goods, experts said that a trade deal with India could blunt criticism against tariffs.",
+        "source": "CNBC",
+        "published": "Wed, 11 Nov 2026 23:57:38 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Who will replace Jensen Huang? Here's our early thoughts on the search for Nvidia's next CEO",
+        "url": "https://www.cnbc.com/investingclub/2026/11/12/jensen-huang-ceo-replacement-jim-cramer.html",
+        "description": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:00:42 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Donald Trump Jr. exits advisory role at Kalshi prediction market",
+        "url": "https://www.cnbc.com/2026/11/12/donald-trump-jr-exits-kalshi-advisory-role.html",
+        "description": "The president's son will no longer serve as an advisor at Kalshi.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:03:57 GMT",
+        "has_description": true
+      },
+      {
+        "title": "In a policy switch, the Fed says its October 2027 meeting will not see a vote on interest rates",
+        "url": "https://www.cnbc.com/2026/11/12/in-policy-switch-fed-says-its-october-2027-meeting-will-not-see-a-vote-on-interest-rates.html",
+        "description": "There will be seven voting meetings next year, with the October session set up as extra time for policy deliberation without a formal vote or post-meeting statement.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:05:25 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jensen Huang's exit from Nvidia raises critical questions about the future of AI",
+        "url": "https://www.cnbc.com/2026/11/12/jensen-huangs-exit-from-nvidia-raises-questions-about-future-of-ai.html",
+        "description": "Nvidia CEO Jensen Huang has been a singular figure in the development of the AI industry, which suddenly has to survive without him.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:32:21 GMT",
+        "has_description": true
+      },
+      {
+        "title": "United Airlines won’t let AI agents book your flight. Expert says you shouldn't let a bot do that for you, anyway",
+        "url": "https://www.cnbc.com/make-it/2026/11/12/ai-agents-human-in-loop.html",
+        "description": "AI agents can save you time, but an expert says decisions involving your health, wealth and privacy still need human input.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 20:24:59 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jensen Huang's Nvidia exit casts shadow over Wall Street’s $500 billion AI financing bet",
+        "url": "https://www.cnbc.com/2026/11/12/nvidia-ceo-exit-ai-financing.html",
+        "description": "Nvidia's leadership crisis threatens to spill over into the AI financing boom.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:33:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia stock closes down over 4% after CEO Jensen Huang announces resignation",
+        "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
+        "description": "Chief Financial Officer Colette Kress will serve as interim CEO until a new leader is appointed.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 21:17:21 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Analysis: Nvidia’s leadership crisis tests the chipmaker’s role as the ‘central bank of AI’",
+        "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-ai-financial-system-risk.html",
+        "description": "The tech giant's web of ties to other companies is raising the possibility that it could do far-reaching economic and financial damage.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 23:08:50 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Yankees President Randy Levine pushes college sports bill, discusses MLB labor negotiations",
+        "url": "https://www.cnbc.com/2026/11/12/yankees-randy-levine-discusses-college-sports-bill-mlb-labor-deal.html",
+        "description": "Yankees President Randy Levine discusses the Protect College Sports Act, and the state of MLB's labor negotiations.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 15:34:31 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘A dark day for Nvidia’: Here’s what analysts have been saying about Jensen Huang’s departure",
+        "url": "https://www.cnbc.com/2026/11/12/jensen-huang-nvidia-affair-ceo.html",
+        "description": "The company's board convened Wednesday evening after reports emerged of Huang engaging in an affair with an employee.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:47:57 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Jensen and Lori Huang's Nvidia fortune is jointly controlled. How that makes things complicated now that he's resigned",
+        "url": "https://www.cnbc.com/2026/11/12/inside-jensen-and-lori-huangs-jointly-controlled-nvidia-fortune.html",
+        "description": "Jensen Huang’s $140 billion stake in Nvidia is largely held by trusts co-owned with his wife, Lori, creating added uncertainty for his financial future.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 19:00:12 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nebius falls 16% as company expects increased 2026 capex spend, issues weak outlook",
+        "url": "https://www.cnbc.com/2026/11/12/nebius-q3-earnings-report-2026.html",
+        "description": "Nebius' earnings report comes after fellow neoclouds IREN and CoreWeave showed better-than-expected results in the past week.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 17:53:31 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Bain Capital’s head of real estate uses this strategy to counter the economy’s ‘cocktail of disruption'",
+        "url": "https://www.cnbc.com/2026/11/12/bain-capitals-head-of-real-estate-on-the-cocktail-of-disruption.html",
+        "description": "Ryan Cotton, Bain Capital's head of real estate, sits for an interview with the Property Play video podcast.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 17:50:59 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Oil prices rise after Trump says no Iran deal needed: 'We've got their Strait'",
+        "url": "https://www.cnbc.com/2026/11/12/oil-prices-jump-after-trump-says-no-iran-deal-needed-weve-got-their-strait.html",
+        "description": "Oil prices were mixed on Thursday, after the latest comments from President Donald Trump raised worries that an end to the U.S.-Iran war was not in sight.",
+        "source": "CNBC",
+        "published": "Fri, 13 Nov 2026 00:01:19 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Disney's 'Star Wars' is coming to Cosm domes ahead of 50th anniversary as part of multiyear film deal",
+        "url": "https://www.cnbc.com/2026/11/12/star-wars-cosm-dome-screenings.html",
+        "description": "Cosm has secured a new studio partnership with Disney that will bring \"Star Wars: A New Hope\" to its domes as part of a multiyear, multifilm collaboration.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 17:23:25 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Unions helped Democrats win big in 2026. Now they want action",
+        "url": "https://www.cnbc.com/2026/11/12/democrats-unions-midterms-2026.html",
+        "description": "Unions spent millions of dollars and mobilized thousands of members to get out the vote for Democrats in the midterm election. Now they want to see action.",
+        "source": "CNBC",
+        "published": "Thu, 12 Nov 2026 18:46:36 GMT",
+        "has_description": true
+      }
+    ],
+    "marketwatch": [
+      {
+        "title": "Who can replace Jensen Huang as Nvidia CEO? These four names are buzzing in AI circles.",
+        "url": "https://www.marketwatch.com/story/who-can-replace-jensen-huang-as-nvidia-ceo-these-four-names-are-buzzing-in-ai-circles-66c31ec2?mod=mw_rss_topstories",
+        "description": "As Nvidia’s board seeks a new CEO, experts say that person will need a rare balance of tech vision and business savvy",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 22:57:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Opening trading-card packs has become a $2 billion market",
+        "url": "https://www.marketwatch.com/story/opening-trading-card-packs-has-become-a-2-billion-market-new-apps-are-trying-to-cash-in-b7ba11f5?mod=mw_rss_topstories",
+        "description": "Pack-ripping apps are changing the way people buy and sell cards. But analysts say their “slot-like payoff” raises risks.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 22:38:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Bond yields just saw their biggest surge since 2022 as expectations grow for more Fed rate hikes",
+        "url": "https://www.marketwatch.com/story/bond-yields-just-saw-their-biggest-surge-since-2022-as-expectations-grow-for-more-fed-rate-hikes-d0a4f195?mod=mw_rss_topstories",
+        "description": "Fed Chair Warsh’s quiet style of communicating interest-rate policy has led to more volatile markets.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 22:16:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "‘He calls my plans a fantasy’: My husband says we can’t afford our $200,000-a-year dream retirement. I think he’s cheap.",
+        "url": "https://www.marketwatch.com/story/he-calls-my-plans-a-fantasy-my-husband-says-we-cant-afford-our-200-000-a-year-dream-retirement-i-think-hes-cheap-45bc5b4e?mod=mw_rss_topstories",
+        "description": "“We have $2 million saved in our retirement accounts and a house worth $1.3 million.”",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 22:00:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Am I overpaying for health insurance? How to answer the key question this open-enrollment season.",
+        "url": "https://www.marketwatch.com/story/am-i-overpaying-for-health-insurance-how-to-answer-the-key-question-this-open-enrollment-season-2d00ed55?mod=mw_rss_topstories",
+        "description": "More people want to understand the fine print on plans this year, financial planners say.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 21:55:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The 10 best stocks for a year-end momentum trade",
+        "url": "https://www.marketwatch.com/story/the-10-best-stocks-for-a-year-end-momentum-trade-8d4cf8f7?mod=mw_rss_topstories",
+        "description": "Why December is the best month of the year for momentum strategies",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 21:50:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "I inherited $1.4 million from my father. Am I wrong to ask my husband of 25 years for a postnuptial agreement?",
+        "url": "https://www.marketwatch.com/story/i-inherited-1-4-million-from-my-father-am-i-wrong-to-ask-my-husband-of-25-years-for-a-postnuptial-agreement-b739c51d?mod=mw_rss_topstories",
+        "description": "“He has always said he wants his daughter to inherit a chunk of his estate, and I’ve never objected to that.”",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 21:30:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The S&P 500 is shrugging off Nvidia’s selloff this week. Here’s what’s keeping the rest of the market afloat.",
+        "url": "https://www.marketwatch.com/story/the-s-p-500-is-shrugging-off-nvidias-selloff-heres-whats-keeping-the-rest-of-the-market-afloat-7cdf2f05?mod=mw_rss_topstories",
+        "description": "Investors have been forced to look up from the poster child of the artificial-intelligence trade and remember the other stocks on the board.",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 21:08:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The bond market now has an even bigger fear than AI fallout",
+        "url": "https://www.marketwatch.com/story/the-bond-market-now-has-an-even-bigger-fear-than-the-ai-fallout-b6401b54?mod=mw_rss_topstories",
+        "description": "Carnage in tech stocks made Treasurys look more attractive in recent weeks, but fears of more Fed rate hikes are now driving yields higher",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 20:44:00 GMT",
+        "has_description": true
+      },
+      {
+        "title": "I’m 17 and will be a first-generation college student. Is law school worth being $200,000 in debt?",
+        "url": "https://www.marketwatch.com/story/im-17-and-will-be-a-first-generation-college-student-is-law-school-worth-being-200-000-in-debt-df9b23c3?mod=mw_rss_topstories",
+        "description": "“I‘’m considering a pre-law track … I’m just a bit hesitant because of how expensive law school is.”",
+        "source": "MarketWatch",
+        "published": "Thu, 12 Nov 2026 20:17:00 GMT",
+        "has_description": true
+      }
+    ],
+    "wsj": [
+      {
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "url": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "description": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:26:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Comex Gold, Silver Settle Lower",
+        "url": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "description": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 14:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "url": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "description": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 13:12:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Financial Services Roundup: Market Talk",
+        "url": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "description": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:27:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "url": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "description": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump’s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 12:20:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "url": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "description": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek’s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:55:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "url": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "description": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 09:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "url": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "description": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 08:28:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "url": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "description": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 06:57:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What's New This Tax Season That Can Save You Money",
+        "url": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "description": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Chinese Investors With Few Options Turn to Dividends",
+        "url": "https://www.wsj.com/articles/chinese-investors-with-few-options-turn-to-dividends-ad31dcc4?mod=rss_markets_main",
+        "description": "Companies with good payouts are now the hottest bet in China markets.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "U.S. Treasury Yields Fall But Direction for Long-End Yields Still Seen Upward",
+        "url": "https://www.wsj.com/articles/jgbs-consolidate-supported-by-u-s-treasurys-gains-7edccc7d?mod=rss_markets_main",
+        "description": "The 10-year U.S. Treasury yield fell and ING said the the long end of the Treasury curve will continue trading at higher yields even as Trump hasn’t delivered anything to shock markets so far.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 05:02:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Russia's Crude Exports Fairly Stable Despite U.S. Sanctions, Goldman Says",
+        "url": "https://www.wsj.com/articles/oil-futures-fall-after-trump-calls-for-tariffs-on-colombia-5b2a178c?mod=rss_markets_main",
+        "description": "Oil edged lower in early trade as Goldman Sachs said the latest round of U.S. sanctions against Russia haven’t had a significant impact on the country’s oil exports.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 04:46:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "The Extra Reward for Owning Stocks Over Bonds Has Disappeared",
+        "url": "https://www.wsj.com/articles/the-extra-reward-for-owning-stocks-over-bonds-has-disappeared-c3f9c223?mod=rss_markets_main",
+        "description": "There is little sign of crimped demand for equities among individual investors, who remain bullish after two years of blockbuster gains.",
+        "source": "WSJ",
+        "published": "Mon, 27 Jan 2025 01:05:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Heard on the Street's Stock-Picking Series",
+        "url": "https://www.wsj.com/articles/heard-on-the-streets-stock-picking-series-98f04640?mod=rss_markets_main",
+        "description": "Check out the stocks Heard on the Street writers favor in their eighth annual stock-picking contest.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 22:33:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "What Will It Take for Home Buyers to Start Asking for a Disaster Discount?",
+        "url": "https://www.wsj.com/articles/what-will-it-take-for-home-buyers-to-start-asking-for-a-disaster-discount-c662cb96?mod=rss_markets_main",
+        "description": "The real costs of owning a house in neighborhoods that are vulnerable to flooding and wildfires are becoming clearer.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 06:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Now Wanted in Silicon Valley: Ho-Hum Businesses With Thin Profit Margins",
+        "url": "https://www.wsj.com/articles/now-wanted-in-silicon-valley-ho-hum-businesses-with-thin-profit-margins-ab07de5f?mod=rss_markets_main",
+        "description": "Venture-capital firms are bringing AI and dealmaking to accounting, property management and other unglamorous fields.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "In China, a Cat-and-Mouse Game to Rein In Crypto",
+        "url": "https://www.wsj.com/articles/china-cryptocurrency-market-trading-restrictions-3e050cd9?mod=rss_markets_main",
+        "description": "Recent court cases reveal how middlemen are facilitating a booming trade, eluding a crackdown.",
+        "source": "WSJ",
+        "published": "Sun, 26 Jan 2025 00:01:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "One House, Three Owners: The Ballooning Cost of the American Dream",
+        "url": "https://www.wsj.com/articles/rising-house-mortgage-costs-north-carolina-home-468a46e5?mod=rss_markets_main",
+        "description": "The story of home affordability in the U.S. told from a single front porch.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 21:00:00 -0500",
+        "has_description": true
+      },
+      {
+        "title": "Trump Adds Fuel to Claims That Big Banks Discriminate Against Conservatives",
+        "url": "https://www.wsj.com/articles/trump-big-bank-conservative-bias-accusations-168abb27?mod=rss_markets_main",
+        "description": "The president has told Bank of America and JPMorgan Chase to stop cutting conservatives off from doing business.",
+        "source": "WSJ",
+        "published": "Sat, 25 Jan 2025 05:30:00 -0500",
+        "has_description": true
+      }
+    ],
+    "ft": [
+      {
+        "title": "US lawmakers pile pressure on Howard Lutnick as Nvidia scandal widens",
+        "url": "https://www.ft.com/content/190e5eea-7461-4b26-8b69-17a3288e31d4?syn-25a6b1a6=1",
+        "description": "Legislators demand Trump’s commerce secretary explain why he allowed chip sales to company linked to alleged Chinese spy",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 23:35:11 GMT",
+        "has_description": true
+      },
+      {
+        "title": "AI boom will lift Nvidia even after Huang’s exit, investors say",
+        "url": "https://www.ft.com/content/ecb2b4ed-1b61-4c8a-a2e7-a6f9c85a59ff?syn-25a6b1a6=1",
+        "description": "Shares largely recovered by close of market Thursday as shareholders bought the dip and looked to group’s future without CEO",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 23:26:26 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Nvidia chief Jensen Huang toppled by revelations of extramarital affairs",
+        "url": "https://www.ft.com/content/83474218-387c-4f93-a27b-ffdfee624029?syn-25a6b1a6=1",
+        "description": "Departure marks stunning end to three-decade tenure of executive who built chip company into an engine of the AI boom",
+        "source": "Financial Times",
+        "published": "Fri, 13 Nov 2026 00:07:33 GMT",
+        "has_description": true
+      },
+      {
+        "title": "The Silicon Valley veterans now steering Nvidia",
+        "url": "https://www.ft.com/content/74e95e42-3f1d-4128-98ef-9ce4c160b077?syn-25a6b1a6=1",
+        "description": "New chair Harvey Jones and CEO Colette Kress need to steady the chip group after founder Jensen Huang’s shocking departure",
+        "source": "Financial Times",
+        "published": "Fri, 13 Nov 2026 01:42:30 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Huang’s fall is an indictment of founder mode at Big Tech",
+        "url": "https://www.ft.com/content/83051c3a-cab4-4c66-89fc-ae7149047a25?syn-25a6b1a6=1",
+        "description": "The risks of giving leaders free rein when AI is at the heart of the economy, national security and just about everything else are now clear",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 22:50:43 GMT",
+        "has_description": true
+      },
+      {
+        "title": "US cannot reach a deal to end Ukraine war without Europe, says Kushner",
+        "url": "https://www.ft.com/content/8d28a5be-af56-421f-a33d-779a0fcc7ad4?syn-25a6b1a6=1",
+        "description": "American envoy’s comments come as European leaders reject Russian push to overhaul continent’s security",
+        "source": "Financial Times",
+        "published": "Fri, 13 Nov 2026 02:08:58 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Ukraine says Starlink restrictions are back as US envoys land in Moscow",
+        "url": "https://www.ft.com/content/6cd890f1-2e4d-468a-807f-529f45e1678e?syn-25a6b1a6=1",
+        "description": "Army struggles to intercept Russian jet-powered drones, just as Steve Witkoff and Jared Kushner meet Vladimir Putin",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 14:29:01 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Kalshi cuts ties to Donald Trump Jr after Democrats’ midterm sweep",
+        "url": "https://www.ft.com/content/1352ac24-bdd6-4093-9ebd-7b27b6fd29d3?syn-25a6b1a6=1",
+        "description": "Prediction market platform ends advisory deal amid mounting political scrutiny and rival investments in Polymarket",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 22:45:07 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Trump signals end to vice-president’s Iran peace deal push",
+        "url": "https://www.ft.com/content/3c1727bb-2966-4e5c-808b-873d14854fa2?syn-25a6b1a6=1",
+        "description": "President says US does not need an agreement with Tehran as he directs JD Vance to focus on domestic concerns",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 20:32:43 GMT",
+        "has_description": true
+      },
+      {
+        "title": "Israel strikes Gaza hospital despite ceasefire",
+        "url": "https://www.ft.com/content/2a3d0391-c4d9-4195-af36-b5ee66415cd9?syn-25a6b1a6=1",
+        "description": "Doctor and patients among six killed in attack on Nasser medical complex",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 12:03:33 GMT",
+        "has_description": true
+      },
+      {
+        "title": "US home sales fall to lowest level since 2010 as mortgage rates soar",
+        "url": "https://www.ft.com/content/1e08661e-1db0-4ff7-8236-77254bb05790?syn-25a6b1a6=1",
+        "description": "Higher borrowing costs deepen housing market slump as interest rates weigh on transactions",
+        "source": "Financial Times",
+        "published": "Thu, 12 Nov 2026 18:03:44 GMT",
+        "has_description": true
+      }
+    ]
+  },
+  "earnings": [
+    {
+      "symbol": "MUFG",
+      "name": "Mitsubishi UFJ Financial Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "0.34",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SMFG",
+      "name": "Sumitomo Mitsui Financial Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "0.4",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "MFG",
+      "name": "Mizuho Financial Group, Inc.",
+      "event": "Q2 2026 Earnings Announcement",
+      "call_time": "TNS",
+      "eps_estimate": "0.17",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "INBX",
+      "name": "Inhibrx Biosciences, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-2.35",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "GHRS",
+      "name": "GH Research PLC",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "-0.3",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SLSR",
+      "name": "Solaris Resources Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.11",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "USAS",
+      "name": "Americas Gold and Silver Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.04",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "ORIC",
+      "name": "ORIC Pharmaceuticals, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.38",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "TLOFF",
+      "name": "Talon Metals Corp.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "0.04",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "APMD",
+      "name": "Apnimed, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.6",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "HELP",
+      "name": "Cybin D/B/A Helus Pharma",
+      "event": "Q2 2027 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "-1.01",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "RMIX",
+      "name": "Suncrete, Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.08",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SGML",
+      "name": "Sigma Lithium Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.08",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "SBC",
+      "name": "SBC Medical Group Holdings Incorporated",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "BMO",
+      "eps_estimate": "0.12",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "BOC",
+      "name": "Boston Omaha Corporation",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-0.02",
+      "reported_eps": null,
+      "surprise_pct": null
+    },
+    {
+      "symbol": "TVGN",
+      "name": "Tevogen Inc.",
+      "event": "Q3 2026 Earnings Announcement",
+      "call_time": "AMC",
+      "eps_estimate": "-2.5",
+      "reported_eps": null,
+      "surprise_pct": null
+    }
+  ],
+  "futures": [
+    {
+      "name": "S&P 500 期貨",
+      "symbol": "ES",
+      "price": 7638.0,
+      "change": 22.75,
+      "change_pct": 0.3,
+      "prev_close": 7615.25
+    },
+    {
+      "name": "納斯達克期貨",
+      "symbol": "NQ",
+      "price": 28504.25,
+      "change": 119.75,
+      "change_pct": 0.42,
+      "prev_close": 28384.5
+    },
+    {
+      "name": "道瓊期貨",
+      "symbol": "YM",
+      "price": 52503.0,
+      "change": 113.0,
+      "change_pct": 0.22,
+      "prev_close": 52390.0
+    }
+  ]
+}
